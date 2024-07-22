@@ -8,16 +8,39 @@ useHead({
   ],
 });
 
+const games = ref([]);
+
 onMounted(async () => {
-  const response = await $fetch("/api/token");
-  console.log(response);
+  try {
+    const response = await $fetch("/api/games");
+
+    games.value = response;
+  } catch (error) {
+    console.error("Failed to fetch games:", error);
+  }
 });
 </script>
 
 <template>
+  <Header />
+
   <section>
     <div>
       <h2 class="text-2xl font-bold">Featured Content</h2>
+
+      <ul>
+        <li v-for="game in games">
+          <!-- <GameCard :game="game" /> -->
+          <div>
+            <img
+              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${game.screenshots[0].image_id}.jpg`"
+              :alt="game.name"
+            />
+            <h3>{{ game.name }}</h3>
+            <p>{{ game.summary }}</p>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
   <section>

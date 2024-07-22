@@ -8,6 +8,10 @@ useHead({
       : config.public.APP_NAME;
   },
 });
+
+onMounted(async () => {
+  const response = await $fetch("/api/token");
+});
 </script>
 
 <template>
@@ -17,8 +21,6 @@ useHead({
     </aside>
 
     <main class="flex min-h-[300svh] w-full flex-col gap-8 p-4">
-      <Header />
-
       <NuxtPage />
     </main>
   </div>
