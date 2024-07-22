@@ -70,7 +70,7 @@ const config = useRuntimeConfig();
               class="btn btn-ghost justify-start text-base"
             >
               <span class="material-symbols-outlined"> {{ nav.icon }} </span>
-              <span class="font-medium">{{ nav.name }}</span>
+              <span class="font-medium text-sm">{{ nav.name }}</span>
             </NuxtLink>
           </li>
         </ul>

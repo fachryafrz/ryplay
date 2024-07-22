@@ -9,16 +9,14 @@ useHead({
   },
 });
 
-onMounted(async () => {
-  const response = await $fetch("/api/token");
-});
+await $fetch("/api/token");
 </script>
 
 <template>
   <div class="flex">
     <NuxtLoadingIndicator />
 
-    <aside class="sticky top-0 h-screen border-r-2 border-secondary z-[99999]">
+    <aside class="sticky top-0 z-[99999] h-screen border-r-2 border-secondary">
       <Sidebar />
     </aside>
 

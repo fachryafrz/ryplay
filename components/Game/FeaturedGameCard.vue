@@ -3,15 +3,13 @@ const featuredGames = ref([]);
 const hoveredIndex = ref(null);
 const lastHoveredIndex = ref(0);
 
-onMounted(async () => {
-  try {
-    const response = await $fetch("/api/games/featured");
+try {
+  const response = await $fetch("/api/games/featured");
 
-    featuredGames.value = response;
-  } catch (error) {
-    console.error("Failed to fetch games:", error);
-  }
-});
+  featuredGames.value = response;
+} catch (error) {
+  console.error("Failed to fetch games:", error);
+}
 </script>
 
 <template>
@@ -51,7 +49,7 @@ onMounted(async () => {
         />
 
         <div
-          class="absolute inset-0 z-10 flex gap-1 max-w-[75%] flex-col justify-end text-pretty p-4 px-6"
+          class="absolute inset-0 z-10 flex max-w-[75%] flex-col justify-end gap-1 text-pretty p-4 px-6"
         >
           <h3 class="text-xl font-semibold">{{ game.name }}</h3>
           <p class="line-clamp-3 text-xs text-neutral-400">
