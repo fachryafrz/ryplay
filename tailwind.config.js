@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require("tailwindcss/plugin");
+
 export default {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -12,6 +14,9 @@ export default {
     extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+      },
+      aspectRatio: {
+        poster: "3/4",
       },
     },
   },
@@ -43,5 +48,10 @@ export default {
       },
     ],
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    plugin(function ({ addVariant }) {
+      addVariant("hocus", ["&:hover", "&:focus"]);
+    }),
+  ],
 };

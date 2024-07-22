@@ -20,7 +20,7 @@ onMounted(async () => {
       <Sidebar />
     </aside>
 
-    <main class="flex min-h-[300svh] w-full flex-col gap-8 p-4">
+    <main class="flex w-full flex-col gap-8 p-4 lg:max-w-[calc(100%-305px)]">
       <NuxtPage />
     </main>
   </div>

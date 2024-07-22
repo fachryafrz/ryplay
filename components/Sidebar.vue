@@ -1,7 +1,11 @@
 <script setup>
 const navigation = [
   { name: "Home", link: "/", icon: "home" },
+  { name: "My Games", link: "/my-games", icon: "sports_esports" },
   { name: "Discover Games", link: "/discover", icon: "explore" },
+  { name: "Cart", link: "/cart", icon: "shopping_cart" },
+  { name: "Community", link: "/community", icon: "groups" },
+  { name: "Settings", link: "/settings", icon: "settings" },
 ];
 
 const config = useRuntimeConfig();
@@ -27,7 +31,7 @@ const config = useRuntimeConfig();
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <div class="menu min-h-full w-80 gap-4 bg-neutral p-4 text-base-content">
+      <div class="menu min-h-full w-[300px] gap-4 bg-neutral p-4 text-base-content">
         <div class="flex h-[100px] items-center justify-center">
           <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent">
             <svg
@@ -53,7 +57,7 @@ const config = useRuntimeConfig();
                 fill="#FFFFFF"
               ></path>
             </svg>
-            <h1 class="text-4xl font-bold max-w-[105px] leading-8">
+            <h1 class="max-w-[105px] text-4xl font-bold leading-8">
               {{ config.public.APP_NAME_SPACED }}
             </h1>
           </NuxtLink>
@@ -61,9 +65,12 @@ const config = useRuntimeConfig();
 
         <ul>
           <li v-for="nav in navigation">
-            <NuxtLink :to="nav.link" class="btn btn-ghost justify-start">
+            <NuxtLink
+              :to="nav.link"
+              class="btn btn-ghost justify-start text-base"
+            >
               <span class="material-symbols-outlined"> {{ nav.icon }} </span>
-              <span class="font-normal">{{ nav.name }}</span>
+              <span class="font-medium">{{ nav.name }}</span>
             </NuxtLink>
           </li>
         </ul>
