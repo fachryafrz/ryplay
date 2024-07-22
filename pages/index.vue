@@ -1,5 +1,5 @@
 <script setup>
-import FeaturedGameCard from '~/components/Game/FeaturedGameCard.vue';
+import FeaturedGameCard from "~/components/Game/FeaturedGameCard.vue";
 
 useHead({
   meta: [
@@ -92,12 +92,6 @@ onMounted(async () => {
           </SwiperSlide>
         </Swiper>
       </div>
-    </div>
-  </section>
-  <section>
-    <div>
-      <h2 class="text-2xl font-bold">Top Deals For You</h2>
-      <p class="text-sm text-neutral-500">Get best discounts on best games</p>
     </div>
   </section>
 </template>

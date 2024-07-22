@@ -3,7 +3,7 @@ const { game } = defineProps(["game"]);
 </script>
 
 <template>
-  <div class="relative">
+  <NuxtLink :to="game.slug" class="relative">
     <figure class="aspect-poster -z-10 block overflow-hidden rounded-xl">
       <img
         :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
@@ -12,9 +12,9 @@ const { game } = defineProps(["game"]);
         class="h-full w-full object-cover"
       />
     </figure>
-    <!-- <div class="absolute inset-0 flex h-full flex-col justify-end">
-      <h3 class="text-xl font-medium">{{ game.name }}</h3>
+    <!-- <div class="absolute inset-x-0 bottom-0 flex flex-col justify-end text-center backdrop-blur">
+      <h3 class="text-sm font-semibold">{{ game.name }}</h3>
       <p class="line-clamp-2 text-sm text-neutral-500">{{ game.storyline }}</p>
     </div> -->
-  </div>
+  </NuxtLink>
 </template>

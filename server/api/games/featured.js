@@ -1,7 +1,11 @@
+import dayjs from 'dayjs'
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookies = parseCookies(event);
   const access_token = cookies?.access_token;
+
+  const firstDayOfMonth = dayjs().startOf('month').unix();
 
   const data = await $fetch("https://api.igdb.com/v4/games", {
     method: "POST",
@@ -10,10 +14,10 @@ export default defineEventHandler(async (event) => {
       Authorization: `Bearer ${access_token}`,
     },
     body: `
-      f name, storyline, summary, screenshots.*, cover.*, artworks.*, slug;
-      w cover != null;
-      s total_rating_count desc;
-      l 20;
+      f *, screenshots.*, cover.*, artworks.*;
+      w cover != null & first_release_date >= ${firstDayOfMonth};
+      s rating desc;
+      l 4;
     `,
   });
 
