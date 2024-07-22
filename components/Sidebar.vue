@@ -53,9 +53,9 @@ const config = useRuntimeConfig();
                 fill="#FFFFFF"
               ></path>
             </svg>
-            <span class="text-4xl font-bold max-w-[105px] leading-8">
+            <h1 class="text-4xl font-bold max-w-[105px] leading-8">
               {{ config.public.APP_NAME_SPACED }}
-            </span>
+            </h1>
           </NuxtLink>
         </div>
 

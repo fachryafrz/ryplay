@@ -11,6 +11,8 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    CLIENT_ID: process.env.CLIENT_ID,
+    CLIENT_SECRET: process.env.CLIENT_SECRET,
     public: {
       APP_NAME: process.env.APP_NAME,
       APP_NAME_SPACED: process.env.APP_NAME_SPACED,
