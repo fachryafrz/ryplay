@@ -16,7 +16,9 @@ onMounted(async () => {
 
 <template>
   <div class="flex">
-    <aside class="sticky top-0 h-screen border-r-2 border-secondary">
+    <NuxtLoadingIndicator />
+
+    <aside class="sticky top-0 h-screen border-r-2 border-secondary z-[99999]">
       <Sidebar />
     </aside>
 

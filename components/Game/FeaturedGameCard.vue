@@ -45,15 +45,15 @@ onMounted(async () => {
         }"
       >
         <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg`"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id}.jpg`"
           :alt="game.name"
           class="h-full w-full object-cover"
         />
 
         <div
-          class="absolute inset-0 z-10 flex max-w-[75%] flex-col justify-end text-pretty p-4 px-6"
+          class="absolute inset-0 z-10 flex gap-1 max-w-[75%] flex-col justify-end text-pretty p-4 px-6"
         >
-          <h3 class="text-lg font-semibold">{{ game.name }}</h3>
+          <h3 class="text-xl font-semibold">{{ game.name }}</h3>
           <p class="line-clamp-3 text-xs text-neutral-400">
             {{ game.storyline || game.summary }}
           </p>

@@ -37,7 +37,7 @@ onMounted(async () => {
       </div>
 
       <!-- Featured Games -->
-      <div class="flex gap-4 overflow-x-clip">
+      <div class="flex gap-4 overflow-x-auto">
         <FeaturedGameCard />
       </div>
     </div>
@@ -51,7 +51,7 @@ onMounted(async () => {
         </p>
       </div>
 
-      <div class="hover: relative w-full">
+      <div class="relative w-full">
         <div
           id="swiper-navigation"
           class="absolute inset-0 flex items-center justify-between gap-4 [&_*]:pointer-events-auto [&_*]:z-20"
