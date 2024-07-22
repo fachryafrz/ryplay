@@ -18,7 +18,7 @@ onMounted(async () => {
   <NuxtLink
     v-for="(game, index) in featuredGames"
     :key="game.slug"
-    :to="game.slug"
+    :to="`/games/${game.slug}`"
   >
     <figure
       :class="[
