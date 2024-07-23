@@ -1,4 +1,6 @@
 <script setup>
+import GameMedia from '~/components/Game/Details/GameMedia.vue';
+
 const { slug } = useRoute().params;
 
 const game = ref([]);
@@ -18,6 +20,6 @@ try {
 
 <template>
   <div>
-    <span>Game Details of {{ game.name }}</span>
+    <GameMedia :game="game" />
   </div>
 </template>

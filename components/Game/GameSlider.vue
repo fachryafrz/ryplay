@@ -31,7 +31,6 @@ const { id, breakpoints } = defineProps(["id", "breakpoints"]);
       slides-per-view="auto"
       :breakpoints="breakpoints"
       :space-between="16"
-      :effect="'creative'"
       :navigation="{
         prevEl: `.${id}_prev`,
         nextEl: `.${id}_next`,

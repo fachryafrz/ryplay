@@ -6,6 +6,10 @@
   @apply outline-none;
 }
 
+img {
+  @apply h-full w-full object-cover italic;
+}
+
 .router-link-active {
   @apply bg-secondary;
 }
@@ -15,7 +19,7 @@
 }
 
 .featured-games {
-  @apply relative lg:h-[280px] lg:w-[210px] overflow-hidden rounded-xl transition-all duration-700;
+  @apply relative overflow-hidden rounded-xl transition-all duration-700 lg:h-[280px] lg:w-[210px];
 }
 
 .featured-games.active {
