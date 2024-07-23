@@ -5,7 +5,7 @@ const { game } = defineProps(["game"]);
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-4 gap-x-12 rounded-2xl bg-secondary p-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-4 gap-x-12 rounded-2xl bg-secondary p-6">
     <!-- Compatible with -->
     <div>
       <h2 class="mb-2 text-xl font-semibold">Compatible with</h2>
@@ -13,7 +13,7 @@ const { game } = defineProps(["game"]);
       <div class="flex flex-wrap gap-2">
         <div
           v-for="platform in game.platforms"
-          class="flex flex-col items-center rounded-md bg-neutral p-2 text-center text-sm font-semibold"
+          class="flex flex-col items-center rounded-md bg-neutral p-2 text-start text-sm font-semibold"
         >
           {{ platform.abbreviation }}
         </div>
@@ -38,7 +38,7 @@ const { game } = defineProps(["game"]);
       <div class="flex flex-wrap gap-2">
         <div
           v-for="genre in game.genres"
-          class="flex flex-col items-center rounded-md bg-neutral p-2 text-center text-sm font-semibold"
+          class="flex flex-col items-center rounded-md bg-neutral p-2 text-start text-sm font-semibold"
         >
           {{ genre.name }}
         </div>

@@ -9,7 +9,7 @@ const { id, breakpoints } = defineProps(["id", "breakpoints"]);
       class="absolute inset-0 flex items-center justify-between gap-4 [&_*]:pointer-events-auto [&_*]:z-20"
     >
       <button
-        class="relative flex h-full items-center justify-start p-2 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-[150px] before:bg-gradient-to-r before:from-base-100"
+        class="relative flex h-full items-center justify-start p-2 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:opacity-90 before:left-0 before:z-10 before:w-[150px] before:bg-gradient-to-r before:from-base-100"
         :class="`${id}_prev`"
       >
         <span class="material-symbols-outlined text-primary">
@@ -17,7 +17,7 @@ const { id, breakpoints } = defineProps(["id", "breakpoints"]);
         </span>
       </button>
       <button
-        class="relative flex h-full items-center justify-start p-2 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:right-0 before:z-10 before:w-[150px] before:bg-gradient-to-l before:from-base-100"
+        class="relative flex h-full items-center justify-start p-2 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:opacity-90 before:right-0 before:z-10 before:w-[150px] before:bg-gradient-to-l before:from-base-100"
         :class="`${id}_next`"
       >
         <span class="material-symbols-outlined text-primary">
