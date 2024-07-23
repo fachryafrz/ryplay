@@ -66,12 +66,15 @@ try {
         id="topPicksGames"
         :breakpoints="{
           640: {
-            slidesPerGroup: 3,
+            slidesPerGroup: 2,
           },
           768: {
-            slidesPerGroup: 4,
+            slidesPerGroup: 3,
           },
           1024: {
+            slidesPerGroup: 4,
+          },
+          1280: {
             slidesPerGroup: 5,
           },
         }"
@@ -79,7 +82,7 @@ try {
         <SwiperSlide
           v-for="game in topPicksGames"
           :key="game.slug"
-          class="max-w-[calc(100%/2.8)] sm:max-w-[calc(100%/3.8)] md:max-w-[calc(100%/4.8)] lg:max-w-[calc(100%/5.8)]"
+          class="max-w-[calc(100%/1.8)] sm:max-w-[calc(100%/2.8)] md:max-w-[calc(100%/3.8)] lg:max-w-[calc(100%/4.8)] xl:max-w-[calc(100%/5.8)]"
         >
           <GameCard :game="game" :isHorizontal="false" />
         </SwiperSlide>
@@ -94,14 +97,17 @@ try {
         <p class="text-sm text-neutral-500">Get Best Discounts on Best Games</p>
       </div>
 
-      <GameSlider id="topDealsGames" :breakpoints="{
-        768: {
-          slidesPerGroup: 2,
-        },
-        1024: {
-          slidesPerGroup: 3,
-        },
-      }">
+      <GameSlider
+        id="topDealsGames"
+        :breakpoints="{
+          768: {
+            slidesPerGroup: 2,
+          },
+          1024: {
+            slidesPerGroup: 3,
+          },
+        }"
+      >
         <SwiperSlide
           v-for="game in topDealsGames"
           :key="game.slug"
