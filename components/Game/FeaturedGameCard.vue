@@ -37,22 +37,25 @@ try {
       />
       <div
         id="game-screenshot"
-        class="absolute inset-0 opacity-0 transition-opacity duration-700 before:absolute before:inset-0 before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-35% before:opacity-90"
-        :class="{
-          'opacity-100': hoveredIndex === index || lastHoveredIndex === index,
-        }"
+        class="absolute inset-0 opacity-0 transition-opacity duration-700 before:absolute before:inset-0 before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-35% before:opacity-80"
       >
         <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id}.jpg`"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           :alt="game.name"
           class="h-full w-full object-cover"
         />
 
         <div
-          class="absolute inset-0 z-10 flex max-w-[75%] flex-col justify-end gap-1 text-pretty p-4 px-6"
+          class="absolute inset-0 z-10 flex flex-col justify-end gap-1 text-pretty p-4 px-6 lg:max-w-[75%]"
         >
-          <h3 class="text-xl font-semibold">{{ game.name }}</h3>
-          <p class="line-clamp-3 text-xs text-neutral-400">
+          <h3
+            class="text-pretty text-center text-sm font-semibold lg:text-start lg:text-xl"
+          >
+            {{ game.name }}
+          </h3>
+          <p
+            class="hidden text-pretty text-xs font-medium text-neutral-500 lg:line-clamp-3"
+          >
             {{ game.storyline || game.summary }}
           </p>
         </div>

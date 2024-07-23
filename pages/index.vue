@@ -10,21 +10,18 @@ useHead({
   ],
 });
 
-const featuredGames = ref([]);
-const games = ref([]);
-const hoveredIndex = ref(null);
-const lastHoveredIndex = ref(0);
+const topPicksGames = ref([]);
+const topDealsGames = ref([]);
 
-onMounted(async () => {
-  try {
-    const response = await $fetch("/api/games");
+try {
+  const topPicksGamesResponse = await $fetch("/api/games/top-picks");
+  const topDealsGamesResponse = await $fetch("/api/games/featured");
 
-    featuredGames.value = response.slice(0, 4);
-    games.value = response;
-  } catch (error) {
-    console.error("Failed to fetch games:", error);
-  }
-});
+  topPicksGames.value = topPicksGamesResponse;
+  topDealsGames.value = topDealsGamesResponse;
+} catch (error) {
+  console.error("Failed to fetch games:", error);
+}
 </script>
 
 <template>
@@ -37,61 +34,82 @@ onMounted(async () => {
       </div>
 
       <!-- Featured Games -->
-      <div class="flex gap-4 overflow-x-auto">
+      <div class="grid grid-cols-2 gap-4 overflow-x-auto lg:flex">
         <FeaturedGameCard />
       </div>
     </div>
   </section>
+
   <section>
     <div class="flex flex-col gap-4">
-      <div class="">
-        <h2 class="text-2xl font-bold">Top Picks For You</h2>
-        <p class="text-sm text-neutral-500">
-          Discover games curated only for you
-        </p>
-      </div>
-
-      <div class="relative w-full">
-        <div
-          id="swiper-navigation"
-          class="absolute inset-0 flex items-center justify-between gap-4 [&_*]:pointer-events-auto [&_*]:z-20"
-        >
-          <button
-            class="prev relative flex h-full items-center justify-start p-2 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-[150px] before:bg-gradient-to-r before:from-base-100"
-          >
-            <span class="material-symbols-outlined text-primary">
-              arrow_back_ios
-            </span>
-          </button>
-          <button
-            class="next relative flex h-full items-center justify-start p-2 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:right-0 before:z-10 before:w-[150px] before:bg-gradient-to-l before:from-base-100"
-          >
-            <span class="material-symbols-outlined text-primary">
-              arrow_forward_ios
-            </span>
-          </button>
+      <div class="flex items-end justify-between">
+        <div>
+          <h2 class="text-2xl font-bold">Top Picks For You</h2>
+          <p class="text-sm text-neutral-500">
+            Discover games curated only for you
+          </p>
         </div>
 
-        <Swiper
-          :modules="[SwiperNavigation]"
-          slides-per-view="auto"
-          :space-between="16"
-          :effect="'creative'"
-          :navigation="{
-            prevEl: '.prev',
-            nextEl: '.next',
-          }"
-          class="rounded-xl"
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
         >
-          <SwiperSlide
-            v-for="game in games"
-            :key="game.slug"
-            class="max-w-[calc(100%/6.8)]"
-          >
-            <GameCard :game="game" />
-          </SwiperSlide>
-        </Swiper>
+          <span>See all</span>
+
+          <span class="material-symbols-outlined text-sm">
+            arrow_forward_ios
+          </span>
+        </NuxtLink>
       </div>
+
+      <GameSlider
+        id="topPicksGames"
+        :breakpoints="{
+          640: {
+            slidesPerGroup: 3,
+          },
+          768: {
+            slidesPerGroup: 4,
+          },
+          1024: {
+            slidesPerGroup: 5,
+          },
+        }"
+      >
+        <SwiperSlide
+          v-for="game in topPicksGames"
+          :key="game.slug"
+          class="max-w-[calc(100%/2.8)] sm:max-w-[calc(100%/3.8)] md:max-w-[calc(100%/4.8)] lg:max-w-[calc(100%/5.8)]"
+        >
+          <GameCard :game="game" :isHorizontal="false" />
+        </SwiperSlide>
+      </GameSlider>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex flex-col gap-4">
+      <div>
+        <h2 class="text-2xl font-bold">Top Deals For You</h2>
+        <p class="text-sm text-neutral-500">Get Best Discounts on Best Games</p>
+      </div>
+
+      <GameSlider id="topDealsGames" :breakpoints="{
+        768: {
+          slidesPerGroup: 2,
+        },
+        1024: {
+          slidesPerGroup: 3,
+        },
+      }">
+        <SwiperSlide
+          v-for="game in topDealsGames"
+          :key="game.slug"
+          class="max-w-[calc(100%/1.5)] md:max-w-[calc(100%/2.5)] lg:max-w-[calc(100%/3.5)]"
+        >
+          <GameCard :game="game" :isHorizontal="true" />
+        </SwiperSlide>
+      </GameSlider>
     </div>
   </section>
 </template>

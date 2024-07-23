@@ -1,4 +1,10 @@
 <script setup>
+const isActive = ref(false);
+
+const handleActive = () => {
+  isActive.value = !isActive.value;
+};
+
 const navigation = [
   { name: "Home", link: "/", icon: "home" },
   { name: "My Games", link: "/my-games", icon: "sports_esports" },
@@ -14,30 +20,39 @@ const config = useRuntimeConfig();
 <template>
   <div class="drawer lg:drawer-open">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+
     <div
-      class="drawer-content fixed left-4 top-4 flex flex-col items-center justify-center"
+      class="drawer-content fixed right-4 top-4 flex flex-col items-center justify-center"
+      :class="{ hidden: isActive }"
     >
       <!-- Page content here -->
       <label
         for="my-drawer-2"
         class="btn btn-primary drawer-button aspect-square p-0 lg:hidden"
+        @click="handleActive"
       >
         <span class="material-symbols-outlined"> menu </span>
       </label>
     </div>
+
     <div class="drawer-side">
       <label
         for="my-drawer-2"
         aria-label="close sidebar"
         class="drawer-overlay"
+        @click="handleActive"
       ></label>
-      <div class="menu min-h-full w-[300px] gap-4 bg-neutral p-4 text-base-content">
-        <div class="flex h-[100px] items-center justify-center">
+      <div
+        class="menu min-h-full w-[300px] gap-4 bg-neutral p-4 text-base-content"
+      >
+        <div
+          class="flex items-center justify-start lg:h-[75px] lg:justify-center"
+        >
           <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent">
             <svg
               id="logo-86"
-              width="50"
-              height="50"
+              width="48"
+              height="48"
               viewBox="0 0 40 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -57,8 +72,8 @@ const config = useRuntimeConfig();
                 fill="#FFFFFF"
               ></path>
             </svg>
-            <h1 class="max-w-[105px] text-4xl font-bold leading-8">
-              {{ config.public.APP_NAME_SPACED }}
+            <h1 class="text-3xl font-bold leading-8">
+              {{ config.public.APP_NAME }}
             </h1>
           </NuxtLink>
         </div>
@@ -70,7 +85,7 @@ const config = useRuntimeConfig();
               class="btn btn-ghost justify-start text-base"
             >
               <span class="material-symbols-outlined"> {{ nav.icon }} </span>
-              <span class="font-medium text-sm">{{ nav.name }}</span>
+              <span class="text-sm font-medium">{{ nav.name }}</span>
             </NuxtLink>
           </li>
         </ul>
