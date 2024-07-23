@@ -37,6 +37,14 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         }"
       >
         <!-- NOTE: Video -->
+        <SwiperSlide v-for="video in game.videos">
+          <iframe
+            :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0`"
+            frameborder="0"
+            allowfullscreen
+            class="aspect-[4/2] w-full"
+          ></iframe>
+        </SwiperSlide>
 
         <SwiperSlide v-for="screenshot in game.screenshots">
           <figure class="aspect-[4/2] overflow-hidden bg-base-100">
@@ -60,17 +68,17 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
     </div>
 
     <!-- Pagination -->
-    <div class="absolute inset-x-0 bottom-0 z-10 translate-y-1/2 px-4">
+    <div class="absolute inset-x-0 bottom-0 z-10 translate-y-[50%] px-4">
       <div
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-2 [&_*]:pointer-events-auto"
       >
         <button
-          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
+          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
         >
           <span class="material-symbols-outlined"> arrow_left </span>
         </button>
         <button
-          class="next grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
+          class="next grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
         >
           <span class="material-symbols-outlined"> arrow_right </span>
         </button>
@@ -79,17 +87,64 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       <Swiper
         @swiper="setThumbSwiper"
         :modules="[SwiperThumbs]"
-        :slides-per-view="6"
+        :slides-per-view="3"
         :space-between="16"
         :watch-slides-progress="true"
         :free-mode="true"
         class="!p-2"
+        :breakpoints="{
+          768: { slidesPerView: 4 },
+          1024: { slidesPerView: 5 },
+          1280: { slidesPerView: 6 },
+        }"
       >
+        <SwiperSlide v-for="(video, index) in game.videos">
+          <figure
+            class="relative aspect-video overflow-hidden rounded-xl"
+            :class="
+              activeSlide === index
+                ? 'outline-3 border-4 border-base-100 outline outline-primary'
+                : ''
+            "
+          >
+            <img
+              :src="`https://i.ytimg.com/vi/${video.video_id}/sddefault.jpg`"
+              :alt="game.name"
+            />
+
+            <div
+              class="pointer-events-none absolute inset-0 grid place-content-center"
+            >
+              <span
+                class="aspect-[4/3] rounded flex justify-center text-center text-base-100"
+              >
+                <svg
+                  height="24px"
+                  style="enable-background: new 0 0 32 32"
+                  version="1.1"
+                  viewBox="0 0 32 32"
+                  width="24px"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g id="Layer_1" />
+                  <g id="play_x5F_alt">
+                    <path
+                      d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M10,24V8l16.008,8L10,24z   "
+                      style="fill: #ffffff"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </figure>
+        </SwiperSlide>
         <SwiperSlide v-for="(screenshot, index) in game.screenshots">
           <figure
             class="aspect-video overflow-hidden rounded-xl"
             :class="
-              activeSlide === index
+              activeSlide === index + game.videos.length
                 ? 'outline-3 border-4 border-base-100 outline outline-primary'
                 : ''
             "

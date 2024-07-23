@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     });
 
     setCookie(event, "access_token", data.access_token, {
-      expires: new Date(Date.now() + data.expires_in * 1000),
+      expires: new Date(Date.now() + data.expires_in),
     });
   }
 });
