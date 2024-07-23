@@ -1,24 +1,7 @@
 <script setup>
 const config = useRuntimeConfig();
-const route = useRoute();
 
 const { disableSearchBar } = defineProps(["disableSearchBar"]);
-const searchQuery = ref("");
-const router = useRouter();
-
-const handleSubmit = () => {
-  if (searchQuery.value.trim()) {
-    router.push({ path: "/search", query: { query: searchQuery.value } });
-  }
-};
-
-watch(
-  () => route.query,
-  () => {
-    searchQuery.value = route.query.query;
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
