@@ -7,7 +7,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
     <div v-if="!isHorizontal">
       <figure class="-z-10 block aspect-poster overflow-hidden rounded-xl">
         <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
           :alt="game.name"
           id="game-cover"
           class="h-full w-full object-cover"

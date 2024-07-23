@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       Authorization: `Bearer ${access_token}`,
     },
     body: `
-      f *, screenshots.*, cover.*, artworks.*, involved_companies.*, involved_companies.company.*, platforms.*, genres.*, videos.*, similar_games.*, similar_games.name, similar_games.cover.*;
+      f *, screenshots.*, cover.*, artworks.*, involved_companies.*, involved_companies.company.*, platforms.*, genres.*, videos.*, similar_games.*, similar_games.name, similar_games.cover.*, collection.*, collection.games.name, collection.games.slug, collection.games.cover.image_id;
       w slug = "${slug}";
     `,
   });

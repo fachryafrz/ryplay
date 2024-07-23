@@ -22,10 +22,13 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
           class="w-full max-w-[300px] text-sm lg:text-xs xl:text-sm [&_td]:py-1 [&_td]:align-top"
         >
           <tr v-for="info in gameInfo">
-            <td class="font-semibold text-neutral-500 xl:min-w-[150px]">
+            <td
+              v-if="info.text"
+              class="font-semibold text-neutral-500 xl:min-w-[150px]"
+            >
               {{ info.section }}
             </td>
-            <td class="text-end">{{ info.text }}</td>
+            <td v-if="info.text" class="text-end">{{ info.text }}</td>
           </tr>
         </table>
       </div>

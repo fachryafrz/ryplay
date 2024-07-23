@@ -24,8 +24,8 @@ const { game } = defineProps(["game"]);
     <div>
       <h2 class="mb-2 text-xl font-semibold">Ratings</h2>
 
-      <div class="flex items-center gap-1 text-lg sm:text-3xl">
-        <span class="material-symbols-outlined fill !text-xl sm:text-4xl"> star </span>
+      <div class="flex items-center gap-1 text-lg sm:text-2xl">
+        <span class="material-symbols-outlined fill !text-xl sm:!text-3xl"> star </span>
         <span class="font-semibold">{{ formatRating(game.rating) }}</span>
         <span>({{ formatNumber(game.rating_count) }})</span>
       </div>

@@ -15,16 +15,17 @@ const { game, publishers, developers } = defineProps([
         {{ game.name }}
       </h1>
       <span>
-        {{ publishers.map((dev) => dev.company.name).join(", ") }}
+        {{
+          publishers.map((dev) => dev.company.name).join(", ") ||
+          developers.map((dev) => dev.company.name).join(", ")
+        }}
       </span>
     </section>
 
     <section class="prose max-w-none font-semibold text-neutral-500">
-      <h2 class="mb-2 mt-4">Storyline</h2>
-      <MDC :value="game.storyline" class="[&_p]:mt-0" />
+      <MDC :value="game.storyline" class="[&_p]:mt-0" v-if="game.storyline" />
 
-      <h2 class="mb-2 mt-4">Summary</h2>
-      <MDC :value="game.summary" class="[&_p]:mt-0" />
+      <MDC :value="game.summary" class="[&_p]:mt-0" v-if="game.summary" />
     </section>
 
     <section>

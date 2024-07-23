@@ -11,10 +11,10 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
 </script>
 
 <template>
-  <div class="relative lg:aspect-video lg:-m-4">
+  <div class="relative lg:h-[calc(100dvh-1rem)] lg:-m-4">
     <!-- Big -->
     <div
-      class="relative before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-10% lg:before:block"
+      class="relative before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 lg:before:block"
     >
       <Swiper
         @swiper="setMainSwiper"
@@ -39,7 +39,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <!-- NOTE: Video -->
         <SwiperSlide v-for="video in game.videos">
           <iframe
-            :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0`"
+            :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0&loop=1&playlist=${video.video_id}`"
             frameborder="0"
             allowfullscreen
             class="aspect-video w-full lg:aspect-[4/2]"
@@ -113,7 +113,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             "
           >
             <img
-              :src="`https://i.ytimg.com/vi/${video.video_id}/sddefault.jpg`"
+              :src="`https://img.youtube.com/vi/${video.video_id}/0.jpg`"
               :alt="game.name"
             />
 
