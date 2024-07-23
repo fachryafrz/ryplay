@@ -22,7 +22,7 @@ try {
 </script>
 
 <template>
-  <div class="flex flex-col gap-28">
+  <div class="flex flex-col">
     <GameMedia :game="game" />
 
     <GameInfo :game="game" />

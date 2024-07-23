@@ -37,10 +37,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-4">
+  <div class="grid gap-4 xl:grid-cols-3 mt-28">
     <!-- Left -->
-    <div class="col-span-2 flex max-w-3xl gap-4 flex-col">
-      <section>
+    <div class="order-2 flex xl:max-w-3xl flex-col gap-4 xl:order-1 xl:col-span-2">
+      <section class="text-center xl:text-start">
         <h1 class="mb-2 text-5xl font-bold">{{ game.name }}</h1>
         <span>
           {{ publishers.map((dev) => dev.company.name).join(", ") }}
@@ -61,7 +61,9 @@ onMounted(() => {
     </div>
 
     <!-- Right -->
-    <div class="max-w-fit justify-self-end">
+    <div
+      class="order-1 max-w-fit justify-self-center xl:order-2 xl:justify-self-end"
+    >
       <!-- Container -->
       <div
         class="sticky top-4 flex flex-col gap-4 rounded-3xl bg-secondary p-4"

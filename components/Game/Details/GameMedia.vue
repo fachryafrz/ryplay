@@ -87,12 +87,13 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       <Swiper
         @swiper="setThumbSwiper"
         :modules="[SwiperThumbs]"
-        :slides-per-view="3"
+        :slides-per-view="2"
         :space-between="16"
         :watch-slides-progress="true"
         :free-mode="true"
         class="!p-2"
         :breakpoints="{
+          640: { slidesPerView: 3 },
           768: { slidesPerView: 4 },
           1024: { slidesPerView: 5 },
           1280: { slidesPerView: 6 },
