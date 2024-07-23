@@ -3,7 +3,7 @@ const { game } = defineProps(["game"]);
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 mt-8">
+    <div class="flex flex-col gap-4">
       <div class="flex items-end justify-between">
         <div>
           <h2 class="text-2xl font-bold">Similar Games</h2>

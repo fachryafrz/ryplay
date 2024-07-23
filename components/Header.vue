@@ -1,9 +1,11 @@
 <script setup>
+const { disableSearchBar } = defineProps(["disableSearchBar"]);
+
 const config = useRuntimeConfig();
 </script>
 
 <template>
-  <div class="flex items-center gap-2 lg:hidden">
+  <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent lg:hidden">
     <svg
       id="logo-86"
       width="48"
@@ -30,9 +32,14 @@ const config = useRuntimeConfig();
     <span class="text-3xl font-bold leading-8">
       {{ config.public.APP_NAME }}
     </span>
-  </div>
+  </NuxtLink>
 
-  <div class="flex w-full gap-4">
+  <div
+    class="flex w-full gap-4"
+    :class="{
+      hidden: disableSearchBar,
+    }"
+  >
     <label
       class="input input-lg flex w-full items-center gap-2 bg-secondary lg:input-md lg:max-w-md"
     >

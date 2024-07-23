@@ -16,7 +16,7 @@ await $fetch("/api/token");
   <div class="flex">
     <NuxtLoadingIndicator />
 
-    <aside class="sticky top-0 z-[99999] h-screen border-r-2 border-secondary">
+    <aside class="sticky top-0 z-[99999] h-[100dvh] border-r-2 border-secondary">
       <Sidebar />
     </aside>
 
