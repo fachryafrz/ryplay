@@ -57,13 +57,13 @@ onMounted(() => {
 <template>
   <Header :disable-search-bar="true" />
 
-  <div class="grid grid-cols-12 gap-8 lg:gap-4">
-    <div class="order-2 col-span-full lg:order-1">
+  <div class="grid grid-cols-12 gap-4 lg:gap-4">
+    <div class="order-2 col-span-full mt-4 lg:order-1 lg:mt-0">
       <GameMedia :game="game" />
     </div>
 
     <div
-      class="order-3 col-span-full mt-[4rem] sm:mt-[2rem] lg:order-2 lg:col-span-7 xl:mt-[6rem] lg:mt-[4rem] xl:col-span-8"
+      class="order-3 col-span-full lg:order-2 lg:col-span-7 lg:mt-[2rem] xl:col-span-8"
     >
       <GameInfo
         :game="game"
@@ -73,7 +73,7 @@ onMounted(() => {
     </div>
 
     <div
-      class="order-1 col-span-full flex justify-center lg:order-3 lg:col-span-5 xl:mt-[6rem] lg:mt-[4rem] lg:justify-end xl:col-span-4"
+      class="order-1 col-span-full flex justify-center lg:order-3 lg:col-span-5 lg:mt-[2rem] lg:justify-end xl:col-span-4"
     >
       <GamePoster
         :game="game"

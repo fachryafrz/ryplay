@@ -11,10 +11,10 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
 </script>
 
 <template>
-  <div class="relative lg:-m-4">
+  <div class="relative lg:aspect-video lg:-m-4">
     <!-- Big -->
     <div
-      class="relative before:pointer-events-none before:absolute before:inset-0 before:z-10 before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-15%"
+      class="relative before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-10% lg:before:block"
     >
       <Swiper
         @swiper="setMainSwiper"
@@ -42,12 +42,14 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0`"
             frameborder="0"
             allowfullscreen
-            class="aspect-video lg:aspect-[4/2] w-full"
+            class="aspect-video w-full lg:aspect-[4/2]"
           ></iframe>
         </SwiperSlide>
 
         <SwiperSlide v-for="screenshot in game.screenshots">
-          <figure class="aspect-video lg:aspect-[4/2] overflow-hidden bg-base-100">
+          <figure
+            class="aspect-video overflow-hidden bg-base-100 lg:aspect-[4/2]"
+          >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
               :alt="game.name"
@@ -56,7 +58,9 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           </figure>
         </SwiperSlide>
         <SwiperSlide v-for="artwork in game.artworks">
-          <figure class="aspect-video lg:aspect-[4/2] overflow-hidden bg-base-100">
+          <figure
+            class="aspect-video overflow-hidden bg-base-100 lg:aspect-[4/2]"
+          >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
               :alt="game.name"
@@ -68,7 +72,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
     </div>
 
     <!-- Pagination -->
-    <div class="absolute inset-x-0 bottom-0 z-10 translate-y-[75%] md:translate-y-[50%] px-4">
+    <div class="relative z-10 px-4 lg:absolute lg:inset-x-0 lg:bottom-0">
       <div
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-2 [&_*]:pointer-events-auto"
       >
@@ -117,7 +121,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               class="pointer-events-none absolute inset-0 grid place-content-center"
             >
               <span
-                class="aspect-[4/3] rounded flex justify-center text-center text-base-100"
+                class="flex aspect-[4/3] justify-center rounded text-center text-base-100"
               >
                 <svg
                   height="24px"
@@ -160,7 +164,8 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           <figure
             class="aspect-video overflow-hidden rounded-xl"
             :class="
-              activeSlide === index + game.screenshots.length
+              activeSlide ===
+              index + game.videos.length + game.screenshots.length
                 ? 'outline-3 border-4 border-base-100 outline outline-primary'
                 : ''
             "
