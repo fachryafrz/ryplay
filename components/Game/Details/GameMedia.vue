@@ -11,7 +11,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
 </script>
 
 <template>
-  <div class="relative lg:h-[calc(100dvh-1rem)] lg:-m-4">
+  <div class="relative lg:-m-4 lg:h-[calc(100dvh-1rem)]">
     <!-- Big -->
     <div
       class="relative before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 lg:before:block"
@@ -77,12 +77,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-2 [&_*]:pointer-events-auto"
       >
         <button
-          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
+          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
         >
           <span class="material-symbols-outlined"> arrow_left </span>
         </button>
         <button
-          class="next grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
+          class="next grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
         >
           <span class="material-symbols-outlined"> arrow_right </span>
         </button>

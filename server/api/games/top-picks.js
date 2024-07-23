@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       Authorization: `Bearer ${access_token}`,
     },
     body: `
-      f name, storyline, summary, screenshots.*, cover.*, artworks.*, slug;
+      f name, storyline, summary, screenshots.image_id, cover.image_id, artworks.image_id, slug;
       w cover != null;
       s total_rating_count desc;
       l 20;

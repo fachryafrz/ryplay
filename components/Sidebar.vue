@@ -72,9 +72,9 @@ const config = useRuntimeConfig();
                 fill="#FFFFFF"
               ></path>
             </svg>
-            <h1 class="text-3xl font-bold leading-8">
+            <span class="text-3xl font-bold leading-8">
               {{ config.public.APP_NAME }}
-            </h1>
+            </span>
           </NuxtLink>
         </div>
 

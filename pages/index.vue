@@ -1,6 +1,8 @@
 <script setup>
 import FeaturedGameCard from "~/components/Game/FeaturedGameCard.vue";
 
+const config = useRuntimeConfig();
+
 useHead({
   meta: [
     {
@@ -26,6 +28,8 @@ try {
 
 <template>
   <Header />
+
+  <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
 
   <section>
     <div class="flex flex-col gap-2">

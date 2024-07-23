@@ -11,7 +11,7 @@ const { game, publishers, developers } = defineProps([
 <template>
   <div class="flex flex-col gap-4">
     <section class="hidden text-center lg:block lg:text-start">
-      <h1 class="mb-2 text-pretty text-3xl font-bold md:text-4xl xl:text-5xl">
+      <h1 class="mb-2 text-pretty text-3xl font-bold md:text-4xl">
         {{ game.name }}
       </h1>
       <span>

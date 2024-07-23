@@ -1,7 +1,24 @@
 <script setup>
-const { disableSearchBar } = defineProps(["disableSearchBar"]);
-
 const config = useRuntimeConfig();
+const route = useRoute();
+
+const { disableSearchBar } = defineProps(["disableSearchBar"]);
+const searchQuery = ref("");
+const router = useRouter();
+
+const handleSubmit = () => {
+  if (searchQuery.value.trim()) {
+    router.push({ path: "/search", query: { query: searchQuery.value } });
+  }
+};
+
+watch(
+  () => route.query,
+  () => {
+    searchQuery.value = route.query.query;
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -34,17 +51,9 @@ const config = useRuntimeConfig();
     </span>
   </NuxtLink>
 
-  <div
-    class="flex w-full gap-4"
+  <SearchBar
     :class="{
       hidden: disableSearchBar,
     }"
-  >
-    <label
-      class="input input-lg flex w-full items-center gap-2 bg-secondary lg:input-md lg:max-w-md"
-    >
-      <span class="material-symbols-outlined"> search </span>
-      <input type="text" class="grow" placeholder="Find games..." />
-    </label>
-  </div>
+  />
 </template>
