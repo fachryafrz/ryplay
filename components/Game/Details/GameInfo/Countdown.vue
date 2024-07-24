@@ -50,13 +50,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div 
-  v-if="isUpcoming"
+  <div
+    v-if="isUpcoming"
     class="grid auto-cols-max grid-flow-col place-content-center gap-2 text-center"
   >
     <div
       v-if="countdown.years > 0"
-      class="flex flex-col rounded-box bg-secondary p-2 text-neutral-content"
+      class="flex flex-col rounded-box border-2 border-secondary bg-neutral p-2 text-neutral-content"
     >
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.years }"></span>
@@ -65,7 +65,7 @@ onMounted(() => {
     </div>
     <div
       v-if="countdown.months > 0"
-      class="flex flex-col rounded-box bg-secondary p-2 text-neutral-content"
+      class="flex flex-col rounded-box border-2 border-secondary bg-neutral p-2 text-neutral-content"
     >
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.months }"></span>
@@ -73,7 +73,7 @@ onMounted(() => {
       months
     </div>
     <div
-      class="flex flex-col rounded-box bg-secondary p-2 text-neutral-content"
+      class="flex flex-col rounded-box border-2 border-secondary bg-neutral p-2 text-neutral-content"
     >
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.days }"></span>
@@ -81,7 +81,7 @@ onMounted(() => {
       days
     </div>
     <div
-      class="flex flex-col rounded-box bg-secondary p-2 text-neutral-content"
+      class="flex flex-col rounded-box border-2 border-secondary bg-neutral p-2 text-neutral-content"
     >
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.hours }"></span>
@@ -89,7 +89,7 @@ onMounted(() => {
       hours
     </div>
     <div
-      class="flex flex-col rounded-box bg-secondary p-2 text-neutral-content"
+      class="flex flex-col rounded-box border-2 border-secondary bg-neutral p-2 text-neutral-content"
     >
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.minutes }"></span>
@@ -97,7 +97,7 @@ onMounted(() => {
       min
     </div>
     <div
-      class="flex flex-col rounded-box bg-secondary p-2 text-neutral-content"
+      class="flex flex-col rounded-box border-2 border-secondary bg-neutral p-2 text-neutral-content"
     >
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.seconds }"></span>

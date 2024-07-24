@@ -29,10 +29,18 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-4">
+    <!-- Countdown -->
     <Countdown :game="game" />
 
+    <!-- About -->
     <section>
-      <div class="prose max-w-none text-neutral-400 last:[&_p]:mb-0">
+      <div class="mb-2">
+        <h2 class="heading-2">About</h2>
+      </div>
+
+      <div
+        class="prose max-w-none text-neutral-400 first:[&_p]:mt-0 last:[&_p]:mb-0"
+      >
         <MDC v-if="combinedText" :value="game.storyline" />
         <MDC v-if="combinedText" :value="game.summary" />
       </div>
@@ -49,6 +57,7 @@ onMounted(() => {
       </button> -->
     </section>
 
+    <!-- Additional Info -->
     <section class="@container">
       <AdditionalInfo :game="game" />
     </section>

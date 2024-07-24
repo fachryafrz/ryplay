@@ -8,28 +8,26 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
 </script>
 
 <template>
-  <div class="@container w-full">
+  <div class="w-full @container">
     <!-- Container -->
     <div
-      class="@md:items-center @md:max-w-2xl @md:mx-auto @md:grid @md:grid-cols-2 sticky top-4 flex flex-col gap-4 rounded-xl bg-secondary p-4"
+      class="sticky top-4 flex flex-col gap-4 rounded-xl border-2 border-secondary bg-neutral p-4 @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
     >
       <figure class="">
         <img :src="gameCover" :alt="game.name" class="rounded-md" />
       </figure>
 
       <div class="flex flex-col gap-4">
-        <h1 class="@md:text-start text-pretty text-center text-2xl font-bold">
+        <h1 class="text-pretty text-center text-2xl font-bold @md:text-start">
           {{ game.name }}
         </h1>
 
         <!-- Genres -->
         <ul
-          class="@md:justify-start flex flex-wrap items-center justify-center gap-1"
+          class="flex flex-wrap items-center justify-center gap-1 @md:justify-start"
         >
           <li v-for="genre in game.genres">
-            <span
-              class="block rounded-full bg-base-100 bg-opacity-[75%] px-4 py-2 text-sm font-medium backdrop-blur"
-            >
+            <span class="btn btn-secondary btn-sm">
               {{ genre.name }}
             </span>
           </li>
