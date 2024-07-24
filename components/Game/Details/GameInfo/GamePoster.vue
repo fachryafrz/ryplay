@@ -18,7 +18,7 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
       </figure>
 
       <div class="flex flex-col gap-4">
-        <h1 class="@md:text-start text-pretty text-center text-3xl font-bold">
+        <h1 class="@md:text-start text-pretty text-center text-2xl font-bold">
           {{ game.name }}
         </h1>
 
@@ -28,7 +28,7 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
         >
           <li v-for="genre in game.genres">
             <span
-              class="block rounded-full bg-base-100 bg-opacity-[75%] px-4 py-2 text-sm backdrop-blur"
+              class="block rounded-full bg-base-100 bg-opacity-[75%] px-4 py-2 text-xs font-medium backdrop-blur"
             >
               {{ genre.name }}
             </span>
