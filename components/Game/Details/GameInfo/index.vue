@@ -46,7 +46,7 @@ onMounted(() => {
       </button> -->
     </section>
 
-    <section>
+    <section class="@container">
       <AdditionalInfo :game="game" />
     </section>
   </div>

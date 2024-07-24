@@ -5,7 +5,6 @@ useHead({
 </script>
 
 <template>
-  <Header />
 
   <div>
     <span>Discover</span>

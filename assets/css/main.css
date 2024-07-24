@@ -10,9 +10,9 @@ img {
   @apply h-full w-full object-cover italic;
 }
 
-.router-link-active {
+/* .router-link-active {
   @apply bg-secondary;
-}
+} */
 
 .swiper-button-disabled {
   @apply invisible;
