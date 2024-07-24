@@ -25,7 +25,6 @@ try {
   game.value = data;
 } catch (error) {
   if (error.statusCode === 401) {
-    await $fetch("/api/token");
     router.go();
   } else {
     console.error("Failed to fetch games:", error);
