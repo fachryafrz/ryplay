@@ -1,5 +1,6 @@
 <script setup>
 const isActive = ref(false);
+const route = useRoute();
 
 const handleActive = () => {
   isActive.value = !isActive.value;
@@ -83,6 +84,9 @@ const config = useRuntimeConfig();
             <NuxtLink
               :to="nav.link"
               class="btn btn-ghost justify-start text-base"
+              :class="{
+                'bg-secondary': route.path === nav.link,
+              }"
             >
               <span class="material-symbols-outlined"> {{ nav.icon }} </span>
               <span class="text-sm font-medium">{{ nav.name }}</span>

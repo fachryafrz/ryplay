@@ -43,10 +43,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             />
           </figure>
           <div class="absolute inset-x-0 top-0 flex flex-wrap gap-2 p-4">
-            <span
-              v-for="genre in game.genres"
-              class="rounded-full bg-base-100 bg-opacity-[75%] px-4 py-1 text-sm backdrop-blur"
-            >
+            <span v-for="genre in game.genres" class="btn btn-sm bg-opacity-75 backdrop-blur border-none">
               {{ genre.name }}
             </span>
           </div>

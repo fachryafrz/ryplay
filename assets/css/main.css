@@ -10,9 +10,9 @@ img {
   @apply h-full w-full object-cover italic;
 }
 
-.router-link-active {
+/* .router-link-active {
   @apply bg-secondary;
-}
+} */
 
 .swiper-button-disabled {
   @apply invisible;
@@ -52,4 +52,10 @@ body {
     "wght" 400,
     "GRAD" 0,
     "opsz" 24;
+}
+
+@layer components {
+  .heading-2 {
+    @apply mb-2 text-xl font-medium;
+  }
 }

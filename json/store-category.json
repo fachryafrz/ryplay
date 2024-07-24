@@ -1,0 +1,22 @@
+[
+  { "store": "steam", "id": 1, "image_id":"steam" },
+  { "store": "gog", "id": 5, "image_id":"gog"  },
+  { "store": "youtube", "id": 10, "image_id":"" },
+  { "store": "microsoft", "id": 11, "image_id":"microsoft" },
+  { "store": "apple", "id": 13, "image_id":"apple" },
+  { "store": "twitch", "id": 14, "image_id":"" },
+  { "store": "android", "id": 15, "image_id":"android" },
+  { "store": "amazon_asin", "id": 20, "image_id":"" },
+  { "store": "amazon_luna", "id": 22, "image_id":"" },
+  { "store": "amazon_adg", "id": 23, "image_id":"" },
+  { "store": "epic_game_store", "id": 26, "image_id":"epic_game_store" },
+  { "store": "oculus", "id": 28, "image_id":"" },
+  { "store": "utomik", "id": 29, "image_id":"" },
+  { "store": "itch_io", "id": 30, "image_id":"itch_io" },
+  { "store": "xbox_marketplace", "id": 31, "image_id":"" },
+  { "store": "kartridge", "id": 32, "image_id":"" },
+  { "store": "playstation_store_us", "id": 36, "image_id":"playstation_store_us" },
+  { "store": "focus_entertainment", "id": 37, "image_id":"" },
+  { "store": "xbox_game_pass_ultimate_cloud", "id": 54, "image_id":"" },
+  { "store": "gamejolt", "id": 55, "image_id":"" }
+]

@@ -31,8 +31,6 @@ watch(() => route.query, fetchGames, { deep: true });
 </script>
 
 <template>
-  <Header />
-
   <div>
     <h1>Search</h1>
 
