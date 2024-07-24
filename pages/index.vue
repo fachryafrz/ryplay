@@ -19,15 +19,24 @@ const topPicksGames = ref([]);
 const topDealsGames = ref([]);
 
 try {
-  const upcomingGamesResponse = await $fetch("/api/games/upcoming");
-  const featuredGamesResponse = await $fetch("/api/games/featured");
-  const topPicksGamesResponse = await $fetch("/api/games/top-picks");
-  const topDealsGamesResponse = await $fetch("/api/games/featured");
-  
-  upcomingGames.value = upcomingGamesResponse
-  featuredGames.value = featuredGamesResponse;
-  topPicksGames.value = topPicksGamesResponse;
-  topDealsGames.value = topDealsGamesResponse;
+  const multiqueryResponse = await $fetch("/api/multi-query");
+  // const upcomingGamesResponse = await $fetch("/api/games/upcoming");
+  // const featuredGamesResponse = await $fetch("/api/games/featured");
+  // const topPicksGamesResponse = await $fetch("/api/games/top-picks");
+  // const topDealsGamesResponse = await $fetch("/api/games/featured");
+
+  upcomingGames.value = multiqueryResponse.find(
+    (res) => res.name === "upcoming",
+  ).result;
+  featuredGames.value = multiqueryResponse.find(
+    (res) => res.name === "featured",
+  ).result;
+  topPicksGames.value = multiqueryResponse.find(
+    (res) => res.name === "top-picks",
+  ).result;
+  topDealsGames.value = multiqueryResponse.find(
+    (res) => res.name === "featured",
+  ).result;
 } catch (error) {
   console.error("Failed to fetch games:", error);
 }
