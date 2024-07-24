@@ -3,7 +3,6 @@ import FeaturedGameCard from "~/components/Game/FeaturedGameCard.vue";
 import HomeSlider from "~/components/Game/HomeSlider.vue";
 
 const config = useRuntimeConfig();
-const router = useRouter();
 
 useHead({
   meta: [
@@ -39,12 +38,7 @@ try {
     (res) => res.name === "featured",
   ).result;
 } catch (error) {
-  if (error.statusCode === 401) {
-    await $fetch("/api/token");
-    router.go();
-  } else {
-    console.error("Failed to fetch games:", error);
-  }
+  console.error("Failed to fetch games:", error);
 }
 </script>
 
