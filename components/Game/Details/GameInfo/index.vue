@@ -1,5 +1,6 @@
 <script setup>
 import AdditionalInfo from "./AdditionalInfo.vue";
+import Countdown from "./Countdown.vue";
 
 const { game, publishers, developers } = defineProps([
   "game",
@@ -28,6 +29,8 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-4">
+    <Countdown :game="game" />
+
     <section>
       <div class="prose max-w-none text-neutral-400 last:[&_p]:mb-0">
         <MDC v-if="combinedText" :value="game.storyline" />
