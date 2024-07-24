@@ -4,7 +4,6 @@ import GameInfo from "~/components/Game/Details/GameInfo/index.vue";
 import GameMedia from "~/components/Game/Details/GameMedia.vue";
 
 const { slug } = useRoute().params;
-const router = useRouter();
 
 const game = ref([]);
 
@@ -24,16 +23,7 @@ try {
   const data = response[0];
   game.value = data;
 } catch (error) {
-  if (error.statusCode === 401) {
-    await $fetch("/api/token", {
-      params: {
-        clearCookie: true,
-      },
-    });
-    router.go();
-  } else {
-    console.error("Error fetching data:", error);
-  }
+  console.error("Failed to fetch games:", error);
 }
 
 onMounted(() => {

@@ -2,9 +2,6 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookies = parseCookies(event);
   const access_token = cookies?.access_token;
-  const { clearCookie } = getQuery(event);
-
-  if (clearCookie) deleteCookie(event, "access_token");
 
   if (!access_token) {
     const data = await $fetch("https://id.twitch.tv/oauth2/token", {
