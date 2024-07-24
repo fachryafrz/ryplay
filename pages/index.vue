@@ -18,12 +18,8 @@ const featuredGames = ref([]);
 const topPicksGames = ref([]);
 const topDealsGames = ref([]);
 
-try {
+const fetches = async () => {
   const multiqueryResponse = await $fetch("/api/multi-query");
-  // const upcomingGamesResponse = await $fetch("/api/games/upcoming");
-  // const featuredGamesResponse = await $fetch("/api/games/featured");
-  // const topPicksGamesResponse = await $fetch("/api/games/top-picks");
-  // const topDealsGamesResponse = await $fetch("/api/games/featured");
 
   upcomingGames.value = multiqueryResponse.find(
     (res) => res.name === "upcoming",
@@ -37,8 +33,19 @@ try {
   topDealsGames.value = multiqueryResponse.find(
     (res) => res.name === "featured",
   ).result;
+};
+
+try {
+  await fetches();
 } catch (error) {
-  console.error("Failed to fetch games:", error);
+  if (error.statusCode === 401) {
+    try {
+      await $fetch("/api/token");
+      await fetches();
+    } catch (tokenError) {
+      console.error("Error saat mendapatkan token:", tokenError);
+    }
+  }
 }
 </script>
 
