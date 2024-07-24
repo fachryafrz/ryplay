@@ -1,5 +1,6 @@
 {
-  "name": "nuxt-app",
+  "name": "game-cove",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,11 +11,18 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/mdc": "^0.8.3",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "numeral": "^2.0.6",
     "nuxt": "^3.12.4",
+    "nuxt-swiper": "^1.2.2",
     "vue": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
+    "daisyui": "^4.12.10",
+    "dayjs-nuxt": "^2.1.9",
     "postcss": "^8.4.39",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
