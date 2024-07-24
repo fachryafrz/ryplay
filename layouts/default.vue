@@ -21,7 +21,7 @@ await $fetch("/api/token");
     </aside>
 
     <main
-      class="flex w-full flex-col gap-4 p-4 lg:max-w-[calc(100%-305px)] lg:gap-8"
+      class="flex w-full flex-col gap-4 p-4 lg:max-w-[calc(100%-305px)]"
     >
       <NuxtPage />
     </main>

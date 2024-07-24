@@ -11,10 +11,10 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
 </script>
 
 <template>
-  <div class="relative lg:-m-4 lg:h-[calc(100dvh-1rem)]">
+  <div class="relative flex flex-col gap-1">
     <!-- Big -->
     <div
-      class="relative before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 lg:before:block"
+      class="relative rounded-xl before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 lg:before:hidden"
     >
       <Swiper
         @swiper="setMainSwiper"
@@ -38,33 +38,35 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       >
         <!-- NOTE: Video -->
         <SwiperSlide v-for="video in game.videos">
-          <iframe
-            :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0&loop=1&playlist=${video.video_id}`"
-            frameborder="0"
-            allowfullscreen
-            class="aspect-video w-full lg:aspect-[4/2]"
-          ></iframe>
+          <figure class="aspect-video w-full overflow-hidden bg-base-100">
+            <iframe
+              :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0&loop=0&playlist=${video.video_id}`"
+              frameborder="0"
+              allowfullscreen
+              class="h-full w-full rounded-xl"
+            ></iframe>
+          </figure>
         </SwiperSlide>
 
         <SwiperSlide v-for="screenshot in game.screenshots">
           <figure
-            class="aspect-video overflow-hidden bg-base-100 lg:aspect-[4/2]"
+            class="aspect-video overflow-hidden bg-base-100"
           >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
               :alt="game.name"
-              class="object-contain"
+              class="rounded-xl object-contain"
             />
           </figure>
         </SwiperSlide>
         <SwiperSlide v-for="artwork in game.artworks">
           <figure
-            class="aspect-video overflow-hidden bg-base-100 lg:aspect-[4/2]"
+            class="aspect-video overflow-hidden bg-base-100"
           >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
               :alt="game.name"
-              class="object-contain"
+              class="rounded-xl object-contain"
             />
           </figure>
         </SwiperSlide>
@@ -72,9 +74,9 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
     </div>
 
     <!-- Pagination -->
-    <div class="relative z-10 px-4 lg:absolute lg:inset-x-0 lg:bottom-0">
+    <div class="relative z-10">
       <div
-        class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-2 [&_*]:pointer-events-auto"
+        class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-3 [&_*]:pointer-events-auto"
       >
         <button
           class="prev grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
@@ -92,16 +94,16 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         @swiper="setThumbSwiper"
         :modules="[SwiperThumbs]"
         :slides-per-view="2"
-        :space-between="16"
+        :space-between="8"
         :watch-slides-progress="true"
-        :free-mode="true"
-        class="!p-2"
+        :free-mode="false"
         :breakpoints="{
           640: { slidesPerView: 3 },
           768: { slidesPerView: 4 },
           1024: { slidesPerView: 5 },
           1280: { slidesPerView: 6 },
         }"
+        class="!px-1 !py-2 !-m-1"
       >
         <SwiperSlide v-for="(video, index) in game.videos">
           <figure

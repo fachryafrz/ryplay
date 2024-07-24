@@ -39,14 +39,17 @@ onMounted(() => {
   gameInfo.value = [
     {
       section: "Release Date",
+      icon: "calendar_month",
       text: dayjs.unix(game.value.first_release_date).format("MMMM D, YYYY"),
     },
     {
       section: "Developed by",
+      icon: "code",
       text: developers.value.map((dev) => dev.company.name).join(", "),
     },
     {
       section: "Published by",
+      icon: "domain",
       text: publishers.value.map((dev) => dev.company.name).join(", "),
     },
   ];
@@ -54,16 +57,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header :disable-search-bar="true" />
+  <Header />
 
   <div class="grid grid-cols-12 gap-4 lg:gap-4">
-    <div class="order-2 col-span-full mt-4 lg:order-1 lg:mt-0">
+    <div
+      class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 xl:col-[1/10]"
+    >
       <GameMedia :game="game" />
     </div>
 
-    <div
-      class="order-3 col-span-full lg:order-2 lg:col-span-7 lg:mt-[2rem] xl:col-span-8"
-    >
+    <div class="order-3 col-span-full lg:col-[1/9] lg:row-[2/3] xl:col-[1/10]">
       <GameInfo
         :game="game"
         :publishers="publishers"
@@ -72,7 +75,7 @@ onMounted(() => {
     </div>
 
     <div
-      class="order-1 col-span-full flex justify-center lg:order-3 lg:col-span-5 lg:mt-[2rem] lg:justify-end xl:col-span-4"
+      class="order-1 col-span-full flex justify-center lg:col-[9/13] lg:row-[1/3] xl:col-[10/13]"
     >
       <GamePoster
         :game="game"
@@ -86,7 +89,9 @@ onMounted(() => {
       <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
           <div>
-            <h2 class="text-2xl font-bold">{{ game.collection?.name }} Collection</h2>
+            <h2 class="text-2xl font-bold">
+              {{ game.collection?.name }} Collection
+            </h2>
             <p class="text-sm text-neutral-500">
               Discover games in the {{ game.collection?.name }} collection
             </p>

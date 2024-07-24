@@ -45,7 +45,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
           <div class="absolute inset-x-0 top-0 flex gap-2 p-4">
             <span
               v-for="genre in game.genres"
-              class="rounded-full bg-base-100 bg-opacity-[75%] px-3 py-1 text-sm backdrop-blur"
+              class="rounded-full bg-base-100 bg-opacity-[75%] px-4 py-1 text-sm backdrop-blur"
             >
               {{ genre.name }}
             </span>

@@ -8,39 +8,43 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
 </script>
 
 <template>
-  <div class="max-w-fit">
+  <div class="@container w-full">
     <!-- Container -->
     <div
-      class="top-4 flex flex-col gap-4 rounded-3xl bg-secondary p-4 lg:sticky"
+      class="@md:items-center @md:max-w-2xl @md:mx-auto @md:grid @md:grid-cols-2 sticky top-4 flex flex-col gap-4 rounded-xl bg-secondary p-4"
     >
-      <figure class="aspect-poster max-w-[300px]">
-        <img :src="gameCover" :alt="game.name" />
+      <figure class="aspect-poster">
+        <img :src="gameCover" :alt="game.name" class="rounded-md" />
       </figure>
 
-      <div>
-        <table
-          class="w-full max-w-[300px] text-sm lg:text-xs xl:text-sm [&_td]:py-1 [&_td]:align-top"
-        >
-          <tr v-for="info in gameInfo">
-            <td
-              v-if="info.text"
-              class="font-semibold text-neutral-500 xl:min-w-[150px]"
-            >
-              {{ info.section }}
-            </td>
-            <td v-if="info.text" class="text-end">{{ info.text }}</td>
-          </tr>
-        </table>
-      </div>
-    </div>
+      <div class="flex flex-col gap-4">
+        <h1 class="@md:text-start text-pretty text-center text-3xl font-bold">
+          {{ game.name }}
+        </h1>
 
-    <div class="mt-4 text-center lg:hidden xl:text-start">
-      <h1 class="mb-2 text-pretty text-3xl font-bold md:text-4xl xl:text-5xl">
-        {{ game.name }}
-      </h1>
-      <span>
-        {{ publishers.map((dev) => dev.company.name).join(", ") }}
-      </span>
+        <!-- Genres -->
+        <ul
+          class="@md:justify-start flex flex-wrap items-center justify-center gap-1"
+        >
+          <li v-for="genre in game.genres">
+            <span
+              class="block rounded-full bg-base-100 bg-opacity-[75%] px-4 py-2 text-sm backdrop-blur"
+            >
+              {{ genre.name }}
+            </span>
+          </li>
+        </ul>
+
+        <!-- Release date, devs, publishers -->
+        <ul class="flex flex-col gap-0">
+          <li v-for="info in gameInfo" class="flex items-center gap-2 text-sm">
+            <span class="material-symbols-outlined !text-lg">{{
+              info.icon
+            }}</span>
+            <span class="">{{ info.text }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

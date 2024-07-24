@@ -6,26 +6,35 @@ const { game, publishers, developers } = defineProps([
   "publishers",
   "developers",
 ]);
+
+const readMore = ref(false);
+
+const toggleReadMore = () => (readMore.value = !readMore.value);
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <section class="hidden text-center lg:block lg:text-start">
-      <h1 class="mb-2 text-pretty text-3xl font-bold md:text-4xl">
-        {{ game.name }}
-      </h1>
-      <span>
-        {{
-          publishers.map((dev) => dev.company.name).join(", ") ||
-          developers.map((dev) => dev.company.name).join(", ")
-        }}
-      </span>
-    </section>
+    <section>
+      <div
+        class="prose max-w-none text-neutral-400 last:[&_p]:mb-0"
+        :class="{
+          'line-clamp-5': !readMore,
+        }"
+      >
+        <MDC :value="game.storyline" v-if="game.storyline" />
 
-    <section class="prose max-w-none font-semibold text-neutral-500">
-      <MDC :value="game.storyline" class="[&_p]:mt-0" v-if="game.storyline" />
+        <MDC :value="game.summary" v-if="game.summary" />
+      </div>
 
-      <MDC :value="game.summary" class="[&_p]:mt-0" v-if="game.summary" />
+      <button
+        @click="toggleReadMore"
+        class="flex w-fit items-center gap-1 text-primary"
+      >
+        <span>{{ readMore ? "Read less" : "Read more" }}</span>
+        <span class="material-symbols-outlined">
+          {{ readMore ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+        </span>
+      </button>
     </section>
 
     <section>

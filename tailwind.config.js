@@ -54,6 +54,7 @@ export default {
   plugins: [
     require("daisyui"),
     require("@tailwindcss/typography"),
+    require("@tailwindcss/container-queries"),
     plugin(function ({ addVariant }) {
       addVariant("hocus", ["&:hover", "&:focus"]);
     }),
