@@ -18,6 +18,9 @@ export default {
       aspectRatio: {
         poster: "3/4",
       },
+      animation: {
+        "spin-slow": "spin 20s linear infinite",
+      },
     },
   },
   daisyui: {
@@ -50,7 +53,7 @@ export default {
   },
   plugins: [
     require("daisyui"),
-    require('@tailwindcss/typography'),
+    require("@tailwindcss/typography"),
     plugin(function ({ addVariant }) {
       addVariant("hocus", ["&:hover", "&:focus"]);
     }),

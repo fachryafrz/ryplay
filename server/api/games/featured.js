@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       Authorization: `Bearer ${access_token}`,
     },
     body: `
-        f *, screenshots.image_id, cover.image_id, artworks.image_id;
+        f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
         w cover != null & first_release_date >= ${firstDayOfMonth};
         s rating desc;
         l 4;

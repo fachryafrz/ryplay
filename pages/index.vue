@@ -1,5 +1,6 @@
 <script setup>
 import FeaturedGameCard from "~/components/Game/FeaturedGameCard.vue";
+import HomeSlider from "~/components/Game/HomeSlider.vue";
 
 const config = useRuntimeConfig();
 
@@ -12,13 +13,16 @@ useHead({
   ],
 });
 
+const featuredGames = ref([]);
 const topPicksGames = ref([]);
 const topDealsGames = ref([]);
 
 try {
+  const featuredGamesResponse = await $fetch("/api/games/featured");
   const topPicksGamesResponse = await $fetch("/api/games/top-picks");
   const topDealsGamesResponse = await $fetch("/api/games/featured");
-
+  
+  featuredGames.value = featuredGamesResponse;
   topPicksGames.value = topPicksGamesResponse;
   topDealsGames.value = topDealsGamesResponse;
 } catch (error) {
@@ -32,6 +36,10 @@ try {
   <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
 
   <section>
+    <HomeSlider :games="featuredGames.slice(0, 5)" />
+  </section>
+
+  <section>
     <div class="flex flex-col gap-2">
       <div>
         <h2 class="text-2xl font-bold">Featured Games</h2>
@@ -39,7 +47,7 @@ try {
 
       <!-- Featured Games -->
       <div class="grid grid-cols-2 gap-4 overflow-x-auto lg:flex">
-        <FeaturedGameCard />
+        <FeaturedGameCard :games="featuredGames" />
       </div>
     </div>
   </section>

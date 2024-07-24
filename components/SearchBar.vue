@@ -37,7 +37,6 @@ watch(
           placeholder="Find games..."
         />
       </label>
-      <button type="submit" class="btn">Search</button>
     </form>
   </div>
 </template>

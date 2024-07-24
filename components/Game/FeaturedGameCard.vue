@@ -1,20 +1,13 @@
 <script setup>
-const featuredGames = ref([]);
+const { games } = defineProps(["games"]);
+
 const hoveredIndex = ref(null);
 const lastHoveredIndex = ref(0);
-
-try {
-  const response = await $fetch("/api/games/featured");
-
-  featuredGames.value = response;
-} catch (error) {
-  console.error("Failed to fetch games:", error);
-}
 </script>
 
 <template>
   <NuxtLink
-    v-for="(game, index) in featuredGames"
+    v-for="(game, index) in games"
     :key="game.slug"
     :to="`/games/${game.slug}`"
   >
