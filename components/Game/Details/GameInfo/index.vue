@@ -10,31 +10,31 @@ const { game, publishers, developers } = defineProps([
 const readMore = ref(false);
 const storyline = ref(game.storyline || "");
 const summary = ref(game.summary || "");
-const combinedText = computed(() => {
-  return `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""}${summary.value}`;
-});
-const words = computed(() => combinedText.value.split(""));
-const wordCount = computed(() => words.value.length);
+const combinedText = ref();
+const words = ref();
+const wordCount = ref();
 const maxLength = 300;
 
 const toggleReadMore = () => (readMore.value = !readMore.value);
+
+onMounted(() => {
+  combinedText.value = computed(() => {
+    return `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""}${summary.value}`;
+  });
+  words.value = computed(() => combinedText.value.split(""));
+  wordCount.value = computed(() => words.value.length);
+});
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
     <section>
       <div class="prose max-w-none text-neutral-400 last:[&_p]:mb-0">
-        <MDC
-          :value="
-            readMore || wordCount < maxLength
-              ? combinedText
-              : `${words.slice(0, maxLength).join('')}...`
-          "
-          v-if="combinedText"
-        />
+        <MDC v-if="combinedText" :value="game.storyline" />
+        <MDC v-if="combinedText" :value="game.summary" />
       </div>
 
-      <button
+      <!-- <button
         @click="toggleReadMore"
         v-if="wordCount > maxLength"
         class="flex w-fit items-center gap-1 text-primary"
@@ -43,7 +43,7 @@ const toggleReadMore = () => (readMore.value = !readMore.value);
         <span class="material-symbols-outlined">
           {{ readMore ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
         </span>
-      </button>
+      </button> -->
     </section>
 
     <section>
