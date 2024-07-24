@@ -13,15 +13,18 @@ useHead({
   ],
 });
 
+const upcomingGames = ref([]);
 const featuredGames = ref([]);
 const topPicksGames = ref([]);
 const topDealsGames = ref([]);
 
 try {
+  const upcomingGamesResponse = await $fetch("/api/games/upcoming");
   const featuredGamesResponse = await $fetch("/api/games/featured");
   const topPicksGamesResponse = await $fetch("/api/games/top-picks");
   const topDealsGamesResponse = await $fetch("/api/games/featured");
   
+  upcomingGames.value = upcomingGamesResponse
   featuredGames.value = featuredGamesResponse;
   topPicksGames.value = topPicksGamesResponse;
   topDealsGames.value = topDealsGamesResponse;
@@ -36,7 +39,7 @@ try {
   <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
 
   <section>
-    <HomeSlider :games="featuredGames.slice(0, 5)" />
+    <HomeSlider :games="upcomingGames" />
   </section>
 
   <section>

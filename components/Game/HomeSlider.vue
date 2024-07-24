@@ -113,22 +113,25 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         <SwiperSlide v-for="game in games" class="relative">
           <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-8">
             <h2
-              class="text-pretty line-clamp-2 text-start text-lg font-semibold lg:text-2xl"
+              class="line-clamp-2 text-pretty text-start text-lg font-semibold lg:text-2xl"
             >
               {{ game.name }}
             </h2>
-            <p class="line-clamp-3 sm:line-clamp-5 text-pretty text-xs text-neutral-400">
+            <p
+              class="line-clamp-3 text-pretty text-sm text-neutral-400 sm:line-clamp-5"
+            >
               {{ game.storyline || game.summary }}
             </p>
 
-            <div class="mt-auto flex flex-row gap-2 justify-between items-end">
+            <div class="mt-auto flex flex-row items-end justify-between gap-2">
               <NuxtLink
                 :to="`/games/${game.slug}`"
-                class="btn btn-primary w-full max-w-32"
-                >Details</NuxtLink
+                class="btn !btn-primary w-full max-w-32"
               >
+                Details
+              </NuxtLink>
 
-              <span
+              <!-- <span
                 class="flex flex-wrap items-center justify-center gap-2 md:justify-end"
               >
                 <img
@@ -136,12 +139,12 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
                   alt="Windows"
                   class="w-4 object-contain brightness-0 invert"
                 />
-              </span>
+              </span> -->
             </div>
           </div>
 
           <figure
-            class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[50%]"
+            class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[75%]"
           >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.artworks[0].image_id}.jpg`"

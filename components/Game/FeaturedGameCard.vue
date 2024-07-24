@@ -10,6 +10,7 @@ const lastHoveredIndex = ref(0);
     v-for="(game, index) in games"
     :key="game.slug"
     :to="`/games/${game.slug}`"
+    class="rounded-xl"
   >
     <figure
       :class="[
@@ -30,7 +31,7 @@ const lastHoveredIndex = ref(0);
       />
       <div
         id="game-screenshot"
-        class="absolute inset-0 opacity-0 transition-opacity duration-700 before:absolute before:inset-0 before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-35% before:opacity-80"
+        class="absolute inset-0 opacity-0 transition-opacity duration-700 before:absolute before:inset-0 before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-35% before:opacity-90"
       >
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"

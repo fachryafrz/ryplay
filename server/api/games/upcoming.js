@@ -16,9 +16,9 @@ export default defineEventHandler(async (event) => {
     },
     body: `
         f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
-        w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20;
+        w cover != null & first_release_date >= ${today} & hypes >= 30;
         s first_release_date asc;
-        l 4;
+        l 5;
       `,
   });
 

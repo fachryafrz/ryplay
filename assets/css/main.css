@@ -19,7 +19,7 @@ img {
 }
 
 .featured-games {
-  @apply relative overflow-hidden rounded-xl transition-all duration-700 lg:h-[280px] lg:w-[210px];
+  @apply relative overflow-hidden transition-all duration-700 lg:h-[280px] lg:w-[210px];
 }
 
 .featured-games.active {
