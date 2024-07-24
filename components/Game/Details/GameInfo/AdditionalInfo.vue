@@ -24,7 +24,7 @@ const { game } = defineProps(["game"]);
     </div>
 
     <!-- Available in -->
-    <div v-if="game.external_games.length > 0">
+    <div v-if="game.external_games?.length > 0">
       <h2 class="heading-2">Available in</h2>
 
       <GameStores :game="game" />

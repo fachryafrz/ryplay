@@ -30,7 +30,7 @@ const filteredExternalGames = game.external_games.filter((externalGame) =>
         <img
           :src="`/store_icons/${findStoreById(externalGame.category).image_id}.png`"
           :alt="findStoreById(externalGame.category).store"
-          class="aspect-square w-[50px] object-contain"
+          class="aspect-square w-[40px] object-contain"
         />
       </NuxtLink>
     </li>
