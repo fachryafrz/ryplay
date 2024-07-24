@@ -13,7 +13,7 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
     <div
       class="@md:items-center @md:max-w-2xl @md:mx-auto @md:grid @md:grid-cols-2 sticky top-4 flex flex-col gap-4 rounded-xl bg-secondary p-4"
     >
-      <figure class="aspect-poster">
+      <figure class="">
         <img :src="gameCover" :alt="game.name" class="rounded-md" />
       </figure>
 

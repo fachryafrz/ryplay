@@ -126,7 +126,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             <div class="mt-auto flex flex-row items-end justify-between gap-2">
               <NuxtLink
                 :to="`/games/${game.slug}`"
-                class="btn !btn-primary w-full max-w-32"
+                class="btn !btn-primary w-full xl:max-w-32"
               >
                 Details
               </NuxtLink>
