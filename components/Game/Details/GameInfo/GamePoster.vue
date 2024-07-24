@@ -38,10 +38,10 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
         <!-- Release date, devs, publishers -->
         <ul class="flex flex-col gap-0">
           <li v-for="info in gameInfo" class="flex items-center gap-2 text-sm">
-            <span class="material-symbols-outlined !text-lg">{{
+            <span v-if="info.text" class="material-symbols-outlined !text-lg">{{
               info.icon
             }}</span>
-            <span class="">{{ info.text }}</span>
+            <span v-if="info.text" class="">{{ info.text }}</span>
           </li>
         </ul>
       </div>

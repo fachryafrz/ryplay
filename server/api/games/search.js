@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   // Membuat bagian where clause
   let whereClause = "cover != null";
 
-  if (query) whereClause += ` & name ~ *"${query}"*`;
+  // if (query) whereClause += ` & name ~ *"${query}"*`;
   if (rating) whereClause += ` & total_rating >= ${parseFloat(rating)}`;
   if (genre) whereClause += ` & genres.slug = "${genre}"`;
   if (platform) whereClause += ` & platforms.slug = "${platform}"`;
@@ -32,8 +32,8 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         f name, slug, cover.image_id, first_release_date, total_rating, genres.name, platforms.name;
+        search "${query}";
         w ${whereClause};
-        s total_rating_count desc;
         l 20;
       `,
     });
