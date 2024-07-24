@@ -10,7 +10,7 @@ const lastHoveredIndex = ref(0);
     v-for="(game, index) in games"
     :key="game.slug"
     :to="`/games/${game.slug}`"
-    class="rounded-xl"
+    class="rounded-xl overflow-hidden"
   >
     <figure
       :class="[
