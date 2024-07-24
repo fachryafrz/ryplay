@@ -13,7 +13,7 @@ const developers = ref([]);
 const publishers = ref([]);
 const gameInfo = ref([]);
 
-try {
+const fetchGameDetails = async () => {
   const response = await $fetch("/api/games/details", {
     params: {
       slug: slug,
@@ -22,8 +22,19 @@ try {
 
   const data = response[0];
   game.value = data;
+};
+
+try {
+  await fetchGameDetails();
 } catch (error) {
-  console.error("Failed to fetch games:", error);
+  if (error.statusCode === 401) {
+    try {
+      await $fetch("/api/token");
+      await fetchGameDetails();
+    } catch (tokenError) {
+      console.error("Error saat mendapatkan token:", tokenError);
+    }
+  }
 }
 
 onMounted(() => {
