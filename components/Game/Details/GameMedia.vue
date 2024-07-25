@@ -78,12 +78,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-3 [&_*]:pointer-events-auto"
       >
         <button
-          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
+          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
         >
           <span class="material-symbols-outlined"> arrow_left </span>
         </button>
         <button
-          class="next grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
+          class="next grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
         >
           <span class="material-symbols-outlined"> arrow_right </span>
         </button>
@@ -150,7 +150,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
                   <g id="play_x5F_alt">
                     <path
                       d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M10,24V8l16.008,8L10,24z"
-                      style="fill: #98ee2f"
+                      style="fill: #ffffff"
                     />
                   </g>
                 </svg>

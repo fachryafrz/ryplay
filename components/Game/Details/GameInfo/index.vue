@@ -34,9 +34,7 @@ onMounted(() => {
 
     <!-- About -->
     <section>
-      <div class="mb-2">
-        <h2 class="heading-2">About</h2>
-      </div>
+      <h2 class="heading-2 sr-only">About</h2>
 
       <div class="prose max-w-none text-neutral-400 last:[&_p]:mb-0">
         <MDC
