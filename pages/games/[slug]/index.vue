@@ -16,33 +16,20 @@ const publishers = ref([]);
 const gameInfo = ref([]);
 
 const fetchGameDetails = async () => {
-  const response = await $fetch("/api/games/details", {
-    params: {
-      slug: slug,
-    },
+  const { data: response, error } = await useFetch("/api/games/details", {
+    params: { slug },
   });
 
-  const data = response[0];
-  game.value = data;
-};
-
-try {
-  await fetchGameDetails();
-} catch (error) {
-  if (error.statusCode === 401) {
-    try {
-      await $fetch("/api/token");
-      await fetchGameDetails();
-    } catch (tokenError) {
-      console.error("Error saat mendapatkan token:", tokenError);
-    }
+  if (error.value) {
+    throw error.value;
   }
-}
 
-onMounted(() => {
-  gameCover.value = `https://images.igdb.com/igdb/image/upload/t_720p/${game.value.cover?.image_id}.jpg`;
+  const data = response.value[0];
+  game.value = data;
 
-  const uniqueCompanies = game.value.involved_companies?.filter(
+  gameCover.value = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover.image_id}.jpg`;
+
+  const uniqueCompanies = data.involved_companies?.filter(
     (company, index, self) =>
       index === self.findIndex((t) => t.company.id === company.company.id),
   );
@@ -53,7 +40,7 @@ onMounted(() => {
     {
       section: "Release Date",
       icon: "calendar_month",
-      text: dayjs.unix(game.value.first_release_date).format("MMMM D, YYYY"),
+      text: dayjs.unix(data.first_release_date).format("MMMM D, YYYY"),
     },
     {
       section: "Developed by",
@@ -66,28 +53,43 @@ onMounted(() => {
       text: publishers.value?.map((dev) => dev.company.name).join(", "),
     },
   ];
-});
 
-useHead({
-  title: game.value.name,
-  meta: [
-    { name: "description", content: game.value.summary },
-    { property: "og:title", content: game.value.name },
-    { property: "og:description", content: game.value.summary },
-    { property: "og:image", content: gameCover.value },
-    { property: "og:url", content: `${config.public.APP_URL}/games/${slug}` },
-    { property: "og:site_name", content: config.public.APP_NAME },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:creator", content: "@fachryafrz" },
-    { name: "twitter:description", content: game.value.summary },
-    { name: "twitter:image", content: gameCover.value },
-    {
-      name: "twitter:title",
-      content: `${game.value.name} at ${config.public.APP_NAME}`,
-    },
-  ],
-});
+  return data;
+};
+
+try {
+  const data = await fetchGameDetails();
+
+  useHead({
+    title: `${data.name}`,
+    meta: [
+      { name: "description", content: `${data.summary}` },
+      { property: "og:title", content: `${data.name}` },
+      { property: "og:description", content: `${data.summary}` },
+      { property: "og:image", content: `${gameCover.value}` },
+      { property: "og:url", content: `${config.public.APP_URL}/games/${slug}` },
+      { property: "og:site_name", content: `${config.public.APP_NAME}` },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:creator", content: "@fachryafrz" },
+      { name: "twitter:description", content: `${data.summary}` },
+      { name: "twitter:image", content: `${gameCover.value}` },
+      {
+        name: "twitter:title",
+        content: `${data.name} at ${config.public.APP_NAME}`,
+      },
+    ],
+  });
+} catch (error) {
+  if (error.statusCode === 401) {
+    try {
+      await useFetch("/api/token");
+      await fetchGameDetails();
+    } catch (tokenError) {
+      console.error("Error saat mendapatkan token:", tokenError);
+    }
+  }
+}
 </script>
 
 <template>

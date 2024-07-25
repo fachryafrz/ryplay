@@ -1,4 +1,6 @@
 <script setup>
+import { useFetch } from "#imports";
+
 const config = useRuntimeConfig();
 
 useHead({
@@ -15,7 +17,13 @@ useHead({
   ],
 });
 
-await $fetch("/api/token");
+const { data, error } = await useFetch("/api/token", {
+  server: false,
+});
+
+if (error.value) {
+  console.error("Error fetching token:", error.value);
+}
 </script>
 
 <template>
