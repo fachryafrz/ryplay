@@ -68,20 +68,25 @@ onMounted(() => {
   ];
 });
 
-useSeoMeta({
-  title: () => game.value.name,
-  description: () => game.value.summary,
-  ogTitle: () => game.value.name,
-  ogDescription: () => game.value.summary,
-  ogImage:() =>  gameCover.value,
-  ogUrl: `${config.public.APP_URL}/games/${slug}`,
-  ogSiteName: config.public.APP_NAME,
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterCreator: "@fachryafrz",
-  twitterDescription: () => game.value.summary,
-  twitterImage: () => gameCover.value,
-  twitterTitle: `${game.value.name} at ${config.public.APP_NAME}`,
+useHead({
+  title: game.value.name,
+  meta: [
+    { name: "description", content: game.value.summary },
+    { property: "og:title", content: game.value.name },
+    { property: "og:description", content: game.value.summary },
+    { property: "og:image", content: gameCover.value },
+    { property: "og:url", content: `${config.public.APP_URL}/games/${slug}` },
+    { property: "og:site_name", content: config.public.APP_NAME },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:creator", content: "@fachryafrz" },
+    { name: "twitter:description", content: game.value.summary },
+    { name: "twitter:image", content: gameCover.value },
+    {
+      name: "twitter:title",
+      content: `${game.value.name} at ${config.public.APP_NAME}`,
+    },
+  ],
 });
 </script>
 
