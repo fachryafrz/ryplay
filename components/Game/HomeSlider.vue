@@ -43,7 +43,10 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             />
           </figure>
           <div class="absolute inset-x-0 top-0 flex flex-wrap gap-2 p-4">
-            <span v-for="genre in game.genres" class="btn btn-sm bg-opacity-75 backdrop-blur border-none">
+            <span
+              v-for="genre in game.genres"
+              class="btn btn-sm border-none bg-opacity-75 backdrop-blur"
+            >
               {{ genre.name }}
             </span>
           </div>
@@ -95,7 +98,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
       </Swiper>
     </div>
     <div
-      class="col-[2/3] row-[2/4] overflow-hidden md:order-2 md:col-[5/7] md:row-[1/4] md:aspect-auto"
+      class="col-span-full overflow-hidden sm:col-[2/3] sm:row-[2/4] md:order-2 md:col-[5/7] md:row-[1/4] md:aspect-auto"
     >
       <Swiper
         @swiper="setSecondSwiper"
@@ -108,7 +111,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         class="h-full"
       >
         <SwiperSlide v-for="game in games" class="relative">
-          <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-8">
+          <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-6">
             <h2
               class="line-clamp-2 text-pretty text-start text-lg font-semibold lg:text-2xl"
             >

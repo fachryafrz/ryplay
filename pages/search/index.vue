@@ -24,7 +24,7 @@ const fetchGames = async () => {
 };
 
 // Memanggil fetchGames saat halaman dimuat pertama kali
-onMounted(fetchGames);
+await fetchGames();
 
 // Memanggil fetchGames setiap kali route.query berubah
 watch(() => route.query, fetchGames, { deep: true });
@@ -32,7 +32,7 @@ watch(() => route.query, fetchGames, { deep: true });
 
 <template>
   <div>
-    <h1>Search</h1>
+    <h1 class="sr-only">Search</h1>
 
     <!-- List of Games -->
     <div

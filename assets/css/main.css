@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+  @apply outline;
+} */
+
 *:focus {
   @apply outline-none;
 }
@@ -10,52 +14,40 @@ img {
   @apply h-full w-full object-cover italic;
 }
 
-/* .router-link-active {
-  @apply bg-secondary;
-} */
-
 .swiper-button-disabled {
   @apply invisible;
-}
-
-.featured-games {
-  @apply relative overflow-hidden transition-all duration-700 lg:h-[280px] lg:w-[210px];
-}
-
-.featured-games.active {
-  @apply lg:w-[500px];
-}
-
-.featured-games #game-cover {
-  @apply transition-all;
-}
-
-.featured-games #game-screenshot {
-  @apply transition-opacity duration-700;
-}
-
-.featured-games.active #game-cover {
-  @apply lg:opacity-0;
-}
-
-.featured-games.active #game-screenshot {
-  @apply lg:opacity-100;
 }
 
 body {
   @apply font-inter;
 }
 
-.fill {
-  font-variation-settings:
-    "FILL" 1,
-    "wght" 400,
-    "GRAD" 0,
-    "opsz" 24;
-}
-
 @layer components {
   .heading-2 {
     @apply mb-2 text-xl font-medium;
+  }
+
+  .featured-games {
+    @apply relative overflow-hidden transition-all duration-700 lg:h-[280px] lg:w-[210px];
+  }
+
+  .featured-games.active {
+    @apply lg:w-[500px];
+  }
+
+  .featured-games #game-cover {
+    @apply transition-all;
+  }
+
+  .featured-games #game-screenshot {
+    @apply transition-opacity duration-700;
+  }
+
+  .featured-games.active #game-cover {
+    @apply lg:opacity-0;
+  }
+
+  .featured-games.active #game-screenshot {
+    @apply lg:opacity-100;
   }
 }

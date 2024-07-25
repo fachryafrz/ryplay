@@ -11,7 +11,7 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
   <div class="w-full @container">
     <!-- Container -->
     <div
-      class="sticky top-4 flex flex-col gap-4 rounded-xl border-2 border-secondary bg-neutral p-4 @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
+      class="sticky top-[calc(5rem+0.5rem)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
     >
       <figure class="">
         <img :src="gameCover" :alt="game.name" class="rounded-md" />
@@ -34,12 +34,15 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
         </ul>
 
         <!-- Release date, devs, publishers -->
-        <ul class="flex flex-col gap-0">
-          <li v-for="info in gameInfo" class="flex items-center gap-2 text-sm">
-            <span v-if="info.text" class="material-symbols-outlined !text-lg">{{
-              info.icon
+        <ul class="flex flex-col gap-4">
+          <li
+            v-for="info in gameInfo"
+            class="flex flex-col items-start text-sm"
+          >
+            <span v-if="info.text" class="font-medium text-neutral-500">{{
+              info.section
             }}</span>
-            <span v-if="info.text" class="">{{ info.text }}</span>
+            <span v-if="info.text" class="font-semibold">{{ info.text }}</span>
           </li>
         </ul>
       </div>

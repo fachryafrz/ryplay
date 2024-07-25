@@ -1,4 +1,6 @@
 <script setup>
+import SearchBar from "./SearchBar.vue";
+
 const isActive = ref(false);
 const route = useRoute();
 
@@ -8,8 +10,8 @@ const handleActive = () => {
 
 const navigation = [
   { name: "Home", link: "/", icon: "home" },
+  { name: "Discover Games", link: "/search", icon: "explore" },
   { name: "My Games", link: "/my-games", icon: "sports_esports" },
-  { name: "Discover Games", link: "/discover", icon: "explore" },
   { name: "Cart", link: "/cart", icon: "shopping_cart" },
   { name: "Community", link: "/community", icon: "groups" },
   { name: "Settings", link: "/settings", icon: "settings" },
@@ -19,7 +21,7 @@ const config = useRuntimeConfig();
 </script>
 
 <template>
-  <div class="drawer lg:drawer-open">
+  <div class="drawer xl:drawer-open">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
 
     <div
@@ -29,7 +31,7 @@ const config = useRuntimeConfig();
       <!-- Page content here -->
       <label
         for="my-drawer-2"
-        class="btn btn-primary drawer-button aspect-square p-0 lg:hidden"
+        class="btn btn-primary drawer-button aspect-square p-0 xl:hidden"
         @click="handleActive"
       >
         <span class="material-symbols-outlined"> menu </span>
@@ -44,10 +46,10 @@ const config = useRuntimeConfig();
         @click="handleActive"
       ></label>
       <div
-        class="menu min-h-full w-[300px] gap-4 bg-neutral p-4 text-base-content"
+        class="menu min-h-full w-[300px] gap-4 bg-neutral bg-opacity-95 p-4 text-base-content backdrop-blur"
       >
         <div
-          class="flex items-center justify-start lg:h-[75px] lg:justify-center"
+          class="flex items-center justify-start xl:h-[75px] xl:justify-center"
         >
           <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent">
             <svg
@@ -77,6 +79,10 @@ const config = useRuntimeConfig();
               {{ config.public.APP_NAME }}
             </span>
           </NuxtLink>
+        </div>
+
+        <div class="mt-4 xl:hidden">
+          <SearchBar />
         </div>
 
         <ul>
