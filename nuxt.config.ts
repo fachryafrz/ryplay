@@ -17,6 +17,7 @@ export default defineNuxtConfig({
       APP_NAME: process.env.APP_NAME,
       APP_NAME_SPACED: process.env.APP_NAME_SPACED,
       APP_URL: process.env.APP_URL,
+      APP_DESCRIPTION: process.env.APP_DESCRIPTION,
     },
   },
   app: {

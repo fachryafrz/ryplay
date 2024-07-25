@@ -29,7 +29,7 @@ await fetchGames();
 // Memanggil fetchGames setiap kali route.query berubah
 watch(() => route.query, fetchGames, { deep: true });
 
-useSeoMeta({
+useServerSeoMeta({
   title: "Search",
   description: "Search for your favorite games",
 });

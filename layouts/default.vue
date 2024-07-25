@@ -1,12 +1,13 @@
 <script setup>
 const config = useRuntimeConfig();
 
-useHead({
+useServerSeoMeta({
   titleTemplate: (title) => {
     return title
       ? `${title} at ${config.public.APP_NAME}`
       : config.public.APP_NAME;
   },
+  description: config.public.APP_DESCRIPTION,
 });
 
 await $fetch("/api/token");

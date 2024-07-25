@@ -68,7 +68,7 @@ onMounted(() => {
   ];
 });
 
-useSeoMeta({
+useServerSeoMeta({
   title: game.value.name,
   description: game.value.summary,
   ogTitle: game.value.name,

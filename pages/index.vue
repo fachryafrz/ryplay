@@ -4,15 +4,6 @@ import HomeSlider from "~/components/Game/HomeSlider.vue";
 
 const config = useRuntimeConfig();
 
-useHead({
-  meta: [
-    {
-      name: "description",
-      content: "GameCove is a platform for discovering new games.",
-    },
-  ],
-});
-
 const upcomingGames = ref([]);
 const popularGames = ref([]);
 const featuredGames = ref([]);
