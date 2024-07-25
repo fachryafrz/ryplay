@@ -40,13 +40,13 @@ try {
 onMounted(() => {
   gameCover.value = `https://images.igdb.com/igdb/image/upload/t_720p/${game.value.cover?.image_id}.jpg`;
 
-  const uniqueCompanies = game.value.involved_companies.filter(
+  const uniqueCompanies = game.value.involved_companies?.filter(
     (company, index, self) =>
       index === self.findIndex((t) => t.company.id === company.company.id),
   );
 
-  developers.value = uniqueCompanies.filter((company) => company.developer);
-  publishers.value = uniqueCompanies.filter((company) => company.publisher);
+  developers.value = uniqueCompanies?.filter((company) => company.developer);
+  publishers.value = uniqueCompanies?.filter((company) => company.publisher);
   gameInfo.value = [
     {
       section: "Release Date",
@@ -56,19 +56,19 @@ onMounted(() => {
     {
       section: "Developed by",
       icon: "code",
-      text: developers.value.map((dev) => dev.company.name).join(", "),
+      text: developers.value?.map((dev) => dev.company.name).join(", "),
     },
     {
       section: "Published by",
       icon: "domain",
-      text: publishers.value.map((dev) => dev.company.name).join(", "),
+      text: publishers.value?.map((dev) => dev.company.name).join(", "),
     },
   ];
 });
 </script>
 
 <template>
-  <div class="mt-1 grid grid-cols-12 gap-4 2xl:gap-8">
+  <div class="mt-1 grid grid-cols-12 gap-4">
     <div
       class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 xl:col-[1/10]"
     >
@@ -146,7 +146,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="order-4 col-span-full">
+    <div v-if="game.similar_games?.length > 0" class="order-4 col-span-full">
       <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
           <div>

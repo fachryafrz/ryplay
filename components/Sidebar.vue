@@ -10,8 +10,8 @@ const handleActive = () => {
 
 const navigation = [
   { name: "Home", link: "/", icon: "home" },
+  { name: "Discover Games", link: "/search", icon: "explore" },
   { name: "My Games", link: "/my-games", icon: "sports_esports" },
-  { name: "Discover Games", link: "/discover", icon: "explore" },
   { name: "Cart", link: "/cart", icon: "shopping_cart" },
   { name: "Community", link: "/community", icon: "groups" },
   { name: "Settings", link: "/settings", icon: "settings" },
@@ -46,7 +46,7 @@ const config = useRuntimeConfig();
         @click="handleActive"
       ></label>
       <div
-        class="menu min-h-full w-[300px] gap-4 bg-neutral p-4 text-base-content"
+        class="menu min-h-full w-[300px] gap-4 bg-neutral bg-opacity-95 p-4 text-base-content backdrop-blur"
       >
         <div
           class="flex items-center justify-start xl:h-[75px] xl:justify-center"

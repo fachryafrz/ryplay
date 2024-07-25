@@ -49,9 +49,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         </SwiperSlide>
 
         <SwiperSlide v-for="screenshot in game.screenshots">
-          <figure
-            class="aspect-video overflow-hidden bg-base-100"
-          >
+          <figure class="aspect-video overflow-hidden bg-base-100">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
               :alt="game.name"
@@ -60,9 +58,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           </figure>
         </SwiperSlide>
         <SwiperSlide v-for="artwork in game.artworks">
-          <figure
-            class="aspect-video overflow-hidden bg-base-100"
-          >
+          <figure class="aspect-video overflow-hidden bg-base-100">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
               :alt="game.name"
@@ -74,7 +70,10 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
     </div>
 
     <!-- Pagination -->
-    <div class="relative z-10">
+    <div
+      v-if="game.videos || game.screenshots || game.artworks"
+      class="relative z-10"
+    >
       <div
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-3 [&_*]:pointer-events-auto"
       >
@@ -103,9 +102,9 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           1024: { slidesPerView: 5 },
           1280: { slidesPerView: 6 },
         }"
-        class="!px-1 !py-2 !-m-1"
+        class="!-m-1 !px-1 !py-2"
       >
-        <SwiperSlide v-for="(video, index) in game.videos">
+        <SwiperSlide v-if="game.videos?.length > 0" v-for="(video, index) in game.videos">
           <figure
             class="relative aspect-video overflow-hidden rounded-xl"
             :class="
@@ -138,7 +137,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
                   <g id="Layer_1" />
                   <g id="play_x5F_alt">
                     <path
-                      d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M10,24V8l16.008,8L10,24z   "
+                      d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M10,24V8l16.008,8L10,24z"
                       style="fill: #ffffff"
                     />
                   </g>
@@ -147,11 +146,11 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             </div>
           </figure>
         </SwiperSlide>
-        <SwiperSlide v-for="(screenshot, index) in game.screenshots">
+        <SwiperSlide v-if="game.screenshots?.length > 0" v-for="(screenshot, index) in game.screenshots">
           <figure
             class="aspect-video overflow-hidden rounded-xl"
             :class="
-              activeSlide === index + game.videos.length
+              activeSlide === index + (game.videos?.length ?? 0)
                 ? 'outline-3 border-4 border-base-100 outline outline-primary'
                 : ''
             "
@@ -162,12 +161,14 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             />
           </figure>
         </SwiperSlide>
-        <SwiperSlide v-for="(artwork, index) in game.artworks">
+        <SwiperSlide v-if="game.artworks?.length > 0" v-for="(artwork, index) in game.artworks">
           <figure
             class="aspect-video overflow-hidden rounded-xl"
             :class="
               activeSlide ===
-              index + game.videos.length + game.screenshots.length
+              index +
+                (game.videos?.length ?? 0) +
+                (game.screenshots?.length ?? 0)
                 ? 'outline-3 border-4 border-base-100 outline outline-primary'
                 : ''
             "

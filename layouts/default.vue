@@ -22,7 +22,9 @@ await $fetch("/api/token");
       <Sidebar />
     </aside>
 
-    <main class="flex w-full flex-col gap-4 p-4 xl:max-w-[calc(100%-300px)]">
+    <main
+      class="flex min-h-screen w-full flex-col gap-4 p-4 xl:max-w-[calc(100%-300px)]"
+    >
       <Header />
 
       <NuxtPage />

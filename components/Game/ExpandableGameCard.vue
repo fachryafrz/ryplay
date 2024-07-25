@@ -11,17 +11,22 @@ const lastHoveredIndex = ref(0);
     :key="game.slug"
     :to="`/games/${game.slug}`"
     class="min-w-fit overflow-hidden rounded-xl"
+    @mouseover="
+      hoveredIndex = index;
+      lastHoveredIndex = index;
+    "
+    @mouseleave="hoveredIndex = null"
+    @focus="
+      hoveredIndex = index;
+      lastHoveredIndex = index;
+    "
+    @blur="hoveredIndex = null"
   >
     <figure
       :class="[
         'featured-games',
         { active: hoveredIndex === index || lastHoveredIndex === index },
       ]"
-      @mouseover="
-        hoveredIndex = index;
-        lastHoveredIndex = index;
-      "
-      @mouseleave="hoveredIndex = null"
     >
       <img
         :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
@@ -31,7 +36,7 @@ const lastHoveredIndex = ref(0);
       />
       <div
         id="game-screenshot"
-        class="absolute inset-0 opacity-0 transition-opacity duration-700 before:absolute before:inset-0 before:bg-gradient-to-t before:from-base-100 before:via-base-100 before:via-35% before:opacity-90"
+        class="absolute inset-0 opacity-0 transition-opacity duration-700"
       >
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
@@ -40,15 +45,15 @@ const lastHoveredIndex = ref(0);
         />
 
         <div
-          class="absolute inset-0 z-10 flex flex-col justify-end gap-1 text-pretty p-4 px-6 lg:max-w-[75%]"
+          class="absolute inset-0 z-10 flex flex-col justify-end gap-1 text-pretty p-2 px-6 before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-t before:from-base-100"
         >
           <h3
-            class="text-pretty text-center text-sm font-semibold lg:text-start lg:text-xl"
+            class="line-clamp-1 text-pretty text-center text-sm font-semibold lg:text-start lg:text-xl"
           >
             {{ game.name }}
           </h3>
           <p
-            class="hidden text-pretty text-xs font-medium text-neutral-500 lg:line-clamp-3"
+            class="line-clamp-2 text-pretty text-sm text-neutral-300 xl:max-w-[80%]"
           >
             {{ game.storyline || game.summary }}
           </p>
