@@ -11,7 +11,7 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
   <div class="w-full @container">
     <!-- Container -->
     <div
-      class="sticky top-[calc(5rem+0.5rem)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
+      class="sticky top-[calc(5rem+0.25rem)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
     >
       <figure class="">
         <img :src="gameCover" :alt="game.name" class="rounded-md" />
@@ -23,18 +23,18 @@ const { game, gameCover, gameInfo, publishers } = defineProps([
         </h1>
 
         <!-- Genres -->
-        <ul
+        <!-- <ul
           class="flex flex-wrap items-center justify-center gap-1 @md:justify-start"
         >
           <li v-for="genre in game.genres">
-            <span class="btn btn-secondary btn-sm">
+            <span class="btn btn-secondary btn-xs">
               {{ genre.name }}
             </span>
           </li>
-        </ul>
+        </ul> -->
 
         <!-- Release date, devs, publishers -->
-        <ul class="flex flex-col gap-4">
+        <ul class="flex flex-wrap gap-4">
           <li
             v-for="info in gameInfo"
             class="flex flex-col items-start text-sm"

@@ -12,7 +12,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
 
 <template>
   <div
-    class="grid grid-cols-2 gap-4 md:grid-cols-6 lg:grid-rows-4 [&_>_*]:rounded-xl"
+    class="grid grid-cols-2 gap-2 md:grid-cols-6 lg:grid-rows-4 md:gap-4 [&_>_*]:rounded-xl"
   >
     <div
       class="col-span-full aspect-video overflow-hidden md:col-span-4 md:aspect-auto lg:row-span-full"
