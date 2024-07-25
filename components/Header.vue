@@ -6,7 +6,10 @@ const config = useRuntimeConfig();
   <header
     class="sticky top-0 z-[9999] -m-4 flex flex-col gap-4 bg-base-100 bg-opacity-90 p-4 backdrop-blur"
   >
-    <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent xl:hidden">
+    <NuxtLink
+      to="/"
+      class="flex max-w-fit items-center gap-2 !bg-transparent xl:hidden"
+    >
       <svg
         id="logo-86"
         width="48"

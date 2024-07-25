@@ -21,6 +21,9 @@ export default {
       animation: {
         "spin-slow": "spin 20s linear infinite",
       },
+      gridTemplateColumns: {
+        24: "repeat(24, minmax(0, 1fr))",
+      },
     },
   },
   daisyui: {
