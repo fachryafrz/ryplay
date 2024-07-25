@@ -6,7 +6,7 @@ const { id, breakpoints } = defineProps(["id", "breakpoints"]);
   <div class="relative w-full [&_#swiper-navigation_button]:hover:opacity-100">
     <div
       id="swiper-navigation"
-      class="absolute inset-0 flex items-center justify-between gap-4 [&_*]:pointer-events-auto [&_*]:z-20"
+      class="absolute inset-0 hidden items-center justify-between gap-4 md:flex [&_*]:pointer-events-auto [&_*]:z-20"
     >
       <button
         class="relative flex h-full items-center justify-start p-2 opacity-0 transition-all before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-[150px] before:bg-gradient-to-r before:from-base-100 before:opacity-90"

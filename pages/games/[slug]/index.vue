@@ -68,7 +68,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mt-1 grid grid-cols-12 gap-4">
+  <div class="grid grid-cols-12 gap-4">
     <div
       class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 xl:col-[1/10]"
     >
