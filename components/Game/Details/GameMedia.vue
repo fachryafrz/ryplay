@@ -11,7 +11,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
 </script>
 
 <template>
-  <div class="relative flex flex-col gap-1">
+  <div class="relative flex flex-col gap-1 md:gap-3">
     <!-- Big -->
     <div
       class="relative rounded-xl before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 xl:before:hidden"
@@ -78,12 +78,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-3 [&_*]:pointer-events-auto"
       >
         <button
-          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
+          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
         >
           <span class="material-symbols-outlined"> arrow_left </span>
         </button>
         <button
-          class="next grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
+          class="next grid aspect-square w-8 place-content-center rounded-lg bg-secondary px-0 text-9xl text-white"
         >
           <span class="material-symbols-outlined"> arrow_right </span>
         </button>
@@ -98,9 +98,18 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         :free-mode="true"
         :breakpoints="{
           640: { slidesPerView: 3 },
-          768: { slidesPerView: 4 },
-          1024: { slidesPerView: 5 },
-          1280: { slidesPerView: 6 },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 16,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 16,
+          },
+          1280: {
+            slidesPerView: 6,
+            spaceBetween: 16,
+          },
         }"
         class="!-m-1 !px-1 !py-2"
       >
@@ -141,7 +150,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
                   <g id="play_x5F_alt">
                     <path
                       d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M10,24V8l16.008,8L10,24z"
-                      style="fill: #ffffff"
+                      style="fill: #98ee2f"
                     />
                   </g>
                 </svg>

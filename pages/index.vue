@@ -85,7 +85,7 @@ try {
         </div>
 
         <!-- Upcoming Games -->
-        <div class="grid grid-cols-2 gap-4 lg:flex lg:overflow-x-auto">
+        <div class="grid grid-cols-2 gap-2 md:gap-4 lg:flex lg:overflow-x-auto">
           <ExpandableGameCard :games="upcomingGames" />
         </div>
       </div>
@@ -119,12 +119,15 @@ try {
             },
             768: {
               slidesPerGroup: 3,
+              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 4,
+              spaceBetween: 16,
             },
             1280: {
               slidesPerGroup: 5,
+              spaceBetween: 16,
             },
           }"
         >
@@ -169,12 +172,15 @@ try {
             },
             768: {
               slidesPerGroup: 3,
+              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 4,
+              spaceBetween: 16,
             },
             1280: {
               slidesPerGroup: 5,
+              spaceBetween: 16,
             },
           }"
         >
@@ -203,9 +209,11 @@ try {
           :breakpoints="{
             768: {
               slidesPerGroup: 2,
+              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 3,
+              spaceBetween: 16,
             },
           }"
         >

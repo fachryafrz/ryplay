@@ -93,7 +93,7 @@ try {
 </script>
 
 <template>
-  <div class="grid grid-cols-12 gap-4">
+  <div class="mt-0.5 grid grid-cols-12 gap-4">
     <div
       class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 2xl:col-[1/10]"
     >
@@ -205,12 +205,15 @@ try {
             },
             768: {
               slidesPerGroup: 3,
+              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 4,
+              spaceBetween: 16,
             },
             1280: {
               slidesPerGroup: 5,
+              spaceBetween: 16,
             },
           }"
         >

@@ -30,7 +30,7 @@ const { id, breakpoints } = defineProps(["id", "breakpoints"]);
       :modules="[SwiperNavigation]"
       slides-per-view="auto"
       :breakpoints="breakpoints"
-      :space-between="16"
+      :space-between="8"
       :navigation="{
         prevEl: `.${id}_prev`,
         nextEl: `.${id}_next`,
