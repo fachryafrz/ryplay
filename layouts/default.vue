@@ -15,6 +15,13 @@ useHead({
       content: config.public.APP_DESCRIPTION,
     },
   ],
+  link: [
+    {
+      rel: "icon",
+      type: "image/x-icon",
+      href: "/favicon.ico",
+    },
+  ],
 });
 
 const { data, error } = await useFetch("/api/token", {
