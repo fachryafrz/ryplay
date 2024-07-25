@@ -1,6 +1,7 @@
 <script setup>
 import ExpandableGameCard from "~/components/Game/ExpandableGameCard.vue";
 import HomeSlider from "~/components/Game/HomeSlider.vue";
+import { useFetch } from "#imports";
 
 const config = useRuntimeConfig();
 
@@ -11,34 +12,46 @@ const topPicksGames = ref([]);
 const topDealsGames = ref([]);
 
 const fetches = async () => {
-  const multiqueryResponse = await $fetch("/api/multi-query");
+  const { data: multiqueryResponse, error } =
+    await useFetch("/api/multi-query");
 
-  upcomingGames.value = multiqueryResponse.find(
+  if (error.value) {
+    throw error.value;
+  }
+
+  upcomingGames.value = multiqueryResponse.value.find(
     (res) => res.name === "upcoming",
   ).result;
-  featuredGames.value = multiqueryResponse.find(
+  featuredGames.value = multiqueryResponse.value.find(
     (res) => res.name === "featured",
   ).result;
-  topPicksGames.value = multiqueryResponse.find(
+  topPicksGames.value = multiqueryResponse.value.find(
     (res) => res.name === "top-picks",
   ).result;
-  topDealsGames.value = multiqueryResponse.find(
+  topDealsGames.value = multiqueryResponse.value.find(
     (res) => res.name === "featured",
   ).result;
 
-  const popularityData = multiqueryResponse.find(
+  const popularityData = multiqueryResponse.value.find(
     (res) => res.name === "popularity-data",
   ).result;
 
-  const popularGamesResponse = await $fetch("/api/games/details", {
-    params: {
-      id: `(${popularityData.map((data) => data.game_id).join(",")})`,
-      sort: `hypes desc`,
-      limit: 20,
+  const { data: popularGamesResponse, error: gamesError } = await useFetch(
+    "/api/games/details",
+    {
+      params: {
+        id: `(${popularityData.map((data) => data.game_id).join(",")})`,
+        sort: `hypes desc`,
+        limit: 20,
+      },
     },
-  });
+  );
 
-  popularGames.value = popularGamesResponse;
+  if (gamesError.value) {
+    throw gamesError.value;
+  }
+
+  popularGames.value = popularGamesResponse.value;
 };
 
 try {
@@ -46,11 +59,13 @@ try {
 } catch (error) {
   if (error.statusCode === 401) {
     try {
-      await $fetch("/api/token");
+      await useFetch("/api/token");
       await fetches();
     } catch (tokenError) {
       console.error("Error saat mendapatkan token:", tokenError);
     }
+  } else {
+    console.error("Error saat memuat data:", error);
   }
 }
 </script>

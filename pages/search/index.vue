@@ -7,7 +7,7 @@ const fetchGames = async () => {
   const { query, rating, genre, platform, release_date } = route.query;
 
   try {
-    const response = await $fetch("/api/games/search", {
+    const { data: response, error } = await useFetch("/api/games/search", {
       params: {
         query,
         rating,
@@ -17,14 +17,31 @@ const fetchGames = async () => {
       },
     });
 
-    games.value = response;
+    if (error.value) {
+      throw error.value;
+    }
+
+    games.value = response.value;
   } catch (error) {
     console.error("Failed to fetch games:", error);
   }
 };
 
 // Memanggil fetchGames saat halaman dimuat pertama kali
-await fetchGames();
+try {
+  await fetchGames();
+} catch (error) {
+  if (error.statusCode === 401) {
+    try {
+      await useFetch("/api/token");
+      await fetches();
+    } catch (tokenError) {
+      console.error("Error saat mendapatkan token:", tokenError);
+    }
+  } else {
+    console.error("Error saat memuat data:", error);
+  }
+}
 
 // Memanggil fetchGames setiap kali route.query berubah
 watch(() => route.query, fetchGames, { deep: true });
