@@ -1,8 +1,10 @@
 <script setup>
+import GameGrid from "~/components/Game/GameGrid.vue";
 import GamePoster from "~/components/Game/Details/GameInfo/GamePoster.vue";
 import GameInfo from "~/components/Game/Details/GameInfo/index.vue";
 import GameMedia from "~/components/Game/Details/GameMedia.vue";
 
+const config = useRuntimeConfig();
 const { slug } = useRoute().params;
 
 const game = ref([]);
@@ -65,17 +67,24 @@ onMounted(() => {
     },
   ];
 });
+
+useSeoMeta({
+  title: game.value.name,
+  description: game.value.summary,
+  image: gameCover.value,
+  url: `${config.public.APP_URL}/games/${slug}`,
+});
 </script>
 
 <template>
   <div class="grid grid-cols-12 gap-4">
     <div
-      class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 xl:col-[1/10]"
+      class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 2xl:col-[1/10]"
     >
       <GameMedia :game="game" />
     </div>
 
-    <div class="order-3 col-span-full lg:col-[1/9] lg:row-[2/3] xl:col-[1/10]">
+    <div class="order-3 col-span-full lg:col-[1/9] lg:row-[2/3] 2xl:col-[1/10]">
       <GameInfo
         :game="game"
         :publishers="publishers"
@@ -84,7 +93,7 @@ onMounted(() => {
     </div>
 
     <div
-      class="order-1 col-span-full flex justify-center lg:col-[9/13] lg:row-[1/3] xl:col-[10/13]"
+      class="order-1 col-span-full flex justify-center lg:col-[9/13] lg:row-[1/6] 2xl:col-[10/13]"
     >
       <GamePoster
         :game="game"
@@ -94,59 +103,63 @@ onMounted(() => {
       />
     </div>
 
-    <div v-if="game.collection" class="order-4 col-span-full">
+    <div
+      v-if="game.dlcs?.length > 0"
+      class="order-4 col-span-full lg:col-[1/9] lg:row-[3/4] xl:col-[1/10]"
+    >
       <div class="flex flex-col gap-4">
-        <div class="flex items-end justify-between">
-          <div>
-            <h2 class="text-2xl font-bold">
-              {{ game.collection?.name }} Collection
-            </h2>
-            <p class="text-sm text-neutral-500">
-              Discover games in the {{ game.collection?.name }} collection
-            </p>
-          </div>
-
-          <NuxtLink
-            to="/"
-            class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
-          >
-            <span>See all</span>
-
-            <span class="material-symbols-outlined text-sm">
-              arrow_forward_ios
-            </span>
-          </NuxtLink>
+        <div>
+          <h2 class="text-2xl font-bold">DLC</h2>
+          <p class="text-sm text-neutral-500">
+            Games that are bundled together
+          </p>
         </div>
-
-        <GameSlider
-          id="collection"
-          :breakpoints="{
-            640: {
-              slidesPerGroup: 2,
-            },
-            768: {
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerGroup: 4,
-            },
-            1280: {
-              slidesPerGroup: 5,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in game.collection?.games"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.8)] sm:max-w-[calc(100%/2.8)] md:max-w-[calc(100%/3.8)] lg:max-w-[calc(100%/4.8)] xl:max-w-[calc(100%/5.8)]"
-          >
-            <GameCard :game="game" :isHorizontal="false" />
-          </SwiperSlide>
-        </GameSlider>
+        <GameGrid :games="game.dlcs" />
       </div>
     </div>
 
-    <div v-if="game.similar_games?.length > 0" class="order-4 col-span-full">
+    <div
+      v-if="game.bundles?.length > 0"
+      class="order-5 col-span-full lg:col-[1/9] lg:row-[4/5] xl:col-[1/10]"
+    >
+      <div class="flex flex-col gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Bundles</h2>
+          <p class="text-sm text-neutral-500">
+            Games that are bundled together
+          </p>
+        </div>
+        <GameGrid :games="game.bundles" />
+      </div>
+    </div>
+
+    <div
+      v-if="
+        game.collections?.length > 0 &&
+        game.collections.some((collection) =>
+          collection.games.some((game) => game.category === 14),
+        )
+      "
+      class="order-6 col-span-full lg:col-[1/9] lg:row-[5/6] xl:col-[1/10]"
+    >
+      <div class="flex flex-col gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Updates</h2>
+          <p class="text-sm text-neutral-500">
+            Games that are bundled together
+          </p>
+        </div>
+        <GameGrid
+          v-for="collection in game.collections"
+          :games="collection.games.filter((game) => game.category === 14)"
+        />
+      </div>
+    </div>
+
+    <div
+      v-if="game.similar_games?.length > 0"
+      class="order-7 col-span-full lg:row-[6/7]"
+    >
       <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
           <div>

@@ -104,12 +104,15 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         }"
         class="!-m-1 !px-1 !py-2"
       >
-        <SwiperSlide v-if="game.videos?.length > 0" v-for="(video, index) in game.videos">
+        <SwiperSlide
+          v-if="game.videos?.length > 0"
+          v-for="(video, index) in game.videos"
+        >
           <figure
-            class="relative aspect-video overflow-hidden rounded-xl"
+            class="relative aspect-video cursor-pointer overflow-hidden rounded-xl"
             :class="
               activeSlide === index
-                ? 'outline-3 border-4 border-base-100 outline outline-primary'
+                ? 'outline-3 cursor-default border-4 border-base-100 outline outline-primary'
                 : ''
             "
           >
@@ -146,12 +149,15 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             </div>
           </figure>
         </SwiperSlide>
-        <SwiperSlide v-if="game.screenshots?.length > 0" v-for="(screenshot, index) in game.screenshots">
+        <SwiperSlide
+          v-if="game.screenshots?.length > 0"
+          v-for="(screenshot, index) in game.screenshots"
+        >
           <figure
-            class="aspect-video overflow-hidden rounded-xl"
+            class="aspect-video cursor-pointer overflow-hidden rounded-xl"
             :class="
               activeSlide === index + (game.videos?.length ?? 0)
-                ? 'outline-3 border-4 border-base-100 outline outline-primary'
+                ? 'outline-3 cursor-default border-4 border-base-100 outline outline-primary'
                 : ''
             "
           >
@@ -161,15 +167,18 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             />
           </figure>
         </SwiperSlide>
-        <SwiperSlide v-if="game.artworks?.length > 0" v-for="(artwork, index) in game.artworks">
+        <SwiperSlide
+          v-if="game.artworks?.length > 0"
+          v-for="(artwork, index) in game.artworks"
+        >
           <figure
-            class="aspect-video overflow-hidden rounded-xl"
+            class="aspect-video cursor-pointer overflow-hidden rounded-xl"
             :class="
               activeSlide ===
               index +
                 (game.videos?.length ?? 0) +
                 (game.screenshots?.length ?? 0)
-                ? 'outline-3 border-4 border-base-100 outline outline-primary'
+                ? 'outline-3 cursor-default border-4 border-base-100 outline outline-primary'
                 : ''
             "
           >
