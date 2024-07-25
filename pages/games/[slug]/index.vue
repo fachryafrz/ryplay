@@ -68,19 +68,19 @@ onMounted(() => {
   ];
 });
 
-useServerSeoMeta({
-  title: game.value.name,
-  description: game.value.summary,
-  ogTitle: game.value.name,
-  ogDescription: game.value.summary,
-  ogImage: gameCover.value,
+useSeoMeta({
+  title: () => game.value.name,
+  description: () => game.value.summary,
+  ogTitle: () => game.value.name,
+  ogDescription: () => game.value.summary,
+  ogImage:() =>  gameCover.value,
   ogUrl: `${config.public.APP_URL}/games/${slug}`,
   ogSiteName: config.public.APP_NAME,
   ogType: "website",
   twitterCard: "summary_large_image",
   twitterCreator: "@fachryafrz",
-  twitterDescription: game.value.summary,
-  twitterImage: gameCover.value,
+  twitterDescription: () => game.value.summary,
+  twitterImage: () => gameCover.value,
   twitterTitle: `${game.value.name} at ${config.public.APP_NAME}`,
 });
 </script>

@@ -1,7 +1,7 @@
 <script setup>
 const config = useRuntimeConfig();
 
-useServerSeoMeta({
+useSeoMeta({
   titleTemplate: (title) => {
     return title
       ? `${title} at ${config.public.APP_NAME}`
