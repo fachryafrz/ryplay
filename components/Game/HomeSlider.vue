@@ -108,7 +108,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         class="h-full"
       >
         <SwiperSlide v-for="game in games" class="relative">
-          <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-8">
+          <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-6">
             <h2
               class="line-clamp-2 text-pretty text-start text-lg font-semibold lg:text-2xl"
             >

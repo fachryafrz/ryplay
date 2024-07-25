@@ -17,12 +17,12 @@ await $fetch("/api/token");
     <NuxtLoadingIndicator />
 
     <aside
-      class="sticky top-4 z-[99999] h-[100dvh] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-r-2xl border-y-2 border-r-2 border-secondary"
+      class="sticky top-4 z-[99999] h-[100dvh] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-r-2xl outline outline-secondary"
     >
       <Sidebar />
     </aside>
 
-    <main class="flex w-full flex-col gap-4 p-4 lg:max-w-[calc(100%-305px)]">
+    <main class="flex w-full flex-col gap-4 p-4 xl:max-w-[calc(100%-300px)]">
       <Header />
 
       <NuxtPage />

@@ -14,7 +14,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
   <div class="relative flex flex-col gap-1">
     <!-- Big -->
     <div
-      class="relative rounded-xl before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 lg:before:hidden"
+      class="relative rounded-xl before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 xl:before:hidden"
     >
       <Swiper
         @swiper="setMainSwiper"
@@ -96,7 +96,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         :slides-per-view="2"
         :space-between="8"
         :watch-slides-progress="true"
-        :free-mode="false"
+        :free-mode="true"
         :breakpoints="{
           640: { slidesPerView: 3 },
           768: { slidesPerView: 4 },

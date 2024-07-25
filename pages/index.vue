@@ -64,7 +64,7 @@ try {
         </div>
 
         <!-- Featured Games -->
-        <div class="grid grid-cols-2 gap-4 overflow-x-auto lg:flex">
+        <div class="grid grid-cols-2 gap-4 lg:overflow-x-auto lg:flex">
           <FeaturedGameCard :games="featuredGames" />
         </div>
       </div>

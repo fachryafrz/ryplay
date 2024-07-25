@@ -7,7 +7,7 @@ const { game } = defineProps(["game"]);
 
 <template>
   <div
-    class="grid grid-cols-1 gap-4 gap-x-12 gap-y-4 rounded-2xl border-2 border-secondary bg-neutral p-6 @md:grid-cols-2"
+    class="grid grid-cols-1 gap-4 gap-x-12 gap-y-4 rounded-2xl outline outline-secondary bg-neutral p-6 @md:grid-cols-2"
   >
     <!-- Compatible with -->
     <div>
