@@ -6,7 +6,8 @@ export default defineEventHandler(async (event) => {
   const access_token = cookies?.access_token;
 
   // Dapatkan query dari URL
-  const { query, rating, genre, platform, release_date } = getQuery(event);
+  const { query, rating, genre, platform, release_date, category } =
+    getQuery(event);
 
   // Membuat bagian where clause
   let whereClause = "cover != null";
@@ -15,13 +16,12 @@ export default defineEventHandler(async (event) => {
   if (genre) whereClause += ` & genres.slug = "${genre}"`;
   if (platform) whereClause += ` & platforms.slug = "${platform}"`;
   if (release_date) {
-    // const [startDate, endDate] = release_date.split(",");
-    // whereClause += ` & first_release_date >= ${parseInt(startDate)} & first_release_date <= ${parseInt(endDate)}`;
-    whereClause += ` & first_release_date >= ${parseInt(release_date)}`;
+    const [startDate, endDate] = release_date.split("..");
+    whereClause += ` & first_release_date >= ${startDate} & first_release_date <= ${endDate}`;
   }
+  if (category) whereClause += ` & category = ${category}`;
 
-  try {
-    // Kirim permintaan ke API IGDB
+  const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
         "Content-Type": "text/plain",
       },
       body: `
-        f name, slug, cover.image_id, first_release_date, total_rating, genres.name, platforms.name;
+        f *, cover.image_id, genres.name, platforms.name;
         ${query ? `search "${query}";` : "s total_rating_count desc;"}
         w ${whereClause};
         l 50;
@@ -38,6 +38,11 @@ export default defineEventHandler(async (event) => {
     });
 
     return data;
+  };
+
+  try {
+    // Kirim permintaan ke API IGDB
+    return await fetchGames(access_token);
   } catch (error) {
     console.error("Error saat mengambil data:", error);
 
@@ -64,20 +69,7 @@ export default defineEventHandler(async (event) => {
         });
 
         // Ulangi permintaan dengan token baru
-        return await $fetch("https://api.igdb.com/v4/games", {
-          method: "POST",
-          headers: {
-            "Client-ID": config.CLIENT_ID,
-            Authorization: `Bearer ${newAccessToken}`,
-            "Content-Type": "text/plain",
-          },
-          body: `
-    f name, slug, cover.image_id, first_release_date, total_rating, genres.name, platforms.name;
-    ${query ? `search "${query}";` : "s total_rating_count desc;"}
-    w ${whereClause};
-    l 50;
-  `,
-        });
+        return await fetchGames(newAccessToken);
       } catch (tokenError) {
         console.error("Gagal mendapatkan token baru:", tokenError);
         throw createError({

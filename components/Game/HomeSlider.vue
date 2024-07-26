@@ -43,12 +43,13 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             />
           </figure>
           <div class="absolute inset-x-0 top-0 flex flex-wrap gap-2 p-4">
-            <span
+            <NuxtLink
               v-for="genre in game.genres"
+              :to="`/search?genre=${genre.slug}`"
               class="btn btn-sm border-none bg-opacity-75 backdrop-blur"
             >
               {{ genre.name }}
-            </span>
+            </NuxtLink>
           </div>
         </SwiperSlide>
       </Swiper>

@@ -52,7 +52,7 @@ onMounted(() => {
 <template>
   <div
     v-if="isUpcoming"
-    class="grid auto-cols-max grid-flow-col place-content-center gap-2 text-center"
+    class="flex flex-wrap justify-center gap-2 text-center"
   >
     <div
       v-if="countdown.years > 0"

@@ -1,23 +1,8 @@
 <script setup>
-import stores from "@/json/store-category.json";
-
-const { game } = defineProps(["game"]);
-
-// Fungsi untuk mendapatkan store berdasarkan ID category
-const findStoreById = (category) => {
-  return stores.find((store) => store.id === category) || {};
-};
-
-// Fungsi untuk memeriksa apakah ada image_id
-const hasImageId = (category) => {
-  const store = findStoreById(category);
-  return store.image_id && store.image_id.trim() !== "";
-};
-
-// Memfilter game.external_games untuk hanya item dengan image_id yang valid
-const filteredExternalGames = game.external_games.filter((externalGame) =>
-  hasImageId(externalGame.category),
-);
+const { filteredExternalGames, findStoreById } = defineProps([
+  "filteredExternalGames",
+  "findStoreById",
+]);
 </script>
 
 <template>

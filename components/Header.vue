@@ -33,8 +33,9 @@ const config = useRuntimeConfig();
           fill="#FFFFFF"
         ></path>
       </svg>
-      <span class="text-3xl font-bold leading-8">
-        {{ config.public.APP_NAME }}
+      <span class="hidden text-2xl font-bold leading-6 xs:inline">
+        <p>{{ config.public.APP_NAME_SPACED.split(" ")[0] }}</p>
+        <p>{{ config.public.APP_NAME_SPACED.split(" ")[1] }}</p>
       </span>
     </NuxtLink>
 

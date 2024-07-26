@@ -1,5 +1,5 @@
 <script setup>
-import { useFetch } from "#imports";
+import packageJson from "@/package.json";
 
 const config = useRuntimeConfig();
 
@@ -43,12 +43,16 @@ if (error.value) {
       <Sidebar />
     </aside>
 
-    <main
+    <div
       class="flex min-h-screen w-full flex-col gap-4 p-4 xl:max-w-[calc(100%-300px)]"
     >
-      <Header />
+      <main class="flex flex-col gap-4">
+        <Header />
 
-      <NuxtPage />
-    </main>
+        <NuxtPage />
+      </main>
+
+      <Footer />
+    </div>
   </div>
 </template>

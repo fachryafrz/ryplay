@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const today = dayjs().unix();
   const firstDayOfMonth = dayjs().startOf("month").unix();
 
-  try {
+  const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/multiquery", {
       method: "POST",
       headers: {
@@ -17,21 +17,21 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         query games "featured" {
-          f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
+          f *, screenshots.*, cover.*, artworks.*, genres.*;
           w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20;
           s first_release_date asc;
           l 5;
         };
 
         query games "upcoming" {
-          f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
+          f *, screenshots.*, cover.*, artworks.*, genres.*;
           w cover != null & first_release_date >= ${today} & hypes >= 30;
           s first_release_date asc;
           l 4;
         };
 
         query games "top-picks" {
-          f name, storyline, summary, screenshots.image_id, cover.image_id, artworks.image_id, slug;
+          f *, screenshots.*, cover.*, artworks.*;
           w cover != null;
           s total_rating_count desc;
           l 20;
@@ -47,6 +47,10 @@ export default defineEventHandler(async (event) => {
     });
 
     return data;
+  };
+
+  try {
+    return await fetchGames(access_token);
   } catch (error) {
     console.error("Error saat mengambil data:", error);
 
@@ -73,42 +77,7 @@ export default defineEventHandler(async (event) => {
         });
 
         // Ulangi permintaan dengan token baru
-        return await $fetch("https://api.igdb.com/v4/multiquery", {
-          method: "POST",
-          headers: {
-            "Client-ID": config.CLIENT_ID,
-            Authorization: `Bearer ${newAccessToken}`,
-          },
-          body: `
-            query games "featured" {
-              f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
-              w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20;
-              s first_release_date asc;
-              l 5;
-            };
-
-            query games "upcoming" {
-              f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
-              w cover != null & first_release_date >= ${today} & hypes >= 30;
-              s first_release_date asc;
-              l 4;
-            };
-
-            query games "top-picks" {
-              f name, storyline, summary, screenshots.image_id, cover.image_id, artworks.image_id, slug;
-              w cover != null;
-              s total_rating_count desc;
-              l 20;
-            };
-
-            query popularity_primitives "popularity-data" {
-              f game_id; 
-              w popularity_type = 1;
-              s value desc; 
-              l 20;  
-            };
-          `,
-        });
+        return await fetchGames(newAccessToken);
       } catch (tokenError) {
         console.error("Gagal mendapatkan token baru:", tokenError);
         throw createError({

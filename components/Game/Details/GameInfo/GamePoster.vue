@@ -1,51 +1,62 @@
 <script setup>
-const { game, gameCover, gameInfo, publishers } = defineProps([
-  "game",
-  "gameCover",
-  "gameInfo",
-  "publishers",
-]);
+const { game } = defineProps(["game"]);
+
+const dayjs = useDayjs();
+
+const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`;
+
+const uniqueCompanies = game.involved_companies?.filter(
+  (company, index, self) =>
+    index === self.findIndex((t) => t.company.id === company.company.id),
+);
+
+const developers = uniqueCompanies?.filter((company) => company.developer);
+const publishers = uniqueCompanies?.filter((company) => company.publisher);
+const gameInfo = [
+  {
+    section: "Release Date",
+    icon: "calendar_month",
+    text: game.first_release_date
+      ? dayjs.unix(game.first_release_date).format("MMMM D, YYYY")
+      : undefined,
+  },
+  {
+    section: "Developed by",
+    icon: "code",
+    text: developers?.map((dev) => dev.company.name).join(", "),
+  },
+  {
+    section: "Published by",
+    icon: "domain",
+    text: publishers?.map((dev) => dev.company.name).join(", "),
+  },
+];
 </script>
 
 <template>
-  <div class="w-full @container">
-    <!-- Container -->
-    <div
-      class="sticky top-[calc(5rem+0.25rem)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
-    >
-      <figure class="">
-        <img :src="gameCover" :alt="game.name" class="rounded-md" />
-      </figure>
+  <div
+    class="sticky top-[calc(5rem+0.25rem)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-2xl @md:grid-cols-2 @md:items-center"
+  >
+    <figure class="">
+      <img :src="gameCover" :alt="game.name" class="rounded-md" />
+    </figure>
 
-      <div class="flex flex-col gap-4">
-        <h1 class="text-pretty text-center text-2xl font-bold @md:text-start">
-          {{ game.name }}
-        </h1>
+    <div class="flex flex-col gap-4">
+      <h1 class="text-pretty text-center text-2xl font-bold @md:text-start">
+        {{ game.name }}
+      </h1>
 
-        <!-- Genres -->
-        <!-- <ul
-          class="flex flex-wrap items-center justify-center gap-1 @md:justify-start"
-        >
-          <li v-for="genre in game.genres">
-            <span class="btn btn-secondary btn-xs">
-              {{ genre.name }}
-            </span>
-          </li>
-        </ul> -->
-
-        <!-- Release date, devs, publishers -->
-        <ul class="flex flex-wrap gap-4">
-          <li
-            v-for="info in gameInfo"
-            class="flex flex-col items-start text-sm"
-          >
-            <span v-if="info.text" class="font-medium text-neutral-500">{{
-              info.section
-            }}</span>
-            <span v-if="info.text" class="font-semibold">{{ info.text }}</span>
-          </li>
-        </ul>
-      </div>
+      <!-- Release date, devs, publishers -->
+      <ul class="flex flex-wrap gap-4">
+        <li v-for="info in gameInfo" class="flex flex-col items-start text-sm">
+          <span v-if="info.text" class="font-medium text-neutral-500">{{
+            info.section
+          }}</span>
+          <span v-if="info.text" class="font-semibold">
+            {{ info.text }}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>

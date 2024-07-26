@@ -5,7 +5,10 @@ const route = useRoute();
 
 const handleSubmit = () => {
   if (searchQuery.value.trim()) {
-    router.push({ path: "/search", query: { query: searchQuery.value } });
+    router.push({
+      path: "/search",
+      query: { query: searchQuery.value, category: 0 },
+    });
   }
 };
 
@@ -19,12 +22,7 @@ watch(
 </script>
 
 <template>
-  <div
-    class="flex w-full gap-4"
-    :class="{
-      hidden: disableSearchBar,
-    }"
-  >
+  <div class="flex w-full gap-4">
     <form @submit.prevent="handleSubmit" class="flex w-full items-center gap-2">
       <label
         class="input input-md flex w-full items-center gap-2 bg-neutral outline outline-secondary xl:max-w-md"
