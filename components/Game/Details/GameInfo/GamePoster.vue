@@ -18,17 +18,19 @@ const gameInfo = [
     icon: "calendar_month",
     text: game.first_release_date
       ? dayjs.unix(game.first_release_date).format("MMMM D, YYYY")
-      : undefined,
+      : "TBA",
   },
   {
     section: "Developed by",
     icon: "code",
     text: developers?.map((dev) => dev.company.name).join(", "),
+    // items: developers,
   },
   {
     section: "Published by",
     icon: "domain",
     text: publishers?.map((dev) => dev.company.name).join(", "),
+    // items: publishers,
   },
 ];
 </script>
@@ -57,6 +59,34 @@ const gameInfo = [
           </span>
         </li>
       </ul>
+
+      <!-- NOTE: API Call took so long -->
+      <!-- <ul class="flex flex-wrap gap-4">
+        <li
+          v-for="(info, index) in gameInfo"
+          :key="index"
+          class="flex flex-col items-start text-sm"
+        >
+          <span v-if="info.text || (info.items && info.items.length)" class="font-medium text-neutral-500">
+            {{ info.section }}
+          </span>
+
+          <span v-if="info.section === 'Release Date'" class="font-semibold">
+            {{ info.text }}
+          </span>
+
+          <span v-else-if="info.items && info.items.length" class="font-semibold">
+            <template v-for="(item, i) in info.items">
+              <NuxtLink
+                :to="`/search?company=${item.company.slug}`"
+              >
+                {{ item.company.name }}
+              </NuxtLink>
+              <span v-if="i < info.items.length - 1">, </span>
+            </template>
+          </span>
+        </li>
+      </ul> -->
     </div>
   </div>
 </template>
