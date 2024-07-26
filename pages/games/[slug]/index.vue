@@ -40,7 +40,9 @@ const fetchGameDetails = async () => {
     {
       section: "Release Date",
       icon: "calendar_month",
-      text: dayjs.unix(data.first_release_date).format("MMMM D, YYYY"),
+      text: data.first_release_date
+        ? dayjs.unix(data.first_release_date).format("MMMM D, YYYY")
+        : undefined,
     },
     {
       section: "Developed by",
@@ -94,13 +96,11 @@ try {
 
 <template>
   <div class="mt-0.5 grid grid-cols-12 gap-4">
-    <div
-      class="order-2 col-span-full mt-4 lg:order-1 lg:col-[1/9] lg:mt-0 2xl:col-[1/10]"
-    >
+    <div class="order-2 col-span-full lg:order-1 lg:col-end-9 xl:col-end-10">
       <GameMedia :game="game" />
     </div>
 
-    <div class="order-3 col-span-full lg:col-[1/9] lg:row-[2/3] 2xl:col-[1/10]">
+    <div class="order-3 col-span-full lg:order-3 lg:col-end-9 xl:col-end-10">
       <GameInfo
         :game="game"
         :publishers="publishers"
@@ -109,7 +109,7 @@ try {
     </div>
 
     <div
-      class="order-1 col-span-full flex justify-center lg:col-[9/13] lg:row-[1/6] 2xl:col-[10/13]"
+    class="order-1 col-span-full @container lg:order-2 lg:col-start-9 lg:row-span-2 xl:col-start-10"
     >
       <GamePoster
         :game="game"
@@ -119,63 +119,7 @@ try {
       />
     </div>
 
-    <div
-      v-if="game.dlcs?.length > 0"
-      class="order-4 col-span-full lg:col-[1/9] lg:row-[3/4] xl:col-[1/10]"
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">DLC</h2>
-          <p class="text-sm text-neutral-500">
-            Games that are bundled together
-          </p>
-        </div>
-        <GameGrid :games="game.dlcs" />
-      </div>
-    </div>
-
-    <div
-      v-if="game.bundles?.length > 0"
-      class="order-5 col-span-full lg:col-[1/9] lg:row-[4/5] xl:col-[1/10]"
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Bundles</h2>
-          <p class="text-sm text-neutral-500">
-            Games that are bundled together
-          </p>
-        </div>
-        <GameGrid :games="game.bundles" />
-      </div>
-    </div>
-
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 14),
-        )
-      "
-      class="order-6 col-span-full lg:col-[1/9] lg:row-[5/6] xl:col-[1/10]"
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Updates</h2>
-          <p class="text-sm text-neutral-500">
-            Games that are bundled together
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 14)"
-        />
-      </div>
-    </div>
-
-    <div
-      v-if="game.similar_games?.length > 0"
-      class="order-7 col-span-full lg:row-[6/7]"
-    >
+    <div v-if="game.similar_games?.length > 0" class="order-4 col-span-full">
       <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
           <div>

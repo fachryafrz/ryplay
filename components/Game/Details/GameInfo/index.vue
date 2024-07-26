@@ -58,8 +58,63 @@ onMounted(() => {
     </section>
 
     <!-- Additional Info -->
-    <section class="@container">
+    <section
+      class="@container"
+      v-if="
+        game.platforms ||
+        game.external_games?.length > 0 ||
+        game.genres ||
+        game.rating
+      "
+    >
       <AdditionalInfo :game="game" />
     </section>
+
+    <div v-if="game.dlcs?.length > 0" class="">
+      <div class="flex flex-col gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">DLC</h2>
+          <p class="text-sm text-neutral-500">
+            Games that are bundled together
+          </p>
+        </div>
+        <GameGrid :games="game.dlcs" />
+      </div>
+    </div>
+
+    <div v-if="game.bundles?.length > 0" class="">
+      <div class="flex flex-col gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Bundles</h2>
+          <p class="text-sm text-neutral-500">
+            Games that are bundled together
+          </p>
+        </div>
+        <GameGrid :games="game.bundles" />
+      </div>
+    </div>
+
+    <div
+      v-if="
+        game.collections?.length > 0 &&
+        game.collections.some((collection) =>
+          collection.games.some((game) => game.category === 14),
+        )
+      "
+      class=""
+    >
+      <div class="flex flex-col gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Updates</h2>
+          <p class="text-sm text-neutral-500">
+            Games that are bundled together
+          </p>
+        </div>
+        <GameGrid
+          v-for="collection in game.collections"
+          :games="collection.games.filter((game) => game.category === 14)"
+        />
+      </div>
+    </div>
   </div>
 </template>
