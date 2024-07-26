@@ -17,21 +17,21 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         query games "featured" {
-          f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
+          f *, screenshots.*, cover.*, artworks.*, genres.*;
           w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20;
           s first_release_date asc;
           l 5;
         };
 
         query games "upcoming" {
-          f *, screenshots.image_id, cover.image_id, artworks.image_id, genres.name;
+          f *, screenshots.*, cover.*, artworks.*, genres.*;
           w cover != null & first_release_date >= ${today} & hypes >= 30;
           s first_release_date asc;
           l 4;
         };
 
         query games "top-picks" {
-          f name, storyline, summary, screenshots.image_id, cover.image_id, artworks.image_id, slug;
+          f *, screenshots.*, cover.*, artworks.*;
           w cover != null;
           s total_rating_count desc;
           l 20;

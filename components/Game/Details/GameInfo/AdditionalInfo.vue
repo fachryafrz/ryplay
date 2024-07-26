@@ -17,7 +17,7 @@ const hasImageId = (category) => {
 };
 
 // Memfilter game.external_games untuk hanya item dengan image_id yang valid
-const filteredExternalGames = game.external_games.filter((externalGame) =>
+const filteredExternalGames = game.external_games?.filter((externalGame) =>
   hasImageId(externalGame.category),
 );
 </script>
@@ -31,17 +31,19 @@ const filteredExternalGames = game.external_games.filter((externalGame) =>
       <h2 class="heading-2">Compatible with</h2>
 
       <div class="flex flex-wrap gap-2">
-        <div
+        <NuxtLink
           v-for="platform in game.platforms"
+          :key="platform.id"
+          :to="`/search?platform=${platform.slug}`"
           class="btn btn-secondary btn-sm"
         >
           {{ platform.abbreviation }}
-        </div>
+        </NuxtLink>
       </div>
     </div>
 
     <!-- Available in -->
-    <div v-if="filteredExternalGames.length > 0">
+    <div v-if="filteredExternalGames?.length > 0">
       <h2 class="heading-2">Available in</h2>
 
       <GameStores
@@ -55,9 +57,14 @@ const filteredExternalGames = game.external_games.filter((externalGame) =>
       <h2 class="heading-2">Genres</h2>
 
       <div class="flex flex-wrap gap-2">
-        <div v-for="genre in game.genres" class="btn btn-secondary btn-sm">
+        <NuxtLink
+          v-for="genre in game.genres"
+          :key="genre.id"
+          :to="`/search?genre=${genre.slug}`"
+          class="btn btn-secondary btn-sm"
+        >
           {{ genre.name }}
-        </div>
+        </NuxtLink>
       </div>
     </div>
 

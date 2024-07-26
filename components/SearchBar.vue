@@ -5,7 +5,10 @@ const route = useRoute();
 
 const handleSubmit = () => {
   if (searchQuery.value.trim()) {
-    router.push({ path: "/search", query: { query: searchQuery.value } });
+    router.push({
+      path: "/search",
+      query: { query: searchQuery.value, category: 0 },
+    });
   }
 };
 

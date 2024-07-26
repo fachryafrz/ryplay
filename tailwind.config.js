@@ -12,6 +12,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+      },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
       },

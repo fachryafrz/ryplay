@@ -1,5 +1,4 @@
 <script setup>
-import GameGrid from "~/components/Game/GameGrid.vue";
 import GamePoster from "~/components/Game/Details/GameInfo/GamePoster.vue";
 import GameInfo from "~/components/Game/Details/GameInfo/index.vue";
 import GameMedia from "~/components/Game/Details/GameMedia.vue";
@@ -26,35 +25,6 @@ const fetchGameDetails = async () => {
 
   const data = response.value[0];
   game.value = data;
-
-  gameCover.value = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover.image_id}.jpg`;
-
-  const uniqueCompanies = data.involved_companies?.filter(
-    (company, index, self) =>
-      index === self.findIndex((t) => t.company.id === company.company.id),
-  );
-
-  developers.value = uniqueCompanies?.filter((company) => company.developer);
-  publishers.value = uniqueCompanies?.filter((company) => company.publisher);
-  gameInfo.value = [
-    {
-      section: "Release Date",
-      icon: "calendar_month",
-      text: data.first_release_date
-        ? dayjs.unix(data.first_release_date).format("MMMM D, YYYY")
-        : undefined,
-    },
-    {
-      section: "Developed by",
-      icon: "code",
-      text: developers.value?.map((dev) => dev.company.name).join(", "),
-    },
-    {
-      section: "Published by",
-      icon: "domain",
-      text: publishers.value?.map((dev) => dev.company.name).join(", "),
-    },
-  ];
 
   return data;
 };
@@ -109,14 +79,9 @@ try {
     </div>
 
     <div
-    class="order-1 col-span-full @container lg:order-2 lg:col-start-9 lg:row-span-2 xl:col-start-10"
+      class="order-1 col-span-full @container lg:order-2 lg:col-start-9 lg:row-span-2 xl:col-start-10"
     >
-      <GamePoster
-        :game="game"
-        :game-cover="gameCover"
-        :game-info="gameInfo"
-        :publishers="publishers"
-      />
+      <GamePoster :game="game" />
     </div>
 
     <div v-if="game.similar_games?.length > 0" class="order-4 col-span-full">

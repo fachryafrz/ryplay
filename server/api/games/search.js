@@ -6,7 +6,8 @@ export default defineEventHandler(async (event) => {
   const access_token = cookies?.access_token;
 
   // Dapatkan query dari URL
-  const { query, rating, genre, platform, release_date } = getQuery(event);
+  const { query, rating, genre, platform, release_date, category } =
+    getQuery(event);
 
   // Membuat bagian where clause
   let whereClause = "cover != null";
@@ -15,10 +16,10 @@ export default defineEventHandler(async (event) => {
   if (genre) whereClause += ` & genres.slug = "${genre}"`;
   if (platform) whereClause += ` & platforms.slug = "${platform}"`;
   if (release_date) {
-    // const [startDate, endDate] = release_date.split(",");
-    // whereClause += ` & first_release_date >= ${parseInt(startDate)} & first_release_date <= ${parseInt(endDate)}`;
-    whereClause += ` & first_release_date >= ${parseInt(release_date)}`;
+    const [startDate, endDate] = release_date.split("..");
+    whereClause += ` & first_release_date >= ${startDate} & first_release_date <= ${endDate}`;
   }
+  if (category) whereClause += ` & category = ${category}`;
 
   const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {
@@ -29,7 +30,7 @@ export default defineEventHandler(async (event) => {
         "Content-Type": "text/plain",
       },
       body: `
-        f name, slug, cover.image_id, first_release_date, total_rating, genres.name, platforms.name;
+        f *, cover.image_id, genres.name, platforms.name;
         ${query ? `search "${query}";` : "s total_rating_count desc;"}
         w ${whereClause};
         l 50;
