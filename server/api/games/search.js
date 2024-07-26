@@ -20,8 +20,7 @@ export default defineEventHandler(async (event) => {
     whereClause += ` & first_release_date >= ${parseInt(release_date)}`;
   }
 
-  try {
-    // Kirim permintaan ke API IGDB
+  const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
@@ -38,6 +37,11 @@ export default defineEventHandler(async (event) => {
     });
 
     return data;
+  };
+
+  try {
+    // Kirim permintaan ke API IGDB
+    return await fetchGames(access_token);
   } catch (error) {
     console.error("Error saat mengambil data:", error);
 
@@ -64,20 +68,7 @@ export default defineEventHandler(async (event) => {
         });
 
         // Ulangi permintaan dengan token baru
-        return await $fetch("https://api.igdb.com/v4/games", {
-          method: "POST",
-          headers: {
-            "Client-ID": config.CLIENT_ID,
-            Authorization: `Bearer ${newAccessToken}`,
-            "Content-Type": "text/plain",
-          },
-          body: `
-    f name, slug, cover.image_id, first_release_date, total_rating, genres.name, platforms.name;
-    ${query ? `search "${query}";` : "s total_rating_count desc;"}
-    w ${whereClause};
-    l 50;
-  `,
-        });
+        return await fetchGames(newAccessToken);
       } catch (tokenError) {
         console.error("Gagal mendapatkan token baru:", tokenError);
         throw createError({
