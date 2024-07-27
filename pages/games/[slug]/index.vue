@@ -81,9 +81,9 @@ try {
     </div>
 
     <div
-      class="col-span-full lg:col-end-9 xl:col-end-10"
+      class="col-span-full lg:col-end-9 lg:row-start-1 xl:col-end-10"
       :class="{
-        'lg:row-start-1': !game.videos || !game.screenshots || !game.artworks,
+        'lg:row-start-2': game.videos || game.screenshots || game.artworks,
       }"
     >
       <GameInfo
