@@ -67,11 +67,25 @@ try {
 
 <template>
   <div class="mt-0.5 grid grid-cols-12 gap-4">
-    <div class="order-2 col-span-full lg:order-1 lg:col-end-9 xl:col-end-10">
+    <div
+      class="col-span-full @container lg:col-start-9 lg:row-span-2 xl:col-start-10"
+    >
+      <GamePoster :game="game" :game-cover="gameCover" />
+    </div>
+
+    <div
+      v-if="game.videos || game.screenshots || game.artworks"
+      class="col-span-full lg:col-end-9 lg:row-start-1 xl:col-end-10"
+    >
       <GameMedia :game="game" />
     </div>
 
-    <div class="order-3 col-span-full lg:order-3 lg:col-end-9 xl:col-end-10">
+    <div
+      class="col-span-full lg:col-end-9 xl:col-end-10"
+      :class="{
+        'lg:row-start-1': !game.videos || !game.screenshots || !game.artworks,
+      }"
+    >
       <GameInfo
         :game="game"
         :publishers="publishers"
@@ -79,13 +93,7 @@ try {
       />
     </div>
 
-    <div
-      class="order-1 col-span-full @container lg:order-2 lg:col-start-9 lg:row-span-2 xl:col-start-10"
-    >
-      <GamePoster :game="game" :game-cover="gameCover" />
-    </div>
-
-    <div v-if="game.similar_games?.length > 0" class="order-4 col-span-full">
+    <div v-if="game.similar_games?.length > 0" class="col-span-full">
       <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
           <div>
