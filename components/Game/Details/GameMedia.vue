@@ -11,7 +11,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
 </script>
 
 <template>
-  <div class="relative flex flex-col gap-1 md:gap-3">
+  <div class="relative flex flex-col gap-1">
     <!-- Big -->
     <div
       class="relative rounded-xl before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 xl:before:hidden"
@@ -100,15 +100,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           640: { slidesPerView: 3 },
           768: {
             slidesPerView: 4,
-            spaceBetween: 16,
           },
           1024: {
             slidesPerView: 5,
-            spaceBetween: 16,
           },
           1280: {
             slidesPerView: 6,
-            spaceBetween: 16,
           },
         }"
         class="!-m-1 !px-1 !py-2"

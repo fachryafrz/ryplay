@@ -11,10 +11,10 @@ const handleActive = () => {
 const navigation = [
   { name: "Home", link: "/", icon: "home" },
   { name: "Discover Games", link: "/search", icon: "explore" },
-  { name: "My Games", link: "/my-games", icon: "sports_esports" },
-  { name: "Cart", link: "/cart", icon: "shopping_cart" },
-  { name: "Community", link: "/community", icon: "groups" },
-  { name: "Settings", link: "/settings", icon: "settings" },
+  // { name: "My Games", link: "/my-games", icon: "sports_esports" },
+  // { name: "Cart", link: "/cart", icon: "shopping_cart" },
+  // { name: "Community", link: "/community", icon: "groups" },
+  // { name: "Settings", link: "/settings", icon: "settings" },
 ];
 
 const config = useRuntimeConfig();

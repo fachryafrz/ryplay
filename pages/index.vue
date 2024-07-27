@@ -5,11 +5,11 @@ import { useFetch } from "#imports";
 
 const config = useRuntimeConfig();
 
-const upcomingGames = ref([]);
-const popularGames = ref([]);
-const featuredGames = ref([]);
-const topPicksGames = ref([]);
-const topDealsGames = ref([]);
+const upcomingGames = ref();
+const popularGames = ref();
+const featuredGames = ref();
+const topPicksGames = ref();
+const topDealsGames = ref();
 
 const fetches = async () => {
   const { data: multiqueryResponse, error } =
@@ -85,13 +85,13 @@ try {
         </div>
 
         <!-- Upcoming Games -->
-        <div class="grid grid-cols-2 gap-2 md:gap-4 lg:flex lg:overflow-x-auto">
+        <div class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:flex lg:overflow-x-auto">
           <ExpandableGameCard :games="upcomingGames" />
         </div>
       </div>
     </section>
 
-    <section class="my-2">
+    <section v-if="popularGames" class="my-2">
       <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
           <div>
@@ -119,15 +119,12 @@ try {
             },
             768: {
               slidesPerGroup: 3,
-              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 4,
-              spaceBetween: 16,
             },
             1280: {
               slidesPerGroup: 5,
-              spaceBetween: 16,
             },
           }"
         >
@@ -172,15 +169,12 @@ try {
             },
             768: {
               slidesPerGroup: 3,
-              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 4,
-              spaceBetween: 16,
             },
             1280: {
               slidesPerGroup: 5,
-              spaceBetween: 16,
             },
           }"
         >
@@ -195,7 +189,7 @@ try {
       </div>
     </section>
 
-    <section class="my-2">
+    <!-- <section class="my-2">
       <div class="flex flex-col gap-4">
         <div>
           <h2 class="text-2xl font-bold">Top Deals For You</h2>
@@ -209,11 +203,9 @@ try {
           :breakpoints="{
             768: {
               slidesPerGroup: 2,
-              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 3,
-              spaceBetween: 16,
             },
           }"
         >
@@ -226,6 +218,6 @@ try {
           </SwiperSlide>
         </GameSlider>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>

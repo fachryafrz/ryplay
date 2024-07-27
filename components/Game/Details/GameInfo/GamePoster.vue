@@ -1,9 +1,9 @@
 <script setup>
-const { game } = defineProps(["game"]);
+import { isPlural } from "~/helper/isPlural";
+
+const { game, gameCover } = defineProps(["game", "gameCover"]);
 
 const dayjs = useDayjs();
-
-const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`;
 
 const uniqueCompanies = game.involved_companies?.filter(
   (company, index, self) =>
@@ -21,16 +21,14 @@ const gameInfo = [
       : "TBA",
   },
   {
-    section: "Developed by",
+    section: "Developer",
     icon: "code",
-    text: developers?.map((dev) => dev.company.name).join(", "),
-    // items: developers,
+    text: developers,
   },
   {
-    section: "Published by",
+    section: "Publisher",
     icon: "domain",
-    text: publishers?.map((dev) => dev.company.name).join(", "),
-    // items: publishers,
+    text: publishers,
   },
 ];
 </script>
@@ -51,11 +49,19 @@ const gameInfo = [
       <!-- Release date, devs, publishers -->
       <ul class="flex flex-wrap gap-4">
         <li v-for="info in gameInfo" class="flex flex-col items-start text-sm">
-          <span v-if="info.text" class="font-medium text-neutral-500">{{
-            info.section
-          }}</span>
+          <span v-if="info.text" class="font-medium text-neutral-500">
+            {{
+              Array.isArray(info.text)
+                ? isPlural(info.text.length, info.section, `${info.section}s`)
+                : info.section
+            }}
+          </span>
           <span v-if="info.text" class="font-semibold">
-            {{ info.text }}
+            {{
+              Array.isArray(info.text)
+                ? info.text.map((dev) => dev.company.name).join(", ")
+                : info.text
+            }}
           </span>
         </li>
       </ul>

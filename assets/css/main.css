@@ -28,11 +28,11 @@ body {
   }
 
   .featured-games {
-    @apply relative overflow-hidden transition-all duration-700 lg:h-[280px] lg:w-[210px];
+    @apply relative overflow-hidden transition-all duration-700 lg:h-[300px] lg:w-[210px];
   }
 
   .featured-games.active {
-    @apply lg:w-[500px];
+    @apply lg:w-[530px];
   }
 
   .featured-games #game-cover {

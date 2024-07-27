@@ -12,7 +12,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
 
 <template>
   <div
-    class="grid grid-cols-2 gap-2 md:grid-cols-6 lg:grid-rows-4 md:gap-4 [&_>_*]:rounded-xl"
+    class="grid grid-cols-2 gap-2 md:grid-cols-6 lg:grid-rows-4 [&_>_*]:rounded-2xl"
   >
     <div
       class="col-span-full aspect-video overflow-hidden md:col-span-4 md:aspect-auto lg:row-span-full"
@@ -145,7 +145,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
           </div>
 
           <figure
-            class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[75%]"
+            class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[50%]"
           >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.artworks[0].image_id}.jpg`"

@@ -38,7 +38,7 @@ if (error.value) {
     <NuxtLoadingIndicator />
 
     <aside
-      class="sticky top-4 z-[99999] h-[100dvh] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-r-2xl outline outline-secondary"
+      class="sticky top-4 z-[99999] h-[100dvh] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-r-xl outline outline-secondary"
     >
       <Sidebar />
     </aside>
