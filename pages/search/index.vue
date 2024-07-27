@@ -4,7 +4,7 @@ const games = ref([]);
 
 // Fungsi untuk mengambil data berdasarkan query params
 const fetchGames = async () => {
-  const { query, rating, genre, platform, release_date, category } =
+  const { query, rating, genre, platform, release_date, category, company } =
     route.query;
 
   try {
@@ -16,6 +16,7 @@ const fetchGames = async () => {
         platform,
         release_date,
         category,
+        company,
       },
     });
 

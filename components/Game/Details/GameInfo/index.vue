@@ -83,29 +83,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Expansions -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 2),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Expansions</h2>
-          <p class="text-sm text-neutral-500">
-            Enhance your experience with {{ game.name }} expansions
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 2)"
-        />
-      </div>
-    </div>
+    <!-- Expansions (2) -->
 
     <!-- Bundles -->
     <div v-if="game.bundles?.length > 0" class="">
@@ -120,267 +98,27 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Standalone Expansion -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 4),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Standalone Expansion</h2>
-          <p class="text-sm text-neutral-500">Play without the base game</p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 4)"
-        />
-      </div>
-    </div>
+    <!-- Standalone Expansion (4) -->
 
-    <!-- Mods -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 5),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Mods</h2>
-          <p class="text-sm text-neutral-500">
-            Enhance your gameplay with mods
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 5)"
-        />
-      </div>
-    </div>
+    <!-- Mods (5) -->
 
-    <!-- Episodes -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 6),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Episodes</h2>
-          <p class="text-sm text-neutral-500">
-            Play individual episodes of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 6)"
-        />
-      </div>
-    </div>
+    <!-- Episodes (6) -->
 
-    <!-- Seasons -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 7),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Seasons</h2>
-          <p class="text-sm text-neutral-500">
-            Play individual seasons of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 7)"
-        />
-      </div>
-    </div>
+    <!-- Seasons (7) -->
 
-    <!-- Remake -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 8),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Remake</h2>
-          <p class="text-sm text-neutral-500">
-            Play the remastered version of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 8)"
-        />
-      </div>
-    </div>
+    <!-- Remake (8) -->
 
-    <!-- Remaster -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 9),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Remaster</h2>
-          <p class="text-sm text-neutral-500">
-            Play the enhanced version of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 9)"
-        />
-      </div>
-    </div>
+    <!-- Remaster (9) -->
 
-    <!-- Expanded Version -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 10),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Expanded Version</h2>
-          <p class="text-sm text-neutral-500">
-            Play the expanded version of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 10)"
-        />
-      </div>
-    </div>
+    <!-- Expanded Version (10) -->
 
-    <!-- Port -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 411),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Port</h2>
-          <p class="text-sm text-neutral-500">
-            Play the ported version of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 411)"
-        />
-      </div>
-    </div>
+    <!-- Port (11) -->
 
-    <!-- Fork -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 12),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Fork</h2>
-          <p class="text-sm text-neutral-500">
-            Play the forked version of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 12)"
-        />
-      </div>
-    </div>
+    <!-- Fork (12) -->
 
-    <!-- Game Packs -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 13),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Game Packs</h2>
-          <p class="text-sm text-neutral-500">
-            Play the game packs of {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 13)"
-        />
-      </div>
-    </div>
-    
-    <!-- Updates -->
-    <div
-      v-if="
-        game.collections?.length > 0 &&
-        game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 14),
-        )
-      "
-      class=""
-    >
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Updates</h2>
-          <p class="text-sm text-neutral-500">
-            See what's new in {{ game.name }}
-          </p>
-        </div>
-        <GameGrid
-          v-for="collection in game.collections"
-          :games="collection.games.filter((game) => game.category === 14)"
-        />
-      </div>
-    </div>
+    <!-- Game Packs (13) -->
+
+    <!-- Updates (14) -->
 
     <!-- Collection -->
     <div
@@ -390,9 +128,10 @@ onMounted(() => {
           collection.games.some((game) => game.category === 0),
         )
       "
+      v-for="collection in game.collections"
       class=""
     >
-      <div class="flex flex-col gap-4" v-for="collection in game.collections">
+      <div class="flex flex-col gap-4">
         <div>
           <h2 class="text-2xl font-bold">{{ collection.name }} Collection</h2>
           <p class="text-sm text-neutral-500">
