@@ -2,6 +2,7 @@
 import { formatNumber, formatRating } from "~/helper/formats";
 import GameStores from "./GameStores.vue";
 import stores from "@/json/store-category.json";
+import { isPlural } from "~/helper/isPlural";
 
 const { game } = defineProps(["game"]);
 
@@ -54,7 +55,9 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
 
     <!-- Genres -->
     <div v-if="game.genres">
-      <h2 class="heading-2">Genres</h2>
+      <h2 class="heading-2">
+        {{ isPlural(game.genres.length, `Genre`, `Genres`) }}
+      </h2>
 
       <div class="flex flex-wrap gap-2">
         <NuxtLink
@@ -70,7 +73,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
 
     <!-- Ratings -->
     <div v-if="game.rating">
-      <h2 class="heading-2">Ratings</h2>
+      <h2 class="heading-2">Rating</h2>
 
       <div class="flex items-center gap-1 text-lg sm:text-2xl">
         <span class="material-symbols-outlined fill !text-xl sm:!text-3xl">

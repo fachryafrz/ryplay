@@ -22,7 +22,7 @@ export default {
         poster: "3/4",
       },
       animation: {
-        "spin-slow": "spin 20s linear infinite",
+        "spin-slow": "spin 15s linear infinite",
       },
       gridTemplateColumns: {
         24: "repeat(24, minmax(0, 1fr))",

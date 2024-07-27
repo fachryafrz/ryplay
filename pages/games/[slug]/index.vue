@@ -25,6 +25,7 @@ const fetchGameDetails = async () => {
 
   const data = response.value[0];
   game.value = data;
+  gameCover.value = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover.image_id}.jpg`;
 
   return data;
 };
@@ -81,7 +82,7 @@ try {
     <div
       class="order-1 col-span-full @container lg:order-2 lg:col-start-9 lg:row-span-2 xl:col-start-10"
     >
-      <GamePoster :game="game" />
+      <GamePoster :game="game" :game-cover="gameCover" />
     </div>
 
     <div v-if="game.similar_games?.length > 0" class="order-4 col-span-full">
@@ -114,15 +115,12 @@ try {
             },
             768: {
               slidesPerGroup: 3,
-              spaceBetween: 16,
             },
             1024: {
               slidesPerGroup: 4,
-              spaceBetween: 16,
             },
             1280: {
               slidesPerGroup: 5,
-              spaceBetween: 16,
             },
           }"
         >
