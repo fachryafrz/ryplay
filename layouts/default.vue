@@ -6,7 +6,7 @@ const config = useRuntimeConfig();
 useHead({
   titleTemplate: (title) => {
     return title
-      ? `${title} at ${config.public.APP_NAME}`
+      ? `${title} - ${config.public.APP_NAME}`
       : config.public.APP_NAME;
   },
   meta: [
