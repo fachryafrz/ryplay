@@ -1,8 +1,9 @@
 <script setup>
 import SearchBar from "./SearchBar.vue";
 
-const isActive = ref(false);
 const route = useRoute();
+
+const isActive = ref(false);
 
 const handleActive = () => {
   isActive.value = !isActive.value;
@@ -24,21 +25,23 @@ const config = useRuntimeConfig();
   <div class="drawer xl:drawer-open">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
 
-    <div
-      class="drawer-content fixed right-4 top-4 flex flex-col items-center justify-center"
-      :class="{ hidden: isActive }"
-    >
+    <div class="drawer-content p-4">
       <!-- Page content here -->
       <label
         for="my-drawer-2"
-        class="btn btn-primary drawer-button aspect-square p-0 xl:hidden"
         @click="handleActive"
+        class="btn btn-primary drawer-button fixed right-4 top-4 z-[100] aspect-square p-0 xl:hidden"
+        :class="{ hidden: isActive }"
       >
         <span class="material-symbols-outlined"> menu </span>
       </label>
+
+      <slot />
     </div>
 
-    <div class="drawer-side">
+    <aside
+      class="drawer-side top-4 z-[100] mt-4 max-h-[calc(100dvh-2rem)] rounded-r-xl outline outline-secondary"
+    >
       <label
         for="my-drawer-2"
         aria-label="close sidebar"
@@ -46,7 +49,7 @@ const config = useRuntimeConfig();
         @click="handleActive"
       ></label>
       <div
-        class="menu min-h-full w-[300px] gap-4 bg-neutral bg-opacity-95 p-4 text-base-content backdrop-blur"
+        class="menu min-h-full gap-4 bg-neutral bg-opacity-95 p-4 text-base-content backdrop-blur"
       >
         <div
           class="flex items-center justify-start xl:h-[75px] xl:justify-center"
@@ -100,6 +103,6 @@ const config = useRuntimeConfig();
           </li>
         </ul>
       </div>
-    </div>
+    </aside>
   </div>
 </template>

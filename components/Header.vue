@@ -4,7 +4,7 @@ const config = useRuntimeConfig();
 
 <template>
   <header
-    class="sticky top-0 z-[9999] -m-4 flex flex-col gap-4 bg-base-100 bg-opacity-90 p-4 backdrop-blur"
+    class="sticky top-0 z-[99] -m-4 flex flex-col gap-4 bg-base-100 bg-opacity-90 p-4 backdrop-blur"
   >
     <NuxtLink
       to="/"

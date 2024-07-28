@@ -34,25 +34,19 @@ if (error.value) {
 </script>
 
 <template>
-  <div class="flex">
+  <div>
     <NuxtLoadingIndicator />
 
-    <aside
-      class="sticky top-4 z-[99999] h-[100dvh] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-r-xl outline outline-secondary"
-    >
-      <Sidebar />
-    </aside>
-
-    <div
-      class="flex min-h-screen w-full flex-col gap-4 p-4 xl:max-w-[calc(100%-300px)]"
-    >
-      <main class="flex flex-col gap-4">
+    <Sidebar>
+      <div class="flex flex-col gap-4">
         <Header />
-
-        <NuxtPage />
-      </main>
-
-      <Footer />
-    </div>
+  
+        <main>
+          <NuxtPage />
+        </main>
+  
+        <Footer />
+      </div>
+    </Sidebar>
   </div>
 </template>
