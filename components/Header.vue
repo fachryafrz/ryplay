@@ -8,12 +8,12 @@ const config = useRuntimeConfig();
   >
     <NuxtLink
       to="/"
-      class="flex max-w-fit items-center gap-2 !bg-transparent xl:hidden"
+      class="flex h-[48px] max-w-fit items-center gap-2 !bg-transparent xl:hidden"
     >
       <svg
         id="logo-86"
-        width="48"
-        height="48"
+        width="40"
+        height="40"
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -33,9 +33,8 @@ const config = useRuntimeConfig();
           fill="#FFFFFF"
         ></path>
       </svg>
-      <span class="hidden text-2xl font-bold leading-6 xs:inline">
-        <p>{{ config.public.APP_NAME_SPACED.split(" ")[0] }}</p>
-        <p>{{ config.public.APP_NAME_SPACED.split(" ")[1] }}</p>
+      <span class="text-2xl font-bold">
+        <p>{{ config.public.APP_NAME }}</p>
       </span>
     </NuxtLink>
 

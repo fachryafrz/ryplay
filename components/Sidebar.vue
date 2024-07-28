@@ -40,7 +40,7 @@ const config = useRuntimeConfig();
     </div>
 
     <aside
-      class="drawer-side xs:min-w-[250px] z-[100] xl:top-4 xl:mt-4 xl:max-h-[calc(100dvh-2rem)] xl:rounded-r-xl xl:outline xl:outline-secondary"
+      class="drawer-side z-[100] xs:min-w-[250px] xl:top-4 xl:mt-4 xl:max-h-[calc(100dvh-2rem)] xl:rounded-r-xl xl:outline xl:outline-secondary"
     >
       <label
         for="my-drawer-2"
@@ -54,7 +54,10 @@ const config = useRuntimeConfig();
         <div
           class="flex items-center justify-start xl:h-[75px] xl:justify-center"
         >
-          <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent">
+          <NuxtLink
+            to="/"
+            class="flex h-[48px] items-center gap-2 !bg-transparent"
+          >
             <svg
               id="logo-86"
               width="40"
@@ -78,7 +81,7 @@ const config = useRuntimeConfig();
                 fill="#FFFFFF"
               ></path>
             </svg>
-            <span class="text-3xl font-bold leading-8">
+            <span class="text-2xl font-bold">
               {{ config.public.APP_NAME }}
             </span>
           </NuxtLink>
