@@ -40,7 +40,7 @@ const config = useRuntimeConfig();
     </div>
 
     <aside
-      class="drawer-side top-4 z-[100] mt-4 max-h-[calc(100dvh-2rem)] rounded-r-xl outline outline-secondary"
+      class="drawer-side z-[100] xl:top-4 xl:mt-4 xl:max-h-[calc(100dvh-2rem)] xl:rounded-r-xl xl:outline xl:outline-secondary"
     >
       <label
         for="my-drawer-2"
