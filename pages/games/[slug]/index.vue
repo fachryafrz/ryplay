@@ -54,14 +54,7 @@ try {
     ],
   });
 } catch (error) {
-  if (error.statusCode === 401) {
-    try {
-      await useFetch("/api/token");
-      await fetchGameDetails();
-    } catch (tokenError) {
-      console.error("Error saat mendapatkan token:", tokenError);
-    }
-  }
+  console.error("Failed to fetch game details:", error);
 }
 </script>
 

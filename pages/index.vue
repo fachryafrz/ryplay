@@ -1,7 +1,6 @@
 <script setup>
 import ExpandableGameCard from "~/components/Game/ExpandableGameCard.vue";
 import HomeSlider from "~/components/Game/HomeSlider.vue";
-import { useFetch } from "#imports";
 
 const config = useRuntimeConfig();
 
@@ -57,16 +56,7 @@ const fetches = async () => {
 try {
   await fetches();
 } catch (error) {
-  if (error.statusCode === 401) {
-    try {
-      await useFetch("/api/token");
-      await fetches();
-    } catch (tokenError) {
-      console.error("Error saat mendapatkan token:", tokenError);
-    }
-  } else {
-    console.error("Error saat memuat data:", error);
-  }
+  console.error("Failed to fetch games:", error);
 }
 </script>
 
@@ -85,7 +75,9 @@ try {
         </div>
 
         <!-- Upcoming Games -->
-        <div class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:flex lg:overflow-x-auto">
+        <div
+          class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:flex lg:overflow-x-auto"
+        >
           <ExpandableGameCard :games="upcomingGames" />
         </div>
       </div>
