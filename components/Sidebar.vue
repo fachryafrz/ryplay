@@ -40,7 +40,7 @@ const config = useRuntimeConfig();
     </div>
 
     <aside
-      class="drawer-side z-[100] xl:top-4 xl:mt-4 xl:max-h-[calc(100dvh-2rem)] xl:rounded-r-xl xl:outline xl:outline-secondary"
+      class="drawer-side xs:min-w-[250px] z-[100] xl:top-4 xl:mt-4 xl:max-h-[calc(100dvh-2rem)] xl:rounded-r-xl xl:outline xl:outline-secondary"
     >
       <label
         for="my-drawer-2"
@@ -57,8 +57,8 @@ const config = useRuntimeConfig();
           <NuxtLink to="/" class="flex items-center gap-2 !bg-transparent">
             <svg
               id="logo-86"
-              width="48"
-              height="48"
+              width="40"
+              height="40"
               viewBox="0 0 40 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
