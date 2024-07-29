@@ -13,6 +13,10 @@ const handleSubmit = () => {
   }
 };
 
+const clearSearch = () => {
+  searchQuery.value = "";
+};
+
 watch(
   () => route.query,
   () => {
@@ -41,6 +45,14 @@ onKeyStroke("/", (e) => {
           class="grow"
           placeholder="Find games..."
         />
+        <button
+          v-show="searchQuery"
+          @click="clearSearch"
+          type="button"
+          class="material-symbols-outlined"
+        >
+          close
+        </button>
         <kbd class="kbd kbd-sm hidden xl:flex">/</kbd>
       </label>
     </form>
