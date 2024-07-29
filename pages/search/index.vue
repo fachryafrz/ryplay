@@ -1,6 +1,8 @@
 <script setup>
 const route = useRoute();
-const games = ref();
+const loadMoreRef = ref();
+const games = ref([]);
+const offset = ref(0);
 
 // Fungsi untuk mengambil data berdasarkan query params
 const fetchGames = async () => {
@@ -8,6 +10,7 @@ const fetchGames = async () => {
     route.query;
 
   const { data: response, error } = await useFetch("/api/games/search", {
+    method: "POST",
     params: {
       query,
       rating,
@@ -17,10 +20,21 @@ const fetchGames = async () => {
       category,
       company,
     },
+    body: {
+      offset: offset.value,
+    },
   });
 
   if (error.value) throw error.value;
-  if (response.value) games.value = response.value;
+  if (response.value) {
+
+    // NOTE: Ada bug kalo cari "star wars" infinite scroll nya jalan terus
+    const uniqueGames = response.value.filter((game) =>
+      games.value.every((g) => g.id !== game.id),
+    );
+
+    games.value.push(...response.value);
+  }
 };
 
 try {
@@ -40,7 +54,24 @@ try {
 }
 
 // Memanggil fetchGames setiap kali route.query berubah
-watch(() => route.fullPath, fetchGames, { deep: true });
+watch(
+  () => route.fullPath,
+  async () => {
+    offset.value = 0;
+    games.value = [];
+    await fetchGames();
+  },
+  { immediate: true },
+);
+
+const loadMore = async () => {
+  offset.value += 20;
+  await fetchGames();
+};
+
+useInfiniteScroll(loadMoreRef, async () => {
+  await loadMore();
+});
 </script>
 
 <template>
@@ -48,5 +79,14 @@ watch(() => route.fullPath, fetchGames, { deep: true });
     <h1 class="sr-only">Search</h1>
 
     <GameGrid v-if="games" :games="games" />
+
+    <button
+      @click="loadMore"
+      ref="loadMoreRef"
+      v-if="games.length >= 20 && games.length >= offset"
+      class="pointer-events-none mx-auto mt-4 flex aspect-square"
+    >
+      <span class="loading loading-spinner"></span>
+    </button>
   </div>
 </template>

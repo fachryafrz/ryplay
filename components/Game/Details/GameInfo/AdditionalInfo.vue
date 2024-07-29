@@ -38,7 +38,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
           :to="`/search?platform=${platform.slug}`"
           class="btn btn-secondary btn-sm"
         >
-          {{ platform.abbreviation }}
+          {{ platform.name || platform.abbreviation }}
         </NuxtLink>
       </div>
     </div>

@@ -2,6 +2,7 @@
 const searchQuery = ref("");
 const router = useRouter();
 const route = useRoute();
+const inputRef = ref(null);
 
 const handleSubmit = () => {
   if (searchQuery.value.trim()) {
@@ -19,21 +20,28 @@ watch(
   },
   { immediate: true },
 );
+
+onKeyStroke("/", (e) => {
+  e.preventDefault();
+  inputRef.value.focus();
+});
 </script>
 
 <template>
   <div class="flex w-full gap-4">
     <form @submit.prevent="handleSubmit" class="flex w-full items-center gap-2">
       <label
-        class="input input-md flex rounded-xl w-full items-center gap-2 bg-neutral outline outline-secondary xl:max-w-md"
+        class="input input-md flex w-full items-center gap-2 rounded-xl bg-neutral outline outline-secondary xl:max-w-md"
       >
         <span class="material-symbols-outlined"> search </span>
         <input
           v-model="searchQuery"
+          ref="inputRef"
           type="text"
           class="grow"
           placeholder="Find games..."
         />
+        <kbd class="kbd kbd-sm hidden xl:flex">/</kbd>
       </label>
     </form>
   </div>
