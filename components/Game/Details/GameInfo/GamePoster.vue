@@ -23,12 +23,12 @@ const gameInfo = [
   {
     section: "Developer",
     icon: "code",
-    text: developers,
+    text: developers.map((dev) => dev.company.name).join(", "),
   },
   {
     section: "Publisher",
     icon: "domain",
-    text: publishers,
+    text: publishers.map((dev) => dev.company.name).join(", "),
   },
 ];
 </script>
@@ -59,7 +59,7 @@ const gameInfo = [
           <span v-if="info.text" class="font-semibold">
             {{
               Array.isArray(info.text)
-                ? info.text.map((dev) => dev.company.name).join(", ")
+                ? info.text
                 : info.text
             }}
           </span>

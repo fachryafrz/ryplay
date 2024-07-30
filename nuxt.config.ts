@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
   ],
   pwa: {
-    manifestFilename: "manifest.webmanifest",
     manifest: {
       name: process.env.APP_NAME,
       short_name: process.env.APP_NAME,
@@ -27,6 +26,22 @@ export default defineNuxtConfig({
           src: "maskable_icon_x512.png",
           sizes: "512x512",
           type: "image/png",
+        },
+      ],
+      screenshots: [
+        {
+          src: "screenshots/home.png",
+          sizes: "640x320",
+          type: "image/png",
+          form_factor: "wide",
+          label: "Home Screen",
+        },
+        {
+          src: "screenshots/game_details.png",
+          sizes: "640x320",
+          type: "image/png",
+          form_factor: "wide",
+          label: "Game Details",
         },
       ],
       start_url: "./",
