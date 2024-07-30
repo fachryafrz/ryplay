@@ -21,6 +21,10 @@ useHead({
       type: "image/x-icon",
       href: "/favicon.ico",
     },
+     {
+      rel: "manifest",
+      href: "/manifest.webmanifest",
+     }
   ],
 });
 
@@ -36,7 +40,7 @@ if (error.value) {
 <template>
   <div>
     <NuxtLoadingIndicator />
-
+    <NuxtPwaManifest />
     <Sidebar>
       <div class="flex flex-col gap-4">
         <Header />
