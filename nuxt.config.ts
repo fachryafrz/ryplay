@@ -9,7 +9,43 @@ export default defineNuxtConfig({
     "@nuxtjs/mdc",
     "@nuxt/icon",
     "@vueuse/nuxt",
+    "@vite-pwa/nuxt",
   ],
+  pwa: {
+    manifestFilename: "manifest.webmanifest",
+    manifest: {
+      name: process.env.APP_NAME,
+      short_name: process.env.APP_NAME,
+      description: process.env.APP_DESCRIPTION,
+      icons: [
+        {
+          src: "maskable_icon_x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "android-chrome-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "android-chrome-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+      ],
+      start_url: "./",
+      scope: "./",
+      display: "standalone",
+      background_color: "#0b0c0d",
+      theme_color: "#0b0c0d",
+    },
+    devOptions: {
+      enabled: true,
+      type: "module",
+    },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
