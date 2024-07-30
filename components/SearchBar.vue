@@ -35,7 +35,7 @@ onKeyStroke("/", (e) => {
   <div class="flex w-full gap-4">
     <form @submit.prevent="handleSubmit" class="flex w-full items-center gap-2">
       <label
-        class="input input-md flex w-full items-center gap-2 rounded-xl bg-neutral outline outline-secondary xl:max-w-md"
+        class="input input-md flex w-full items-center gap-2 rounded-lg bg-secondary xl:max-w-md"
       >
         <span class="material-symbols-outlined"> search </span>
         <input
@@ -43,7 +43,7 @@ onKeyStroke("/", (e) => {
           ref="inputRef"
           type="text"
           class="grow"
-          placeholder="Find games..."
+          placeholder="Search"
         />
         <button
           v-show="searchQuery"
