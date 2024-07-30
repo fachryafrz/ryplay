@@ -37,16 +37,30 @@ export default defineNuxtConfig({
       screenshots: [
         {
           src: "screenshots/home.png",
-          sizes: "640x320",
+          sizes: "3072x1536",
           type: "image/png",
           form_factor: "wide",
           label: "Home Screen",
         },
         {
           src: "screenshots/game_details.png",
-          sizes: "640x320",
+          sizes: "3072x1536",
           type: "image/png",
           form_factor: "wide",
+          label: "Game Details",
+        },
+        {
+          src: "screenshots/home_mobile.png",
+          sizes: "750x1332",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Home Screen",
+        },
+        {
+          src: "screenshots/game_details_mobile.png",
+          sizes: "750x1332",
+          type: "image/png",
+          form_factor: "narrow",
           label: "Game Details",
         },
       ],
