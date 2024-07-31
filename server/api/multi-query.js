@@ -56,28 +56,31 @@ export default defineEventHandler(async (event) => {
         };
         query games "indie" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 32 & category = 0;
-          s total_rating desc;
-          l 5;
+          w cover != null & genres = 32 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
         };
         query games "shooter" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 5 & category = 0;
-          s total_rating desc;
-          l 5;
+          w cover != null & genres = 5 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
         };
         query games "racing" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 10 & category = 0;
-          s total_rating desc;
-          l 5;
+          w cover != null & genres = 10 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
         };
-        query companies "ubisoft" {
-          f developed.*, developed.cover.*, developed.artworks.*;
-          w slug = "ubisoft-montreal" & developed.category = 0;
+        query games "sports" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres = 14 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
         };
       `,
     });
+    // NOTE: Masih 9 request yg ini
 
     const data2 = await $fetch("https://api.igdb.com/v4/multiquery", {
       method: "POST",
@@ -86,13 +89,23 @@ export default defineEventHandler(async (event) => {
         Authorization: `Bearer ${access_token}`,
       },
       body: `
-        query companies "rockstar-games" {
-          f developed.*, developed.cover.*, developed.artworks.*;
-          w slug = "rockstar-games" & developed.category = 0;
+        query popularity_primitives "most-played-data" {
+          f game_id; 
+          w popularity_type = 4;
+          s value desc; 
+          l 20;  
         };
-        query companies "electronic-arts" {
-          f developed.*, developed.cover.*, developed.artworks.*;
-          w slug = "electronic-arts" & developed.category = 0;
+        query popularity_primitives "playing-data" {
+          f game_id; 
+          w popularity_type = 3;
+          s value desc; 
+          l 20;  
+        };
+        query popularity_primitives "want-to-play-data" {
+          f game_id; 
+          w popularity_type = 2;
+          s value desc; 
+          l 20;  
         };
       `,
     });

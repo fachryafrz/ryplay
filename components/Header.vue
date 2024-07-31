@@ -1,19 +1,15 @@
 <script setup>
 const config = useRuntimeConfig();
+const route = useRoute();
 </script>
 
 <template>
   <div
     class="sticky top-0 z-[99] bg-base-100 bg-opacity-90 px-4 py-2 backdrop-blur"
   >
-    <header
-      class="navbar min-h-0 rounded-xl p-0 bg-neutral bg-opacity-10"
-    >
+    <header class="navbar min-h-0 rounded-xl bg-neutral bg-opacity-10 p-0">
       <div class="navbar-start">
-        <NuxtLink
-          to="/"
-          class="btn btn-ghost btn-sm px-2 text-lg sm:btn-md sm:px-2 sm:text-xl"
-        >
+        <NuxtLink to="/" class="btn btn-ghost px-2 text-lg sm:px-2 sm:text-xl">
           <svg
             id="logo-86"
             width="30"
@@ -45,9 +41,11 @@ const config = useRuntimeConfig();
         <div>
           <NuxtLink
             to="/search"
-            class="btn btn-secondary btn-sm aspect-square px-0 sm:hidden"
+            v-show="route.path !== '/search'"
+            class="btn btn-neutral outline outline-secondary sm:hidden"
           >
             <span class="material-symbols-outlined"> search </span>
+            <span>Search</span>
           </NuxtLink>
           <SearchBar class="hidden sm:block" />
         </div>

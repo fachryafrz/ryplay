@@ -11,9 +11,6 @@ const featuredGames = multiqueryResponse.value.find(
 const upcomingGames = multiqueryResponse.value.find(
   (res) => res.name === "upcoming",
 ).result;
-const popularityData = multiqueryResponse.value.find(
-  (res) => res.name === "popularity-data",
-).result;
 const topRatedGames = multiqueryResponse.value.find(
   (res) => res.name === "top-rated",
 ).result;
@@ -32,16 +29,24 @@ const shooter = multiqueryResponse.value.find(
 const racing = multiqueryResponse.value.find(
   (res) => res.name === "racing",
 ).result;
-const ubisoft = multiqueryResponse.value.find((res) => res.name === "ubisoft")
-  .result[0].developed;
-const rockstarGames = multiqueryResponse.value.find(
-  (res) => res.name === "rockstar-games",
-).result[0].developed;
-const electronicArts = multiqueryResponse.value.find(
-  (res) => res.name === "electronic-arts",
-).result[0].developed;
+const sports = multiqueryResponse.value.find(
+  (res) => res.name === "sports",
+).result;
+// ============== PopScore ==============
+const popularityData = multiqueryResponse.value.find(
+  (res) => res.name === "popularity-data",
+).result;
+const mostPlayedData = multiqueryResponse.value.find(
+  (res) => res.name === "most-played-data",
+).result;
+const playingData = multiqueryResponse.value.find(
+  (res) => res.name === "playing-data",
+).result;
+const wantToPlayData = multiqueryResponse.value.find(
+  (res) => res.name === "want-to-play-data",
+).result;
 
-const { data: popularGames, error: gamesError } = await useFetch(
+const { data: popularGames, error: popularGamesError } = await useLazyFetch(
   "/api/games/details",
   {
     params: {
@@ -51,8 +56,42 @@ const { data: popularGames, error: gamesError } = await useFetch(
     },
   },
 );
-
-if (gamesError.value) throw gamesError.value;
+const { data: mostPlayed, error: mostPlayedError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${mostPlayedData
+        .slice(0, 5)
+        .map((data) => data.game_id)
+        .join(",")})`,
+      limit: 5,
+    },
+  },
+);
+const { data: playing, error: playingError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${playingData
+        .slice(0, 5)
+        .map((data) => data.game_id)
+        .join(",")})`,
+      limit: 5,
+    },
+  },
+);
+const { data: wantToPlay, error: wantToPlayError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${wantToPlayData
+        .slice(0, 5)
+        .map((data) => data.game_id)
+        .join(",")})`,
+      limit: 5,
+    },
+  },
+);
 </script>
 
 <template>
@@ -129,50 +168,32 @@ if (gamesError.value) throw gamesError.value;
       />
     </section>
 
-    <section class="my-8">
+    <section class="my-2 lg:my-8">
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile class="w-full" :games="indie" title="Indie" />
+        <GameTile class="w-full" :games="mostPlayed" title="Most Played" />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="shooter" title="Shooter" />
+        <GameTile class="w-full" :games="playing" title="Playing" />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="racing" title="Racing" />
+        <GameTile class="w-full" :games="wantToPlay" title="Want to Play" />
       </div>
     </section>
 
     <section class="my-2">
-      <GameSlider id="ubisoft" :games="ubisoft.slice(0, 20)" title="Ubisoft" />
+      <GameSlider id="indie" :games="indie" title="Indie" />
     </section>
 
     <section class="my-2">
-      <GameSlider
-        id="rockstarGames"
-        :games="rockstarGames.slice(0, 20)"
-        title="Rockstar Games"
-      />
+      <GameSlider id="shooter" :games="shooter" title="Shooter" />
     </section>
 
     <section class="my-2">
-      <GameSlider
-        id="electronicArts"
-        :games="electronicArts.slice(0, 20)"
-        title="Electronic Arts"
-      />
-    </section>
-
-    <section class="my-8">
-      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile class="w-full" :games="indie" title="Retro" />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="indie" title="Virtual Reality" />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="indie" title="Puzzle" />
-      </div>
+      <GameSlider id="racing" :games="racing" title="Racing" />
     </section>
 
     <section class="my-2">
       <GameSlider
         id="sports"
-        :games="featuredGames"
+        :games="sports"
         title="Sports"
         :slides-per-view="2"
         :slides-per-group="2"
@@ -181,49 +202,6 @@ if (gamesError.value) throw gamesError.value;
           640: {
             slidesPerGroup: 2,
             slidesPerView: 2,
-          },
-        }"
-        :isHorizontal="true"
-      />
-    </section>
-
-    <section class="my-2">
-      <GameSlider id="survival" :games="topRatedGames" title="Survival" />
-    </section>
-
-    <section class="my-8">
-      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile class="w-full" :games="indie" title="Adventure" />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="indie" title="Open World" />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="indie" title="Fighting" />
-      </div>
-    </section>
-
-    <section class="my-2">
-      <GameSlider id="platformer" :games="topRatedGames" title="Platformer" />
-    </section>
-
-    <section class="my-2">
-      <GameSlider id="simulation" :games="topRatedGames" title="Simulation" />
-    </section>
-
-    <section class="my-2">
-      <GameSlider id="horror" :games="topRatedGames" title="Horror" />
-    </section>
-
-    <section class="my-2">
-      <GameSlider
-        id="rpg"
-        :games="featuredGames"
-        title="Role-Playing Games"
-        :slides-per-view="2"
-        :slides-per-group="2"
-        :breakpoints="{
-          1024: {
-            slidesPerGroup: 3,
-            slidesPerView: 3,
           },
         }"
         :isHorizontal="true"

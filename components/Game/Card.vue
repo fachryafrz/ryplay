@@ -31,7 +31,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
 
     <div
       v-if="isHorizontal"
-      class="mb-4 transition-all hocus:mb-0 hocus:rounded-xl hocus:bg-secondary hocus:p-4 [&_figure]:hocus:rounded-md"
+      class="mb-4 transition-all hocus:mb-0 hocus:rounded-xl hocus:bg-secondary hocus:p-2 md:hocus:p-4 [&_figure]:hocus:rounded-md"
     >
       <figure
         class="-z-10 block aspect-video overflow-hidden rounded-xl transition-all"
@@ -61,7 +61,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
         {{ game.name }}
       </h3>
 
-      <p class="mt-1 line-clamp-3 text-xs text-neutral-500 lg:text-sm">
+      <p class="mt-1 hidden sm:line-clamp-3 text-xs text-neutral-500 lg:text-sm">
         {{ game.storyline || game.summary }}
       </p>
     </div>

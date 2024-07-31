@@ -10,7 +10,7 @@ const { game } = defineProps(["game"]);
     class="flex items-center gap-2 rounded-xl p-2 outline-none transition-all hocus:bg-secondary"
   >
     <figure
-      class="block aspect-poster w-[75px] overflow-hidden rounded-md bg-neutral"
+      class="block aspect-poster w-[100px] overflow-hidden rounded-md bg-neutral"
     >
       <img
         :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
@@ -21,7 +21,7 @@ const { game } = defineProps(["game"]);
     </figure>
 
     <div class="w-full">
-      <span class="mt-3 block text-xs font-semibold text-neutral-500">
+      <span class="block text-xs font-semibold text-neutral-500">
         {{ gameCategory.find((item) => item.id === game.category).name }}
       </span>
 
