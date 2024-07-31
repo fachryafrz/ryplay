@@ -6,9 +6,12 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
 
 <template>
   <NuxtLink :to="`/games/${game.slug}`" class="relative">
-    <div v-if="!isHorizontal">
+    <div
+      v-if="!isHorizontal"
+      class="transition-all hocus:rounded-xl hocus:bg-secondary md:hocus:p-2 [&_figure]:hocus:rounded-md"
+    >
       <figure
-        class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral"
+        class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral transition-all"
       >
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
@@ -23,7 +26,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
       </span>
 
       <h3
-        class="mt-1 line-clamp-2 text-pretty font-semibold sm:text-xl sm:leading-tight"
+        class="mt-1 line-clamp-2 text-pretty font-semibold sm:text-lg sm:leading-tight"
       >
         {{ game.name }}
       </h3>
@@ -56,12 +59,14 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
       </span>
 
       <h3
-        class="mt-1 line-clamp-1 text-pretty font-semibold sm:text-xl sm:leading-tight"
+        class="mt-1 line-clamp-1 text-pretty font-semibold sm:text-lg sm:leading-tight"
       >
         {{ game.name }}
       </h3>
 
-      <p class="mt-1 hidden sm:line-clamp-3 text-xs text-neutral-500 lg:text-sm">
+      <p
+        class="mt-1 hidden text-xs text-neutral-500 sm:line-clamp-3 lg:text-sm"
+      >
         {{ game.storyline || game.summary }}
       </p>
     </div>
