@@ -1,4 +1,6 @@
 <script setup>
+import gameCategory from "@/json/game-category.json";
+
 const { game } = defineProps(["game"]);
 </script>
 
@@ -19,7 +21,11 @@ const { game } = defineProps(["game"]);
     </figure>
 
     <div class="w-full">
-      <h3 class="line-clamp-2 text-pretty font-semibold leading-tight">
+      <span class="mt-3 block text-xs font-semibold text-neutral-500">
+        {{ gameCategory.find((item) => item.id === game.category).name }}
+      </span>
+
+      <h3 class="line-clamp-2 text-pretty text-lg font-semibold leading-tight">
         {{ game.name }}
       </h3>
 

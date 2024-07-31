@@ -99,7 +99,15 @@ const defaultBreakpoints = {
         }"
         class="rounded-xl"
       >
-        <SwiperSlide v-for="game in games" :key="game.slug" class="">
+        <SwiperSlide
+          v-for="game in games"
+          :key="game.slug"
+          :class="
+            !isHorizontal
+              ? `max-w-[calc(100%/3)] md:max-w-[calc(100%/4)] lg:max-w-[calc(100%/5)] xl:max-w-[calc(100%/6)]`
+              : `max-w-[calc(100%/2)] lg:max-w-[calc(100%/${slidesPerView || 3})]`
+          "
+        >
           <GameCard :game="game" :isHorizontal="isHorizontal" />
         </SwiperSlide>
       </Swiper>

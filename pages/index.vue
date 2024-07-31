@@ -1,56 +1,58 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const upcomingGames = ref();
-const popularGames = ref();
-const featuredGames = ref();
-const topRatedGames = ref();
+const { data: multiqueryResponse, error } = await useFetch("/api/multi-query");
 
-const fetches = async () => {
-  const { data: multiqueryResponse, error } =
-    await useFetch("/api/multi-query");
+if (error.value) throw error.value;
 
-  if (error.value) {
-    throw error.value;
-  }
+const featuredGames = multiqueryResponse.value.find(
+  (res) => res.name === "featured",
+).result;
+const upcomingGames = multiqueryResponse.value.find(
+  (res) => res.name === "upcoming",
+).result;
+const popularityData = multiqueryResponse.value.find(
+  (res) => res.name === "popularity-data",
+).result;
+const topRatedGames = multiqueryResponse.value.find(
+  (res) => res.name === "top-rated",
+).result;
+const newReleases = multiqueryResponse.value.find(
+  (res) => res.name === "new-releases",
+).result;
+const mostAnticipated = multiqueryResponse.value.find(
+  (res) => res.name === "most-anticipated",
+).result;
+const indie = multiqueryResponse.value.find(
+  (res) => res.name === "indie",
+).result;
+const shooter = multiqueryResponse.value.find(
+  (res) => res.name === "shooter",
+).result;
+const racing = multiqueryResponse.value.find(
+  (res) => res.name === "racing",
+).result;
+const ubisoft = multiqueryResponse.value.find((res) => res.name === "ubisoft")
+  .result[0].developed;
+const rockstarGames = multiqueryResponse.value.find(
+  (res) => res.name === "rockstar-games",
+).result[0].developed;
+const electronicArts = multiqueryResponse.value.find(
+  (res) => res.name === "electronic-arts",
+).result[0].developed;
 
-  upcomingGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "upcoming",
-  ).result;
-  featuredGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "featured",
-  ).result;
-  topRatedGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "top-rated",
-  ).result;
-
-  const popularityData = multiqueryResponse.value.find(
-    (res) => res.name === "popularity-data",
-  ).result;
-
-  const { data: popularGamesResponse, error: gamesError } = await useFetch(
-    "/api/games/details",
-    {
-      params: {
-        id: `(${popularityData.map((data) => data.game_id).join(",")})`,
-        sort: `hypes desc`,
-        limit: 20,
-      },
+const { data: popularGames, error: gamesError } = await useFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${popularityData.map((data) => data.game_id).join(",")})`,
+      sort: `hypes desc`,
+      limit: 20,
     },
-  );
+  },
+);
 
-  if (gamesError.value) {
-    throw gamesError.value;
-  }
-
-  popularGames.value = popularGamesResponse.value;
-};
-
-try {
-  await fetches();
-} catch (error) {
-  console.error("Failed to fetch games:", error);
-}
+if (gamesError.value) throw gamesError.value;
 </script>
 
 <template>
@@ -95,25 +97,8 @@ try {
 
     <section class="my-2">
       <GameSlider
-        id="featuredGames"
-        :games="featuredGames"
-        title="New Releases"
-        :slides-per-view="2"
-        :slides-per-group="2"
-        :breakpoints="{
-          1024: {
-            slidesPerGroup: 3,
-            slidesPerView: 3,
-          },
-        }"
-        :isHorizontal="true"
-      />
-    </section>
-
-    <section class="my-2">
-      <GameSlider
-        id="featuredGames"
-        :games="featuredGames"
+        id="mostAnticipated"
+        :games="mostAnticipated"
         title="Most Anticipated"
         :slides-per-view="2"
         :slides-per-group="2"
@@ -127,33 +112,11 @@ try {
       />
     </section>
 
-    <section class="my-8">
-      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Indie"
-        />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Multiplayer"
-        />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Top Upcoming Wishlisted"
-        />
-      </div>
-    </section>
-
     <section class="my-2">
       <GameSlider
-        id="featuredGames"
-        :games="featuredGames"
-        title="Ubisoft"
+        id="newReleases"
+        :games="newReleases"
+        title="New Releases"
         :slides-per-view="2"
         :slides-per-group="2"
         :breakpoints="{
@@ -166,47 +129,49 @@ try {
       />
     </section>
 
+    <section class="my-8">
+      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+        <GameTile class="w-full" :games="indie" title="Indie" />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile class="w-full" :games="shooter" title="Shooter" />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile class="w-full" :games="racing" title="Racing" />
+      </div>
+    </section>
+
+    <section class="my-2">
+      <GameSlider id="ubisoft" :games="ubisoft.slice(0, 20)" title="Ubisoft" />
+    </section>
+
     <section class="my-2">
       <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
+        id="rockstarGames"
+        :games="rockstarGames.slice(0, 20)"
         title="Rockstar Games"
       />
     </section>
 
     <section class="my-2">
       <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
+        id="electronicArts"
+        :games="electronicArts.slice(0, 20)"
         title="Electronic Arts"
       />
     </section>
 
     <section class="my-8">
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Retro"
-        />
+        <GameTile class="w-full" :games="indie" title="Retro" />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Virtual Reality"
-        />
+        <GameTile class="w-full" :games="indie" title="Virtual Reality" />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Puzzle"
-        />
+        <GameTile class="w-full" :games="indie" title="Puzzle" />
       </div>
     </section>
 
     <section class="my-2">
       <GameSlider
-        id="featuredGames"
+        id="sports"
         :games="featuredGames"
         title="Sports"
         :slides-per-view="2"
@@ -223,62 +188,34 @@ try {
     </section>
 
     <section class="my-2">
-      <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
-        title="Survival"
-      />
+      <GameSlider id="survival" :games="topRatedGames" title="Survival" />
     </section>
 
     <section class="my-8">
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Adventure"
-        />
+        <GameTile class="w-full" :games="indie" title="Adventure" />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Open World"
-        />
+        <GameTile class="w-full" :games="indie" title="Open World" />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile
-          class="w-full"
-          :games="topRatedGames.slice(0, 5)"
-          title="Fighting"
-        />
+        <GameTile class="w-full" :games="indie" title="Fighting" />
       </div>
     </section>
 
     <section class="my-2">
-      <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
-        title="Platformer"
-      />
+      <GameSlider id="platformer" :games="topRatedGames" title="Platformer" />
+    </section>
+
+    <section class="my-2">
+      <GameSlider id="simulation" :games="topRatedGames" title="Simulation" />
+    </section>
+
+    <section class="my-2">
+      <GameSlider id="horror" :games="topRatedGames" title="Horror" />
     </section>
 
     <section class="my-2">
       <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
-        title="Simulation"
-      />
-    </section>
-
-    <section class="my-2">
-      <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
-        title="Horror"
-      />
-    </section>
-
-    <section class="my-2">
-      <GameSlider
-        id="featuredGames"
+        id="rpg"
         :games="featuredGames"
         title="Role-Playing Games"
         :slides-per-view="2"
