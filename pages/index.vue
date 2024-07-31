@@ -46,7 +46,7 @@ const wantToPlayData = multiqueryResponse.value.find(
   (res) => res.name === "want-to-play-data",
 ).result;
 
-const { data: popularGames, error: popularGamesError } = await useLazyFetch(
+const { data: popularGames, error: popularGamesError } = useFetch(
   "/api/games/details",
   {
     params: {
@@ -56,7 +56,7 @@ const { data: popularGames, error: popularGamesError } = await useLazyFetch(
     },
   },
 );
-const { data: mostPlayed, error: mostPlayedError } = await useLazyFetch(
+const { data: mostPlayed, error: mostPlayedError } = useFetch(
   "/api/games/details",
   {
     params: {
@@ -68,7 +68,7 @@ const { data: mostPlayed, error: mostPlayedError } = await useLazyFetch(
     },
   },
 );
-const { data: playing, error: playingError } = await useLazyFetch(
+const { data: playing, error: playingError } = useFetch(
   "/api/games/details",
   {
     params: {
@@ -80,7 +80,7 @@ const { data: playing, error: playingError } = await useLazyFetch(
     },
   },
 );
-const { data: wantToPlay, error: wantToPlayError } = await useLazyFetch(
+const { data: wantToPlay, error: wantToPlayError } = useFetch(
   "/api/games/details",
   {
     params: {
