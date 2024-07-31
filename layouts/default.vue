@@ -74,10 +74,10 @@ if (error.value) {
     <NuxtLoadingIndicator />
     <NuxtPwaManifest />
     <!-- <Sidebar> -->
-      <div class="flex flex-col gap-0">
+      <div class="flex flex-col gap-0 max-w-7xl mx-auto">
         <Header />
 
-        <main class="p-4">
+        <main class="px-4">
           <NuxtPage />
         </main>
 

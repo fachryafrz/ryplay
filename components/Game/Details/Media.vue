@@ -77,15 +77,11 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       <div
         class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-3 [&_*]:pointer-events-auto"
       >
-        <button
-          class="prev grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
-        >
-          <span class="material-symbols-outlined"> arrow_left </span>
+        <button class="prev btn btn-primary btn-sm aspect-square px-0">
+          <Icon name="ion:md-arrow-dropleft" size="20" />
         </button>
-        <button
-          class="next grid aspect-square w-8 place-content-center rounded-lg bg-primary px-0 text-9xl text-base-100"
-        >
-          <span class="material-symbols-outlined"> arrow_right </span>
+        <button class="next btn btn-primary btn-sm aspect-square px-0">
+          <Icon name="ion:md-arrow-dropright" size="20" />
         </button>
       </div>
 

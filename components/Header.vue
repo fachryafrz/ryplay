@@ -3,14 +3,21 @@ const config = useRuntimeConfig();
 </script>
 
 <template>
-  <div class="sticky top-0 z-[99] -mt-4 py-3 px-4 bg-base-100 bg-opacity-90 backdrop-blur">
-    <header class="navbar rounded-xl bg-neutral outline outline-secondary bg-opacity-50">
+  <div
+    class="sticky top-0 z-[99] bg-base-100 bg-opacity-90 px-4 py-2 backdrop-blur"
+  >
+    <header
+      class="navbar min-h-0 rounded-xl p-0 bg-neutral bg-opacity-10"
+    >
       <div class="navbar-start">
-        <NuxtLink to="/" class="btn btn-ghost px-2 text-xl">
+        <NuxtLink
+          to="/"
+          class="btn btn-ghost btn-sm px-2 text-lg sm:btn-md sm:px-2 sm:text-xl"
+        >
           <svg
             id="logo-86"
-            width="32"
-            height="32"
+            width="30"
+            height="30"
             viewBox="0 0 40 40"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +45,7 @@ const config = useRuntimeConfig();
         <div>
           <NuxtLink
             to="/search"
-            class="btn btn-secondary aspect-square px-2 sm:hidden"
+            class="btn btn-secondary btn-sm aspect-square px-0 sm:hidden"
           >
             <span class="material-symbols-outlined"> search </span>
           </NuxtLink>

@@ -1,0 +1,17 @@
+[
+  { "id": 0, "slug": "main_game", "name": "Base Game" },
+  { "id": 1, "slug": "dlc_addon", "name": "DLC Addon" },
+  { "id": 2, "slug": "expansion", "name": "Expansion" },
+  { "id": 3, "slug": "bundle", "name": "Bundle" },
+  { "id": 4, "slug": "standalone_expansion", "name": "Standalone Expansion" },
+  { "id": 5, "slug": "mod", "name": "Mod" },
+  { "id": 6, "slug": "episode", "name": "Episode" },
+  { "id": 7, "slug": "season", "name": "Season" },
+  { "id": 8, "slug": "remake", "name": "Remake" },
+  { "id": 9, "slug": "remaster", "name": "Remaster" },
+  { "id": 10, "slug": "expanded_game", "name": "Expanded Game" },
+  { "id": 11, "slug": "port", "name": "Port" },
+  { "id": 12, "slug": "fork", "name": "Fork" },
+  { "id": 13, "slug": "pack", "name": "Pack" },
+  { "id": 14, "slug": "update", "name": "Update" }
+]

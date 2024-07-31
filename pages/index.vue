@@ -1,13 +1,10 @@
 <script setup>
-import ExpandableGameCard from "~/components/Game/ExpandableGameCard.vue";
-import HomeSlider from "~/components/Game/HomeSlider.vue";
-
 const config = useRuntimeConfig();
 
 const upcomingGames = ref();
 const popularGames = ref();
 const featuredGames = ref();
-const topPicksGames = ref();
+const topRatedGames = ref();
 const topDealsGames = ref();
 
 const fetches = async () => {
@@ -24,8 +21,8 @@ const fetches = async () => {
   featuredGames.value = multiqueryResponse.value.find(
     (res) => res.name === "featured",
   ).result;
-  topPicksGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "top-picks",
+  topRatedGames.value = multiqueryResponse.value.find(
+    (res) => res.name === "top-rated",
   ).result;
   topDealsGames.value = multiqueryResponse.value.find(
     (res) => res.name === "featured",
@@ -65,7 +62,7 @@ try {
 
   <div class="flex flex-col gap-4">
     <section>
-      <HomeSlider :games="featuredGames" />
+      <GameHomeSlider :games="featuredGames" />
     </section>
 
     <section class="my-2">
@@ -74,142 +71,241 @@ try {
           <h2 class="text-2xl font-bold">Upcoming Games</h2>
         </div>
 
-        <!-- Upcoming Games -->
         <div
-          class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:flex lg:overflow-x-auto"
+          class="grid grid-cols-2 gap-2 md:grid-cols-4 xl:flex xl:overflow-x-auto"
         >
-          <ExpandableGameCard :games="upcomingGames" />
+          <GameExpandableCard :games="upcomingGames" />
         </div>
       </div>
     </section>
 
     <section v-if="popularGames" class="my-2">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-end justify-between">
-          <div>
-            <h2 class="text-2xl font-bold">Popular Right Now</h2>
-            <p class="text-sm text-neutral-500">Popular Games Of The Week</p>
-          </div>
+      <GameSlider
+        id="popularGames"
+        :games="popularGames"
+        title="Popular Right Now"
+        description="Popular Games of The Week"
+      />
+    </section>
 
-          <NuxtLink
-            to="/"
-            class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
-          >
-            <span class="whitespace-nowrap">See all</span>
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
 
-            <span class="material-symbols-outlined text-sm">
-              arrow_forward_ios
-            </span>
-          </NuxtLink>
-        </div>
+    <section class="my-2">
+      <GameSlider
+        id="topDealsGames"
+        :games="topDealsGames"
+        title="Top Deals For You"
+        description="Get Best Discounts on Best Games"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :breakpoints="{
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
 
-        <GameSlider
-          id="popularGames"
-          :breakpoints="{
-            640: {
-              slidesPerGroup: 2,
-            },
-            768: {
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerGroup: 4,
-            },
-            1280: {
-              slidesPerGroup: 5,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in popularGames"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.8)] sm:max-w-[calc(100%/2.8)] md:max-w-[calc(100%/3.8)] lg:max-w-[calc(100%/4.8)] xl:max-w-[calc(100%/5.8)]"
-          >
-            <GameCard :game="game" :isHorizontal="false" />
-          </SwiperSlide>
-        </GameSlider>
+    <section class="my-2">
+      <GameSlider
+        id="topDealsGames"
+        :games="topDealsGames"
+        title="Top Deals For You"
+        description="Get Best Discounts on Best Games"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :breakpoints="{
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
+
+    <section class="my-8">
+      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Top Sellers"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Most Played"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Top Upcoming Wishlisted"
+        />
       </div>
     </section>
 
     <section class="my-2">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-end justify-between">
-          <div>
-            <h2 class="text-2xl font-bold">Top Rated</h2>
-            <p class="text-sm text-neutral-500">
-              Most Popular Games Of All Time
-            </p>
-          </div>
+      <GameSlider
+        id="topDealsGames"
+        :games="topDealsGames"
+        title="Top Deals For You"
+        description="Get Best Discounts on Best Games"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :breakpoints="{
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
 
-          <NuxtLink
-            to="/"
-            class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
-          >
-            <span class="whitespace-nowrap">See all</span>
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
 
-            <span class="material-symbols-outlined text-sm">
-              arrow_forward_ios
-            </span>
-          </NuxtLink>
-        </div>
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
 
-        <GameSlider
-          id="topPicksGames"
-          :breakpoints="{
-            640: {
-              slidesPerGroup: 2,
-            },
-            768: {
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerGroup: 4,
-            },
-            1280: {
-              slidesPerGroup: 5,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in topPicksGames"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.8)] sm:max-w-[calc(100%/2.8)] md:max-w-[calc(100%/3.8)] lg:max-w-[calc(100%/4.8)] xl:max-w-[calc(100%/5.8)]"
-          >
-            <GameCard :game="game" :isHorizontal="false" />
-          </SwiperSlide>
-        </GameSlider>
+    <section class="my-8">
+      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Top Sellers"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Most Played"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Top Upcoming Wishlisted"
+        />
       </div>
     </section>
 
-    <!-- <section class="my-2">
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Top Deals For You</h2>
-          <p class="text-sm text-neutral-500">
-            Get Best Discounts on Best Games
-          </p>
-        </div>
+    <section class="my-2">
+      <GameSlider
+        id="topDealsGames"
+        :games="topDealsGames"
+        title="Top Deals For You"
+        description="Get Best Discounts on Best Games"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :space-between="16"
+        :breakpoints="{
+          640: {
+            slidesPerGroup: 2,
+            slidesPerView: 2,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
 
-        <GameSlider
-          id="topDealsGames"
-          :breakpoints="{
-            768: {
-              slidesPerGroup: 2,
-            },
-            1024: {
-              slidesPerGroup: 3,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in topDealsGames"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.1)] md:max-w-[calc(100%/2.1)] lg:max-w-[calc(100%/3.1)]"
-          >
-            <GameCard :game="game" :isHorizontal="true" />
-          </SwiperSlide>
-        </GameSlider>
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
+
+    <section class="my-8">
+      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Top Sellers"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Most Played"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="topRatedGames.slice(0, 5)"
+          title="Top Upcoming Wishlisted"
+        />
       </div>
-    </section> -->
+    </section>
+
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
+
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
+
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
+
+    <section class="my-2">
+      <GameSlider
+        id="topDealsGames"
+        :games="topDealsGames"
+        title="Top Deals For You"
+        description="Get Best Discounts on Best Games"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :breakpoints="{
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
   </div>
 </template>

@@ -1,7 +1,4 @@
 <script setup>
-import AdditionalInfo from "./AdditionalInfo.vue";
-import Countdown from "./Countdown.vue";
-
 const { game, publishers, developers } = defineProps([
   "game",
   "publishers",
@@ -30,7 +27,7 @@ onMounted(() => {
 <template>
   <div class="flex flex-col gap-4">
     <!-- Countdown -->
-    <Countdown :game="game" />
+    <GameDetailsInfoCountdown :game="game" />
 
     <!-- About -->
     <section>
@@ -67,7 +64,7 @@ onMounted(() => {
         game.rating
       "
     >
-      <AdditionalInfo :game="game" />
+      <GameDetailsInfoAdditionalInfo :game="game" />
     </section>
 
     <!-- DLC -->

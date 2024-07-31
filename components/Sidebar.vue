@@ -1,6 +1,4 @@
 <script setup>
-import SearchBar from "./SearchBar.vue";
-
 const route = useRoute();
 
 const isActive = ref(false);
