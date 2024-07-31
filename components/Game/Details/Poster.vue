@@ -23,12 +23,12 @@ const gameInfo = [
   {
     section: "Developer",
     icon: "code",
-    text: developers.map((dev) => dev.company.name).join(", "),
+    text: developers?.map((dev) => dev.company.name).join(", "),
   },
   {
     section: "Publisher",
     icon: "domain",
-    text: publishers.map((dev) => dev.company.name).join(", "),
+    text: publishers?.map((dev) => dev.company.name).join(", "),
   },
 ];
 </script>
