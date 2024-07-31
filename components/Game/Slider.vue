@@ -49,7 +49,7 @@ const defaultBreakpoints = {
           to="/"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
-          <h2 class="text-xl font-bold">{{ title }}</h2>
+          <h2 class="heading-2">{{ title }}</h2>
           <Icon name="ion:ios-arrow-forward" size="25" class="transition-all" />
         </NuxtLink>
         <p v-if="description" class="text-sm text-neutral-500">

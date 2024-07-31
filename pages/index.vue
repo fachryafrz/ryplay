@@ -5,7 +5,6 @@ const upcomingGames = ref();
 const popularGames = ref();
 const featuredGames = ref();
 const topRatedGames = ref();
-const topDealsGames = ref();
 
 const fetches = async () => {
   const { data: multiqueryResponse, error } =
@@ -23,9 +22,6 @@ const fetches = async () => {
   ).result;
   topRatedGames.value = multiqueryResponse.value.find(
     (res) => res.name === "top-rated",
-  ).result;
-  topDealsGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "featured",
   ).result;
 
   const popularityData = multiqueryResponse.value.find(
@@ -68,7 +64,7 @@ try {
     <section class="my-2">
       <div class="flex flex-col gap-2">
         <div>
-          <h2 class="text-2xl font-bold">Upcoming Games</h2>
+          <h2 class="heading-2">Upcoming Games</h2>
         </div>
 
         <div
@@ -99,10 +95,9 @@ try {
 
     <section class="my-2">
       <GameSlider
-        id="topDealsGames"
-        :games="topDealsGames"
-        title="Top Deals For You"
-        description="Get Best Discounts on Best Games"
+        id="featuredGames"
+        :games="featuredGames"
+        title="New Releases"
         :slides-per-view="2"
         :slides-per-group="2"
         :breakpoints="{
@@ -117,10 +112,9 @@ try {
 
     <section class="my-2">
       <GameSlider
-        id="topDealsGames"
-        :games="topDealsGames"
-        title="Top Deals For You"
-        description="Get Best Discounts on Best Games"
+        id="featuredGames"
+        :games="featuredGames"
+        title="Most Anticipated"
         :slides-per-view="2"
         :slides-per-group="2"
         :breakpoints="{
@@ -138,13 +132,13 @@ try {
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Top Sellers"
+          title="Indie"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Most Played"
+          title="Multiplayer"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
@@ -157,10 +151,9 @@ try {
 
     <section class="my-2">
       <GameSlider
-        id="topDealsGames"
-        :games="topDealsGames"
-        title="Top Deals For You"
-        description="Get Best Discounts on Best Games"
+        id="featuredGames"
+        :games="featuredGames"
+        title="Ubisoft"
         :slides-per-view="2"
         :slides-per-group="2"
         :breakpoints="{
@@ -177,8 +170,7 @@ try {
       <GameSlider
         id="topRatedGames"
         :games="topRatedGames"
-        title="Top Rated"
-        description="Most Popular Games of All Time"
+        title="Rockstar Games"
       />
     </section>
 
@@ -186,8 +178,7 @@ try {
       <GameSlider
         id="topRatedGames"
         :games="topRatedGames"
-        title="Top Rated"
-        description="Most Popular Games of All Time"
+        title="Electronic Arts"
       />
     </section>
 
@@ -196,29 +187,28 @@ try {
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Top Sellers"
+          title="Retro"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Most Played"
+          title="Virtual Reality"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Top Upcoming Wishlisted"
+          title="Puzzle"
         />
       </div>
     </section>
 
     <section class="my-2">
       <GameSlider
-        id="topDealsGames"
-        :games="topDealsGames"
-        title="Top Deals For You"
-        description="Get Best Discounts on Best Games"
+        id="featuredGames"
+        :games="featuredGames"
+        title="Sports"
         :slides-per-view="2"
         :slides-per-group="2"
         :space-between="16"
@@ -236,8 +226,7 @@ try {
       <GameSlider
         id="topRatedGames"
         :games="topRatedGames"
-        title="Top Rated"
-        description="Most Popular Games of All Time"
+        title="Survival"
       />
     </section>
 
@@ -246,19 +235,19 @@ try {
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Top Sellers"
+          title="Adventure"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Most Played"
+          title="Open World"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="topRatedGames.slice(0, 5)"
-          title="Top Upcoming Wishlisted"
+          title="Fighting"
         />
       </div>
     </section>
@@ -267,8 +256,7 @@ try {
       <GameSlider
         id="topRatedGames"
         :games="topRatedGames"
-        title="Top Rated"
-        description="Most Popular Games of All Time"
+        title="Platformer"
       />
     </section>
 
@@ -276,8 +264,7 @@ try {
       <GameSlider
         id="topRatedGames"
         :games="topRatedGames"
-        title="Top Rated"
-        description="Most Popular Games of All Time"
+        title="Simulation"
       />
     </section>
 
@@ -285,17 +272,15 @@ try {
       <GameSlider
         id="topRatedGames"
         :games="topRatedGames"
-        title="Top Rated"
-        description="Most Popular Games of All Time"
+        title="Horror"
       />
     </section>
 
     <section class="my-2">
       <GameSlider
-        id="topDealsGames"
-        :games="topDealsGames"
-        title="Top Deals For You"
-        description="Get Best Discounts on Best Games"
+        id="featuredGames"
+        :games="featuredGames"
+        title="Role-Playing Games"
         :slides-per-view="2"
         :slides-per-group="2"
         :breakpoints="{
