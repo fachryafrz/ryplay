@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
           f game_id; 
           w popularity_type = 1;
           s value desc; 
-          l 20;  
+          l 500;  
         };
         query games "top-rated" {
           f *, cover.*, artworks.*;
@@ -93,19 +93,19 @@ export default defineEventHandler(async (event) => {
           f game_id; 
           w popularity_type = 4;
           s value desc; 
-          l 20;  
+          l 500;  
         };
         query popularity_primitives "playing-data" {
           f game_id; 
           w popularity_type = 3;
           s value desc; 
-          l 20;  
+          l 500;  
         };
         query popularity_primitives "want-to-play-data" {
           f game_id; 
           w popularity_type = 2;
           s value desc; 
-          l 20;  
+          l 500;  
         };
       `,
     });

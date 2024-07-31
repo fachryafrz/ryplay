@@ -4,8 +4,21 @@ export default defineEventHandler(async (event) => {
   const access_token = cookies?.access_token;
 
   // Dapatkan query dari URL
-  const { query, rating, genre, platform, release_date, category, company } =
-    getQuery(event);
+  const {
+    sort,
+    query,
+    rating,
+    genre,
+    genres,
+    platform,
+    release_date,
+    category,
+    company,
+    id,
+    screenshots,
+    artworks,
+    hypes,
+  } = getQuery(event);
   const { offset } = await readBody(event);
 
   // Membuat bagian where clause
@@ -13,14 +26,25 @@ export default defineEventHandler(async (event) => {
 
   if (rating) whereClause += ` & total_rating >= ${parseFloat(rating)}`;
   if (genre) whereClause += ` & genres.slug = "${genre}"`;
+  if (genres) whereClause += ` & genres = ${genres}`;
   if (platform) whereClause += ` & platforms.slug = "${platform}"`;
   if (release_date) {
     const [startDate, endDate] = release_date.split("..");
-    whereClause += ` & first_release_date >= ${startDate} & first_release_date <= ${endDate}`;
+    if (!endDate && startDate) {
+      whereClause += ` & first_release_date >= ${startDate}`;
+    } else if (!startDate && endDate) {
+      whereClause += ` & first_release_date <= ${endDate}`;
+    } else {
+      whereClause += ` & first_release_date >= ${startDate} & first_release_date <= ${endDate}`;
+    }
   }
   if (category) whereClause += ` & category = ${category}`;
   if (company)
     whereClause += ` & involved_companies.company.slug = "${company}"`;
+  if (id) whereClause += ` & id = (${id})`;
+  if (screenshots) whereClause += ` & screenshots != null`;
+  if (artworks) whereClause += ` & artworks != null`;
+  if (hypes) whereClause += ` & hypes >= ${hypes}`;
 
   const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {
@@ -32,7 +56,7 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         f *, cover.image_id, genres.name, platforms.name;
-        ${query ? `search "${query}";` : `s total_rating_count desc;`}
+        ${query ? `search "${query}";` : `s ${sort};`}
         ${query ? `w ${whereClause};` : `w ${whereClause};`}
         l 20;
         ${offset ? `o ${offset};` : ""}

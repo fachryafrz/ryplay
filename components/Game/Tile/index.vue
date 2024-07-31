@@ -1,11 +1,11 @@
 <script setup>
-const { games, title } = defineProps(["games", "title"]);
+const { games, title, seeAll } = defineProps(["games", "title", "seeAll"]);
 </script>
 
 <template>
   <div>
     <NuxtLink
-      to="/"
+      :to="seeAll || `/`"
       class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
     >
       <h2 class="heading-2">{{ title }}</h2>

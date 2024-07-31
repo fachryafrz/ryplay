@@ -11,15 +11,7 @@ const fetchGames = async () => {
 
   const { data: response, error } = await useFetch("/api/games/search", {
     method: "POST",
-    params: {
-      query,
-      rating,
-      genre,
-      platform,
-      release_date,
-      category,
-      company,
-    },
+    params: route.query,
     body: {
       offset: offset.value,
     },

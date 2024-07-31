@@ -1,5 +1,9 @@
 <script setup>
 const config = useRuntimeConfig();
+const router = useRouter();
+
+const dayjs = useDayjs();
+const today = dayjs().unix();
 
 const { data: multiqueryResponse, error } = await useFetch("/api/multi-query");
 
@@ -46,11 +50,22 @@ const wantToPlayData = multiqueryResponse.value.find(
   (res) => res.name === "want-to-play-data",
 ).result;
 
+const groupedPopularityData = popularityData
+  .map((data) => data.game_id)
+  .join(",");
+const groupedMostPlayedData = mostPlayedData
+  .map((data) => data.game_id)
+  .join(",");
+const groupedPlayingData = playingData.map((data) => data.game_id).join(",");
+const groupedWantToPlayData = wantToPlayData
+  .map((data) => data.game_id)
+  .join(",");
+
 const { data: popularGames, error: popularGamesError } = useFetch(
   "/api/games/details",
   {
     params: {
-      id: `(${popularityData.map((data) => data.game_id).join(",")})`,
+      id: `(${groupedPopularityData})`,
       sort: `hypes desc`,
       limit: 20,
     },
@@ -60,34 +75,22 @@ const { data: mostPlayed, error: mostPlayedError } = useFetch(
   "/api/games/details",
   {
     params: {
-      id: `(${mostPlayedData
-        .slice(0, 5)
-        .map((data) => data.game_id)
-        .join(",")})`,
+      id: `(${groupedMostPlayedData})`,
       limit: 5,
     },
   },
 );
-const { data: playing, error: playingError } = useFetch(
-  "/api/games/details",
-  {
-    params: {
-      id: `(${playingData
-        .slice(0, 5)
-        .map((data) => data.game_id)
-        .join(",")})`,
-      limit: 5,
-    },
+const { data: playing, error: playingError } = useFetch("/api/games/details", {
+  params: {
+    id: `(${groupedPlayingData})`,
+    limit: 5,
   },
-);
+});
 const { data: wantToPlay, error: wantToPlayError } = useFetch(
   "/api/games/details",
   {
     params: {
-      id: `(${wantToPlayData
-        .slice(0, 5)
-        .map((data) => data.game_id)
-        .join(",")})`,
+      id: `(${groupedWantToPlayData})`,
       limit: 5,
     },
   },
@@ -104,9 +107,13 @@ const { data: wantToPlay, error: wantToPlayError } = useFetch(
 
     <section class="my-2">
       <div class="flex flex-col gap-2">
-        <div>
+        <NuxtLink
+          :to="`/search?limit=20&sort=first_release_date+asc&release_date=${today}&hypes=30&category=0`"
+          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+        >
           <h2 class="heading-2">Upcoming Games</h2>
-        </div>
+          <Icon name="ion:ios-arrow-forward" size="25" class="transition-all" />
+        </NuxtLink>
 
         <div
           class="grid grid-cols-2 gap-2 md:grid-cols-4 xl:flex xl:overflow-x-auto"
@@ -122,6 +129,7 @@ const { data: wantToPlay, error: wantToPlayError } = useFetch(
         :games="popularGames"
         title="Popular Right Now"
         description="Popular Games of The Week"
+        :see-all="`/search?limit=20&sort=hypes+desc&id=${groupedPopularityData}`"
       />
     </section>
 
@@ -131,6 +139,7 @@ const { data: wantToPlay, error: wantToPlayError } = useFetch(
         :games="topRatedGames"
         title="Top Rated"
         description="Most Popular Games of All Time"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&category=0`"
       />
     </section>
 
@@ -148,6 +157,7 @@ const { data: wantToPlay, error: wantToPlayError } = useFetch(
           },
         }"
         :isHorizontal="true"
+        :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}&hypes=40&screenshots=true&artworks=true`"
       />
     </section>
 
@@ -165,29 +175,60 @@ const { data: wantToPlay, error: wantToPlayError } = useFetch(
           },
         }"
         :isHorizontal="true"
+        :see-all="`/search?limit=20&sort=first_release_date+desc&category=0&hypes=10&release_date=..${today}`"
       />
     </section>
 
     <section class="my-2 lg:my-8">
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
-        <GameTile class="w-full" :games="mostPlayed" title="Most Played" />
+        <GameTile
+          class="w-full"
+          :games="mostPlayed"
+          title="Most Played"
+          :see-all="`/search?limit=20&id=${groupedMostPlayedData}`"
+        />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="playing" title="Playing" />
+        <GameTile
+          class="w-full"
+          :games="playing"
+          title="Playing"
+          :see-all="`/search?limit=20&id=${groupedPlayingData}`"
+        />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
-        <GameTile class="w-full" :games="wantToPlay" title="Want to Play" />
+        <GameTile
+          class="w-full"
+          :games="wantToPlay"
+          title="Want to Play"
+          :see-all="`/search?limit=20&id=${groupedWantToPlayData}`"
+        />
       </div>
     </section>
 
     <section class="my-2">
-      <GameSlider id="indie" :games="indie" title="Indie" />
+      <GameSlider
+        id="indie"
+        :games="indie"
+        title="Indie"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=32&screenshots=true&artworks=true&category=0`"
+      />
     </section>
 
     <section class="my-2">
-      <GameSlider id="shooter" :games="shooter" title="Shooter" />
+      <GameSlider
+        id="shooter"
+        :games="shooter"
+        title="Shooter"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=5&screenshots=true&artworks=true&category=0`"
+      />
     </section>
 
     <section class="my-2">
-      <GameSlider id="racing" :games="racing" title="Racing" />
+      <GameSlider
+        id="racing"
+        :games="racing"
+        title="Racing"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=10&screenshots=true&artworks=true&category=0`"
+      />
     </section>
 
     <section class="my-2">
@@ -205,6 +246,7 @@ const { data: wantToPlay, error: wantToPlayError } = useFetch(
           },
         }"
         :isHorizontal="true"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=14&screenshots=true&artworks=true&category=0`"
       />
     </section>
   </div>

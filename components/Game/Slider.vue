@@ -9,6 +9,7 @@ const {
   title,
   description,
   isHorizontal,
+  seeAll,
 } = defineProps([
   "id",
   "breakpoints",
@@ -19,6 +20,7 @@ const {
   "title",
   "description",
   "isHorizontal",
+  "seeAll",
 ]);
 
 const defaultBreakpoints = {
@@ -46,7 +48,7 @@ const defaultBreakpoints = {
     <div class="flex items-end justify-between">
       <div>
         <NuxtLink
-          to="/"
+          :to="seeAll || `/`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
           <h2 class="heading-2">{{ title }}</h2>
