@@ -78,6 +78,8 @@ useInfiniteScroll(loadMoreRef, async () => {
   <div>
     <h1 class="sr-only">Search</h1>
 
+    <SearchBar class="mt-2 mb-4" />
+    
     <GameGrid v-if="games" :games="games" />
 
     <button

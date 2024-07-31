@@ -1,6 +1,5 @@
 <script setup>
 import { formatNumber, formatRating } from "~/helper/formats";
-import GameStores from "./GameStores.vue";
 import stores from "@/json/store-category.json";
 import { isPlural } from "~/helper/isPlural";
 
@@ -47,7 +46,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
     <div v-if="filteredExternalGames?.length > 0">
       <h2 class="heading-2">Available in</h2>
 
-      <GameStores
+      <GameDetailsInfoStores
         :filtered-external-games="filteredExternalGames"
         :find-store-by-id="findStoreById"
       />

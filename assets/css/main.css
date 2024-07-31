@@ -14,25 +14,21 @@ img {
   @apply h-full w-full object-cover italic;
 }
 
-.swiper-button-disabled {
-  @apply invisible;
-}
-
 body {
   @apply font-inter;
 }
 
 @layer components {
   .heading-2 {
-    @apply mb-2 text-xl font-medium;
+    @apply text-xl font-bold;
   }
 
   .featured-games {
-    @apply relative overflow-hidden transition-all duration-700 lg:h-[320px] lg:w-[220px];
+    @apply relative overflow-hidden transition-all duration-700 xl:h-[320px] xl:w-[223px];
   }
 
   .featured-games.active {
-    @apply lg:w-[550px];
+    @apply xl:w-[555px];
   }
 
   .featured-games #game-cover {
@@ -44,10 +40,10 @@ body {
   }
 
   .featured-games.active #game-cover {
-    @apply lg:opacity-0;
+    @apply xl:opacity-0;
   }
 
   .featured-games.active #game-screenshot {
-    @apply lg:opacity-100;
+    @apply xl:opacity-100;
   }
 }

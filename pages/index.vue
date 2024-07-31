@@ -1,63 +1,97 @@
 <script setup>
-import ExpandableGameCard from "~/components/Game/ExpandableGameCard.vue";
-import HomeSlider from "~/components/Game/HomeSlider.vue";
-
 const config = useRuntimeConfig();
 
-const upcomingGames = ref();
-const popularGames = ref();
-const featuredGames = ref();
-const topPicksGames = ref();
-const topDealsGames = ref();
+const { data: multiqueryResponse, error } = await useFetch("/api/multi-query");
 
-const fetches = async () => {
-  const { data: multiqueryResponse, error } =
-    await useFetch("/api/multi-query");
+if (error.value) throw error.value;
 
-  if (error.value) {
-    throw error.value;
-  }
+const featuredGames = multiqueryResponse.value.find(
+  (res) => res.name === "featured",
+).result;
+const upcomingGames = multiqueryResponse.value.find(
+  (res) => res.name === "upcoming",
+).result;
+const topRatedGames = multiqueryResponse.value.find(
+  (res) => res.name === "top-rated",
+).result;
+const newReleases = multiqueryResponse.value.find(
+  (res) => res.name === "new-releases",
+).result;
+const mostAnticipated = multiqueryResponse.value.find(
+  (res) => res.name === "most-anticipated",
+).result;
+const indie = multiqueryResponse.value.find(
+  (res) => res.name === "indie",
+).result;
+const shooter = multiqueryResponse.value.find(
+  (res) => res.name === "shooter",
+).result;
+const racing = multiqueryResponse.value.find(
+  (res) => res.name === "racing",
+).result;
+const sports = multiqueryResponse.value.find(
+  (res) => res.name === "sports",
+).result;
+// ============== PopScore ==============
+const popularityData = multiqueryResponse.value.find(
+  (res) => res.name === "popularity-data",
+).result;
+const mostPlayedData = multiqueryResponse.value.find(
+  (res) => res.name === "most-played-data",
+).result;
+const playingData = multiqueryResponse.value.find(
+  (res) => res.name === "playing-data",
+).result;
+const wantToPlayData = multiqueryResponse.value.find(
+  (res) => res.name === "want-to-play-data",
+).result;
 
-  upcomingGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "upcoming",
-  ).result;
-  featuredGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "featured",
-  ).result;
-  topPicksGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "top-picks",
-  ).result;
-  topDealsGames.value = multiqueryResponse.value.find(
-    (res) => res.name === "featured",
-  ).result;
-
-  const popularityData = multiqueryResponse.value.find(
-    (res) => res.name === "popularity-data",
-  ).result;
-
-  const { data: popularGamesResponse, error: gamesError } = await useFetch(
-    "/api/games/details",
-    {
-      params: {
-        id: `(${popularityData.map((data) => data.game_id).join(",")})`,
-        sort: `hypes desc`,
-        limit: 20,
-      },
+const { data: popularGames, error: popularGamesError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${popularityData.map((data) => data.game_id).join(",")})`,
+      sort: `hypes desc`,
+      limit: 20,
     },
-  );
-
-  if (gamesError.value) {
-    throw gamesError.value;
-  }
-
-  popularGames.value = popularGamesResponse.value;
-};
-
-try {
-  await fetches();
-} catch (error) {
-  console.error("Failed to fetch games:", error);
-}
+  },
+);
+const { data: mostPlayed, error: mostPlayedError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${mostPlayedData
+        .slice(0, 5)
+        .map((data) => data.game_id)
+        .join(",")})`,
+      limit: 5,
+    },
+  },
+);
+const { data: playing, error: playingError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${playingData
+        .slice(0, 5)
+        .map((data) => data.game_id)
+        .join(",")})`,
+      limit: 5,
+    },
+  },
+);
+const { data: wantToPlay, error: wantToPlayError } = await useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `(${wantToPlayData
+        .slice(0, 5)
+        .map((data) => data.game_id)
+        .join(",")})`,
+      limit: 5,
+    },
+  },
+);
 </script>
 
 <template>
@@ -65,151 +99,113 @@ try {
 
   <div class="flex flex-col gap-4">
     <section>
-      <HomeSlider :games="featuredGames" />
+      <GameHomeSlider :games="featuredGames" />
     </section>
 
     <section class="my-2">
       <div class="flex flex-col gap-2">
         <div>
-          <h2 class="text-2xl font-bold">Upcoming Games</h2>
+          <h2 class="heading-2">Upcoming Games</h2>
         </div>
 
-        <!-- Upcoming Games -->
         <div
-          class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:flex lg:overflow-x-auto"
+          class="grid grid-cols-2 gap-2 md:grid-cols-4 xl:flex xl:overflow-x-auto"
         >
-          <ExpandableGameCard :games="upcomingGames" />
+          <GameExpandableCard :games="upcomingGames" />
         </div>
       </div>
     </section>
 
     <section v-if="popularGames" class="my-2">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-end justify-between">
-          <div>
-            <h2 class="text-2xl font-bold">Popular Right Now</h2>
-            <p class="text-sm text-neutral-500">Popular Games Of The Week</p>
-          </div>
+      <GameSlider
+        id="popularGames"
+        :games="popularGames"
+        title="Popular Right Now"
+        description="Popular Games of The Week"
+      />
+    </section>
 
-          <NuxtLink
-            to="/"
-            class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
-          >
-            <span class="whitespace-nowrap">See all</span>
+    <section class="my-2">
+      <GameSlider
+        id="topRatedGames"
+        :games="topRatedGames"
+        title="Top Rated"
+        description="Most Popular Games of All Time"
+      />
+    </section>
 
-            <span class="material-symbols-outlined text-sm">
-              arrow_forward_ios
-            </span>
-          </NuxtLink>
-        </div>
+    <section class="my-2">
+      <GameSlider
+        id="mostAnticipated"
+        :games="mostAnticipated"
+        title="Most Anticipated"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :breakpoints="{
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
 
-        <GameSlider
-          id="popularGames"
-          :breakpoints="{
-            640: {
-              slidesPerGroup: 2,
-            },
-            768: {
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerGroup: 4,
-            },
-            1280: {
-              slidesPerGroup: 5,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in popularGames"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.8)] sm:max-w-[calc(100%/2.8)] md:max-w-[calc(100%/3.8)] lg:max-w-[calc(100%/4.8)] xl:max-w-[calc(100%/5.8)]"
-          >
-            <GameCard :game="game" :isHorizontal="false" />
-          </SwiperSlide>
-        </GameSlider>
+    <section class="my-2">
+      <GameSlider
+        id="newReleases"
+        :games="newReleases"
+        title="New Releases"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :breakpoints="{
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
+
+    <section class="my-2 lg:my-8">
+      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+        <GameTile class="w-full" :games="mostPlayed" title="Most Played" />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile class="w-full" :games="playing" title="Playing" />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile class="w-full" :games="wantToPlay" title="Want to Play" />
       </div>
     </section>
 
     <section class="my-2">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-end justify-between">
-          <div>
-            <h2 class="text-2xl font-bold">Top Rated</h2>
-            <p class="text-sm text-neutral-500">
-              Most Popular Games Of All Time
-            </p>
-          </div>
-
-          <NuxtLink
-            to="/"
-            class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
-          >
-            <span class="whitespace-nowrap">See all</span>
-
-            <span class="material-symbols-outlined text-sm">
-              arrow_forward_ios
-            </span>
-          </NuxtLink>
-        </div>
-
-        <GameSlider
-          id="topPicksGames"
-          :breakpoints="{
-            640: {
-              slidesPerGroup: 2,
-            },
-            768: {
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerGroup: 4,
-            },
-            1280: {
-              slidesPerGroup: 5,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in topPicksGames"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.8)] sm:max-w-[calc(100%/2.8)] md:max-w-[calc(100%/3.8)] lg:max-w-[calc(100%/4.8)] xl:max-w-[calc(100%/5.8)]"
-          >
-            <GameCard :game="game" :isHorizontal="false" />
-          </SwiperSlide>
-        </GameSlider>
-      </div>
+      <GameSlider id="indie" :games="indie" title="Indie" />
     </section>
 
-    <!-- <section class="my-2">
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Top Deals For You</h2>
-          <p class="text-sm text-neutral-500">
-            Get Best Discounts on Best Games
-          </p>
-        </div>
+    <section class="my-2">
+      <GameSlider id="shooter" :games="shooter" title="Shooter" />
+    </section>
 
-        <GameSlider
-          id="topDealsGames"
-          :breakpoints="{
-            768: {
-              slidesPerGroup: 2,
-            },
-            1024: {
-              slidesPerGroup: 3,
-            },
-          }"
-        >
-          <SwiperSlide
-            v-for="game in topDealsGames"
-            :key="game.slug"
-            class="max-w-[calc(100%/1.1)] md:max-w-[calc(100%/2.1)] lg:max-w-[calc(100%/3.1)]"
-          >
-            <GameCard :game="game" :isHorizontal="true" />
-          </SwiperSlide>
-        </GameSlider>
-      </div>
-    </section> -->
+    <section class="my-2">
+      <GameSlider id="racing" :games="racing" title="Racing" />
+    </section>
+
+    <section class="my-2">
+      <GameSlider
+        id="sports"
+        :games="sports"
+        title="Sports"
+        :slides-per-view="2"
+        :slides-per-group="2"
+        :space-between="16"
+        :breakpoints="{
+          640: {
+            slidesPerGroup: 2,
+            slidesPerView: 2,
+          },
+        }"
+        :isHorizontal="true"
+      />
+    </section>
   </div>
 </template>

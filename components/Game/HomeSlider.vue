@@ -119,7 +119,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               {{ game.name }}
             </h2>
             <p
-              class="line-clamp-3 text-pretty text-sm text-neutral-400 sm:line-clamp-5"
+              class="mb-8 line-clamp-3 text-pretty text-sm text-neutral-400 sm:line-clamp-5"
             >
               {{ game.storyline || game.summary }}
             </p>

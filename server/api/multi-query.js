@@ -9,7 +9,9 @@ export default defineEventHandler(async (event) => {
   const firstDayOfMonth = dayjs().startOf("month").unix();
 
   const fetchGames = async (access_token) => {
-    const data = await $fetch("https://api.igdb.com/v4/multiquery", {
+    const combinedData = [];
+
+    const data1 = await $fetch("https://api.igdb.com/v4/multiquery", {
       method: "POST",
       headers: {
         "Client-ID": config.CLIENT_ID,
@@ -17,36 +19,98 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         query games "featured" {
-          f *, screenshots.*, cover.*, artworks.*, genres.*;
-          w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20;
+          f *, cover.*, artworks.*,  screenshots.*, genres.*;
+          w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20 & category = 0;
           s first_release_date asc;
           l 5;
         };
-
         query games "upcoming" {
-          f *, screenshots.*, cover.*, artworks.*, genres.*;
-          w cover != null & first_release_date >= ${today} & hypes >= 30;
+          f *, cover.*, artworks.*;
+          w cover != null & first_release_date >= ${today} & hypes >= 30 & category = 0;
           s first_release_date asc;
           l 4;
         };
-
-        query games "top-picks" {
-          f *, screenshots.*, cover.*, artworks.*;
-          w cover != null;
-          s total_rating_count desc;
-          l 20;
-        };
-
         query popularity_primitives "popularity-data" {
           f game_id; 
           w popularity_type = 1;
           s value desc; 
           l 20;  
         };
+        query games "top-rated" {
+          f *, cover.*, artworks.*;
+          w cover != null & category = 0;
+          s total_rating_count desc;
+          l 20;
+        };
+        query games "most-anticipated" {
+          f *, cover.*, artworks.*;
+          w first_release_date >= ${today} & hypes >= 40 & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
+        query games "new-releases" {
+          f *, cover.*, artworks.*;
+          w first_release_date <= ${today} & hypes >= 10 & category = 0;
+          s first_release_date desc;
+          l 20;
+        };
+        query games "indie" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres = 32 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
+        };
+        query games "shooter" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres = 5 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
+        };
+        query games "racing" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres = 10 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
+        };
+        query games "sports" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres = 14 & screenshots != null & artworks != null & category = 0;
+          s total_rating_count desc;
+          l 20;
+        };
+      `,
+    });
+    // NOTE: Masih 9 request yg ini
+
+    const data2 = await $fetch("https://api.igdb.com/v4/multiquery", {
+      method: "POST",
+      headers: {
+        "Client-ID": config.CLIENT_ID,
+        Authorization: `Bearer ${access_token}`,
+      },
+      body: `
+        query popularity_primitives "most-played-data" {
+          f game_id; 
+          w popularity_type = 4;
+          s value desc; 
+          l 20;  
+        };
+        query popularity_primitives "playing-data" {
+          f game_id; 
+          w popularity_type = 3;
+          s value desc; 
+          l 20;  
+        };
+        query popularity_primitives "want-to-play-data" {
+          f game_id; 
+          w popularity_type = 2;
+          s value desc; 
+          l 20;  
+        };
       `,
     });
 
-    return data;
+    return combinedData.concat(data1, data2);
   };
 
   try {

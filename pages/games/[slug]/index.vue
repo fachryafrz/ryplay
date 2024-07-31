@@ -1,8 +1,4 @@
 <script setup>
-import GamePoster from "~/components/Game/Details/GameInfo/GamePoster.vue";
-import GameInfo from "~/components/Game/Details/GameInfo/index.vue";
-import GameMedia from "~/components/Game/Details/GameMedia.vue";
-
 const config = useRuntimeConfig();
 const { slug } = useRoute().params;
 
@@ -63,14 +59,14 @@ try {
     <div
       class="col-span-full @container lg:col-start-9 lg:row-span-2 xl:col-start-10"
     >
-      <GamePoster :game="game" :game-cover="gameCover" />
+      <GameDetailsPoster :game="game" :game-cover="gameCover" />
     </div>
 
     <div
       v-if="game.videos || game.screenshots || game.artworks"
       class="col-span-full lg:col-end-9 lg:row-start-1 xl:col-end-10"
     >
-      <GameMedia :game="game" />
+      <GameDetailsMedia :game="game" />
     </div>
 
     <div
@@ -79,7 +75,7 @@ try {
         'lg:row-start-2': game.videos || game.screenshots || game.artworks,
       }"
     >
-      <GameInfo
+      <GameDetailsInfo
         :game="game"
         :publishers="publishers"
         :developers="developers"
@@ -89,7 +85,7 @@ try {
     <div v-if="game.similar_games?.length > 0" class="col-span-full">
       <div class="flex flex-col gap-4">
         <div>
-          <h2 class="text-2xl font-bold">Similar Games</h2>
+          <h2 class="heading-2">Similar Games</h2>
           <p class="text-sm text-neutral-500">
             Discover games similar to this one
           </p>
