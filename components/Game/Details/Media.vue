@@ -88,12 +88,11 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       <Swiper
         @swiper="setThumbSwiper"
         :modules="[SwiperThumbs, SwiperFreeMode]"
-        :slides-per-view="2"
+        :slides-per-view="3"
         :space-between="8"
         :watch-slides-progress="true"
         :free-mode="true"
         :breakpoints="{
-          640: { slidesPerView: 3 },
           768: {
             slidesPerView: 4,
           },
@@ -109,7 +108,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <SwiperSlide
           v-if="game.videos?.length > 0"
           v-for="(video, index) in game.videos"
-          class="!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
+          class="!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure
             class="relative aspect-video cursor-pointer overflow-hidden rounded-xl"

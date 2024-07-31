@@ -27,7 +27,6 @@ const fetchGames = async () => {
 
   if (error.value) throw error.value;
   if (response.value) {
-
     // NOTE: Ada bug kalo cari "star wars" infinite scroll nya jalan terus
     const uniqueGames = response.value.filter((game) =>
       games.value.every((g) => g.id !== game.id),
@@ -78,8 +77,13 @@ useInfiniteScroll(loadMoreRef, async () => {
   <div>
     <h1 class="sr-only">Search</h1>
 
-    <SearchBar class="mt-2 mb-4" />
-    
+    <SearchBar
+      class="mb-4 mt-2"
+      :class="{
+        'sm:hidden': route.path === '/search',
+      }"
+    />
+
     <GameGrid v-if="games" :games="games" />
 
     <button
