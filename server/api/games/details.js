@@ -5,10 +5,10 @@ export default defineEventHandler(async (event) => {
 
   const { slug, id, sort, limit } = getQuery(event);
 
-  let whereClause = "";
+  let whereClause = "cover != null";
 
-  if (slug) whereClause += `slug = "${slug}"`;
-  if (id) whereClause += `id = ${id}`;
+  if (slug) whereClause += ` & slug = "${slug}"`;
+  if (id) whereClause += ` & id = (${id})`;
 
   const fetchGame = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {

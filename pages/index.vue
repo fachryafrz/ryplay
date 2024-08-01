@@ -65,7 +65,7 @@ const { data: popularGames, error: popularGamesError } = useLazyFetch(
   "/api/games/details",
   {
     params: {
-      id: `(${groupedPopularityData})`,
+      id: `${groupedPopularityData}`,
       sort: `hypes desc`,
       limit: 20,
     },
@@ -75,22 +75,28 @@ const { data: mostPlayed, error: mostPlayedError } = useLazyFetch(
   "/api/games/details",
   {
     params: {
-      id: `(${groupedMostPlayedData})`,
+      id: `${groupedMostPlayedData}`,
+      sort: `first_release_date desc`,
       limit: 5,
     },
   },
 );
-const { data: playing, error: playingError } = useLazyFetch("/api/games/details", {
-  params: {
-    id: `(${groupedPlayingData})`,
-    limit: 5,
+const { data: playing, error: playingError } = useLazyFetch(
+  "/api/games/details",
+  {
+    params: {
+      id: `${groupedPlayingData}`,
+      sort: `first_release_date desc`,
+      limit: 5,
+    },
   },
-});
+);
 const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
   "/api/games/details",
   {
     params: {
-      id: `(${groupedWantToPlayData})`,
+      id: `${groupedWantToPlayData}`,
+      sort: `first_release_date desc`,
       limit: 5,
     },
   },
