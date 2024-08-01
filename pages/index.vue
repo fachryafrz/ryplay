@@ -190,7 +190,7 @@ onMounted(() => {
           },
         }"
         :isHorizontal="true"
-        :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}&hypes=40&screenshots=true&artworks=true`"
+        :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}&hypes=40`"
       />
     </section>
 
@@ -274,7 +274,7 @@ onMounted(() => {
         id="adventure"
         :games="adventure"
         title="Adventure"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=31&screenshots=true&artworks=true&category=0`"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=adventure&category=0`"
       />
     </section>
 
@@ -283,7 +283,7 @@ onMounted(() => {
         id="shooter"
         :games="shooter"
         title="Shooter"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=5&screenshots=true&artworks=true&category=0`"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=shooter&category=0`"
       />
     </section>
 
@@ -292,7 +292,7 @@ onMounted(() => {
         id="racing"
         :games="racing"
         title="Racing"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=10&screenshots=true&artworks=true&category=0`"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=racing&category=0`"
       />
     </section>
 
@@ -336,7 +336,7 @@ onMounted(() => {
           },
         }"
         :isHorizontal="true"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=14&screenshots=true&artworks=true&category=0`"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=14&category=0`"
       />
     </section>
   </div>

@@ -57,19 +57,19 @@ export default defineEventHandler(async (event) => {
         };
         query games "adventure" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 31 & screenshots != null & artworks != null & category = 0;
+          w cover != null & genres.slug = "adventure" & screenshots != null & artworks != null & category = 0;
           s total_rating_count desc;
           l 20;
         };
         query games "shooter" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 5 & screenshots != null & artworks != null & category = 0;
+          w cover != null & genres.slug = "shooter" & screenshots != null & artworks != null & category = 0;
           s total_rating_count desc;
           l 20;
         };
         query games "racing" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 10 & screenshots != null & artworks != null & category = 0;
+          w cover != null & genres.slug = "racing" & screenshots != null & artworks != null & category = 0;
           s total_rating_count desc;
           l 20;
         };

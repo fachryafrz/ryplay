@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
     query,
     rating,
     genre,
-    genres,
     platform,
     release_date,
     category,
@@ -25,8 +24,11 @@ export default defineEventHandler(async (event) => {
   let whereClause = "cover != null";
 
   if (rating) whereClause += ` & total_rating >= ${parseFloat(rating)}`;
-  if (genre) whereClause += ` & genres.slug = "${genre}"`;
-  if (genres) whereClause += ` & genres = ${genres}`;
+  if (genre) {
+    let separatedGenre = genre.split(",").map((g) => `"${g}"`).join(",");
+    
+    whereClause += ` & genres.slug = (${separatedGenre})`;
+  }
   if (platform) whereClause += ` & platforms.slug = "${platform}"`;
   if (release_date) {
     const [startDate, endDate] = release_date.split("..");

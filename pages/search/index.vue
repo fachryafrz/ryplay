@@ -44,7 +44,7 @@ watch(
 );
 
 useInfiniteScroll(loadMoreRef, async () => {
-  offset.value += 20;
+  offset.value += 10;
   await fetchGames();
 });
 </script>
