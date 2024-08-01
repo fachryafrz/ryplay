@@ -61,7 +61,7 @@ const groupedWantToPlayData = wantToPlayData
   .map((data) => data.game_id)
   .join(",");
 
-const { data: popularGames, error: popularGamesError } = useFetch(
+const { data: popularGames, error: popularGamesError } = await useLazyFetch(
   "/api/games/details",
   {
     params: {
@@ -71,7 +71,7 @@ const { data: popularGames, error: popularGamesError } = useFetch(
     },
   },
 );
-const { data: mostPlayed, error: mostPlayedError } = useFetch(
+const { data: mostPlayed, error: mostPlayedError } = await useLazyFetch(
   "/api/games/details",
   {
     params: {
@@ -80,13 +80,13 @@ const { data: mostPlayed, error: mostPlayedError } = useFetch(
     },
   },
 );
-const { data: playing, error: playingError } = useFetch("/api/games/details", {
+const { data: playing, error: playingError } = await useLazyFetch("/api/games/details", {
   params: {
     id: `(${groupedPlayingData})`,
     limit: 5,
   },
 });
-const { data: wantToPlay, error: wantToPlayError } = useFetch(
+const { data: wantToPlay, error: wantToPlayError } = await useLazyFetch(
   "/api/games/details",
   {
     params: {

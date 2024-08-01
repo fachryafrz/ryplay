@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
   const access_token = cookies?.access_token;
 
   const today = dayjs().unix();
+  const monthsAgo = dayjs().subtract(1, "month").unix();
   const firstDayOfMonth = dayjs().startOf("month").unix();
 
   const fetchGames = async (access_token) => {
@@ -20,7 +21,7 @@ export default defineEventHandler(async (event) => {
       body: `
         query games "featured" {
           f *, cover.*, artworks.*,  screenshots.*, genres.*;
-          w cover != null & first_release_date >= ${firstDayOfMonth} & first_release_date <= ${today} & hypes >= 20 & category = 0;
+          w cover != null & first_release_date >= ${monthsAgo} & first_release_date <= ${today} & hypes >= 20 & category = 0;
           s first_release_date asc;
           l 5;
         };
