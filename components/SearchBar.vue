@@ -15,6 +15,9 @@ const handleSubmit = () => {
 
 const clearSearch = () => {
   searchQuery.value = "";
+  router.push({
+    path: "/search",
+  });
 };
 
 watch(
@@ -46,7 +49,7 @@ onKeyStroke("/", (e) => {
           placeholder="Search"
         />
         <button
-          v-show="searchQuery"
+          v-show="route.query.query"
           @click="clearSearch"
           type="button"
           class="material-symbols-outlined"

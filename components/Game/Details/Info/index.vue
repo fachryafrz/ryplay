@@ -1,9 +1,5 @@
 <script setup>
-const { game, publishers, developers } = defineProps([
-  "game",
-  "publishers",
-  "developers",
-]);
+const { game } = defineProps(["game"]);
 
 const readMore = ref(false);
 const storyline = ref(game.storyline || "");

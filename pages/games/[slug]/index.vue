@@ -2,56 +2,36 @@
 const config = useRuntimeConfig();
 const { slug } = useRoute().params;
 
-const game = ref([]);
+const { data: response, error } = await useFetch("/api/games/details", {
+  params: { slug },
+});
 
-const dayjs = useDayjs();
-const gameCover = ref("");
-const developers = ref([]);
-const publishers = ref([]);
-const gameInfo = ref([]);
+if (error.value) throw error.value;
 
-const fetchGameDetails = async () => {
-  const { data: response, error } = await useFetch("/api/games/details", {
-    params: { slug },
-  });
+const data = response.value[0];
+const game = data;
+const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover.image_id}.jpg`;
 
-  if (error.value) {
-    throw error.value;
-  }
-
-  const data = response.value[0];
-  game.value = data;
-  gameCover.value = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover.image_id}.jpg`;
-
-  return data;
-};
-
-try {
-  const data = await fetchGameDetails();
-
-  useHead({
-    title: `${data.name}`,
-    meta: [
-      { name: `description`, content: `${data.summary}` },
-      { property: `og:title`, content: `${data.name}` },
-      { property: `og:description`, content: `${data.summary}` },
-      { property: `og:image`, content: `${gameCover.value}` },
-      { property: `og:url`, content: `${config.public.APP_URL}/games/${slug}` },
-      { property: `og:site_name`, content: `${config.public.APP_NAME}` },
-      { property: `og:type`, content: `website` },
-      { name: `twitter:card`, content: `summary_large_image` },
-      { name: `twitter:creator`, content: `@fachryafrz` },
-      { name: `twitter:description`, content: `${data.summary}` },
-      { name: `twitter:image`, content: `${gameCover.value}` },
-      {
-        name: `twitter:title`,
-        content: `${data.name} at ${config.public.APP_NAME}`,
-      },
-    ],
-  });
-} catch (error) {
-  console.error("Failed to fetch game details:", error);
-}
+useHead({
+  title: `${data.name}`,
+  meta: [
+    { name: `description`, content: `${data.summary}` },
+    { property: `og:title`, content: `${data.name}` },
+    { property: `og:description`, content: `${data.summary}` },
+    { property: `og:image`, content: `${gameCover}` },
+    { property: `og:url`, content: `${config.public.APP_URL}/games/${slug}` },
+    { property: `og:site_name`, content: `${config.public.APP_NAME}` },
+    { property: `og:type`, content: `website` },
+    { name: `twitter:card`, content: `summary_large_image` },
+    { name: `twitter:creator`, content: `@fachryafrz` },
+    { name: `twitter:description`, content: `${data.summary}` },
+    { name: `twitter:image`, content: `${gameCover}` },
+    {
+      name: `twitter:title`,
+      content: `${data.name} at ${config.public.APP_NAME}`,
+    },
+  ],
+});
 </script>
 
 <template>
@@ -75,11 +55,7 @@ try {
         'lg:row-start-2': game.videos || game.screenshots || game.artworks,
       }"
     >
-      <GameDetailsInfo
-        :game="game"
-        :publishers="publishers"
-        :developers="developers"
-      />
+      <GameDetailsInfo :game="game" />
     </div>
 
     <div v-if="game.similar_games?.length > 0" class="col-span-full">

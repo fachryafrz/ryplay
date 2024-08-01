@@ -8,7 +8,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
   <NuxtLink :to="`/games/${game.slug}`" class="relative">
     <div
       v-if="!isHorizontal"
-      class="transition-all hocus:rounded-xl hocus:bg-secondary md:hocus:p-2 [&_figure]:hocus:rounded-md"
+      class="transition-all hocus:rounded-xl hocus:bg-secondary hocus:p-1 md:hocus:p-2 md:[&_figure]:hocus:rounded-md"
     >
       <figure
         class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral transition-all"

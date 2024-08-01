@@ -61,46 +61,65 @@ const groupedWantToPlayData = wantToPlayData
   .map((data) => data.game_id)
   .join(",");
 
-const { data: popularGames, error: popularGamesError } = useLazyFetch(
-  "/api/games/details",
-  {
-    params: {
-      id: `${groupedPopularityData}`,
-      sort: `hypes desc`,
-      limit: 20,
-    },
+const {
+  data: popularGames,
+  error: popularGamesError,
+  execute: fetchPopularGames,
+  status: statusPopularGames,
+} = useLazyFetch("/api/games/details", {
+  params: {
+    id: `${groupedPopularityData}`,
+    sort: `hypes desc`,
+    limit: 20,
   },
-);
-const { data: mostPlayed, error: mostPlayedError } = useLazyFetch(
-  "/api/games/details",
-  {
-    params: {
-      id: `${groupedMostPlayedData}`,
-      sort: `first_release_date desc`,
-      limit: 10,
-    },
+  immediate: false,
+});
+const {
+  data: mostPlayed,
+  error: mostPlayedError,
+  execute: fetchMostPlayed,
+  status: statusMostPlayed,
+} = useLazyFetch("/api/games/details", {
+  params: {
+    id: `${groupedMostPlayedData}`,
+    sort: `first_release_date desc`,
+    limit: 10,
   },
-);
-const { data: playing, error: playingError } = useLazyFetch(
-  "/api/games/details",
-  {
-    params: {
-      id: `${groupedPlayingData}`,
-      sort: `first_release_date desc`,
-      limit: 10,
-    },
+  immediate: false,
+});
+const {
+  data: playing,
+  error: playingError,
+  execute: fetchPlaying,
+  status: statusPlaying,
+} = useLazyFetch("/api/games/details", {
+  params: {
+    id: `${groupedPlayingData}`,
+    sort: `first_release_date desc`,
+    limit: 10,
   },
-);
-const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
-  "/api/games/details",
-  {
-    params: {
-      id: `${groupedWantToPlayData}`,
-      sort: `first_release_date desc`,
-      limit: 10,
-    },
+  immediate: false,
+});
+const {
+  data: wantToPlay,
+  error: wantToPlayError,
+  execute: fetchWantToPlay,
+  status: statusWantToPlay,
+} = useLazyFetch("/api/games/details", {
+  params: {
+    id: `${groupedWantToPlayData}`,
+    sort: `first_release_date desc`,
+    limit: 10,
   },
-);
+  immediate: false,
+});
+
+onMounted(() => {
+  fetchPopularGames();
+  fetchMostPlayed();
+  fetchPlaying();
+  fetchWantToPlay();
+});
 </script>
 
 <template>
@@ -129,8 +148,16 @@ const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
       </div>
     </section>
 
-    <section v-if="popularGames" class="my-2">
+    <section class="my-2">
+      <div
+        v-show="statusPopularGames === `pending`"
+        class="flex justify-center"
+      >
+        <span class="loading loading-spinner"></span>
+      </div>
+
       <GameSlider
+        v-show="statusPopularGames === `success`"
         id="popularGames"
         :games="popularGames"
         title="Popular Right Now"
@@ -186,24 +213,56 @@ const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
     </section>
 
     <section class="my-2 lg:my-8">
-      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
+        <div
+          v-show="statusMostPlayed === `pending`"
+          class="flex h-fit justify-center"
+        >
+          <span class="loading loading-spinner"></span>
+        </div>
+
         <GameTile
+          v-show="statusMostPlayed === `success`"
           class="w-full"
-          :games="mostPlayed.slice(0, 5)"
+          :games="mostPlayed?.slice(0, 5)"
           title="Most Played"
           :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedMostPlayedData}`"
         />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
+
+        <div class="lg:flex lg:justify-center">
+          <span class="divider flex-shrink lg:divider-horizontal"></span>
+        </div>
+
+        <div
+          v-show="statusPlaying === `pending`"
+          class="flex h-fit justify-center"
+        >
+          <span class="loading loading-spinner"></span>
+        </div>
+
         <GameTile
+          v-show="statusPlaying === `success`"
           class="w-full"
-          :games="playing.slice(0, 5)"
+          :games="playing?.slice(0, 5)"
           title="Playing"
           :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedPlayingData}`"
         />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
+
+        <div class="lg:flex lg:justify-center">
+          <span class="divider flex-shrink lg:divider-horizontal"></span>
+        </div>
+
+        <div
+          v-show="statusWantToPlay === `pending`"
+          class="flex h-fit justify-center"
+        >
+          <span class="loading loading-spinner"></span>
+        </div>
+
         <GameTile
+          v-show="statusWantToPlay === `success`"
           class="w-full"
-          :games="wantToPlay.slice(0, 5)"
+          :games="wantToPlay?.slice(0, 5)"
           title="Want to Play"
           :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedWantToPlayData}`"
         />
@@ -241,21 +300,21 @@ const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
         <GameTile
           class="w-full"
-          :games="mostPlayed.slice(5, 10)"
+          :games="mostPlayed?.slice(5, 10)"
           title="Most Played"
           :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedMostPlayedData}`"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
-          :games="playing.slice(5, 10)"
+          :games="playing?.slice(5, 10)"
           title="Playing"
           :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedPlayingData}`"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
-          :games="wantToPlay.slice(5, 10)"
+          :games="wantToPlay?.slice(5, 10)"
           title="Want to Play"
           :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedWantToPlayData}`"
         />
