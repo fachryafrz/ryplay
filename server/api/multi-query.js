@@ -55,9 +55,9 @@ export default defineEventHandler(async (event) => {
           s first_release_date desc;
           l 20;
         };
-        query games "indie" {
+        query games "adventure" {
           f *, cover.*, artworks.*;
-          w cover != null & genres = 32 & screenshots != null & artworks != null & category = 0;
+          w cover != null & genres = 31 & screenshots != null & artworks != null & category = 0;
           s total_rating_count desc;
           l 20;
         };

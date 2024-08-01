@@ -24,8 +24,8 @@ const newReleases = multiqueryResponse.value.find(
 const mostAnticipated = multiqueryResponse.value.find(
   (res) => res.name === "most-anticipated",
 ).result;
-const indie = multiqueryResponse.value.find(
-  (res) => res.name === "indie",
+const adventure = multiqueryResponse.value.find(
+  (res) => res.name === "adventure",
 ).result;
 const shooter = multiqueryResponse.value.find(
   (res) => res.name === "shooter",
@@ -77,7 +77,7 @@ const { data: mostPlayed, error: mostPlayedError } = useLazyFetch(
     params: {
       id: `${groupedMostPlayedData}`,
       sort: `first_release_date desc`,
-      limit: 5,
+      limit: 10,
     },
   },
 );
@@ -87,7 +87,7 @@ const { data: playing, error: playingError } = useLazyFetch(
     params: {
       id: `${groupedPlayingData}`,
       sort: `first_release_date desc`,
-      limit: 5,
+      limit: 10,
     },
   },
 );
@@ -97,7 +97,7 @@ const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
     params: {
       id: `${groupedWantToPlayData}`,
       sort: `first_release_date desc`,
-      limit: 5,
+      limit: 10,
     },
   },
 );
@@ -189,33 +189,33 @@ const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
         <GameTile
           class="w-full"
-          :games="mostPlayed"
+          :games="mostPlayed.slice(0, 5)"
           title="Most Played"
-          :see-all="`/search?limit=20&id=${groupedMostPlayedData}`"
+          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedMostPlayedData}`"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
-          :games="playing"
+          :games="playing.slice(0, 5)"
           title="Playing"
-          :see-all="`/search?limit=20&id=${groupedPlayingData}`"
+          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedPlayingData}`"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
-          :games="wantToPlay"
+          :games="wantToPlay.slice(0, 5)"
           title="Want to Play"
-          :see-all="`/search?limit=20&id=${groupedWantToPlayData}`"
+          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedWantToPlayData}`"
         />
       </div>
     </section>
 
     <section class="my-2">
       <GameSlider
-        id="indie"
-        :games="indie"
-        title="Indie"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=32&screenshots=true&artworks=true&category=0`"
+        id="adventure"
+        :games="adventure"
+        title="Adventure"
+        :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=31&screenshots=true&artworks=true&category=0`"
       />
     </section>
 
@@ -235,6 +235,31 @@ const { data: wantToPlay, error: wantToPlayError } = useLazyFetch(
         title="Racing"
         :see-all="`/search?limit=20&sort=total_rating_count+desc&genres=10&screenshots=true&artworks=true&category=0`"
       />
+    </section>
+
+    <section class="my-2 lg:my-8">
+      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+        <GameTile
+          class="w-full"
+          :games="mostPlayed.slice(5, 10)"
+          title="Most Played"
+          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedMostPlayedData}`"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="playing.slice(5, 10)"
+          title="Playing"
+          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedPlayingData}`"
+        />
+        <div class="divider flex-shrink lg:divider-horizontal"></div>
+        <GameTile
+          class="w-full"
+          :games="wantToPlay.slice(5, 10)"
+          title="Want to Play"
+          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedWantToPlayData}`"
+        />
+      </div>
     </section>
 
     <section class="my-2">
