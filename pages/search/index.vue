@@ -2,11 +2,20 @@
 import VueSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
+const router = useRouter();
 const route = useRoute();
 const loadMoreRef = ref();
 const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
+
+const isThereAnyFilter = computed(() => {
+  return Object.keys(route.query).length > 0;
+});
+
+const handleClearFilters = () => {
+  router.push({ path: "/search" });
+};
 
 const setShowFilter = () => {
   showFilter.value = !showFilter.value;
@@ -86,14 +95,24 @@ useInfiniteScroll(loadMoreRef, async () => {
         }"
       />
 
-      <div class="flex flex-wrap items-center gap-4">
-        <button
-          @click="setShowFilter"
-          class="btn btn-secondary max-w-fit lg:hidden"
-        >
-          Filters
-          <Icon name="ion:filter" size="20" />
-        </button>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex items-center gap-2">
+          <button
+            @click="setShowFilter"
+            class="btn btn-secondary max-w-fit lg:hidden"
+          >
+            Filters
+            <Icon name="ion:filter" size="20" />
+          </button>
+
+          <button
+            v-if="isThereAnyFilter"
+            @click="handleClearFilters"
+            class="btn btn-error btn-outline"
+          >
+            Clear filters
+          </button>
+        </div>
 
         <SearchSort />
       </div>

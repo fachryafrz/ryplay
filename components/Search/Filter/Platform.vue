@@ -66,6 +66,8 @@ watch(
       );
 
       selectedValues.value = platformsData;
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

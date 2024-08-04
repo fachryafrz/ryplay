@@ -52,6 +52,8 @@ watch(
       selectedValues.value = searchParams.theme.split(",").map((i) => {
         return themes.find((item) => item.slug === i);
       });
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

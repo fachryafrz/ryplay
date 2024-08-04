@@ -51,6 +51,9 @@ watch(
 
       fromDate.value = dayjs.unix(from);
       toDate.value = dayjs.unix(to);
+    } else {
+      fromDate.value = today;
+      toDate.value = endOfNextYear;
     }
   },
   {

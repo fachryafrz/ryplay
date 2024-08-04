@@ -44,6 +44,8 @@ watch(
       selectedValues.value = searchParams.game_mode
         .split(",")
         .map((i) => parseInt(i));
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

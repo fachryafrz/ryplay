@@ -46,6 +46,8 @@ watch(
       selectedValues.value = searchParams.category
         .split(",")
         .map((i) => parseInt(i));
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

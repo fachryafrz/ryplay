@@ -46,6 +46,8 @@ watch(
       selectedValues.value = searchParams.player_perspective
         .split(",")
         .map((i) => parseInt(i));
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

@@ -52,6 +52,8 @@ watch(
       selectedValues.value = searchParams.genre.split(",").map((i) => {
         return genres.find((item) => item.slug === i);
       });
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

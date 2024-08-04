@@ -18,6 +18,94 @@ body {
   @apply font-inter;
 }
 
+.v-select {
+  @apply rounded-lg border border-secondary bg-neutral p-1 [&_.vs__dropdown-bg]:bg-neutral [&_input]:placeholder:text-sm;
+}
+
+.vs__dropdown-toggle {
+  @apply !border-none;
+}
+
+.vs__dropdown-menu {
+  @apply !bg-neutral text-sm;
+}
+
+.vs--disabled .vs__dropdown-toggle,
+.vs--disabled .vs__clear,
+.vs--disabled .vs__search,
+.vs--disabled .vs__selected,
+.vs--disabled .vs__open-indicator {
+  @apply !bg-transparent;
+}
+
+.vs--single .vs__selected {
+  @apply !bg-transparent text-sm !text-white;
+}
+.vs--multiple .vs__selected {
+  @apply !bg-secondary text-sm !text-white;
+}
+
+.vs__deselect {
+  @apply !fill-red-500;
+}
+
+.multiselect__tags {
+  @apply !rounded-lg !border-secondary !bg-neutral;
+}
+
+.multiselect__input {
+  @apply !bg-transparent text-sm placeholder:text-sm placeholder:!text-neutral-400;
+}
+
+.multiselect__content-wrapper {
+  @apply !border-secondary !outline-none;
+}
+
+.multiselect__option {
+  @apply !bg-neutral !text-sm !text-neutral-400;
+}
+
+.multiselect__input {
+  @apply !text-sm !text-white;
+}
+
+.multiselect__spinner {
+  @apply !bg-neutral;
+}
+
+.multiselect__option--selected {
+  @apply !bg-neutral !text-sm;
+}
+
+.multiselect__option--highlight {
+  @apply after:!hidden;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+  @apply after:!hidden;
+}
+
+.multiselect__tag {
+  @apply !bg-secondary;
+}
+
+.multiselect__tag-icon {
+  @apply relative after:absolute after:inset-0 after:grid after:place-content-center after:!text-xl after:!text-red-500 after:content-[`x`];
+}
+
+.dp__main {
+  @apply !rounded-lg;
+}
+
+.dp__input {
+  @apply !rounded-lg !border-secondary !bg-neutral;
+}
+
+.dp__theme_dark,
+.dp__arrow_top {
+  @apply !bg-secondary;
+}
+
 @layer components {
   .heading-2 {
     @apply text-xl font-bold;

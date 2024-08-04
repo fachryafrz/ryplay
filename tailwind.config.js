@@ -51,7 +51,7 @@ export default {
           "success-content": "#000a02",
           warning: "#facc15",
           "warning-content": "#150f00",
-          error: "#ff0000",
+          error: "#ef4444",
           "error-content": "#160000",
         },
       },

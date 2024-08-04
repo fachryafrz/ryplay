@@ -111,9 +111,8 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         f *, cover.image_id, genres.name, platforms.name;
-        ${query ? `search "${query}";` : ``}
+        ${query ? `search "${query}";` : `s ${sort ? sort : `total_rating_count desc`};`}
         w ${whereClause};
-        s ${sort ? sort : `total_rating_count desc`}; 
         l 20;
         ${offset ? `o ${offset};` : ""}
       `,

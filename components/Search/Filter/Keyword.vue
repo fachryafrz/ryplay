@@ -66,6 +66,8 @@ watch(
       );
 
       selectedValues.value = keywordsData;
+    } else {
+      selectedValues.value = [];
     }
   },
   { immediate: true },

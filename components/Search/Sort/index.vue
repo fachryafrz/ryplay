@@ -3,9 +3,9 @@ const router = useRouter();
 const route = useRoute();
 
 const sortByTypeOptions = [
-  { name: "Total Rating", value: "total_rating_count" },
-  { name: "Hypes", value: "hypes" },
+  { name: "Rating", value: "total_rating_count" },
   { name: "Release Date", value: "first_release_date" },
+  { name: "Popularity", value: "hypes" },
 ];
 const sortByOrderOptions = [
   { name: "Ascending", value: "asc" },
@@ -52,7 +52,7 @@ watch(
 
 <template>
   <div
-    class="ml-auto flex flex-wrap items-center justify-center gap-4 sm:justify-normal"
+    class="ml-auto flex flex-wrap items-center justify-center gap-2 sm:justify-normal"
   >
     <SearchSortType
       :selected-value="sortByType"
