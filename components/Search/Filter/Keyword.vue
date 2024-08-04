@@ -10,12 +10,16 @@ const isLoading = ref(false);
 const keywords = ref([]);
 const selectedValues = ref(null);
 
-const fetchKeywords = async (query) => {
+const fetchKeywords = async (query, body) => {
   isLoading.value = true;
 
   const data = await $fetch("/api/keywords", {
+    method: "POST",
     params: {
       name: query,
+    },
+    body: {
+      body: body ? body : `f *; w name = ("${query}"); l 10;`,
     },
   });
 
@@ -51,7 +55,15 @@ watch(
   () => route.query,
   async (searchParams) => {
     if (searchParams.keyword) {
-      const keywordsData = await fetchKeywords(searchParams.keyword);
+      const separateItem = searchParams.keyword
+        .split(",")
+        .map((i) => `"${i}"`)
+        .join(",");
+
+      const keywordsData = await fetchKeywords(
+        searchParams.keyword,
+        `f *; w slug = (${separateItem}); s name asc; l 10;`,
+      );
 
       selectedValues.value = keywordsData;
     }

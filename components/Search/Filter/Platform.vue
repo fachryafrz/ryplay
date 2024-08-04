@@ -1,37 +1,43 @@
 <script setup>
-import VueSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
+import VueMultiselect from "vue-multiselect";
 
 const { multiquery } = defineProps(["multiquery"]);
 
 const router = useRouter();
 const route = useRoute();
 
-const platforms = multiquery.find((i) => i.name === "platforms").result;
-const selectedValues = ref([]);
+const isLoading = ref(false);
+const platforms = ref([]);
+const selectedValues = ref(null);
 
-const setSelectedValue = (value) => {
-  const getIdentifiers = value.map((i) => i.slug).join(",");
+const fetchPlatforms = async (query, body) => {
+  isLoading.value = true;
 
-  router.push({
-    path: "/search",
-    query: {
-      ...route.query,
-      platform: getIdentifiers,
+  const data = await $fetch("/api/platforms", {
+    method: "POST",
+    params: {
+      name: query,
+    },
+    body: {
+      body: body ? body : `f *; search "${query}"; l 10;`,
     },
   });
-};
-const setDeselectValue = (value) => {
-  const updatedValues = selectedValues.value
-    .filter((i) => i.slug !== value.slug)
-    .join(",");
 
-  if (updatedValues.length) {
+  isLoading.value = false;
+  platforms.value = data;
+
+  return data;
+};
+
+watch(selectedValues, (newValues) => {
+  if (newValues.length) {
+    newValues = newValues.map((i) => i.slug).join(",");
+
     router.push({
       path: "/search",
       query: {
         ...route.query,
-        platform: updatedValues,
+        platform: newValues,
       },
     });
   } else {
@@ -43,15 +49,23 @@ const setDeselectValue = (value) => {
       },
     });
   }
-};
+});
 
 watch(
   () => route.query,
   async (searchParams) => {
     if (searchParams.platform) {
-      selectedValues.value = searchParams.platform.split(",").map((i) => {
-        return platforms.find((item) => item.slug === i);
-      });
+      const separateItem = searchParams.platform
+        .split(",")
+        .map((i) => `"${i}"`)
+        .join(",");
+
+      const platformsData = await fetchPlatforms(
+        searchParams.platform,
+        `f *; w slug = (${separateItem}); s name asc; l 10;`,
+      );
+
+      selectedValues.value = platformsData;
     }
   },
   { immediate: true },
@@ -59,14 +73,18 @@ watch(
 </script>
 
 <template>
-  <VueSelect
-    multiple
-    v-model="selectedValues"
-    :options="platforms"
-    :reduce="(value) => value.slug"
-    @option:selected="(value) => setSelectedValue(value)"
-    @option:deselected="(value) => setDeselectValue(value)"
-    label="name"
-    placeholder="Select platform"
-  />
+  <div>
+    <VueMultiselect
+      v-model="selectedValues"
+      multiple
+      :options="platforms"
+      :loading="isLoading"
+      @search-change="fetchPlatforms"
+      label="name"
+      track-by="id"
+      :hide-selected="true"
+    ></VueMultiselect>
+  </div>
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
