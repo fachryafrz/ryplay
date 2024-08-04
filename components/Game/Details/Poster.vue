@@ -35,7 +35,7 @@ const gameInfo = [
 
 <template>
   <div
-    class="sticky top-[calc(4rem+0.125rem)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
+    class="sticky top-20 top flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
   >
     <figure class="">
       <img :src="gameCover" :alt="game.name" class="rounded-md" />

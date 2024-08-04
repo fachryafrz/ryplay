@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
     rating,
     genre,
     platform,
+    theme,
     release_date,
     category,
     company,
@@ -17,6 +18,9 @@ export default defineEventHandler(async (event) => {
     screenshots,
     artworks,
     hypes,
+    game_mode,
+    player_perspective,
+    keyword,
   } = getQuery(event);
   const { offset } = await readBody(event);
 
@@ -25,11 +29,29 @@ export default defineEventHandler(async (event) => {
 
   if (rating) whereClause += ` & total_rating >= ${parseFloat(rating)}`;
   if (genre) {
-    let separatedGenre = genre.split(",").map((g) => `"${g}"`).join(",");
-    
-    whereClause += ` & genres.slug = (${separatedGenre})`;
+    const separatedItem = genre
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    whereClause += ` & genres.slug = (${separatedItem})`;
   }
-  if (platform) whereClause += ` & platforms.slug = "${platform}"`;
+  if (platform) {
+    const separatedItem = platform
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    whereClause += ` & platforms.slug = (${separatedItem})`;
+  }
+  if (theme) {
+    const separatedItem = theme
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    whereClause += ` & themes.slug = (${separatedItem})`;
+  }
   if (release_date) {
     const [startDate, endDate] = release_date.split("..");
     if (!endDate && startDate) {
@@ -40,13 +62,44 @@ export default defineEventHandler(async (event) => {
       whereClause += ` & first_release_date >= ${startDate} & first_release_date <= ${endDate}`;
     }
   }
-  if (category) whereClause += ` & category = ${category}`;
+  if (category) {
+    const separatedItem = category
+      .split(",")
+      .map((i) => `${i}`)
+      .join(",");
+
+    whereClause += ` & category = (${separatedItem})`;
+  }
   if (company)
     whereClause += ` & involved_companies.company.slug = "${company}"`;
   if (id) whereClause += ` & id = (${id})`;
   if (screenshots) whereClause += ` & screenshots != null`;
   if (artworks) whereClause += ` & artworks != null`;
   if (hypes) whereClause += ` & hypes >= ${hypes}`;
+  if (game_mode) {
+    const separatedItem = game_mode
+      .split(",")
+      .map((i) => `${i}`)
+      .join(",");
+
+    whereClause += ` & game_modes = (${separatedItem})`;
+  }
+  if (player_perspective) {
+    const separatedItem = player_perspective
+      .split(",")
+      .map((i) => `${i}`)
+      .join(",");
+
+    whereClause += ` & player_perspectives = (${separatedItem})`;
+  }
+  if (keyword) {
+    const separatedItem = keyword
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    whereClause += ` & keywords.slug = (${separatedItem})`;
+  }
 
   const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {

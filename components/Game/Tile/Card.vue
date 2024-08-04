@@ -25,7 +25,7 @@ const { game } = defineProps(["game"]);
         {{ gameCategory.find((item) => item.id === game.category).name }}
       </span>
 
-      <h3 class="line-clamp-2 text-pretty text-lg font-semibold leading-tight">
+      <h3 class="line-clamp-2 text-pretty font-semibold leading-tight">
         {{ game.name }}
       </h3>
 

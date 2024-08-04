@@ -15,10 +15,13 @@
     "@nuxtjs/mdc": "^0.8.3",
     "@tailwindcss/container-queries": "^0.1.1",
     "@vite-pwa/nuxt": "^0.9.1",
+    "@vuepic/vue-datepicker": "^9.0.1",
     "numeral": "^2.0.6",
     "nuxt": "^3.12.4",
     "nuxt-swiper": "^1.2.2",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-multiselect": "^3.0.0-beta.3",
+    "vue-select": "^4.0.0-beta.6"
   },
   "devDependencies": {
     "@iconify-json/ion": "^1.1.18",

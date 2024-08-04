@@ -5,7 +5,7 @@ const router = useRouter();
 const dayjs = useDayjs();
 const today = dayjs().unix();
 
-const { data: multiqueryResponse, error } = await useFetch("/api/multi-query");
+const { data: multiqueryResponse, error } = await useFetch("/api/multiquery");
 
 if (error.value) throw error.value;
 
@@ -125,7 +125,7 @@ onMounted(() => {
 <template>
   <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
 
-  <div class="flex flex-col gap-4">
+  <div class="mx-auto flex max-w-7xl flex-col gap-4">
     <section>
       <GameHomeSlider :games="featuredGames" />
     </section>

@@ -26,7 +26,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
       </span>
 
       <h3
-        class="mt-1 line-clamp-2 text-pretty font-semibold sm:text-lg sm:leading-tight"
+        class="mt-1 line-clamp-2 text-pretty font-semibold sm:leading-tight"
       >
         {{ game.name }}
       </h3>
@@ -59,7 +59,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
       </span>
 
       <h3
-        class="mt-1 line-clamp-1 text-pretty font-semibold sm:text-lg sm:leading-tight"
+        class="mt-1 line-clamp-1 text-pretty font-semibold sm:leading-tight"
       >
         {{ game.name }}
       </h3>

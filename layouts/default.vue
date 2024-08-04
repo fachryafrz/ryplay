@@ -74,7 +74,7 @@ if (error.value) {
     <NuxtLoadingIndicator />
     <NuxtPwaManifest />
     <!-- <Sidebar> -->
-      <div class="flex flex-col gap-0 max-w-7xl mx-auto">
+      <div class="flex flex-col gap-0">
         <Header />
 
         <main class="px-4">
