@@ -34,6 +34,14 @@ export default defineEventHandler(async (event) => {
           s name asc;
           l 500;
         };
+        query game_modes "game-modes" {
+          f *;
+          l 500;
+        };
+        query player_perspectives "player-perspectives" {
+          f *;
+          l 500;
+        };
       `,
     });
     return data;

@@ -18,6 +18,8 @@ export default defineEventHandler(async (event) => {
     screenshots,
     artworks,
     hypes,
+    game_mode,
+    player_perspective,
   } = getQuery(event);
   const { offset } = await readBody(event);
 
@@ -73,6 +75,22 @@ export default defineEventHandler(async (event) => {
   if (screenshots) whereClause += ` & screenshots != null`;
   if (artworks) whereClause += ` & artworks != null`;
   if (hypes) whereClause += ` & hypes >= ${hypes}`;
+  if (game_mode) {
+    const separatedItem = game_mode
+      .split(",")
+      .map((i) => `${i}`)
+      .join(",");
+
+    whereClause += ` & game_modes = (${separatedItem})`;
+  }
+  if (player_perspective) {
+    const separatedItem = player_perspective
+      .split(",")
+      .map((i) => `${i}`)
+      .join(",");
+
+    whereClause += ` & player_perspectives = (${separatedItem})`;
+  }
 
   const fetchGames = async (access_token) => {
     const data = await $fetch("https://api.igdb.com/v4/games", {

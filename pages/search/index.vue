@@ -6,6 +6,11 @@ const route = useRoute();
 const loadMoreRef = ref();
 const games = ref([]);
 const offset = ref(0);
+const showFilter = ref(false);
+
+const setShowFilter = () => {
+  showFilter.value = !showFilter.value;
+};
 
 const fetchGames = async () => {
   // NOTE: Pake $fetch kalau tidak perlu Server Side
@@ -54,8 +59,21 @@ useInfiniteScroll(loadMoreRef, async () => {
   <div class="flex gap-4">
     <h1 class="sr-only">Search</h1>
     <!-- Filters -->
-    <div class="min-w-[300px] max-w-[300px]">
+    <div
+      class="fixed inset-0 z-[99] h-screen transition-all lg:static lg:h-auto lg:min-w-[300px] lg:max-w-[300px]"
+      :class="{
+        '-translate-x-full lg:translate-x-0': !showFilter,
+        'translate-x-0': showFilter,
+      }"
+    >
       <SearchFilter :multiquery="multiquery" />
+
+      <button
+        @click="setShowFilter"
+        class="btn btn-square btn-secondary absolute right-4 top-4 lg:hidden"
+      >
+        <Icon name="ion:close" size="28" />
+      </button>
     </div>
 
     <!-- Results -->
@@ -66,6 +84,11 @@ useInfiniteScroll(loadMoreRef, async () => {
           'sm:hidden': route.path === '/search',
         }"
       />
+
+      <button @click="setShowFilter" class="btn btn-secondary lg:hidden">
+        Filters
+        <Icon name="ion:filter" size="20" />
+      </button>
 
       <div v-show="games.length < 1" class="flex justify-center">
         <span class="loading loading-spinner"></span>

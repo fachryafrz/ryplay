@@ -1,19 +1,17 @@
 <script setup>
-import gameCategory from "@/json/game-category.json";
+const { multiquery } = defineProps(["multiquery"]);
 
 const router = useRouter();
 const route = useRoute();
 
-const categories = gameCategory.filter((category) =>
-  [0, 1, 2, 3, 4, 8, 9, 10, 11,].includes(category.id),
-);
+const gameModes = multiquery.find((i) => i.name === "game-modes").result;
 const selectedValues = ref([]);
 
 const setSelectedValue = (event) => {
   const isChecked = event.target.checked;
 
   if (isChecked) {
-    selectedValues.value = categories.map((c) => c.id);
+    selectedValues.value = gameModes.map((c) => c.id);
   } else {
     selectedValues.value = [];
   }
@@ -25,7 +23,7 @@ watch(selectedValues, (newValues, oldValues) => {
       path: "/search",
       query: {
         ...route.query,
-        category: newValues.join(","),
+        game_mode: newValues.join(","),
       },
     });
   } else {
@@ -33,7 +31,7 @@ watch(selectedValues, (newValues, oldValues) => {
       path: "/search",
       query: {
         ...route.query,
-        category: undefined,
+        game_mode: undefined,
       },
     });
   }
@@ -42,8 +40,8 @@ watch(selectedValues, (newValues, oldValues) => {
 watch(
   () => route.query,
   (searchParams) => {
-    if (searchParams.category) {
-      selectedValues.value = searchParams.category
+    if (searchParams.game_mode) {
+      selectedValues.value = searchParams.game_mode
         .split(",")
         .map((i) => parseInt(i));
     }
@@ -56,35 +54,33 @@ watch(
   <div class="grid gap-2 @xs:grid-cols-2 [&_label]:text-sm">
     <div class="flex items-center gap-2">
       <input
-        id="category_all"
+        id="game_mode_all"
         type="checkbox"
         class="checkbox checkbox-sm rounded-md"
         @change="setSelectedValue"
-        :checked="selectedValues.length === categories.length"
+        :checked="selectedValues.length === gameModes.length"
       />
-      <label for="category_all" class="flex w-full cursor-pointer">
-        All
-      </label>
+      <label for="game_mode_all" class="flex w-full cursor-pointer"> All </label>
     </div>
 
     <div
-      v-for="category in categories"
-      :key="category.id"
+      v-for="game_mode in gameModes"
+      :key="game_mode.id"
       class="flex items-center gap-2"
     >
       <input
-        :id="`category_${category.id}`"
+        :id="`game_mode_${game_mode.id}`"
         v-model="selectedValues"
-        :value="category.id"
+        :value="game_mode.id"
         type="checkbox"
-        name="category"
+        name="game_mode"
         class="checkbox checkbox-sm rounded-md"
       />
       <label
-        :for="`category_${category.id}`"
+        :for="`game_mode_${game_mode.id}`"
         class="flex w-full cursor-pointer"
       >
-        {{ category.name }}
+        {{ game_mode.name }}
       </label>
     </div>
   </div>
