@@ -25,11 +25,21 @@ export default defineEventHandler(async (event) => {
 
   if (rating) whereClause += ` & total_rating >= ${parseFloat(rating)}`;
   if (genre) {
-    let separatedGenre = genre.split(",").map((g) => `"${g}"`).join(",");
-    
+    const separatedGenre = genre
+      .split(",")
+      .map((g) => `"${g}"`)
+      .join(",");
+
     whereClause += ` & genres.slug = (${separatedGenre})`;
   }
-  if (platform) whereClause += ` & platforms.slug = "${platform}"`;
+  if (platform) {
+    const separatedPlatform = platform
+      .split(",")
+      .map((p) => `"${p}"`)
+      .join(",");
+
+    whereClause += ` & platforms.slug = (${separatedPlatform})`;
+  }
   if (release_date) {
     const [startDate, endDate] = release_date.split("..");
     if (!endDate && startDate) {

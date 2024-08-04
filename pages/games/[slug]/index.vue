@@ -35,7 +35,7 @@ useHead({
 </script>
 
 <template>
-  <div class="mt-0.5 grid grid-cols-12 gap-4">
+  <div class="mx-auto mt-0.5 grid max-w-7xl grid-cols-12 gap-4">
     <div
       class="col-span-full @container lg:col-start-9 lg:row-span-2 xl:col-start-10"
     >

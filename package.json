@@ -18,7 +18,8 @@
     "numeral": "^2.0.6",
     "nuxt": "^3.12.4",
     "nuxt-swiper": "^1.2.2",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-select": "^4.0.0-beta.6"
   },
   "devDependencies": {
     "@iconify-json/ion": "^1.1.18",

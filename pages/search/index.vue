@@ -1,4 +1,7 @@
 <script setup>
+import VueSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+
 const route = useRoute();
 const loadMoreRef = ref();
 const games = ref([]);
@@ -16,28 +19,26 @@ const fetchGames = async () => {
 
   if (response) games.value.push(...response);
 };
+await fetchGames();
 
-try {
-  await fetchGames();
+useHead({
+  title: "Search",
+  meta: [
+    {
+      name: "description",
+      content: "Search for your favorite games",
+    },
+  ],
+});
 
-  useHead({
-    title: "Search",
-    meta: [
-      {
-        name: "description",
-        content: "Search for your favorite games",
-      },
-    ],
-  });
-} catch (error) {
-  console.error("Failed to fetch games:", error);
-}
+const multiquery = await $fetch("/api/search/multiquery");
 
 watch(
-  () => route.fullPath,
+  () => route.query,
   async () => {
     offset.value = 0;
     games.value = [];
+
     await fetchGames();
   },
   { immediate: true },
@@ -50,28 +51,35 @@ useInfiniteScroll(loadMoreRef, async () => {
 </script>
 
 <template>
-  <div>
+  <div class="flex gap-4">
     <h1 class="sr-only">Search</h1>
-
-    <SearchBar
-      class="mb-4 mt-2"
-      :class="{
-        'sm:hidden': route.path === '/search',
-      }"
-    />
-
-    <div v-show="games.length < 1" class="flex justify-center">
-      <span class="loading loading-spinner"></span>
+    <!-- Filters -->
+    <div class="min-w-[300px] max-w-[300px]">
+      <SearchFilter :multiquery="multiquery" />
     </div>
 
-    <GameGrid v-show="games.length > 0" :games="games" />
+    <!-- Results -->
+    <div class="w-full">
+      <SearchBar
+        class="mb-4 mt-2"
+        :class="{
+          'sm:hidden': route.path === '/search',
+        }"
+      />
 
-    <button
-      ref="loadMoreRef"
-      v-show="games.length >= 20 && games.length >= offset"
-      class="pointer-events-none mx-auto mt-4 flex aspect-square"
-    >
-      <span class="loading loading-spinner"></span>
-    </button>
+      <div v-show="games.length < 1" class="flex justify-center">
+        <span class="loading loading-spinner"></span>
+      </div>
+
+      <GameGrid v-show="games.length > 0" :games="games" />
+
+      <button
+        ref="loadMoreRef"
+        v-show="games.length >= 20 && games.length >= offset"
+        class="pointer-events-none mx-auto mt-4 flex aspect-square"
+      >
+        <span class="loading loading-spinner"></span>
+      </button>
+    </div>
   </div>
 </template>

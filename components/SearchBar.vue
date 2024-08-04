@@ -30,6 +30,9 @@ watch(
 
 onKeyStroke("/", (e) => {
   e.preventDefault();
+  router.push({
+    path: "/search",
+  })
   inputRef.value.focus();
 });
 </script>
