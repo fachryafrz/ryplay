@@ -40,5 +40,10 @@ const { multiquery } = defineProps(["multiquery"]);
       <h2 class="heading-2 text-sm">Player Perspective</h2>
       <SearchFilterPlayerPerspective :multiquery="multiquery" />
     </section>
+
+    <section>
+      <h2 class="heading-2 text-sm">Keyword</h2>
+      <SearchFilterKeyword :multiquery="multiquery" />
+    </section>
   </div>
 </template>

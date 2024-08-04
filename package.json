@@ -20,6 +20,7 @@
     "nuxt": "^3.12.4",
     "nuxt-swiper": "^1.2.2",
     "vue": "latest",
+    "vue-multiselect": "^3.0.0-beta.3",
     "vue-select": "^4.0.0-beta.6"
   },
   "devDependencies": {

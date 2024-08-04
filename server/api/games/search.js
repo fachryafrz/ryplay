@@ -20,6 +20,7 @@ export default defineEventHandler(async (event) => {
     hypes,
     game_mode,
     player_perspective,
+    keyword,
   } = getQuery(event);
   const { offset } = await readBody(event);
 
@@ -90,6 +91,14 @@ export default defineEventHandler(async (event) => {
       .join(",");
 
     whereClause += ` & player_perspectives = (${separatedItem})`;
+  }
+  if (keyword) {
+    const separatedItem = keyword
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    whereClause += ` & keywords.slug = (${separatedItem})`;
   }
 
   const fetchGames = async (access_token) => {

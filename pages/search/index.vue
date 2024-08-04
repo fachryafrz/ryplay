@@ -56,8 +56,9 @@ useInfiniteScroll(loadMoreRef, async () => {
 </script>
 
 <template>
-  <div class="flex gap-4">
+  <div class="mt-2 flex gap-4">
     <h1 class="sr-only">Search</h1>
+
     <!-- Filters -->
     <div
       class="fixed inset-0 z-[99] h-screen transition-all lg:static lg:h-auto lg:min-w-[300px] lg:max-w-[300px]"
@@ -77,18 +78,25 @@ useInfiniteScroll(loadMoreRef, async () => {
     </div>
 
     <!-- Results -->
-    <div class="w-full">
+    <div class="flex w-full flex-col gap-4">
       <SearchBar
-        class="mb-4 mt-2"
+        class="mt-2"
         :class="{
           'sm:hidden': route.path === '/search',
         }"
       />
 
-      <button @click="setShowFilter" class="btn btn-secondary lg:hidden">
-        Filters
-        <Icon name="ion:filter" size="20" />
-      </button>
+      <div class="flex flex-wrap items-center gap-4">
+        <button
+          @click="setShowFilter"
+          class="btn btn-secondary max-w-fit lg:hidden"
+        >
+          Filters
+          <Icon name="ion:filter" size="20" />
+        </button>
+
+        <SearchSort />
+      </div>
 
       <div v-show="games.length < 1" class="flex justify-center">
         <span class="loading loading-spinner"></span>
