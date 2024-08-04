@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
     rating,
     genre,
     platform,
+    theme,
     release_date,
     category,
     company,
@@ -25,20 +26,28 @@ export default defineEventHandler(async (event) => {
 
   if (rating) whereClause += ` & total_rating >= ${parseFloat(rating)}`;
   if (genre) {
-    const separatedGenre = genre
+    const separatedItem = genre
       .split(",")
-      .map((g) => `"${g}"`)
+      .map((i) => `"${i}"`)
       .join(",");
 
-    whereClause += ` & genres.slug = (${separatedGenre})`;
+    whereClause += ` & genres.slug = (${separatedItem})`;
   }
   if (platform) {
-    const separatedPlatform = platform
+    const separatedItem = platform
       .split(",")
-      .map((p) => `"${p}"`)
+      .map((i) => `"${i}"`)
       .join(",");
 
-    whereClause += ` & platforms.slug = (${separatedPlatform})`;
+    whereClause += ` & platforms.slug = (${separatedItem})`;
+  }
+  if (theme) {
+    const separatedItem = theme
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    whereClause += ` & themes.slug = (${separatedItem})`;
   }
   if (release_date) {
     const [startDate, endDate] = release_date.split("..");
@@ -50,7 +59,14 @@ export default defineEventHandler(async (event) => {
       whereClause += ` & first_release_date >= ${startDate} & first_release_date <= ${endDate}`;
     }
   }
-  if (category) whereClause += ` & category = ${category}`;
+  if (category) {
+    const separatedItem = category
+      .split(",")
+      .map((i) => `${i}`)
+      .join(",");
+
+    whereClause += ` & category = (${separatedItem})`;
+  }
   if (company)
     whereClause += ` & involved_companies.company.slug = "${company}"`;
   if (id) whereClause += ` & id = (${id})`;

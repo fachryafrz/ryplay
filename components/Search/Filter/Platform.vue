@@ -7,7 +7,7 @@ const { multiquery } = defineProps(["multiquery"]);
 const router = useRouter();
 const route = useRoute();
 
-const genres = multiquery.find((i) => i.name === "genres").result;
+const platforms = multiquery.find((i) => i.name === "platforms").result;
 const selectedValues = ref([]);
 
 const setSelectedValue = (value) => {
@@ -17,7 +17,7 @@ const setSelectedValue = (value) => {
     path: "/search",
     query: {
       ...route.query,
-      genre: getIdentifiers,
+      platform: getIdentifiers,
     },
   });
 };
@@ -31,7 +31,7 @@ const setDeselectValue = (value) => {
       path: "/search",
       query: {
         ...route.query,
-        genre: updatedValues,
+        platform: updatedValues,
       },
     });
   } else {
@@ -39,7 +39,7 @@ const setDeselectValue = (value) => {
       path: "/search",
       query: {
         ...route.query,
-        genre: undefined,
+        platform: undefined,
       },
     });
   }
@@ -48,9 +48,9 @@ const setDeselectValue = (value) => {
 watch(
   () => route.query,
   async (searchParams) => {
-    if (searchParams.genre) {
-      selectedValues.value = searchParams.genre.split(",").map((i) => {
-        return genres.find((item) => item.slug === i);
+    if (searchParams.platform) {
+      selectedValues.value = searchParams.platform.split(",").map((i) => {
+        return platforms.find((item) => item.slug === i);
       });
     }
   },
@@ -62,11 +62,11 @@ watch(
   <VueSelect
     multiple
     v-model="selectedValues"
-    :options="genres"
+    :options="platforms"
     :reduce="(value) => value.slug"
     @option:selected="(value) => setSelectedValue(value)"
     @option:deselected="(value) => setDeselectValue(value)"
     label="name"
-    placeholder="Select genres"
+    placeholder="Select platform"
   />
 </template>

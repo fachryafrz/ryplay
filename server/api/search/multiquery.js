@@ -29,6 +29,11 @@ export default defineEventHandler(async (event) => {
           s name asc;
           l 500;
         };
+        query themes "themes" {
+          f *;
+          s name asc;
+          l 500;
+        };
       `,
     });
     return data;

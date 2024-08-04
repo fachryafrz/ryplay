@@ -17,6 +17,10 @@ const clearSearch = () => {
   searchQuery.value = "";
   router.push({
     path: "/search",
+    query: {
+      ...route.query,
+      query: undefined,
+    },
   });
 };
 
@@ -32,7 +36,7 @@ onKeyStroke("/", (e) => {
   e.preventDefault();
   router.push({
     path: "/search",
-  })
+  });
   inputRef.value.focus();
 });
 </script>
