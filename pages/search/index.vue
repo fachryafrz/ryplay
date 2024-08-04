@@ -96,7 +96,7 @@ useInfiniteScroll(loadMoreRef, async () => {
       />
 
       <div class="flex flex-wrap gap-4">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center justify-center flex-wrap gap-2">
           <button
             @click="setShowFilter"
             class="btn btn-secondary max-w-fit lg:hidden"
