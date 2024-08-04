@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@vite-pwa/nuxt",
   ],
+  build: {
+    transpile: ["@vuepic/vue-datepicker"],
+  },
   pwa: {
     manifest: {
       name: process.env.APP_NAME,
