@@ -4,7 +4,7 @@ const { multiquery } = defineProps(["multiquery"]);
 
 <template>
   <div
-    class="flex h-full flex-col gap-4 overflow-y-auto bg-neutral p-4 @container lg:sticky lg:top-[calc(72px+3px)] lg:mt-2 lg:max-h-[calc(100dvh-6rem)] lg:rounded-xl lg:outline lg:outline-secondary [&_section]:flex [&_section]:flex-col [&_section]:gap-2"
+    class="flex h-full flex-col gap-4 overflow-y-auto bg-neutral p-4 @container lg:sticky lg:top-[calc(72px+3px)] lg:max-h-[calc(100dvh-72px-6px-1rem)] lg:rounded-xl lg:outline lg:outline-secondary [&_section]:flex [&_section]:flex-col [&_section]:gap-2"
   >
     <section>
       <h2 class="heading-2 text-sm">Release Date</h2>

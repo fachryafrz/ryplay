@@ -76,12 +76,12 @@ useInfiniteScroll(loadMoreRef, async () => {
 </script>
 
 <template>
-  <div class="mt-2 flex gap-4">
+  <div class="flex gap-4">
     <h1 class="sr-only">Search</h1>
 
     <!-- Filters -->
     <div
-      class="fixed top-[72px] inset-0 z-[99] h-screen transition-all lg:static lg:h-auto lg:min-w-[300px] lg:max-w-[300px]"
+      class="fixed inset-0 top-[72px] z-[99] h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[300px] lg:max-w-[300px]"
       :class="{
         '-translate-x-full lg:translate-x-0': !showFilter,
         'translate-x-0': showFilter,
@@ -89,10 +89,7 @@ useInfiniteScroll(loadMoreRef, async () => {
     >
       <SearchFilter :multiquery="multiquery" />
 
-      <button
-        @click="setShowFilter"
-        class="absolute right-4 top-2 lg:hidden"
-      >
+      <button @click="setShowFilter" class="absolute right-4 top-2 lg:hidden">
         <Icon name="ion:close" size="28" />
       </button>
     </div>
