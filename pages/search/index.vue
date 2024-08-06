@@ -81,7 +81,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
     <!-- Filters -->
     <div
-      class="fixed inset-0 z-[99] h-screen transition-all lg:static lg:h-auto lg:min-w-[300px] lg:max-w-[300px]"
+      class="fixed top-[72px] inset-0 z-[99] h-screen transition-all lg:static lg:h-auto lg:min-w-[300px] lg:max-w-[300px]"
       :class="{
         '-translate-x-full lg:translate-x-0': !showFilter,
         'translate-x-0': showFilter,
@@ -91,7 +91,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
       <button
         @click="setShowFilter"
-        class="btn btn-square btn-secondary absolute right-4 top-4 lg:hidden"
+        class="absolute right-4 top-2 lg:hidden"
       >
         <Icon name="ion:close" size="28" />
       </button>
