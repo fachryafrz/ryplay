@@ -34,6 +34,7 @@ watch(
       label="name"
       :clearable="false"
       :disabled="isThereIsQueryParam"
+      :searchable="false"
     />
   </div>
 </template>

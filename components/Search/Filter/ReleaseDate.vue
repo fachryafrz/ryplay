@@ -92,6 +92,7 @@ watch(
       hide-input-icon="true"
       class="[&_input]:text-center [&_input]:text-sm [&_input]:font-medium"
       style="--dp-input-padding: 0.5rem"
+      :min-date="fromDate"
       :max-date="endOfNextYear"
       position="right"
     />
