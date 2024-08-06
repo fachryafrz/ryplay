@@ -31,7 +31,18 @@ const fetchGames = async () => {
     },
   });
 
-  if (response) games.value.push(...response);
+  if (response) {
+    // Gabungkan game-game yang sudah ada dengan respons baru
+    const combinedGames = [...games.value, ...response];
+
+    // Hapus duplikat berdasarkan id
+    const uniqueGames = combinedGames.filter(
+      (game, index, self) => index === self.findIndex((t) => t.id === game.id),
+    );
+
+    // Update games.value dengan game yang unik
+    games.value = uniqueGames;
+  }
 };
 await fetchGames();
 
@@ -96,7 +107,7 @@ useInfiniteScroll(loadMoreRef, async () => {
       />
 
       <div class="flex flex-wrap gap-4">
-        <div class="flex items-center justify-center flex-wrap gap-2">
+        <div class="flex flex-wrap items-center justify-center gap-2">
           <button
             @click="setShowFilter"
             class="btn btn-secondary max-w-fit lg:hidden"
@@ -108,7 +119,7 @@ useInfiniteScroll(loadMoreRef, async () => {
           <button
             v-if="isThereAnyFilter"
             @click="handleClearFilters"
-            class="btn btn-error btn-outline"
+            class="btn btn-outline btn-error"
           >
             Clear filters
           </button>

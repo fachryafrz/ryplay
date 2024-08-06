@@ -5,7 +5,7 @@ const route = useRoute();
 
 <template>
   <div
-    class="sticky top-0 z-[99] bg-base-100 bg-opacity-90 px-4 py-3 backdrop-blur"
+    class="sticky top-0 z-[100] bg-base-100 bg-opacity-90 px-4 py-3 backdrop-blur"
   >
     <header class="navbar min-h-0 rounded-xl bg-neutral bg-opacity-10 p-0">
       <div class="navbar-start">
