@@ -52,7 +52,7 @@ onKeyStroke("/", (e) => {
           v-model="searchQuery"
           ref="inputRef"
           type="text"
-          class="grow"
+          class="grow w-full"
           placeholder="Search"
         />
         <button

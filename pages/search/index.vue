@@ -76,12 +76,12 @@ useInfiniteScroll(loadMoreRef, async () => {
 </script>
 
 <template>
-  <div class="flex gap-4">
+  <div class="-mx-4 flex">
     <h1 class="sr-only">Search</h1>
 
     <!-- Filters -->
     <div
-      class="fixed inset-0 top-[72px] z-[99] h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[300px] lg:max-w-[300px]"
+      class="fixed mt-1 lg:pl-4 inset-0 top-[72px] z-[100] h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[300px] lg:max-w-[300px]"
       :class="{
         '-translate-x-full lg:translate-x-0': !showFilter,
         'translate-x-0': showFilter,
@@ -94,42 +94,49 @@ useInfiniteScroll(loadMoreRef, async () => {
       </button>
     </div>
 
-    <!-- Results -->
-    <div class="flex w-full flex-col gap-4">
-      <SearchBar
-        class="mt-2"
-        :class="{
-          'sm:hidden': route.path === '/search',
-        }"
-      />
+    <!-- Top -->
+    <div class="flex w-full flex-col">
+      <div
+        class="sticky top-[72px] z-[99] flex w-full flex-row items-center gap-3 bg-base-100 bg-opacity-90 p-4 backdrop-blur lg:py-2"
+      >
+        <!-- Search Bar for Mobile -->
+        <SearchBar
+          :class="{
+            'sm:hidden': route.path === '/search',
+          }"
+        />
 
-      <div class="flex flex-wrap gap-4">
-        <div class="flex flex-wrap items-center justify-center gap-2">
-          <button
-            @click="setShowFilter"
-            class="btn btn-secondary max-w-fit lg:hidden"
-          >
-            Filters
-            <Icon name="ion:filter" size="20" />
-          </button>
+        <!-- Sort -->
+        <div class="flex items-center gap-2 sm:w-full">
+          <div class="flex sm:h-[41px] items-center gap-2">
+            <button
+              v-if="isThereAnyFilter"
+              @click="handleClearFilters"
+              class="btn btn-square btn-outline btn-error sm:btn-sm sm:h-full sm:w-fit sm:px-4"
+            >
+              <Icon name="ion:close" size="20" />
+              <span class="hidden sm:block">Clear</span>
+            </button>
 
-          <button
-            v-if="isThereAnyFilter"
-            @click="handleClearFilters"
-            class="btn btn-outline btn-error"
-          >
-            Clear filters
-          </button>
+            <button
+              @click="setShowFilter"
+              class="btn btn-square btn-secondary sm:btn-sm sm:h-full sm:w-fit sm:px-4 lg:hidden"
+            >
+              <span class="hidden sm:block">Filters</span>
+              <Icon name="ion:filter" size="20" />
+            </button>
+          </div>
+
+          <SearchSort class="hidden sm:flex" />
         </div>
-
-        <SearchSort />
       </div>
 
+      <!-- Results -->
       <div v-show="games.length < 1" class="flex justify-center">
         <span class="loading loading-spinner"></span>
       </div>
 
-      <GameGrid v-show="games.length > 0" :games="games" />
+      <GameGrid v-show="games.length > 0" :games="games" class="px-4" />
 
       <button
         ref="loadMoreRef"
