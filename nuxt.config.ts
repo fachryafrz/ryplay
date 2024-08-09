@@ -10,7 +10,14 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@vueuse/nuxt",
     "@vite-pwa/nuxt",
+    "@nuxtjs/sitemap",
   ],
+  site: {
+    trailingSlash: false,
+  },
+  sitemap: {
+    sources: ["/api/sitemap"],
+  },
   build: {
     transpile: ["@vuepic/vue-datepicker"],
   },
