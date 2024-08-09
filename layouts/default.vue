@@ -52,6 +52,13 @@ useHead({
       rel: `icon`,
       type: `image/x-icon`,
       href: `/favicon.ico`,
+      media: "(prefers-color-scheme: dark)",
+    },
+    {
+      rel: `icon`,
+      type: `image/x-icon`,
+      href: `/favicon-dark.ico`,
+      media: "(prefers-color-scheme: light)",
     },
     {
       rel: `manifest`,
@@ -74,15 +81,15 @@ if (error.value) {
     <NuxtLoadingIndicator />
     <NuxtPwaManifest />
     <!-- <Sidebar> -->
-      <div class="flex flex-col gap-0">
-        <Header />
+    <div class="flex flex-col gap-0">
+      <Header />
 
-        <main class="px-4">
-          <NuxtPage />
-        </main>
+      <main class="px-4">
+        <NuxtPage />
+      </main>
 
-        <Footer />
-      </div>
+      <Footer />
+    </div>
     <!-- </Sidebar> -->
   </div>
 </template>
