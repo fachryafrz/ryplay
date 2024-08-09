@@ -19,6 +19,7 @@
     "@vuepic/vue-datepicker": "^9.0.1",
     "numeral": "^2.0.6",
     "nuxt": "^3.12.4",
+    "nuxt-gtag": "^2.1.0",
     "nuxt-swiper": "^1.2.2",
     "vue": "latest",
     "vue-multiselect": "^3.0.0-beta.3",

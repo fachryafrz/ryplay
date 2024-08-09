@@ -11,7 +11,11 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@vite-pwa/nuxt",
     "@nuxtjs/sitemap",
+    "nuxt-gtag",
   ],
+  gtag: {
+    id: "G-NRZR500XVB",
+  },
   site: {
     trailingSlash: false,
   },
