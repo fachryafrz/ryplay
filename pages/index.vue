@@ -5,48 +5,38 @@ const router = useRouter();
 const dayjs = useDayjs();
 const today = dayjs().unix();
 
-const { data: multiqueryResponse, error } = await useFetch("/api/multiquery");
+const { data: home, error: homeError } = await useFetch("/api/home");
 
-if (error.value) throw error.value;
+const featuredGames = home.value.find((res) => res.name === "featured").result;
+const upcomingGames = home.value.find((res) => res.name === "upcoming").result;
+const topRatedGames = home.value.find((res) => res.name === "top-rated").result;
 
-const featuredGames = multiqueryResponse.value.find(
-  (res) => res.name === "featured",
-).result;
-const upcomingGames = multiqueryResponse.value.find(
-  (res) => res.name === "upcoming",
-).result;
-const topRatedGames = multiqueryResponse.value.find(
-  (res) => res.name === "top-rated",
-).result;
-const newReleases = multiqueryResponse.value.find(
-  (res) => res.name === "new-releases",
-).result;
-const mostAnticipated = multiqueryResponse.value.find(
-  (res) => res.name === "most-anticipated",
-).result;
-const adventure = multiqueryResponse.value.find(
-  (res) => res.name === "adventure",
-).result;
-const shooter = multiqueryResponse.value.find(
-  (res) => res.name === "shooter",
-).result;
-const racing = multiqueryResponse.value.find(
-  (res) => res.name === "racing",
-).result;
-const sports = multiqueryResponse.value.find(
-  (res) => res.name === "sports",
-).result;
+const {
+  data: multiqueryResponse,
+  error: multiqueryError,
+  execute: fetchMultiquery,
+  status: statusMultiquery,
+} = useLazyFetch("/api/multiquery", {
+  immediate: false,
+});
+
+const newReleases = ref([]);
+const mostAnticipated = ref([]);
+const adventure = ref([]);
+const shooter = ref([]);
+const racing = ref([]);
+const sports = ref([]);
 // ============== PopScore ==============
-const popularityData = multiqueryResponse.value.find(
+const popularityData = home.value.find(
   (res) => res.name === "popularity-data",
 ).result;
-const mostPlayedData = multiqueryResponse.value.find(
+const mostPlayedData = home.value.find(
   (res) => res.name === "most-played-data",
 ).result;
-const playingData = multiqueryResponse.value.find(
+const playingData = home.value.find(
   (res) => res.name === "playing-data",
 ).result;
-const wantToPlayData = multiqueryResponse.value.find(
+const wantToPlayData = home.value.find(
   (res) => res.name === "want-to-play-data",
 ).result;
 
@@ -115,10 +105,31 @@ const {
 });
 
 onMounted(() => {
-  fetchPopularGames();
-  fetchMostPlayed();
-  fetchPlaying();
-  fetchWantToPlay();
+  fetchMultiquery().then(() => {
+    newReleases.value = multiqueryResponse.value.find(
+      (res) => res.name === "new-releases",
+    ).result;
+    mostAnticipated.value = multiqueryResponse.value.find(
+      (res) => res.name === "most-anticipated",
+    ).result;
+    adventure.value = multiqueryResponse.value.find(
+      (res) => res.name === "adventure",
+    ).result;
+    shooter.value = multiqueryResponse.value.find(
+      (res) => res.name === "shooter",
+    ).result;
+    racing.value = multiqueryResponse.value.find(
+      (res) => res.name === "racing",
+    ).result;
+    sports.value = multiqueryResponse.value.find(
+      (res) => res.name === "sports",
+    ).result;
+
+    fetchPopularGames();
+    fetchMostPlayed();
+    fetchPlaying();
+    fetchWantToPlay();
+  });
 });
 </script>
 
@@ -150,10 +161,11 @@ onMounted(() => {
 
     <section class="my-2">
       <div
-        v-show="statusPopularGames === `pending`"
-        class="flex justify-center"
+        v-show="statusPopularGames !== `success`"
+        class="flex items-center justify-center gap-2"
       >
         <span class="loading loading-spinner"></span>
+        <span>Loading popular games...</span>
       </div>
 
       <GameSlider
@@ -176,7 +188,15 @@ onMounted(() => {
       />
     </section>
 
-    <section class="my-2">
+    <div
+      v-show="statusMultiquery === `pending`"
+      class="flex items-center justify-center gap-2"
+    >
+      <span class="loading loading-spinner"></span>
+      <span>Loading other stuff...</span>
+    </div>
+
+    <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="mostAnticipated"
         :games="mostAnticipated"
@@ -194,7 +214,7 @@ onMounted(() => {
       />
     </section>
 
-    <section class="my-2">
+    <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="newReleases"
         :games="newReleases"
@@ -212,7 +232,7 @@ onMounted(() => {
       />
     </section>
 
-    <section class="my-2 lg:my-8">
+    <section v-show="statusMultiquery === `success`" class="my-2 lg:my-8">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
         <div
           v-show="statusMostPlayed === `pending`"
@@ -269,7 +289,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <section class="my-2">
+    <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="adventure"
         :games="adventure"
@@ -278,7 +298,7 @@ onMounted(() => {
       />
     </section>
 
-    <section class="my-2">
+    <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="shooter"
         :games="shooter"
@@ -287,7 +307,7 @@ onMounted(() => {
       />
     </section>
 
-    <section class="my-2">
+    <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="racing"
         :games="racing"
@@ -296,7 +316,7 @@ onMounted(() => {
       />
     </section>
 
-    <section class="my-2 lg:my-8">
+    <section v-show="statusMultiquery === `success`" class="my-2 lg:my-8">
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
         <GameTile
           class="w-full"
@@ -321,7 +341,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <section class="my-2">
+    <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="sports"
         :games="sports"

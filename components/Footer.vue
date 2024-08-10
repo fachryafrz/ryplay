@@ -91,6 +91,7 @@ if (createdYear === currentYear) {
         <div class="grid grid-flow-col gap-2">
           <NuxtLink
             v-for="social in socialLinks"
+            :key="social.name"
             :to="social.link"
             target="_blank"
             class="outline-none transition-all hocus:scale-110"

@@ -29,7 +29,7 @@ const { game } = defineProps(["game"]);
         {{ game.name }}
       </h3>
 
-      <p class="mt-1 line-clamp-2 text-sm text-neutral-500">
+      <p class="mt-1 line-clamp-2 text-xs font-semibold text-neutral-500">
         {{ game.storyline || game.summary }}
       </p>
     </div>

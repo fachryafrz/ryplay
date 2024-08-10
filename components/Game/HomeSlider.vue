@@ -34,7 +34,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         }"
         class="h-full"
       >
-        <SwiperSlide v-for="game in games" class="relative">
+        <SwiperSlide v-for="game in games" :key="game.slug" class="relative">
           <figure class="h-full">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`"
@@ -52,6 +52,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
           >
             <NuxtLink
               v-for="genre in game.genres"
+              :key="genre.slug"
               :to="`/search?genre=${genre.slug}`"
               class="btn btn-sm border-none bg-opacity-75 backdrop-blur"
             >
@@ -74,7 +75,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         :allow-touch-move="false"
         class="h-full"
       >
-        <SwiperSlide v-for="game in games">
+        <SwiperSlide v-for="game in games" :key="game.slug">
           <figure class="h-full overflow-hidden">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[0].image_id}.jpg`"
@@ -97,7 +98,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         :allow-touch-move="false"
         class="h-full"
       >
-        <SwiperSlide v-for="game in games">
+        <SwiperSlide v-for="game in games" :key="game.slug">
           <figure class="h-full overflow-hidden">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[1].image_id}.jpg`"
@@ -121,7 +122,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         :watch-slides-progress="true"
         class="h-full"
       >
-        <SwiperSlide v-for="game in games" class="relative">
+        <SwiperSlide v-for="game in games" :key="game.slug" class="relative">
           <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-6">
             <h2
               class="line-clamp-2 text-pretty text-center text-xl font-semibold md:text-start lg:text-2xl"
@@ -133,6 +134,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             >
               <NuxtLink
                 v-for="genre in game.genres"
+                :key="genre.slug"
                 :to="`/search?genre=${genre.slug}`"
                 class="btn btn-sm border-none bg-opacity-50 backdrop-blur"
               >

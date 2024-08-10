@@ -37,7 +37,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         }"
       >
         <!-- NOTE: Video -->
-        <SwiperSlide v-for="video in game.videos">
+        <SwiperSlide v-for="video in game.videos" :key="video.video_id">
           <figure class="aspect-video w-full overflow-hidden bg-base-100">
             <iframe
               :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0`"
@@ -48,7 +48,10 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           </figure>
         </SwiperSlide>
 
-        <SwiperSlide v-for="screenshot in game.screenshots">
+        <SwiperSlide
+          v-for="screenshot in game.screenshots"
+          :key="screenshot.image_id"
+        >
           <figure class="aspect-video overflow-hidden bg-base-100">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
@@ -57,7 +60,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             />
           </figure>
         </SwiperSlide>
-        <SwiperSlide v-for="artwork in game.artworks">
+        <SwiperSlide v-for="artwork in game.artworks" :key="artwork.image_id">
           <figure class="aspect-video overflow-hidden bg-base-100">
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
@@ -108,6 +111,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <SwiperSlide
           v-if="game.videos?.length > 0"
           v-for="(video, index) in game.videos"
+          :key="video.video_id"
           class="!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure
@@ -154,6 +158,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <SwiperSlide
           v-if="game.screenshots?.length > 0"
           v-for="(screenshot, index) in game.screenshots"
+          :key="screenshot.image_id"
           class="!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure
@@ -173,6 +178,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <SwiperSlide
           v-if="game.artworks?.length > 0"
           v-for="(artwork, index) in game.artworks"
+          :key="artwork.image_id"
           class="!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure

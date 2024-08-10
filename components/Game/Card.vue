@@ -6,18 +6,15 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
 
 <template>
   <NuxtLink :to="`/games/${game.slug}`" class="relative">
-    <div
-      v-if="!isHorizontal"
-      class="transition-all hocus:rounded-xl hocus:bg-secondary hocus:p-1 md:hocus:p-2 md:[&_figure]:hocus:rounded-md"
-    >
+    <div v-if="!isHorizontal" class="transition-all hocus:[&_img]:scale-105">
       <figure
-        class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral transition-all"
+        class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral"
       >
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
           :alt="game.name"
           id="game-cover"
-          class="h-full w-full object-cover"
+          class="h-full w-full object-cover transition-all"
         />
       </figure>
 
@@ -25,25 +22,21 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
         {{ gameCategory.find((item) => item.id === game.category).name }}
       </span>
 
-      <h3
-        class="mt-1 line-clamp-2 text-pretty font-semibold sm:leading-tight"
-      >
+      <h3 class="mt-1 line-clamp-2 text-pretty font-semibold sm:leading-tight">
         {{ game.name }}
       </h3>
     </div>
 
     <div
       v-if="isHorizontal"
-      class="mb-4 transition-all hocus:mb-0 hocus:rounded-xl hocus:bg-secondary hocus:p-2 md:hocus:p-4 [&_figure]:hocus:rounded-md"
+      class="mb-4 transition-all hocus:[&_img]:scale-105"
     >
-      <figure
-        class="-z-10 block aspect-video overflow-hidden rounded-xl transition-all"
-      >
+      <figure class="-z-10 block aspect-video overflow-hidden rounded-xl">
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           :alt="game.name"
           id="game-cover"
-          class="h-full w-full object-cover"
+          class="h-full w-full object-cover transition-all"
         />
       </figure>
       <!-- <div
@@ -58,9 +51,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
         {{ gameCategory.find((item) => item.id === game.category).name }}
       </span>
 
-      <h3
-        class="mt-1 line-clamp-1 text-pretty font-semibold sm:leading-tight"
-      >
+      <h3 class="mt-1 line-clamp-1 text-pretty font-semibold sm:leading-tight">
         {{ game.name }}
       </h3>
 

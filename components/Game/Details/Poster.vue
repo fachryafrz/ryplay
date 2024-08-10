@@ -35,7 +35,7 @@ const gameInfo = [
 
 <template>
   <div
-    class="sticky top-[calc(72px+3px)] top flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
+    class="top sticky top-[calc(72px+3px)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
   >
     <figure class="">
       <img :src="gameCover" :alt="game.name" class="rounded-md" />
@@ -48,7 +48,11 @@ const gameInfo = [
 
       <!-- Release date, devs, publishers -->
       <ul class="flex flex-wrap gap-4">
-        <li v-for="info in gameInfo" class="flex flex-col items-start text-sm">
+        <li
+          v-for="info in gameInfo"
+          :key="info.section"
+          class="flex flex-col items-start text-sm"
+        >
           <span v-if="info.text" class="font-medium text-neutral-500">
             {{
               Array.isArray(info.text)
@@ -57,11 +61,7 @@ const gameInfo = [
             }}
           </span>
           <span v-if="info.text" class="font-semibold">
-            {{
-              Array.isArray(info.text)
-                ? info.text
-                : info.text
-            }}
+            {{ Array.isArray(info.text) ? info.text : info.text }}
           </span>
         </li>
       </ul>

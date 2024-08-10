@@ -122,6 +122,7 @@ onMounted(() => {
         )
       "
       v-for="collection in game.collections"
+      :key="collection.id"
       class=""
     >
       <div class="flex flex-col gap-4">

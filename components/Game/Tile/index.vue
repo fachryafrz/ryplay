@@ -13,7 +13,7 @@ const { games, title, seeAll } = defineProps(["games", "title", "seeAll"]);
     </NuxtLink>
 
     <div class="mt-2">
-      <GameTileCard v-for="game in games" :game="game" />
+      <GameTileCard v-for="game in games" :key="game.slug" :game="game" />
     </div>
   </div>
 </template>
