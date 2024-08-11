@@ -42,10 +42,6 @@ const gameInfo = [
     </figure>
 
     <div class="flex flex-col gap-4">
-      <h1 class="text-pretty text-center text-2xl font-bold @md:text-start">
-        {{ game.name }}
-      </h1>
-
       <!-- Release date, devs, publishers -->
       <ul class="flex flex-wrap gap-4">
         <li
@@ -55,13 +51,17 @@ const gameInfo = [
         >
           <span v-if="info.text" class="font-medium text-neutral-500">
             {{
-              Array.isArray(info.text)
-                ? isPlural(info.text.length, info.section, `${info.section}s`)
+              info.section === "Developer" || info.section === "Publisher"
+                ? isPlural(
+                    info.text.split(", ").length,
+                    info.section,
+                    `${info.section}s`,
+                  )
                 : info.section
             }}
           </span>
           <span v-if="info.text" class="font-semibold">
-            {{ Array.isArray(info.text) ? info.text : info.text }}
+            {{ info.text }}
           </span>
         </li>
       </ul>

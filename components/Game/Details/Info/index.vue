@@ -22,19 +22,17 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-4">
+    <h1 class="mt-4 text-pretty text-center text-3xl font-bold">
+      {{ game.name }}
+    </h1>
+
     <!-- Countdown -->
     <GameDetailsInfoCountdown :game="game" />
 
     <!-- About -->
     <section>
-      <h2 class="heading-2 sr-only">About</h2>
-
-      <div class="prose max-w-none text-neutral-400 last:[&_p]:mb-0">
-        <MDC
-          v-if="combinedText"
-          :value="game.storyline"
-          class="first:[&_p]:mt-0"
-        />
+      <div class="prose -my-4 max-w-none text-neutral-400">
+        <MDC v-if="combinedText" :value="game.storyline" />
         <MDC v-if="combinedText" :value="game.summary" />
       </div>
 
