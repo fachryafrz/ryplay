@@ -52,7 +52,7 @@ onKeyStroke("/", (e) => {
           v-model="searchQuery"
           ref="inputRef"
           type="text"
-          class="grow w-full"
+          class="w-full grow"
           placeholder="Search"
         />
         <button
@@ -63,7 +63,9 @@ onKeyStroke("/", (e) => {
         >
           close
         </button>
-        <kbd class="kbd kbd-sm hidden xl:flex">/</kbd>
+        <NuxtLink to="/search" class="hidden xl:inline"
+          ><kbd class="kbd kbd-sm">/</kbd></NuxtLink
+        >
       </label>
     </form>
   </div>
