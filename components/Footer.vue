@@ -42,7 +42,7 @@ if (createdYear === currentYear) {
   if (createdMonth === currentMonth) {
     textContent.value = `${createdMonth} ${createdYear}`;
   } else {
-    textContent.value = `${createdMonth} ${createdYear} - ${currentMonth} ${currentYear}`;
+    textContent.value = `${createdMonth} - ${currentMonth} ${currentYear}`;
   }
 } else {
   textContent.value = `${createdMonth} ${createdYear} - ${currentMonth} ${currentYear}`;
