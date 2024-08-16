@@ -8,6 +8,8 @@ const loadMoreRef = ref();
 const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
+const isLoading = ref(false);
+const notFound = ref(false);
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -22,6 +24,8 @@ const setShowFilter = () => {
 };
 
 const fetchGames = async () => {
+  isLoading.value = true;
+
   // NOTE: Pake $fetch kalau tidak perlu Server Side
   const response = await $fetch("/api/games/search", {
     method: "POST",
@@ -30,6 +34,12 @@ const fetchGames = async () => {
       offset: offset.value,
     },
   });
+
+  isLoading.value = false;
+
+  if (response.length < 1) {
+    notFound.value = true;
+  }
 
   if (response) {
     // Gabungkan game-game yang sudah ada dengan respons baru
@@ -81,7 +91,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
     <!-- Filters -->
     <div
-      class="fixed mt-1 lg:pl-4 inset-0 top-[72px] z-[100] h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[300px] lg:max-w-[300px]"
+      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[300px] lg:max-w-[300px] lg:pl-4"
       :class="{
         '-translate-x-full lg:translate-x-0': !showFilter,
         'translate-x-0': showFilter,
@@ -108,7 +118,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
         <!-- Sort -->
         <div class="flex items-center gap-2 sm:w-full">
-          <div class="flex sm:h-[41px] items-center gap-2">
+          <div class="flex items-center gap-2 sm:h-[41px]">
             <button
               v-if="isThereAnyFilter"
               @click="handleClearFilters"
@@ -132,11 +142,15 @@ useInfiniteScroll(loadMoreRef, async () => {
       </div>
 
       <!-- Results -->
-      <div v-show="games.length < 1" class="flex justify-center">
+      <div v-show="isLoading" class="flex justify-center">
         <span class="loading loading-spinner"></span>
       </div>
 
       <GameGrid v-show="games.length > 0" :games="games" class="px-4" />
+
+      <div v-show="!isLoading && notFound" class="flex justify-start px-4">
+        <span class="">No game found</span>
+      </div>
 
       <button
         ref="loadMoreRef"

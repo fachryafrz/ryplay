@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       body: `
         query games "featured" {
           f *, cover.*, artworks.*,  screenshots.*, genres.*;
-          w cover != null & first_release_date >= ${monthsAgo} & first_release_date <= ${today} & hypes >= 20 & category = 0;
+          w cover != null & first_release_date >= ${monthsAgo} & first_release_date <= ${today} & hypes >= 10 & category = 0;
           s first_release_date asc;
           l 5;
         };

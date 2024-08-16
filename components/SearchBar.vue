@@ -14,7 +14,6 @@ const handleSubmit = () => {
 };
 
 const clearSearch = () => {
-  searchQuery.value = "";
   router.push({
     path: "/search",
     query: {

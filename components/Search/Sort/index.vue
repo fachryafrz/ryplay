@@ -3,9 +3,9 @@ const router = useRouter();
 const route = useRoute();
 
 const sortByTypeOptions = [
+  { name: "Popularity", value: "hypes" },
   { name: "Rating", value: "total_rating_count" },
   { name: "Release Date", value: "first_release_date" },
-  { name: "Popularity", value: "hypes" },
 ];
 const sortByOrderOptions = [
   { name: "Ascending", value: "asc" },

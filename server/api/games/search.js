@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookies = parseCookies(event);
@@ -23,6 +25,9 @@ export default defineEventHandler(async (event) => {
     keyword,
   } = getQuery(event);
   const { offset } = await readBody(event);
+
+  const isThereAnyFilter = Object.keys(getQuery(event)).length > 0;
+  const monthsAgo = dayjs().subtract(1, "month").unix();
 
   // Membuat bagian where clause
   let whereClause = "cover != null";
@@ -111,8 +116,8 @@ export default defineEventHandler(async (event) => {
       },
       body: `
         f *, cover.image_id, genres.name, platforms.name;
-        ${query ? `search "${query}";` : `s ${sort ? sort : `total_rating_count desc`};`}
-        w ${whereClause};
+        ${query ? `search "${query}";` : `s ${sort ? sort : `hypes desc`};`}
+        ${isThereAnyFilter ? `w ${whereClause};` : `w first_release_date >= ${monthsAgo};`}
         l 20;
         ${offset ? `o ${offset};` : ""}
       `,
