@@ -1,6 +1,7 @@
 <script setup>
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import { isPlural } from "~/helper/isPlural";
 
 const { game } = defineProps(["game"]);
 
@@ -61,7 +62,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.years }"></span>
       </span>
-      years
+      {{ isPlural(countdown.years, `year`, `years`) }}
     </div>
     <div
       v-if="countdown.months > 0"
@@ -70,7 +71,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.months }"></span>
       </span>
-      months
+      {{ isPlural(countdown.months, `month`, `months`) }}
     </div>
     <div
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
@@ -78,7 +79,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.days }"></span>
       </span>
-      days
+      {{ isPlural(countdown.days, `day`, `days`) }}
     </div>
     <div
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
@@ -86,7 +87,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.hours }"></span>
       </span>
-      hours
+      {{ isPlural(countdown.hours, `hour`, `hours`) }}
     </div>
     <div
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
