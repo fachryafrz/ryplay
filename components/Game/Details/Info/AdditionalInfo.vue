@@ -24,7 +24,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
 
 <template>
   <div
-    class="grid grid-cols-1 gap-4 gap-x-12 gap-y-4 rounded-xl bg-neutral p-6 outline outline-secondary @md:grid-cols-2"
+    class="grid grid-cols-1 gap-4 gap-x-12 gap-y-4 rounded-xl bg-neutral p-6 outline outline-secondary @md:grid-cols-2 [&>div]:flex [&>div]:flex-col [&>div]:gap-1"
   >
     <!-- Compatible with -->
     <div v-if="game.platforms">
