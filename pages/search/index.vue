@@ -91,7 +91,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
     <!-- Filters -->
     <div
-      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[300px] lg:max-w-[300px] lg:pl-4"
+      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[315px] lg:max-w-[315px] lg:pl-4"
       :class="{
         '-translate-x-full lg:translate-x-0': !showFilter,
         'translate-x-0': showFilter,

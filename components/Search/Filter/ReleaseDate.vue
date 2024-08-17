@@ -77,7 +77,6 @@ watch(
       style="--dp-input-padding: 0.5rem"
       :max-date="endOfNextYear"
       position="left"
-      teleport
     />
 
     <span>-</span>
@@ -96,7 +95,6 @@ watch(
       :min-date="fromDate"
       :max-date="endOfNextYear"
       position="right"
-      teleport
     />
   </div>
 </template>

@@ -93,10 +93,6 @@ body {
   @apply relative after:absolute after:inset-0 after:grid after:place-content-center after:!text-xl after:!text-red-500 after:content-[`x`];
 }
 
-.dp--menu-wrapper {
-  @apply !fixed;
-}
-
 .dp__main {
   @apply !rounded-lg;
 }
