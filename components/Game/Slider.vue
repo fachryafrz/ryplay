@@ -24,10 +24,6 @@ const {
 ]);
 
 const defaultBreakpoints = {
-  640: {
-    slidesPerGroup: 3,
-    slidesPerView: 3,
-  },
   768: {
     slidesPerGroup: 4,
     slidesPerView: 4,
@@ -91,23 +87,22 @@ const defaultBreakpoints = {
     >
       <Swiper
         :modules="[SwiperNavigation]"
-        :slides-per-view="slidesPerView || 3"
-        :slides-per-group="slidesPerGroup || 3"
+        :slides-per-view="slidesPerView || `auto`"
+        :slides-per-group="slidesPerGroup || 2"
         :breakpoints="breakpoints || defaultBreakpoints"
         :space-between="spaceBetween || 8"
         :navigation="{
           prevEl: `.${id}_prev`,
           nextEl: `.${id}_next`,
         }"
-        class="rounded-xl"
       >
         <SwiperSlide
           v-for="game in games"
           :key="game.slug"
           :class="
             !isHorizontal
-              ? `max-w-[calc(100%/3)] md:max-w-[calc(100%/4)] lg:max-w-[calc(100%/5)] xl:max-w-[calc(100%/6)]`
-              : `max-w-[calc(100%/2)] lg:max-w-[calc(100%/${slidesPerView || 3})]`
+              ? `max-w-[calc(100%/2.5)] md:max-w-[calc(100%/4)] lg:max-w-[calc(100%/5)] xl:max-w-[calc(100%/6)]`
+              : `max-w-[calc(100%/1.25)] md:max-w-[calc(100%/2.25)] lg:max-w-[calc(100%/${slidesPerView || 3})]`
           "
         >
           <GameCard :game="game" :isHorizontal="isHorizontal" />

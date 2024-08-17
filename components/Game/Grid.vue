@@ -5,7 +5,7 @@ const { games } = defineProps(["games"]);
 <template>
   <div class="@container">
     <div
-      class="grid grid-cols-3 gap-2 gap-y-4 md:grid-cols-4 xl:grid-cols-4 xl:@4xl:grid-cols-5 2xl:grid-cols-5 2xl:@5xl:grid-cols-6"
+      class="grid grid-cols-3 gap-2 @2xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6 @7xl:grid-cols-7"
     >
       <div v-for="game in games" :key="game.slug" :to="game.slug">
         <GameCard :game="game" />

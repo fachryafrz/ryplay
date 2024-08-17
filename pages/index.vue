@@ -136,7 +136,7 @@ onMounted(() => {
 <template>
   <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
 
-  <div class="mx-auto flex max-w-7xl flex-col gap-4">
+  <div class="mx-auto flex flex-col gap-4">
     <section>
       <GameHomeSlider :games="featuredGames" />
     </section>
@@ -152,7 +152,7 @@ onMounted(() => {
         </NuxtLink>
 
         <div
-          class="grid grid-cols-2 gap-2 md:grid-cols-4 xl:flex xl:overflow-x-auto"
+          class="grid grid-cols-2 gap-2 md:grid-cols-4 2xl:flex 2xl:overflow-x-auto"
         >
           <GameExpandableCard :games="upcomingGames" />
         </div>
@@ -201,9 +201,12 @@ onMounted(() => {
         id="mostAnticipated"
         :games="mostAnticipated"
         title="Most Anticipated"
-        :slides-per-view="2"
-        :slides-per-group="2"
+        :slides-per-group="1"
         :breakpoints="{
+          768: {
+            slidesPerGroup: 2,
+            slidesPerView: 2,
+          },
           1024: {
             slidesPerGroup: 3,
             slidesPerView: 3,
@@ -219,9 +222,12 @@ onMounted(() => {
         id="newReleases"
         :games="newReleases"
         title="New Releases"
-        :slides-per-view="2"
-        :slides-per-group="2"
+        :slides-per-group="1"
         :breakpoints="{
+          768: {
+            slidesPerGroup: 2,
+            slidesPerView: 2,
+          },
           1024: {
             slidesPerGroup: 3,
             slidesPerView: 3,
@@ -346,13 +352,15 @@ onMounted(() => {
         id="sports"
         :games="sports"
         title="Sports"
-        :slides-per-view="2"
-        :slides-per-group="2"
-        :space-between="16"
+        :slides-per-group="1"
         :breakpoints="{
-          640: {
+          768: {
             slidesPerGroup: 2,
             slidesPerView: 2,
+          },
+          1024: {
+            slidesPerGroup: 3,
+            slidesPerView: 3,
           },
         }"
         :isHorizontal="true"

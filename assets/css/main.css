@@ -116,11 +116,11 @@ body {
   }
 
   .featured-games {
-    @apply relative overflow-hidden transition-all duration-700 xl:h-[320px] xl:w-[230px];
+    @apply relative overflow-hidden transition-all duration-700 2xl:h-[310px] 2xl:w-[230px];
   }
 
   .featured-games.active {
-    @apply xl:w-[560px];
+    @apply 2xl:w-[535px];
   }
 
   .featured-games #game-cover {
@@ -132,10 +132,10 @@ body {
   }
 
   .featured-games.active #game-cover {
-    @apply xl:opacity-0;
+    @apply 2xl:opacity-0;
   }
 
   .featured-games.active #game-screenshot {
-    @apply xl:opacity-100;
+    @apply 2xl:opacity-100;
   }
 }
