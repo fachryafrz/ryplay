@@ -33,7 +33,8 @@ const lastHoveredIndex = ref(0);
         :alt="game.name"
         id="game-cover"
         class="h-full w-full object-cover transition-all"
-      />
+        draggable="false"
+        />
       <div
         id="game-screenshot"
         class="absolute inset-0 opacity-0 transition-opacity duration-700"
@@ -42,6 +43,7 @@ const lastHoveredIndex = ref(0);
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           :alt="game.name"
           class="h-full w-full object-cover"
+          draggable="false"
         />
 
         <div

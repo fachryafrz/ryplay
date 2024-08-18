@@ -38,7 +38,12 @@ const gameInfo = [
     class="top sticky top-[calc(72px+3px)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
   >
     <figure class="">
-      <img :src="gameCover" :alt="game.name" class="rounded-md" />
+      <img
+        :src="gameCover"
+        :alt="game.name"
+        class="rounded-md"
+        draggable="false"
+      />
     </figure>
 
     <div class="flex flex-col gap-4">

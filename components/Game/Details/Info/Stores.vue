@@ -16,6 +16,7 @@ const { filteredExternalGames, findStoreById } = defineProps([
           :src="`/store_icons/${findStoreById(externalGame.category).image_id}.png`"
           :alt="findStoreById(externalGame.category).store"
           class="aspect-square w-[40px] object-contain"
+          draggable="false"
         />
       </NuxtLink>
     </li>

@@ -18,6 +18,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
           :alt="game.name"
           id="game-cover"
           class="h-full w-full object-cover transition-all"
+          draggable="false"
         />
       </figure>
 
@@ -42,6 +43,7 @@ const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
           :alt="game.name"
           id="game-cover"
           class="h-full w-full object-cover transition-all"
+          draggable="false"
         />
       </figure>
 

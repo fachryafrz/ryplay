@@ -17,6 +17,7 @@ const { game } = defineProps(["game"]);
         :alt="game.name"
         id="game-cover"
         class="h-full w-full object-cover"
+        draggable="false"
       />
     </figure>
 

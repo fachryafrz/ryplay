@@ -40,11 +40,13 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`"
               :alt="game.name"
               class="hidden min-h-full sm:block"
+              draggable="false"
             />
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`"
               :alt="game.name"
               class="min-h-full sm:hidden"
+              draggable="false"
             />
           </figure>
           <div
@@ -80,6 +82,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[0].image_id}.jpg`"
               :alt="game.name"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>
@@ -103,6 +106,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[1].image_id}.jpg`"
               :alt="game.name"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>
@@ -163,6 +167,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Windows_logo_-_2012_%28dark_blue%29.svg/2048px-Windows_logo_-_2012_%28dark_blue%29.svg.png"
                   alt="Windows"
                   class="w-4 object-contain brightness-0 invert"
+                  draggable="false"
                 />
               </span> -->
             </div>
@@ -175,6 +180,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.artworks[0].image_id}.jpg`"
               :alt="game.name"
               class="motion-safe:animate-spin-slow"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>

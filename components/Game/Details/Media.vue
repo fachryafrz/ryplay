@@ -57,6 +57,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
               :alt="game.name"
               class="rounded-xl object-contain"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>
@@ -66,6 +67,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
               :alt="game.name"
               class="rounded-xl object-contain"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>
@@ -125,6 +127,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             <img
               :src="`https://img.youtube.com/vi/${video.video_id}/0.jpg`"
               :alt="game.name"
+              draggable="false"
             />
 
             <div
@@ -172,6 +175,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg`"
               :alt="game.name"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>
@@ -195,6 +199,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg`"
               :alt="game.name"
+              draggable="false"
             />
           </figure>
         </SwiperSlide>
