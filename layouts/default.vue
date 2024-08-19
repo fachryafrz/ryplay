@@ -52,13 +52,6 @@ useHead({
       rel: `icon`,
       type: `image/x-icon`,
       href: `/favicon.ico`,
-      media: "(prefers-color-scheme: dark)",
-    },
-    {
-      rel: `icon`,
-      type: `image/x-icon`,
-      href: `/favicon-dark.ico`,
-      media: "(prefers-color-scheme: light)",
     },
     {
       rel: `manifest`,
