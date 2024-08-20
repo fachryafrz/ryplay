@@ -10,7 +10,7 @@ if (error.value) throw error.value;
 
 const data = response.value[0];
 const game = data;
-const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover.image_id}.jpg`;
+const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover?.image_id}.jpg`;
 
 useHead({
   title: `${data.name}`,

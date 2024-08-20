@@ -4,20 +4,16 @@ const { game } = defineProps(["game"]);
 const readMore = ref(false);
 const storyline = ref(game.storyline || "");
 const summary = ref(game.summary || "");
-const combinedText = ref();
-const words = ref();
-const wordCount = ref();
-const maxLength = 300;
+const combinedText = ref(
+  `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""} ${summary.value}`,
+);
+const words = ref(combinedText.value.split(""));
+const wordCount = ref(words.value.length);
+const maxLength = 500;
 
-const toggleReadMore = () => (readMore.value = !readMore.value);
-
-onMounted(() => {
-  combinedText.value = computed(() => {
-    return `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""}${summary.value}`;
-  });
-  words.value = computed(() => combinedText.value.split(""));
-  wordCount.value = computed(() => words.value.length);
-});
+const toggleReadMore = () => {
+  readMore.value = !readMore.value;
+};
 </script>
 
 <template>
@@ -32,11 +28,15 @@ onMounted(() => {
     <!-- About -->
     <section>
       <div class="prose -my-4 max-w-none text-neutral-400">
-        <MDC v-if="combinedText" :value="game.storyline" />
-        <MDC v-if="combinedText" :value="game.summary" />
+        <MDC
+          v-if="combinedText"
+          :value="
+            readMore ? combinedText : `${combinedText.slice(0, maxLength)}...`
+          "
+        />
       </div>
 
-      <!-- <button
+      <button
         @click="toggleReadMore"
         v-if="wordCount > maxLength"
         class="flex w-fit items-center gap-1 text-primary"
@@ -45,7 +45,7 @@ onMounted(() => {
         <span class="material-symbols-outlined">
           {{ readMore ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
         </span>
-      </button> -->
+      </button>
     </section>
 
     <!-- Additional Info -->
@@ -131,7 +131,11 @@ onMounted(() => {
           </p>
         </div>
         <GameGrid
-          :games="collection.games.filter((game) => game.category === 0)"
+          :games="
+            collection.games
+              .filter((game) => game.category === 0)
+              .sort((a, b) => a.first_release_date - b.first_release_date)
+          "
         />
       </div>
     </div>

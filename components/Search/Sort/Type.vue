@@ -21,6 +21,7 @@ watch(
       isThereIsQueryParam.value = false;
     }
   },
+  { immediate: true },
 );
 </script>
 
