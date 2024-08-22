@@ -54,7 +54,7 @@ watch(
 
 <template>
   <div class="grid gap-2 @xs:grid-cols-2 [&_label]:text-sm">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center">
       <input
         id="game_mode_all"
         type="checkbox"
@@ -62,13 +62,15 @@ watch(
         @change="setSelectedValue"
         :checked="selectedValues.length === gameModes.length"
       />
-      <label for="game_mode_all" class="flex w-full cursor-pointer"> All </label>
+      <label for="game_mode_all" class="flex w-full cursor-pointer pl-2">
+        All
+      </label>
     </div>
 
     <div
       v-for="game_mode in gameModes"
       :key="game_mode.id"
-      class="flex items-center gap-2"
+      class="flex items-center"
     >
       <input
         :id="`game_mode_${game_mode.id}`"
@@ -80,7 +82,7 @@ watch(
       />
       <label
         :for="`game_mode_${game_mode.id}`"
-        class="flex w-full cursor-pointer"
+        class="flex w-full cursor-pointer pl-2"
       >
         {{ game_mode.name }}
       </label>

@@ -56,7 +56,7 @@ watch(
 
 <template>
   <div class="grid gap-2 @xs:grid-cols-2 [&_label]:text-sm">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center">
       <input
         id="player_perspective_all"
         type="checkbox"
@@ -64,7 +64,10 @@ watch(
         @change="setSelectedValue"
         :checked="selectedValues.length === playerPerspectives.length"
       />
-      <label for="player_perspective_all" class="flex w-full cursor-pointer">
+      <label
+        for="player_perspective_all"
+        class="flex w-full cursor-pointer pl-2"
+      >
         All
       </label>
     </div>
@@ -72,7 +75,7 @@ watch(
     <div
       v-for="player_perspective in playerPerspectives"
       :key="player_perspective.id"
-      class="flex items-center gap-2"
+      class="flex items-center"
     >
       <input
         :id="`player_perspective_${player_perspective.id}`"
@@ -84,7 +87,7 @@ watch(
       />
       <label
         :for="`player_perspective_${player_perspective.id}`"
-        class="flex w-full cursor-pointer"
+        class="flex w-full cursor-pointer pl-2"
       >
         {{ player_perspective.name }}
       </label>

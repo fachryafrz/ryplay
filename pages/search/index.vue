@@ -9,7 +9,6 @@ const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
 const isLoading = ref(true);
-const notFound = ref(false);
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -33,24 +32,17 @@ const fetchGames = async () => {
     },
   });
 
-  if (response.length < 1) {
-    isLoading.value = false;
-    notFound.value = true;
-  }
+  isLoading.value = false;
+  // Gabungkan game-game yang sudah ada dengan respons baru
+  const combinedGames = [...games.value, ...response];
 
-  if (response.length > 0) {
-    isLoading.value = false;
-    // Gabungkan game-game yang sudah ada dengan respons baru
-    const combinedGames = [...games.value, ...response];
+  // Hapus duplikat berdasarkan id
+  const uniqueGames = combinedGames.filter(
+    (game, index, self) => index === self.findIndex((t) => t.id === game.id),
+  );
 
-    // Hapus duplikat berdasarkan id
-    const uniqueGames = combinedGames.filter(
-      (game, index, self) => index === self.findIndex((t) => t.id === game.id),
-    );
-
-    // Update games.value dengan game yang unik
-    games.value = uniqueGames;
-  }
+  // Update games.value dengan game yang unik
+  games.value = uniqueGames;
 };
 await fetchGames();
 
@@ -72,7 +64,6 @@ watch(
     offset.value = 0;
     games.value = [];
     isLoading.value = true;
-    notFound.value = false;
 
     await fetchGames();
   },
@@ -155,7 +146,10 @@ useInfiniteScroll(loadMoreRef, async () => {
 
       <GameGrid v-show="games.length > 0" :games="games" class="px-4" />
 
-      <div v-show="!isLoading && notFound" class="flex justify-start px-4">
+      <div
+        v-show="!isLoading && games.length < 1"
+        class="flex justify-start px-4"
+      >
         <span class="">No game found</span>
       </div>
 

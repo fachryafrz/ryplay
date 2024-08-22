@@ -5,7 +5,7 @@ const router = useRouter();
 const route = useRoute();
 
 const categories = gameCategory.filter((category) =>
-  [0, 1, 2, 3, 4, 8, 9, 10, 11,].includes(category.id),
+  [0, 1, 2, 3, 4, 8, 9, 10, 11].includes(category.id),
 );
 const selectedValues = ref([]);
 
@@ -56,7 +56,7 @@ watch(
 
 <template>
   <div class="grid gap-2 @xs:grid-cols-2 [&_label]:text-sm">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center">
       <input
         id="category_all"
         type="checkbox"
@@ -64,7 +64,7 @@ watch(
         @change="setSelectedValue"
         :checked="selectedValues.length === categories.length"
       />
-      <label for="category_all" class="flex w-full cursor-pointer">
+      <label for="category_all" class="flex w-full cursor-pointer pl-2">
         All
       </label>
     </div>
@@ -72,7 +72,7 @@ watch(
     <div
       v-for="category in categories"
       :key="category.id"
-      class="flex items-center gap-2"
+      class="flex items-center"
     >
       <input
         :id="`category_${category.id}`"
@@ -84,7 +84,7 @@ watch(
       />
       <label
         :for="`category_${category.id}`"
-        class="flex w-full cursor-pointer"
+        class="flex w-full cursor-pointer pl-2"
       >
         {{ category.name }}
       </label>
