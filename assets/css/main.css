@@ -135,11 +135,11 @@ body {
     @apply 2xl:opacity-100;
   }
 
-  .game-card::before {
+  .before-content::before {
     content: attr(data-before-content) !important;
   }
 
-  .game-card::after {
+  .after-content::after {
     content: attr(data-after-content) !important;
   }
 }

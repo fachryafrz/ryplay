@@ -56,11 +56,10 @@ const lastHoveredIndex = ref(0);
           >
             {{ game.name }}
           </h3>
-          <p
-            class="line-clamp-2 text-pretty text-sm text-neutral-300 xl:max-w-[80%]"
-          >
-            {{ game.storyline || game.summary }}
-          </p>
+          <span
+            class="before-content line-clamp-2 text-pretty text-sm text-neutral-300 xl:max-w-[80%]"
+            :data-before-content="game.storyline || game.summary"
+          />
         </div>
       </div>
     </figure>
