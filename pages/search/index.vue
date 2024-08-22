@@ -72,6 +72,7 @@ watch(
     offset.value = 0;
     games.value = [];
     isLoading.value = true;
+    notFound.value = false;
 
     await fetchGames();
   },
