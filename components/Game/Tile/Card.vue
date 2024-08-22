@@ -2,6 +2,8 @@
 import gameCategory from "@/json/game-category.json";
 
 const { game } = defineProps(["game"]);
+
+const category = gameCategory.find((item) => item.id === game.category).name;
 </script>
 
 <template>
@@ -22,18 +24,14 @@ const { game } = defineProps(["game"]);
       />
     </figure>
 
-    <div class="w-full">
-      <span class="block text-xs font-semibold text-neutral-500">
-        {{ gameCategory.find((item) => item.id === game.category).name }}
-      </span>
-
+    <div
+      class="game-card relative w-full before:text-xs before:font-semibold before:text-neutral-500 after:mt-1 after:line-clamp-2 after:text-xs after:font-semibold after:text-neutral-500"
+      :data-before-content="category"
+      :data-after-content="game.storyline || game.summary"
+    >
       <h3 class="line-clamp-2 text-pretty font-semibold leading-tight">
         {{ game.name }}
       </h3>
-
-      <p class="mt-1 line-clamp-2 text-xs font-semibold text-neutral-500">
-        {{ game.storyline || game.summary }}
-      </p>
     </div>
   </NuxtLink>
 </template>

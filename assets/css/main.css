@@ -134,4 +134,12 @@ body {
   .featured-games.active #game-screenshot {
     @apply 2xl:opacity-100;
   }
+
+  .game-card::before {
+    content: attr(data-before-content) !important;
+  }
+
+  .game-card::after {
+    content: attr(data-after-content) !important;
+  }
 }
