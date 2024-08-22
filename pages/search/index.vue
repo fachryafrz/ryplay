@@ -98,7 +98,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
     <!-- Top -->
     <div class="flex w-full flex-col">
-      <div
+      <section
         class="sticky top-[72px] z-[99] flex w-full flex-row items-center gap-3 bg-base-100 bg-opacity-90 p-4 backdrop-blur lg:py-2"
       >
         <!-- Search Bar for Mobile -->
@@ -137,29 +137,31 @@ useInfiniteScroll(loadMoreRef, async () => {
             <SearchSort class="hidden sm:flex" />
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Results -->
-      <div v-show="isLoading" class="flex justify-center">
-        <span class="loading loading-spinner"></span>
-      </div>
-
-      <GameGrid v-show="games.length > 0" :games="games" class="px-4" />
-
-      <div
-        v-show="!isLoading && games.length < 1"
-        class="flex justify-start px-4"
-      >
-        <span class="">No game found</span>
-      </div>
-
-      <button
-        ref="loadMoreRef"
-        v-show="games.length >= 20 && games.length >= offset"
-        class="pointer-events-none mx-auto mt-4 flex aspect-square"
-      >
-        <span class="loading loading-spinner"></span>
-      </button>
+      <section class="p-4 py-2">
+        <div v-show="isLoading" class="flex justify-center">
+          <span class="loading loading-spinner"></span>
+        </div>
+  
+        <GameGrid v-show="games.length > 0" :games="games" />
+  
+        <div
+          v-show="!isLoading && games.length < 1"
+          class="flex justify-start px-4"
+        >
+          <span class="">No game found</span>
+        </div>
+  
+        <button
+          ref="loadMoreRef"
+          v-show="games.length >= 20 && games.length >= offset"
+          class="pointer-events-none mx-auto mt-4 flex aspect-square"
+        >
+          <span class="loading loading-spinner"></span>
+        </button>
+      </section>
     </div>
   </div>
 </template>
