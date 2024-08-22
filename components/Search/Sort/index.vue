@@ -52,7 +52,7 @@ watch(
 
 <template>
   <div
-    class="flex items-center justify-center gap-2 sm:ml-auto sm:justify-normal [&>div]:w-full sm:[&>div]:w-[160px]"
+    class="flex items-center justify-center gap-2 sm:justify-normal [&>div]:w-full sm:[&>div]:w-[160px]"
   >
     <SearchSortType
       :selected-value="sortByType"

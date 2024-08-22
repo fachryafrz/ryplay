@@ -34,7 +34,8 @@ const lastHoveredIndex = ref(0);
         id="game-cover"
         class="h-full w-full object-cover transition-all"
         draggable="false"
-        />
+        loading="lazy"
+      />
       <div
         id="game-screenshot"
         class="absolute inset-0 opacity-0 transition-opacity duration-700"
@@ -44,6 +45,7 @@ const lastHoveredIndex = ref(0);
           :alt="game.name"
           class="h-full w-full object-cover"
           draggable="false"
+          loading="lazy"
         />
 
         <div

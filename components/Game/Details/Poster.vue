@@ -43,6 +43,7 @@ const gameInfo = [
         :alt="game.name"
         class="rounded-md"
         draggable="false"
+        loading="lazy"
       />
     </figure>
 

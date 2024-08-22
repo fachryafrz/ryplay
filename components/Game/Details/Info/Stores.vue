@@ -18,6 +18,7 @@ const { filteredExternalGames, findStoreById } = defineProps([
           :alt="findStoreById(externalGame.category).store"
           class="aspect-square w-[40px] object-contain"
           draggable="false"
+          loading="lazy"
         />
       </NuxtLink>
     </li>

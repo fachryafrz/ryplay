@@ -8,7 +8,7 @@ const loadMoreRef = ref();
 const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
-const isLoading = ref(false);
+const isLoading = ref(true);
 const notFound = ref(false);
 
 const isThereAnyFilter = computed(() => {
@@ -24,8 +24,6 @@ const setShowFilter = () => {
 };
 
 const fetchGames = async () => {
-  isLoading.value = true;
-
   // NOTE: Pake $fetch kalau tidak perlu Server Side
   const response = await $fetch("/api/games/search", {
     method: "POST",
@@ -35,13 +33,13 @@ const fetchGames = async () => {
     },
   });
 
-  isLoading.value = false;
-
   if (response.length < 1) {
+    isLoading.value = false;
     notFound.value = true;
   }
 
-  if (response) {
+  if (response.length > 0) {
+    isLoading.value = false;
     // Gabungkan game-game yang sudah ada dengan respons baru
     const combinedGames = [...games.value, ...response];
 
@@ -73,6 +71,7 @@ watch(
   async () => {
     offset.value = 0;
     games.value = [];
+    isLoading.value = true;
 
     await fetchGames();
   },
@@ -82,6 +81,7 @@ watch(
 useInfiniteScroll(loadMoreRef, async () => {
   offset.value += 20;
   await fetchGames();
+  await new Promise((resolve) => setTimeout(resolve, 100));
 });
 </script>
 
@@ -137,7 +137,13 @@ useInfiniteScroll(loadMoreRef, async () => {
             </button>
           </div>
 
-          <SearchSort class="hidden sm:flex" />
+          <div class="ml-auto hidden items-center gap-2 sm:flex">
+            <div v-show="games?.length > 0" class="text-xs font-medium">
+              <span>Showing {{ games.length }} Games</span>
+            </div>
+
+            <SearchSort class="hidden sm:flex" />
+          </div>
         </div>
       </div>
 

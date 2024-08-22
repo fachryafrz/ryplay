@@ -58,6 +58,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :alt="game.name"
               class="rounded-xl object-contain"
               draggable="false"
+              loading="lazy"
             />
           </figure>
         </SwiperSlide>
@@ -68,6 +69,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :alt="game.name"
               class="rounded-xl object-contain"
               draggable="false"
+              loading="lazy"
             />
           </figure>
         </SwiperSlide>
@@ -128,6 +130,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :src="`https://img.youtube.com/vi/${video.video_id}/0.jpg`"
               :alt="game.name"
               draggable="false"
+              loading="lazy"
             />
 
             <div
@@ -176,6 +179,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg`"
               :alt="game.name"
               draggable="false"
+              loading="lazy"
             />
           </figure>
         </SwiperSlide>
@@ -200,6 +204,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg`"
               :alt="game.name"
               draggable="false"
+              loading="lazy"
             />
           </figure>
         </SwiperSlide>
