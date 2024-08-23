@@ -9,9 +9,13 @@ const route = useRoute();
 const isLoading = ref(false);
 const platforms = ref([]);
 const selectedValues = ref(null);
+const timerRef = ref(null);
 
 const fetchPlatforms = async (query, body) => {
   isLoading.value = true;
+
+  // Delay pengambilan data selama 1000ms setelah pengguna berhenti mengetik
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const data = await $fetch("/api/platforms", {
     method: "POST",
@@ -23,10 +27,17 @@ const fetchPlatforms = async (query, body) => {
     },
   });
 
-  isLoading.value = false;
-  platforms.value = data;
+  if (data.length < 1) {
+    isLoading.value = false;
+    // platforms.value = [];
+  }
 
-  return data;
+  if (data.length > 0) {
+    isLoading.value = false;
+    platforms.value = data;
+
+    return data;
+  }
 };
 
 watch(selectedValues, (newValues) => {
@@ -85,7 +96,11 @@ watch(
       label="name"
       track-by="id"
       :hide-selected="true"
-    ></VueMultiselect>
+    >
+      <template #noResult>
+        <span>No result found.</span>
+      </template>
+    </VueMultiselect>
   </div>
 </template>
 

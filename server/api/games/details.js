@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   if (id) whereClause += ` & id = (${id})`;
 
   const fetchGame = async (access_token) => {
-    const data = await $fetch("https://api.igdb.com/v4/games", {
+    const data = await $fetch(`${config.API_URL}/games`, {
       method: "POST",
       headers: {
         "CLIENT-ID": config.CLIENT_ID,

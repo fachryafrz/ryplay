@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const { body } = await readBody(event);
 
   const fetchGame = async (access_token) => {
-    const data = await $fetch("https://api.igdb.com/v4/keywords", {
+    const data = await $fetch(`${config.API_URL}/keywords`, {
       method: "POST",
       headers: {
         "CLIENT-ID": config.CLIENT_ID,

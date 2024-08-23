@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const fetchGames = async (access_token) => {
     const combinedData = [];
 
-    const data = await $fetch("https://api.igdb.com/v4/multiquery", {
+    const data = await $fetch(`${config.API_URL}/multiquery`, {
       method: "POST",
       headers: {
         "Client-ID": config.CLIENT_ID,

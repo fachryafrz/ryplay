@@ -13,6 +13,9 @@ const selectedValues = ref(null);
 const fetchKeywords = async (query, body) => {
   isLoading.value = true;
 
+  // Delay pengambilan data selama 1000ms setelah pengguna berhenti mengetik
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const data = await $fetch("/api/keywords", {
     method: "POST",
     params: {
@@ -23,10 +26,17 @@ const fetchKeywords = async (query, body) => {
     },
   });
 
-  isLoading.value = false;
-  keywords.value = data;
+  if (data.length < 1) {
+    isLoading.value = false;
+    // keywords.value = [];
+  }
 
-  return data;
+  if (data.length > 0) {
+    isLoading.value = false;
+    keywords.value = data;
+
+    return data;
+  }
 };
 
 watch(selectedValues, (newValues) => {
@@ -85,7 +95,11 @@ watch(
       label="name"
       track-by="id"
       :hide-selected="true"
-    ></VueMultiselect>
+    >
+      <template #noResult>
+        <span>No result found.</span>
+      </template>
+    </VueMultiselect>
   </div>
 </template>
 
