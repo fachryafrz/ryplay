@@ -140,23 +140,29 @@ useInfiniteScroll(loadMoreRef, async () => {
       </section>
 
       <!-- Results -->
-      <section class="p-4 py-2">
-        <div v-show="isLoading" class="flex justify-center">
-          <span class="loading loading-spinner"></span>
+      <section class="p-4 py-2 @container">
+        <div
+          v-show="isLoading"
+          class="grid grid-cols-3 gap-2 @2xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6 @7xl:grid-cols-7"
+        >
+          <span
+            v-for="i in 20"
+            class="aspect-poster animate-pulse rounded-xl bg-gray-400 bg-opacity-20"
+          ></span>
         </div>
-  
-        <GameGrid v-show="games.length > 0" :games="games" />
-  
+
+        <GameGrid v-show="!isLoading && games.length > 0" :games="games" />
+
         <div
           v-show="!isLoading && games.length < 1"
           class="flex justify-start px-4"
         >
           <span class="">No game found</span>
         </div>
-  
+
         <button
           ref="loadMoreRef"
-          v-show="games.length >= 20 && games.length >= offset"
+          v-show="!isLoading && games.length >= 20 && games.length >= offset"
           class="pointer-events-none mx-auto mt-4 flex aspect-square"
         >
           <span class="loading loading-spinner"></span>

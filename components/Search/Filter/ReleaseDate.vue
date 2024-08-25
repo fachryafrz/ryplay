@@ -77,6 +77,7 @@ watch(
       style="--dp-input-padding: 0.5rem"
       :max-date="endOfNextYear"
       position="left"
+      week-start="0"
     />
 
     <span>-</span>
@@ -95,6 +96,7 @@ watch(
       :min-date="fromDate"
       :max-date="endOfNextYear"
       position="right"
+      week-start="0"
     />
   </div>
 </template>
