@@ -11,6 +11,7 @@ const { filteredExternalGames, findStoreById } = defineProps([
       v-for="externalGame in filteredExternalGames"
       :key="externalGame.category"
       v-show="externalGame.url"
+      :title="findStoreById(externalGame.category).store"
     >
       <NuxtLink :to="externalGame.url" target="_blank">
         <img
@@ -20,6 +21,9 @@ const { filteredExternalGames, findStoreById } = defineProps([
           draggable="false"
           loading="lazy"
         />
+        <span class="sr-only">
+          {{ `Buy at ${findStoreById(externalGame.category).store}` }}
+        </span>
       </NuxtLink>
     </li>
   </ul>

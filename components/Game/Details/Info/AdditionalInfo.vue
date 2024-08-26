@@ -20,6 +20,10 @@ const hasImageId = (category) => {
 const filteredExternalGames = game.external_games?.filter((externalGame) =>
   hasImageId(externalGame.category),
 );
+
+const isNoStoreURL = filteredExternalGames?.every(
+  (externalGame) => !externalGame.url,
+);
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
     class="grid grid-cols-1 gap-4 gap-x-12 gap-y-4 rounded-xl bg-neutral p-6 outline outline-secondary @md:grid-cols-2 [&>div]:flex [&>div]:flex-col [&>div]:gap-1"
   >
     <!-- Compatible with -->
-    <div v-if="game.platforms">
+    <div v-show="game.platforms">
       <h2 class="heading-2">Compatible with</h2>
 
       <div class="flex flex-wrap gap-2">
@@ -43,7 +47,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
     </div>
 
     <!-- Available in -->
-    <div v-if="filteredExternalGames?.length > 0">
+    <div v-show="filteredExternalGames?.length > 0 && !isNoStoreURL">
       <h2 class="heading-2">Available in</h2>
 
       <GameDetailsInfoStores
@@ -53,7 +57,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
     </div>
 
     <!-- Genres -->
-    <div v-if="game.genres">
+    <div v-show="game.genres.length > 0">
       <h2 class="heading-2">
         {{ isPlural(game.genres.length, `Genre`, `Genres`) }}
       </h2>
@@ -71,7 +75,7 @@ const filteredExternalGames = game.external_games?.filter((externalGame) =>
     </div>
 
     <!-- Ratings -->
-    <div v-if="game.rating">
+    <div v-show="game.rating">
       <h2 class="heading-2">Rating</h2>
 
       <div class="flex items-center gap-1 text-lg sm:text-2xl">
