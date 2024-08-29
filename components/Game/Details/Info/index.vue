@@ -31,7 +31,9 @@ const toggleReadMore = () => {
         <MDC
           v-if="combinedText"
           :value="
-            readMore ? combinedText : `${combinedText.slice(0, maxLength)}...`
+            readMore || wordCount < maxLength
+              ? combinedText
+              : `${combinedText.slice(0, maxLength)}...`
           "
         />
       </div>

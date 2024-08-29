@@ -82,7 +82,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       class="relative z-10"
     >
       <div
-        class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-3 [&_*]:pointer-events-auto"
+        class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between [&_*]:pointer-events-auto"
       >
         <button class="prev btn btn-primary btn-sm aspect-square px-0">
           <Icon name="ion:md-arrow-dropleft" size="20" />
@@ -95,28 +95,27 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
       <Swiper
         @swiper="setThumbSwiper"
         :modules="[SwiperThumbs, SwiperFreeMode]"
-        :slides-per-view="3"
+        :slides-per-view="2"
         :space-between="8"
         :watch-slides-progress="true"
         :free-mode="true"
         :breakpoints="{
           768: {
-            slidesPerView: 4,
+            slidesPerView: 3,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 4,
           },
           1280: {
-            slidesPerView: 6,
+            slidesPerView: 5,
           },
         }"
-        class="!-m-1 !px-1 !py-2"
+        class="!-m-1 !mx-10 !px-1 !py-2"
       >
         <SwiperSlide
           v-if="game.videos?.length > 0"
           v-for="(video, index) in game.videos"
           :key="video.video_id"
-          class="!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure
             class="relative aspect-video cursor-pointer overflow-hidden rounded-xl"
@@ -165,7 +164,6 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           v-if="game.screenshots?.length > 0"
           v-for="(screenshot, index) in game.screenshots"
           :key="screenshot.image_id"
-          class="!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure
             class="aspect-video cursor-pointer overflow-hidden rounded-xl"
@@ -187,7 +185,6 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           v-if="game.artworks?.length > 0"
           v-for="(artwork, index) in game.artworks"
           :key="artwork.image_id"
-          class="!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)] xl:!max-w-[calc(100%/6)]"
         >
           <figure
             class="aspect-video cursor-pointer overflow-hidden rounded-xl"
