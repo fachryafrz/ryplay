@@ -31,12 +31,32 @@ watch(
   { immediate: true },
 );
 
-onKeyStroke("/", (e) => {
-  e.preventDefault();
-  router.push({
-    path: "/search",
+onMounted(() => {
+  if (route.path === "/search") {
+    inputRef.value.focus();
+  }
+
+  const onKeyDown = (event) => {
+    if (event.key === "/") {
+      if (document.activeElement !== inputRef.value) {
+        event.preventDefault();
+        inputRef.value.focus();
+      }
+      // Jangan prevent default jika input sudah fokus agar "/" bisa diketik
+    }
+
+    if (event.key === "Escape") {
+      if (document.activeElement === inputRef.value) {
+        inputRef.value.blur();
+      }
+    }
+  };
+
+  window.addEventListener("keydown", onKeyDown);
+
+  onBeforeUnmount(() => {
+    window.removeEventListener("keydown", onKeyDown);
   });
-  inputRef.value.focus();
 });
 </script>
 

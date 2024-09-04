@@ -9,6 +9,15 @@ const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
 const isLoading = ref(true);
+const isDesktop = ref();
+
+onMounted(() => {
+  isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
+
+  window.addEventListener("resize", () => {
+    isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
+  });
+});
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -103,6 +112,7 @@ useInfiniteScroll(loadMoreRef, async () => {
       >
         <!-- Search Bar for Mobile -->
         <SearchBar
+          v-if="!isDesktop"
           :class="{
             'sm:hidden': route.path === '/search',
           }"
@@ -130,7 +140,10 @@ useInfiniteScroll(loadMoreRef, async () => {
           </div>
 
           <div class="ml-auto hidden items-center gap-2 sm:flex">
-            <div v-show="games?.length > 0" class="text-xs font-medium">
+            <div
+              v-show="games?.length > 0"
+              class="hidden text-xs font-medium md:block"
+            >
               <span>Showing {{ games.length }} Games</span>
             </div>
 

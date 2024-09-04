@@ -100,13 +100,13 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         :watch-slides-progress="true"
         :free-mode="true"
         :breakpoints="{
-          768: {
+          640: {
             slidesPerView: 3,
           },
-          1024: {
+          768: {
             slidesPerView: 4,
           },
-          1280: {
+          1024: {
             slidesPerView: 5,
           },
         }"
