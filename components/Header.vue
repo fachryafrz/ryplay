@@ -1,6 +1,11 @@
 <script setup>
 const config = useRuntimeConfig();
 const route = useRoute();
+const isDesktop = ref(window.matchMedia("(min-width: 640px)").matches);
+
+window.addEventListener("resize", () => {
+  isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
+});
 </script>
 
 <template>
@@ -41,13 +46,13 @@ const route = useRoute();
         <div>
           <NuxtLink
             to="/search"
-            v-show="route.path !== '/search'"
+            v-if="route.path !== '/search'"
             class="btn btn-neutral outline outline-secondary sm:hidden"
           >
             <span class="material-symbols-outlined"> search </span>
             <span>Search</span>
           </NuxtLink>
-          <SearchBar class="hidden sm:block" />
+          <SearchBar v-if="isDesktop" />
         </div>
       </div>
     </header>

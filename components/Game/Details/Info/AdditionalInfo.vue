@@ -31,7 +31,7 @@ const isNoStoreURL = filteredExternalGames?.every(
     class="grid grid-cols-1 gap-4 gap-x-12 gap-y-4 rounded-xl bg-neutral p-6 outline outline-secondary @md:grid-cols-2 [&>div]:flex [&>div]:flex-col [&>div]:gap-1"
   >
     <!-- Compatible with -->
-    <div v-show="game.platforms">
+    <div v-if="game.platforms">
       <h2 class="heading-2">Compatible with</h2>
 
       <div class="flex flex-wrap gap-2">
@@ -47,7 +47,7 @@ const isNoStoreURL = filteredExternalGames?.every(
     </div>
 
     <!-- Available in -->
-    <div v-show="filteredExternalGames?.length > 0 && !isNoStoreURL">
+    <div v-if="filteredExternalGames?.length > 0 && !isNoStoreURL">
       <h2 class="heading-2">Available in</h2>
 
       <GameDetailsInfoStores
@@ -57,7 +57,7 @@ const isNoStoreURL = filteredExternalGames?.every(
     </div>
 
     <!-- Genres -->
-    <div v-show="game.genres.length > 0">
+    <div v-if="game.genres.length > 0">
       <h2 class="heading-2">
         {{ isPlural(game.genres.length, `Genre`, `Genres`) }}
       </h2>
@@ -75,7 +75,7 @@ const isNoStoreURL = filteredExternalGames?.every(
     </div>
 
     <!-- Ratings -->
-    <div v-show="game.rating">
+    <div v-if="game.rating">
       <h2 class="heading-2">Rating</h2>
 
       <div class="flex items-center gap-1 text-lg sm:text-2xl">

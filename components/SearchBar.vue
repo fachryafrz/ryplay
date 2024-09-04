@@ -23,20 +23,32 @@ const clearSearch = () => {
   });
 };
 
-watch(
-  () => route.query,
-  () => {
-    searchQuery.value = route.query.query;
-  },
-  { immediate: true },
-);
+onMounted(() => {
+  if (route.path === "/search") {
+    inputRef.value.focus();
+  }
 
-onKeyStroke("/", (e) => {
-  e.preventDefault();
-  router.push({
-    path: "/search",
+  const onKeyDown = (event) => {
+    if (event.key === "/") {
+      if (document.activeElement !== inputRef.value) {
+        event.preventDefault();
+        inputRef.value.focus();
+      }
+      // Jangan prevent default jika input sudah fokus agar "/" bisa diketik
+    }
+
+    if (event.key === "Escape") {
+      if (document.activeElement === inputRef.value) {
+        inputRef.value.blur();
+      }
+    }
+  };
+
+  window.addEventListener("keydown", onKeyDown);
+
+  onBeforeUnmount(() => {
+    window.removeEventListener("keydown", onKeyDown);
   });
-  inputRef.value.focus();
 });
 </script>
 
@@ -55,7 +67,7 @@ onKeyStroke("/", (e) => {
           placeholder="Search"
         />
         <button
-          v-show="route.query.query"
+          v-if="route.query.query"
           @click="clearSearch"
           type="button"
           class="material-symbols-outlined"

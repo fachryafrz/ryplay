@@ -161,7 +161,7 @@ onMounted(() => {
 
     <section class="my-2">
       <div
-        v-show="statusPopularGames !== `success`"
+        v-if="statusPopularGames !== `success`"
         class="flex items-center justify-center gap-2"
       >
         <span class="loading loading-spinner"></span>
@@ -169,7 +169,7 @@ onMounted(() => {
       </div>
 
       <GameSlider
-        v-show="statusPopularGames === `success`"
+        v-if="statusPopularGames === `success`"
         id="popularGames"
         :games="popularGames"
         title="Popular Right Now"
@@ -189,14 +189,14 @@ onMounted(() => {
     </section>
 
     <div
-      v-show="statusMultiquery === `pending`"
+      v-if="statusMultiquery === `pending`"
       class="flex items-center justify-center gap-2"
     >
       <span class="loading loading-spinner"></span>
       <span>Loading other stuff...</span>
     </div>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section v-if="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="mostAnticipated"
         :games="mostAnticipated"
@@ -217,7 +217,7 @@ onMounted(() => {
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section v-if="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="newReleases"
         :games="newReleases"
@@ -238,17 +238,17 @@ onMounted(() => {
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2 lg:my-8">
+    <section v-if="statusMultiquery === `success`" class="my-2 lg:my-8">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
         <div
-          v-show="statusMostPlayed === `pending`"
+          v-if="statusMostPlayed === `pending`"
           class="flex h-fit justify-center"
         >
           <span class="loading loading-spinner"></span>
         </div>
 
         <GameTile
-          v-show="statusMostPlayed === `success`"
+          v-if="statusMostPlayed === `success`"
           class="w-full"
           :games="mostPlayed?.slice(0, 5)"
           title="Most Played"
@@ -260,14 +260,14 @@ onMounted(() => {
         </div>
 
         <div
-          v-show="statusPlaying === `pending`"
+          v-if="statusPlaying === `pending`"
           class="flex h-fit justify-center"
         >
           <span class="loading loading-spinner"></span>
         </div>
 
         <GameTile
-          v-show="statusPlaying === `success`"
+          v-if="statusPlaying === `success`"
           class="w-full"
           :games="playing?.slice(0, 5)"
           title="Playing"
@@ -279,14 +279,14 @@ onMounted(() => {
         </div>
 
         <div
-          v-show="statusWantToPlay === `pending`"
+          v-if="statusWantToPlay === `pending`"
           class="flex h-fit justify-center"
         >
           <span class="loading loading-spinner"></span>
         </div>
 
         <GameTile
-          v-show="statusWantToPlay === `success`"
+          v-if="statusWantToPlay === `success`"
           class="w-full"
           :games="wantToPlay?.slice(0, 5)"
           title="Want to Play"
@@ -295,7 +295,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section v-if="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="adventure"
         :games="adventure"
@@ -304,7 +304,7 @@ onMounted(() => {
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section v-if="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="shooter"
         :games="shooter"
@@ -313,7 +313,7 @@ onMounted(() => {
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section v-if="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="racing"
         :games="racing"
@@ -322,7 +322,7 @@ onMounted(() => {
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2 lg:my-8">
+    <section v-if="statusMultiquery === `success`" class="my-2 lg:my-8">
       <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
         <GameTile
           class="w-full"
@@ -347,7 +347,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section v-if="statusMultiquery === `success`" class="my-2">
       <GameSlider
         id="sports"
         :games="sports"

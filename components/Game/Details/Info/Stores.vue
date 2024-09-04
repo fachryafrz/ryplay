@@ -10,7 +10,7 @@ const { filteredExternalGames, findStoreById } = defineProps([
     <li
       v-for="externalGame in filteredExternalGames"
       :key="externalGame.category"
-      v-show="externalGame.url"
+      v-if="externalGame.url"
       :title="findStoreById(externalGame.category).store"
     >
       <NuxtLink :to="externalGame.url" target="_blank">

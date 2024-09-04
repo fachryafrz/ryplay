@@ -9,6 +9,7 @@ const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
 const isLoading = ref(true);
+const isDesktop = ref(window.matchMedia("(min-width: 640px)").matches);
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -75,6 +76,10 @@ useInfiniteScroll(loadMoreRef, async () => {
   await fetchGames();
   await new Promise((resolve) => setTimeout(resolve, 100));
 });
+
+window.addEventListener("resize", () => {
+  isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
+});
 </script>
 
 <template>
@@ -102,11 +107,7 @@ useInfiniteScroll(loadMoreRef, async () => {
         class="sticky top-[72px] z-[99] flex w-full flex-row items-center gap-3 bg-base-100 bg-opacity-90 p-4 backdrop-blur lg:py-2"
       >
         <!-- Search Bar for Mobile -->
-        <SearchBar
-          :class="{
-            'sm:hidden': route.path === '/search',
-          }"
-        />
+        <SearchBar v-if="!isDesktop" />
 
         <!-- Sort -->
         <div class="flex items-center gap-2 sm:w-full">
@@ -130,7 +131,7 @@ useInfiniteScroll(loadMoreRef, async () => {
           </div>
 
           <div class="ml-auto hidden items-center gap-2 sm:flex">
-            <div v-show="games?.length > 0" class="text-xs font-medium">
+            <div v-if="games?.length > 0" class="text-xs font-medium">
               <span>Showing {{ games.length }} Games</span>
             </div>
 
@@ -142,7 +143,7 @@ useInfiniteScroll(loadMoreRef, async () => {
       <!-- Results -->
       <section class="p-4 py-2 @container">
         <div
-          v-show="isLoading"
+          v-if="isLoading"
           class="grid grid-cols-3 gap-2 @2xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6 @7xl:grid-cols-7"
         >
           <span
@@ -151,10 +152,10 @@ useInfiniteScroll(loadMoreRef, async () => {
           ></span>
         </div>
 
-        <GameGrid v-show="!isLoading && games.length > 0" :games="games" />
+        <GameGrid v-if="!isLoading && games.length > 0" :games="games" />
 
         <div
-          v-show="!isLoading && games.length < 1"
+          v-if="!isLoading && games.length < 1"
           class="flex justify-start px-4"
         >
           <span class="">No game found</span>
@@ -162,7 +163,7 @@ useInfiniteScroll(loadMoreRef, async () => {
 
         <button
           ref="loadMoreRef"
-          v-show="!isLoading && games.length >= 20 && games.length >= offset"
+          v-if="!isLoading && games.length >= 20 && games.length >= offset"
           class="pointer-events-none mx-auto mt-4 flex aspect-square"
         >
           <span class="loading loading-spinner"></span>
