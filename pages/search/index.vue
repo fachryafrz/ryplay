@@ -9,7 +9,6 @@ const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
 const isLoading = ref(true);
-const isDesktop = ref(window.matchMedia("(min-width: 640px)").matches);
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -76,10 +75,6 @@ useInfiniteScroll(loadMoreRef, async () => {
   await fetchGames();
   await new Promise((resolve) => setTimeout(resolve, 100));
 });
-
-window.addEventListener("resize", () => {
-  isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
-});
 </script>
 
 <template>
@@ -107,7 +102,11 @@ window.addEventListener("resize", () => {
         class="sticky top-[72px] z-[99] flex w-full flex-row items-center gap-3 bg-base-100 bg-opacity-90 p-4 backdrop-blur lg:py-2"
       >
         <!-- Search Bar for Mobile -->
-        <SearchBar v-if="!isDesktop" />
+        <SearchBar
+          :class="{
+            'sm:hidden': route.path === '/search',
+          }"
+        />
 
         <!-- Sort -->
         <div class="flex items-center gap-2 sm:w-full">
@@ -131,7 +130,7 @@ window.addEventListener("resize", () => {
           </div>
 
           <div class="ml-auto hidden items-center gap-2 sm:flex">
-            <div v-if="games?.length > 0" class="text-xs font-medium">
+            <div v-show="games?.length > 0" class="text-xs font-medium">
               <span>Showing {{ games.length }} Games</span>
             </div>
 
@@ -143,7 +142,7 @@ window.addEventListener("resize", () => {
       <!-- Results -->
       <section class="p-4 py-2 @container">
         <div
-          v-if="isLoading"
+          v-show="isLoading"
           class="grid grid-cols-3 gap-2 @2xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6 @7xl:grid-cols-7"
         >
           <span
@@ -152,10 +151,10 @@ window.addEventListener("resize", () => {
           ></span>
         </div>
 
-        <GameGrid v-if="!isLoading && games.length > 0" :games="games" />
+        <GameGrid v-show="!isLoading && games.length > 0" :games="games" />
 
         <div
-          v-if="!isLoading && games.length < 1"
+          v-show="!isLoading && games.length < 1"
           class="flex justify-start px-4"
         >
           <span class="">No game found</span>
@@ -163,7 +162,7 @@ window.addEventListener("resize", () => {
 
         <button
           ref="loadMoreRef"
-          v-if="!isLoading && games.length >= 20 && games.length >= offset"
+          v-show="!isLoading && games.length >= 20 && games.length >= offset"
           class="pointer-events-none mx-auto mt-4 flex aspect-square"
         >
           <span class="loading loading-spinner"></span>
