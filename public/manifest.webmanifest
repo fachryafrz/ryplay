@@ -1,0 +1,58 @@
+{
+  "name": "Ryplay",
+  "short_name": "Ryplay",
+  "description": "Your ultimate destination for all things gaming! Explore the latest information about a wide range of games, from popular titles to upcoming releases. Our modern design and user-friendly interface provide an enjoyable browsing experience as you discover details about your favorite games. Whether you're a casual or hardcore gamer, Ryplay is here to satisfy your curiosity.",
+  "icons": [
+    {
+      "src": "maskable_icon_x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/home.png",
+      "sizes": "640x320",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home Screen"
+    },
+    {
+      "src": "screenshots/game_details.png",
+      "sizes": "640x320",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Game Details"
+    },
+    {
+      "src": "screenshots/home_mobile.png",
+      "sizes": "750x1332",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home Screen"
+    },
+    {
+      "src": "screenshots/game_details_mobile.png",
+      "sizes": "750x1332",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Game Details"
+    }
+  ],
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0c0d",
+  "theme_color": "#0b0c0d"
+}

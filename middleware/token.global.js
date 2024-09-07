@@ -1,6 +1,6 @@
-export default defineEventHandler(async (event) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   const config = useRuntimeConfig();
-  const access_token = getCookie(event, "igdb.access_token");
+  const access_token = useCookie("igdb.access_token").value;
 
   if (!access_token) {
     const data = await $fetch("https://id.twitch.tv/oauth2/token", {
@@ -12,8 +12,10 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    setCookie(event, "igdb.access_token", data.access_token, {
-      expires: new Date(Date.now() + data.expires_in * 1000), // pastikan multiply by 1000 untuk miliseconds
-    });
+    useCookie("igdb.access_token", {
+      expires: new Date(Date.now() + data.expires_in),
+    }).value = data.access_token;
+
+    navigateTo(to.path);
   }
 });

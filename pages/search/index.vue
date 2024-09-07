@@ -1,7 +1,4 @@
 <script setup>
-import VueSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-
 const router = useRouter();
 const route = useRoute();
 const loadMoreRef = ref();
@@ -31,29 +28,31 @@ const setShowFilter = () => {
   showFilter.value = !showFilter.value;
 };
 
-const fetchGames = async () => {
-  // NOTE: Pake $fetch kalau tidak perlu Server Side
-  const response = await $fetch("/api/games/search", {
-    method: "POST",
-    params: route.query,
-    body: {
-      offset: offset.value,
-    },
-  });
+const searchParams = computed(() => ({
+  ...route.query,
+  offset: offset.value,
+}));
 
-  isLoading.value = false;
-  // Gabungkan game-game yang sudah ada dengan respons baru
-  const combinedGames = [...games.value, ...response];
+/* NOTE: Harus begini, di immediate `false` kemudian di fetchGames() dibawahnya
+ * BUG: Kalau offset di reset jadi 0, maka akan double fetch dengan value offset sebelumnya
+ */
+const { execute: fetchGames } = useFetch("/api/games/search", {
+  lazy: true,
+  immediate: false,
+  params: searchParams,
+  onResponse: ({ response: { _data: data } }) => {
+    isLoading.value = false;
 
-  // Hapus duplikat berdasarkan id
-  const uniqueGames = combinedGames.filter(
-    (game, index, self) => index === self.findIndex((t) => t.id === game.id),
-  );
+    const combinedGames = [...games.value, ...data];
 
-  // Update games.value dengan game yang unik
-  games.value = uniqueGames;
-};
-await fetchGames();
+    const uniqueGames = combinedGames.filter(
+      (game, index, self) => index === self.findIndex((t) => t.id === game.id),
+    );
+
+    games.value = uniqueGames;
+  },
+});
+fetchGames();
 
 useHead({
   title: "Search",
@@ -65,25 +64,27 @@ useHead({
   ],
 });
 
-const multiquery = await $fetch("/api/search/multiquery");
+const { data: multiquery } = useFetch("/api/search/multiquery");
 
 watch(
   () => route.query,
-  async () => {
+  () => {
     offset.value = 0;
     games.value = [];
     isLoading.value = true;
-
-    await fetchGames();
   },
   { immediate: true },
 );
 
-useInfiniteScroll(loadMoreRef, async () => {
-  offset.value += 20;
-  await fetchGames();
-  await new Promise((resolve) => setTimeout(resolve, 100));
-});
+useInfiniteScroll(
+  loadMoreRef,
+  async () => {
+    offset.value += 20;
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  },
+  // { distance: 100 },
+);
 </script>
 
 <template>
