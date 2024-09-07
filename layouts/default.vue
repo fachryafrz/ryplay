@@ -59,14 +59,6 @@ useHead({
     },
   ],
 });
-
-const { data, error } = await useFetch("/api/token", {
-  server: false,
-});
-
-if (error.value) {
-  console.error("Error fetching token:", error.value);
-}
 </script>
 
 <template>
