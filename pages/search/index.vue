@@ -6,15 +6,6 @@ const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
 const isLoading = ref(true);
-const isDesktop = ref();
-
-onMounted(() => {
-  isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
-
-  window.addEventListener("resize", () => {
-    isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
-  });
-});
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -113,7 +104,6 @@ useInfiniteScroll(
       >
         <!-- Search Bar for Mobile -->
         <SearchBar
-          v-if="!isDesktop"
           :class="{
             'sm:hidden': route.path === '/search',
           }"

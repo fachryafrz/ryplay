@@ -1,15 +1,6 @@
 <script setup>
 const config = useRuntimeConfig();
 const route = useRoute();
-const isDesktop = ref();
-
-onMounted(() => {
-  isDesktop.value = window.matchMedia("(min-width: 640px)").matches
-
-  window.addEventListener("resize", () => {
-    isDesktop.value = window.matchMedia("(min-width: 640px)").matches;
-  });
-});
 </script>
 
 <template>
@@ -56,7 +47,7 @@ onMounted(() => {
             <span class="material-symbols-outlined"> search </span>
             <span>Search</span>
           </NuxtLink>
-          <SearchBar v-if="isDesktop" class="hidden sm:block" />
+          <SearchBar class="hidden sm:block" />
         </div>
       </div>
     </header>
