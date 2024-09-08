@@ -19,31 +19,26 @@ const setShowFilter = () => {
   showFilter.value = !showFilter.value;
 };
 
-const searchParams = computed(() => ({
-  ...route.query,
-  offset: offset.value,
-}));
+const { execute: fetchGames } = await useAsyncData(() =>
+  $fetch("/api/games/search", {
+    params: {
+      ...route.query,
+      offset: offset.value,
+    },
+    onResponse: ({ response: { _data: data } }) => {
+      isLoading.value = false;
 
-/* NOTE: Harus begini, di immediate `false` kemudian di fetchGames() dibawahnya
- * BUG: Kalau offset di reset jadi 0, maka akan double fetch dengan value offset sebelumnya
- */
-const { execute: fetchGames } = useFetch("/api/games/search", {
-  lazy: true,
-  immediate: false,
-  params: searchParams,
-  onResponse: ({ response: { _data: data } }) => {
-    isLoading.value = false;
+      const combinedGames = [...games.value, ...data];
 
-    const combinedGames = [...games.value, ...data];
+      const uniqueGames = combinedGames.filter(
+        (game, index, self) =>
+          index === self.findIndex((t) => t.id === game.id),
+      );
 
-    const uniqueGames = combinedGames.filter(
-      (game, index, self) => index === self.findIndex((t) => t.id === game.id),
-    );
-
-    games.value = uniqueGames;
-  },
-});
-fetchGames();
+      games.value = uniqueGames;
+    },
+  }),
+);
 
 useHead({
   title: "Search",
@@ -55,14 +50,15 @@ useHead({
   ],
 });
 
-const { data: multiquery } = useFetch("/api/search/multiquery");
+const { data: multiquery } = await useFetch("/api/search/multiquery");
 
 watch(
   () => route.query,
-  () => {
+  async () => {
     offset.value = 0;
     games.value = [];
     isLoading.value = true;
+    await fetchGames();
   },
   { immediate: true },
 );
@@ -71,8 +67,8 @@ useInfiniteScroll(
   loadMoreRef,
   async () => {
     offset.value += 20;
-
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await fetchGames();
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   },
   // { distance: 100 },
 );
