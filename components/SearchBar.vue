@@ -32,10 +32,6 @@ watch(
 );
 
 onMounted(() => {
-  if (route.path === "/search") {
-    inputRef.value.focus();
-  }
-
   const onKeyDown = (event) => {
     if (event.key === "/") {
       if (document.activeElement !== inputRef.value) {
