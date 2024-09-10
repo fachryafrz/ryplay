@@ -67,6 +67,9 @@ export default defineEventHandler(async (event) => {
   try {
     return await fetchGames(access_token);
   } catch (error) {
-    console.error("Error saat mengambil data:", error);
+    return Response.json(
+      { error: error.response },
+      { status: error.response.status },
+    );
   }
 });

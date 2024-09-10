@@ -128,6 +128,9 @@ export default defineEventHandler(async (event) => {
     // Kirim permintaan ke API IGDB
     return await fetchGames(access_token);
   } catch (error) {
-    console.error("Error saat mengambil data:", error);
+    return Response.json(
+      { error: error.response },
+      { status: error.response.status },
+    );
   }
 });
