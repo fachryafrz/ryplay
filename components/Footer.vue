@@ -9,19 +9,19 @@ const socialLinks = [
     link: "https://www.github.com/fachryafrz",
   },
   {
-    name: "Instagram",
-    icon: "uil:instagram",
-    link: "https://www.instagram.com/fachryafrz",
-  },
-  {
     name: "Twitter",
     icon: "uil:twitter",
     link: "https://www.twitter.com/fachryafrz",
   },
   {
-    name: "YouTube",
-    icon: "uil:youtube",
-    link: "https://www.youtube.com/@fachryafrz",
+    name: "Instagram",
+    icon: "uil:instagram",
+    link: "https://www.instagram.com/fachryafrz",
+  },
+  {
+    name: "LinkedIn",
+    icon: "uil:linkedin",
+    link: "https://www.linkedin.com/in/fachryafrz",
   },
 ];
 
@@ -80,7 +80,7 @@ if (createdYear === currentYear) {
         </svg>
         <div class="col-[2/3] flex flex-col">
           <p class="text-base">{{ config.public.APP_NAME }}</p>
-  
+
           <p class="text-xs">since {{ textContent }}</p>
         </div>
         <p class="col-[2/3] row-[2/3] text-xs">
