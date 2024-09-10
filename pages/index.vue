@@ -4,6 +4,7 @@ const router = useRouter();
 
 const dayjs = useDayjs();
 const today = dayjs().unix();
+const endOfNextYear = today.add(1, "year").endOf("year");
 
 const { data: home, error: homeError } = await useFetch("/api/home");
 
@@ -213,7 +214,7 @@ onMounted(() => {
           },
         }"
         :isHorizontal="true"
-        :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}&hypes=40`"
+        :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}..${endOfNextYear}&hypes=40`"
       />
     </section>
 
