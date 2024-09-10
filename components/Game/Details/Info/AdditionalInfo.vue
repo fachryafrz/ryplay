@@ -47,7 +47,7 @@ const isNoStoreURL = filteredExternalGames?.every(
     </div>
 
     <!-- Available in -->
-    <div v-show="filteredExternalGames?.length > 0 && !isNoStoreURL">
+    <div v-show="filteredExternalGames?.length > 0">
       <h2 class="heading-2">Available in</h2>
 
       <GameDetailsInfoStores
