@@ -28,7 +28,12 @@ const { multiquery } = defineProps(["multiquery"]);
 
     <section>
       <h2 class="heading-2 text-sm">Platform</h2>
-      <SearchFilterPlatform :multiquery="multiquery" />
+      <SearchFilterPlatform />
+    </section>
+
+    <section>
+      <h2 class="heading-2 text-sm">Company</h2>
+      <SearchFilterCompany />
     </section>
 
     <section>

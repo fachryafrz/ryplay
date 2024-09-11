@@ -23,14 +23,16 @@ const gameInfo = [
   {
     section: "Developer",
     icon: "code",
-    text: developers?.map((dev) => dev.company.name).join(", "),
+    text: developers,
   },
   {
     section: "Publisher",
     icon: "domain",
-    text: publishers?.map((dev) => dev.company.name).join(", "),
+    text: publishers,
   },
 ];
+
+console.log(developers);
 </script>
 
 <template>
@@ -58,47 +60,28 @@ const gameInfo = [
           <span v-if="info.text" class="font-medium text-neutral-500">
             {{
               info.section === "Developer" || info.section === "Publisher"
-                ? isPlural(
-                    info.text.split(", ").length,
-                    info.section,
-                    `${info.section}s`,
-                  )
+                ? isPlural(info.text.length, info.section, `${info.section}s`)
                 : info.section
             }}
           </span>
+
           <span v-if="info.text" class="font-semibold">
-            {{ info.text }}
-          </span>
-        </li>
-      </ul>
+            <template v-if="info.section === 'Release Date'">
+              <time :datetime="$dayjs.unix(game.first_release_date).format()">
+                {{ info.text }}
+              </time>
+            </template>
 
-      <!-- NOTE: API Call took so long -->
-      <!-- <ul class="flex flex-wrap gap-4">
-        <li
-          v-for="(info, index) in gameInfo"
-          :key="index"
-          class="flex flex-col items-start text-sm"
-        >
-          <span v-if="info.text || (info.items && info.items.length)" class="font-medium text-neutral-500">
-            {{ info.section }}
-          </span>
-
-          <span v-if="info.section === 'Release Date'" class="font-semibold">
-            {{ info.text }}
-          </span>
-
-          <span v-else-if="info.items && info.items.length" class="font-semibold">
-            <template v-for="(item, i) in info.items">
-              <NuxtLink
-                :to="`/search?company=${item.company.slug}`"
-              >
-                {{ item.company.name }}
+            <template v-else v-for="dev in info.text">
+              <NuxtLink :to="`/search?company=${dev.company.slug}`">
+                {{ dev.company.name }}
               </NuxtLink>
-              <span v-if="i < info.items.length - 1">, </span>
+
+              <span class="last:hidden">, </span>
             </template>
           </span>
         </li>
-      </ul> -->
+      </ul>
     </div>
   </div>
 </template>

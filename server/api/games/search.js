@@ -74,8 +74,6 @@ export default defineEventHandler(async (event) => {
 
     whereClause += ` & category = (${separatedItem})`;
   }
-  if (company)
-    whereClause += ` & involved_companies.company.slug = "${company}"`;
   if (id) whereClause += ` & id = (${id})`;
   if (screenshots) whereClause += ` & screenshots != null`;
   if (artworks) whereClause += ` & artworks != null`;
@@ -105,6 +103,40 @@ export default defineEventHandler(async (event) => {
     whereClause += ` & keywords.slug = (${separatedItem})`;
   }
 
+  const fetchCompanyGames = async (access_token) => {
+    const separatedItem = company
+      .split(",")
+      .map((i) => `"${i}"`)
+      .join(",");
+
+    const data = await $fetch(`${config.API_URL}/companies`, {
+      method: "POST",
+      headers: {
+        "CLIENT-ID": config.CLIENT_ID,
+        Authorization: `Bearer ${access_token}`,
+      },
+      body: `
+        f developed.slug, developed.cover.image_id, developed.category;
+        w slug = (${separatedItem});
+        l ${company.split(",").length};
+      `,
+    });
+
+    const games = data.map((company) => {
+      return company.developed.map((game) => {
+        return {
+          ...game,
+          cover: {
+            image_id: game.cover ? game.cover.image_id : null,
+          },
+          category: game.category,
+        };
+      });
+    });
+
+    return games.flat();
+  };
+
   const fetchGames = async (access_token) => {
     const data = await $fetch(`${config.API_URL}/games`, {
       method: "POST",
@@ -126,6 +158,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     // Kirim permintaan ke API IGDB
+    if (company) return await fetchCompanyGames(access_token);
+
     return await fetchGames(access_token);
   } catch (error) {
     return Response.json(

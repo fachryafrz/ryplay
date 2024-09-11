@@ -5,14 +5,14 @@ const router = useRouter();
 const route = useRoute();
 
 const isLoading = ref(false);
-const platforms = ref([]);
+const companies = ref([]);
 const selectedValues = ref(null);
 const timerRef = ref(null);
 
-const fetchPlatforms = async (query, body) => {
+const fetchCompanies = async (query, body) => {
   isLoading.value = true;
 
-  const data = await $fetch("/api/platforms", {
+  const data = await $fetch("/api/companies", {
     method: "POST",
     params: {
       name: query,
@@ -21,22 +21,20 @@ const fetchPlatforms = async (query, body) => {
       body: body
         ? body
         : `
-        f *; w 
-        name ~ *"${query}"* | slug ~ *"${query}"* | abbreviation ~ *"${query}"*; 
-        s name asc;
-        l 10;
-      `,
+        f *; 
+        w name ~ *"${query}"* | slug ~ *"${query}"*;
+        l 10;`,
     },
   });
 
   if (data.length < 1) {
     isLoading.value = false;
-    // platforms.value = [];
+    // companies.value = [];
   }
 
   if (data.length > 0) {
     isLoading.value = false;
-    platforms.value = data;
+    companies.value = data;
 
     return data;
   }
@@ -50,7 +48,7 @@ watch(selectedValues, (newValues) => {
       path: "/search",
       query: {
         ...route.query,
-        platform: newValues,
+        company: newValues,
       },
     });
   } else {
@@ -58,7 +56,7 @@ watch(selectedValues, (newValues) => {
       path: "/search",
       query: {
         ...route.query,
-        platform: undefined,
+        company: undefined,
       },
     });
   }
@@ -67,18 +65,18 @@ watch(selectedValues, (newValues) => {
 watch(
   () => route.query,
   async (searchParams) => {
-    if (searchParams.platform) {
-      const separateItem = searchParams.platform
+    if (searchParams.company) {
+      const separateItem = searchParams.company
         .split(",")
         .map((i) => `"${i}"`)
         .join(",");
 
-      const platformsData = await fetchPlatforms(
-        searchParams.platform,
+      const companiesData = await fetchCompanies(
+        searchParams.company,
         `f *; w slug = (${separateItem}); s name asc; l 10;`,
       );
 
-      selectedValues.value = platformsData;
+      selectedValues.value = companiesData;
     } else {
       selectedValues.value = [];
     }
@@ -92,9 +90,9 @@ watch(
     <VueMultiselect
       v-model="selectedValues"
       multiple
-      :options="platforms"
+      :options="companies"
       :loading="isLoading"
-      @search-change="fetchPlatforms"
+      @search-change="fetchCompanies"
       label="name"
       track-by="id"
       :hide-selected="true"

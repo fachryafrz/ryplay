@@ -4,7 +4,7 @@ const router = useRouter();
 
 const dayjs = useDayjs();
 const today = dayjs().unix();
-const endOfNextYear = today.add(1, "year").endOf("year");
+const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
 
 const { data: home, error: homeError } = await useFetch("/api/home");
 

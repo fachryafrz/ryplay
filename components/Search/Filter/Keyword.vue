@@ -1,8 +1,6 @@
 <script setup>
 import VueMultiselect from "vue-multiselect";
 
-const { multiquery } = defineProps(["multiquery"]);
-
 const router = useRouter();
 const route = useRoute();
 
@@ -13,16 +11,19 @@ const selectedValues = ref(null);
 const fetchKeywords = async (query, body) => {
   isLoading.value = true;
 
-  // Delay pengambilan data selama 1000ms setelah pengguna berhenti mengetik
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const data = await $fetch("/api/keywords", {
     method: "POST",
     params: {
       name: query,
     },
     body: {
-      body: body ? body : `f *; w name = ("${query}"); l 10;`,
+      body: body
+        ? body
+        : `
+        f *; 
+        w name ~ *"${query}"* | slug ~ *"${query}"*;
+        s name asc;
+        l 10;`,
     },
   });
 
