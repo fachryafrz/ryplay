@@ -73,7 +73,10 @@ console.log(developers);
             </template>
 
             <template v-else v-for="dev in info.text">
-              <NuxtLink :to="`/search?company=${dev.company.slug}`">
+              <NuxtLink
+                :to="`/search?company=${dev.company.slug}`"
+                class="hocus:text-primary"
+              >
                 {{ dev.company.name }}
               </NuxtLink>
 
