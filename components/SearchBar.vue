@@ -8,7 +8,10 @@ const handleSubmit = () => {
   if (searchQuery.value) {
     router.push({
       path: "/search",
-      query: { query: searchQuery.value.trim() },
+      query: {
+        ...route.query,
+        query: searchQuery.value.trim(),
+      },
     });
   }
 };
