@@ -6,6 +6,7 @@ const games = ref([]);
 const offset = ref(0);
 const showFilter = ref(false);
 const isLoading = ref(true);
+const isFinished = ref(false);
 
 const isThereAnyFilter = computed(() => {
   return Object.keys(route.query).length > 0;
@@ -27,6 +28,7 @@ const { execute: fetchGames } = await useAsyncData(() =>
     },
     onResponse: ({ response: { _data: data } }) => {
       isLoading.value = false;
+      isFinished.value = false;
 
       const combinedGames = [...games.value, ...data];
 
@@ -34,6 +36,10 @@ const { execute: fetchGames } = await useAsyncData(() =>
         (game, index, self) =>
           index === self.findIndex((t) => t.id === game.id),
       );
+
+      if (uniqueGames.length === games.value.length) {
+        isFinished.value = true;
+      }
 
       games.value = uniqueGames;
     },
@@ -162,7 +168,7 @@ useInfiniteScroll(
 
         <button
           ref="loadMoreRef"
-          v-show="!isLoading && games.length >= 20 && games.length >= offset"
+          v-show="!isLoading && games.length >= 20 && !isFinished"
           class="pointer-events-none mx-auto mt-4 flex aspect-square"
         >
           <span class="loading loading-spinner"></span>
