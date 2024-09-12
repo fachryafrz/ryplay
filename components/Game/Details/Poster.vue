@@ -31,8 +31,6 @@ const gameInfo = [
     text: publishers,
   },
 ];
-
-console.log(developers);
 </script>
 
 <template>
@@ -54,13 +52,16 @@ console.log(developers);
       <ul class="flex flex-wrap gap-4">
         <li
           v-for="info in gameInfo"
+          v-show="
+            info.section === 'Release Date' ? info.text : info.text?.length > 0
+          "
           :key="info.section"
           class="flex flex-col items-start text-sm"
         >
           <span v-if="info.text" class="font-medium text-neutral-500">
             {{
               info.section === "Developer" || info.section === "Publisher"
-                ? isPlural(info.text.length, info.section, `${info.section}s`)
+                ? isPlural(info.text?.length, info.section, `${info.section}s`)
                 : info.section
             }}
           </span>

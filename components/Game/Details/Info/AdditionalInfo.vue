@@ -1,29 +1,12 @@
 <script setup>
 import { formatNumber, formatRating } from "~/helper/formats";
-import stores from "@/json/store-category.json";
 import { isPlural } from "~/helper/isPlural";
 
-const { game } = defineProps(["game"]);
-
-// Fungsi untuk mendapatkan store berdasarkan ID category
-const findStoreById = (category) => {
-  return stores.find((store) => store.id === category) || {};
-};
-
-// Fungsi untuk memeriksa apakah ada image_id
-const hasImageId = (category) => {
-  const store = findStoreById(category);
-  return store.image_id && store.image_id.trim() !== "";
-};
-
-// Memfilter game.external_games untuk hanya item dengan image_id yang valid
-const filteredExternalGames = game.external_games?.filter((externalGame) =>
-  hasImageId(externalGame.category),
-);
-
-const isNoStoreURL = filteredExternalGames?.every(
-  (externalGame) => !externalGame.url,
-);
+const { game, filteredExternalGames, findStoreById } = defineProps([
+  "game",
+  "filteredExternalGames",
+  "findStoreById",
+]);
 </script>
 
 <template>
@@ -57,9 +40,9 @@ const isNoStoreURL = filteredExternalGames?.every(
     </div>
 
     <!-- Genres -->
-    <div v-show="game.genres.length > 0">
+    <div v-show="game.genres?.length > 0">
       <h2 class="heading-2">
-        {{ isPlural(game.genres.length, `Genre`, `Genres`) }}
+        {{ isPlural(game.genres?.length, `Genre`, `Genres`) }}
       </h2>
 
       <div class="flex flex-wrap gap-2">

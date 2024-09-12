@@ -1,4 +1,6 @@
 <script setup>
+import stores from "@/json/store-category.json";
+
 const { game } = defineProps(["game"]);
 
 const readMore = ref(false);
@@ -14,6 +16,26 @@ const maxLength = 500;
 const toggleReadMore = () => {
   readMore.value = !readMore.value;
 };
+
+// Fungsi untuk mendapatkan store berdasarkan ID category
+const findStoreById = (category) => {
+  return stores.find((store) => store.id === category) || {};
+};
+
+// Fungsi untuk memeriksa apakah ada image_id
+const hasImageId = (category) => {
+  const store = findStoreById(category);
+  return store.image_id && store.image_id.trim() !== "";
+};
+
+// Memfilter game.external_games untuk hanya item dengan image_id yang valid
+const filteredExternalGames = game.external_games?.filter((externalGame) =>
+  hasImageId(externalGame.category),
+);
+
+const isNoStoreURL = filteredExternalGames?.every(
+  (externalGame) => !externalGame.url,
+);
 </script>
 
 <template>
@@ -55,12 +77,16 @@ const toggleReadMore = () => {
       class="@container"
       v-if="
         game.platforms ||
-        game.external_games?.length > 0 ||
+        filteredExternalGames?.length > 0 ||
         game.genres ||
         game.rating
       "
     >
-      <GameDetailsInfoAdditionalInfo :game="game" />
+      <GameDetailsInfoAdditionalInfo
+        :game="game"
+        :filtered-external-games="filteredExternalGames"
+        :find-store-by-id="findStoreById"
+      />
     </section>
 
     <!-- DLC -->
