@@ -5,6 +5,7 @@ const router = useRouter();
 const dayjs = useDayjs();
 const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
+const oneMonthAgo = dayjs().add(-1, "month").unix();
 
 const { data: home, error: homeError } = await useFetch("/api/home");
 
@@ -145,7 +146,7 @@ onMounted(() => {
     <section class="my-2">
       <div class="flex flex-col gap-2">
         <NuxtLink
-          :to="`/search?limit=20&sort=first_release_date+asc&release_date=${today}&hypes=30&category=0`"
+          :to="`/search?limit=20&sort=first_release_date+asc&release_date=${today}..${endOfNextYear}&hypes=30&category=0`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
           <h2 class="heading-2">Upcoming Games</h2>
@@ -235,7 +236,7 @@ onMounted(() => {
           },
         }"
         :isHorizontal="true"
-        :see-all="`/search?limit=20&sort=first_release_date+desc&category=0&hypes=10&release_date=..${today}`"
+        :see-all="`/search?limit=20&sort=first_release_date+desc&category=0&hypes=10&release_date=${oneMonthAgo}..${today}`"
       />
     </section>
 
