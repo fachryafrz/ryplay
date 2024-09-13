@@ -1,6 +1,8 @@
+import { IGDB_ACCESS_TOKEN } from "../utils/constants";
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = getCookie(event, "igdb.access_token");
+  const access_token = getCookie(event, IGDB_ACCESS_TOKEN);
 
   if (!access_token) {
     const data = await $fetch("https://id.twitch.tv/oauth2/token", {
@@ -12,7 +14,7 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    setCookie(event, "igdb.access_token", data.access_token, {
+    setCookie(event, IGDB_ACCESS_TOKEN, data.access_token, {
       expires: new Date(Date.now() + data.expires_in * 1000), // pastikan multiply by 1000 untuk miliseconds
     });
   }

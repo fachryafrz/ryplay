@@ -1,6 +1,8 @@
+import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
+
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const config = useRuntimeConfig();
-  const access_token = useCookie("igdb.access_token").value;
+  const access_token = useCookie(IGDB_ACCESS_TOKEN).value;
   const isApiRoute = to.path.startsWith("/api");
 
   if (!access_token && !isApiRoute) {
@@ -13,7 +15,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       },
     });
 
-    useCookie("igdb.access_token", {
+    useCookie(IGDB_ACCESS_TOKEN, {
       expires: new Date(Date.now() + data.expires_in),
     }).value = data.access_token;
 
