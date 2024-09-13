@@ -1,5 +1,6 @@
 <script setup>
 import packageJson from "@/package.json";
+import { SpeedInsights } from "@vercel/speed-insights/vue";
 
 const config = useRuntimeConfig();
 
@@ -77,4 +78,6 @@ useHead({
     </div>
     <!-- </Sidebar> -->
   </div>
+
+  <SpeedInsights />
 </template>
