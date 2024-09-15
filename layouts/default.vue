@@ -1,4 +1,6 @@
 <script setup>
+import packageJson from "@/package.json";
+
 const config = useRuntimeConfig();
 
 useHead({
@@ -62,6 +64,7 @@ useHead({
 <template>
   <div>
     <NuxtLoadingIndicator />
+    <NuxtPwaManifest />
     <!-- <Sidebar> -->
     <div class="flex flex-col gap-0">
       <Header />
