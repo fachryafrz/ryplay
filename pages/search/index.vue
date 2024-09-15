@@ -46,9 +46,14 @@ const { execute: fetchGames } = await useAsyncData(() =>
   }),
 );
 
-useSeoMeta({
-  title: `Search`,
-  description: `Search for your favorite games`,
+useHead({
+  title: "Search",
+  meta: [
+    {
+      name: "description",
+      content: "Search for your favorite games",
+    },
+  ],
 });
 
 const { data: multiquery } = await useFetch("/api/search/multiquery");
