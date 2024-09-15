@@ -8,27 +8,26 @@ const { data: response, error } = await useFetch("/api/games/details", {
 
 if (error.value) throw error.value;
 
-const data = response.value[0];
-const game = data;
-const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${data.cover?.image_id}.jpg`;
+const [game] = response.value;
+const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
 
 useHead({
-  title: `${data.name}`,
+  title: `${game.name}`,
   meta: [
-    { name: `description`, content: `${data.summary}` },
-    { property: `og:title`, content: `${data.name}` },
-    { property: `og:description`, content: `${data.summary}` },
+    { name: `description`, content: `${game.summary}` },
+    { property: `og:title`, content: `${game.name}` },
+    { property: `og:description`, content: `${game.summary}` },
     { property: `og:image`, content: `${gameCover}` },
     { property: `og:url`, content: `${config.public.APP_URL}/games/${slug}` },
     { property: `og:site_name`, content: `${config.public.APP_NAME}` },
     { property: `og:type`, content: `website` },
     { name: `twitter:card`, content: `summary_large_image` },
     { name: `twitter:creator`, content: `@fachryafrz` },
-    { name: `twitter:description`, content: `${data.summary}` },
+    { name: `twitter:description`, content: `${game.summary}` },
     { name: `twitter:image`, content: `${gameCover}` },
     {
       name: `twitter:title`,
-      content: `${data.name} at ${config.public.APP_NAME}`,
+      content: `${game.name} - ${config.public.APP_NAME}`,
     },
   ],
 });
