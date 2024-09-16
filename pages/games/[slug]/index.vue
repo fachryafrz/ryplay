@@ -12,7 +12,7 @@ const [game] = response.value;
 const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
 const gameDescription = (game.storyline ?? game.summary).replace(
   /(\r\n|\n|\r)/gm,
-  "",
+  " ",
 );
 
 useSeoMeta({
