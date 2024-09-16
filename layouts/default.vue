@@ -7,6 +7,44 @@ useHead({
       ? `${title} - ${config.public.APP_NAME}`
       : config.public.APP_NAME;
   },
+  meta: [
+    {
+      name: `description`,
+      content: config.public.APP_DESCRIPTION,
+    },
+    {
+      property: `og:site_name`,
+      content: config.public.APP_NAME,
+    },
+    {
+      property: `og:type`,
+      content: `website`,
+    },
+    {
+      property: `og:url`,
+      content: config.public.APP_URL,
+    },
+    {
+      property: `og:title`,
+      content: config.public.APP_NAME,
+    },
+    {
+      property: `og:description`,
+      content: config.public.APP_DESCRIPTION,
+    },
+    {
+      property: `og:image`,
+      content: `/maskable_icon_x192.png`,
+    },
+    {
+      name: `twitter:title`,
+      content: `${config.public.APP_NAME}`,
+    },
+    { name: `twitter:description`, content: config.public.APP_DESCRIPTION },
+    { name: `twitter:image`, content: `/maskable_icon_x192.png` },
+    { name: `twitter:card`, content: `summary_large_image` },
+    { name: `twitter:creator`, content: `@fachryafrz` },
+  ],
   link: [
     {
       rel: `icon`,
@@ -18,21 +56,6 @@ useHead({
       href: `/manifest.webmanifest`,
     },
   ],
-});
-
-useSeoMeta({
-  description: config.public.APP_DESCRIPTION,
-  ogSiteName: config.public.APP_NAME,
-  ogType: `website`,
-  ogUrl: config.public.APP_URL,
-  ogTitle: config.public.APP_NAME,
-  ogDescription: config.public.APP_DESCRIPTION,
-  ogImage: `/maskable_icon_x192.png`,
-  twitterTitle: config.public.APP_NAME,
-  twitterDescription: config.public.APP_DESCRIPTION,
-  twitterImage: `/maskable_icon_x192.png`,
-  twitterCard: `summary_large_image`,
-  twitterCreator: `@fachryafrz`,
 });
 </script>
 
