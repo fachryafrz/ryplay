@@ -18,6 +18,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       expires: new Date(Date.now() + data.expires_in),
     }).value = data.access_token;
 
-    navigateTo(from.path);
+    // navigateTo(from.path);
   }
 });
