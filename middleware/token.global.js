@@ -15,7 +15,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     });
 
     useCookie(IGDB_ACCESS_TOKEN, {
-      expires: new Date(Date.now() + data.expires_in),
+      expires: new Date(Date.now() + data.expires_in * 1000),
     }).value = data.access_token;
 
     // navigateTo(from.path);
