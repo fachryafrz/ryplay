@@ -12,19 +12,19 @@ const [game] = response.value;
 const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
 
 useSeoMeta({
-  title: game.name,
-  description: game.storyline || game.summary,
-  ogTitle: game.name,
-  ogDescription: game.storyline || game.summary,
-  ogImage: gameCover,
-  ogUrl: `${config.public.APP_URL}/games/${slug}`,
-  ogSiteName: config.public.APP_NAME,
-  ogType: `website`,
-  twitterCard: `summary_large_image`,
-  twitterCreator: `@fachryafrz`,
-  twitterDescription: game.storyline || game.summary,
-  twitterImage: gameCover,
-  twitterTitle: `${game.name} - ${config.public.APP_NAME}`,
+  title: () => game.name,
+  description: () => game.storyline || game.summary,
+  ogTitle: () => game.name,
+  ogDescription: () => game.storyline || game.summary,
+  ogImage: () => gameCover,
+  ogUrl: () => `${config.public.APP_URL}/games/${slug}`,
+  ogSiteName: () => config.public.APP_NAME,
+  ogType: () => `website`,
+  twitterCard: () => `summary_large_image`,
+  twitterCreator: () => `@fachryafrz`,
+  twitterDescription: () => game.storyline || game.summary,
+  twitterImage: () => gameCover,
+  twitterTitle: () => `${game.name} - ${config.public.APP_NAME}`,
 });
 </script>
 
