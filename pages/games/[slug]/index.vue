@@ -10,21 +10,25 @@ if (error.value) throw error.value;
 
 const [game] = response.value;
 const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
+const gameDescription = (game.storyline ?? game.summary).replace(
+  /(\r\n|\n|\r)/gm,
+  " ",
+);
 
 useSeoMeta({
-  title: game.name,
-  description: game.summary,
-  ogTitle: game.name,
-  ogDescription: game.summary,
-  ogImage: gameCover,
-  ogUrl: `${config.public.APP_URL}/games/${slug}`,
-  ogSiteName: config.public.APP_NAME,
-  ogType: `website`,
-  twitterCard: `summary_large_image`,
-  twitterCreator: `@fachryafrz`,
-  twitterDescription: game.summary,
-  twitterImage: gameCover,
-  twitterTitle: `${game.name} - ${config.public.APP_NAME}`,
+  title: () => game.name,
+  description: () => gameDescription,
+  ogTitle: () => `${game.name} - ${config.public.APP_NAME}`,
+  ogDescription: () => gameDescription,
+  ogImage: () => gameCover,
+  ogUrl: () => `${config.public.APP_URL}/games/${slug}`,
+  ogSiteName: () => config.public.APP_NAME,
+  ogType: () => `website`,
+  twitterCard: () => `summary_large_image`,
+  twitterCreator: () => `@fachryafrz`,
+  twitterDescription: () => gameDescription,
+  twitterImage: () => gameCover,
+  twitterTitle: () => `${game.name} - ${config.public.APP_NAME}`,
 });
 </script>
 
