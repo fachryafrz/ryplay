@@ -11,34 +11,20 @@ if (error.value) throw error.value;
 const [game] = response.value;
 const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
 
-useHead({
-  title: `${game.name}`,
-  meta: [
-    { name: `description`, content: `${game.storyline ?? game.summary}` },
-    {
-      property: `og:title`,
-      content: `${game.name} - ${config.public.APP_NAME}`,
-    },
-    {
-      property: `og:description`,
-      content: `${game.storyline ?? game.summary}`,
-    },
-    { property: `og:image`, content: `${gameCover}` },
-    { property: `og:url`, content: `${config.public.APP_URL}/games/${slug}` },
-    { property: `og:site_name`, content: `${config.public.APP_NAME}` },
-    { property: `og:type`, content: `website` },
-    { name: `twitter:card`, content: `summary_large_image` },
-    { name: `twitter:creator`, content: `@fachryafrz` },
-    {
-      name: `twitter:description`,
-      content: `${game.storyline ?? game.summary}`,
-    },
-    { name: `twitter:image`, content: `${gameCover}` },
-    {
-      name: `twitter:title`,
-      content: `${game.name} - ${config.public.APP_NAME}`,
-    },
-  ],
+useSeoMeta({
+  title: () => game.name,
+  description: () => `${game.storyline ?? game.summary}`,
+  ogTitle: () => `${game.name} - ${config.public.APP_NAME}`,
+  ogDescription: () => `${game.storyline ?? game.summary}`,
+  ogImage: () => gameCover,
+  ogUrl: () => `${config.public.APP_URL}/games/${slug}`,
+  ogSiteName: () => config.public.APP_NAME,
+  ogType: () => `website`,
+  twitterCard: () => `summary_large_image`,
+  twitterCreator: () => `@fachryafrz`,
+  twitterDescription: () => `${game.storyline ?? game.summary}`,
+  twitterImage: () => gameCover,
+  twitterTitle: () => `${game.name} - ${config.public.APP_NAME}`,
 });
 </script>
 

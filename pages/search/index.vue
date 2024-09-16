@@ -47,15 +47,13 @@ const { execute: fetchGames } = await useAsyncData(() =>
   }),
 );
 
-useHead({
+useSeoMeta({
   title: `Search`,
-  meta: [
-    { name: `description`, content: `Search for your favorite games` },
-    { name: `og:title`, content: `Search - ${config.public.APP_NAME}` },
-    { name: `og:description`, content: `Search for your favorite games` },
-    { name: `twitter:title`, content: `Search - ${config.public.APP_NAME}` },
-    { name: `twitter:description`, content: `Search for your favorite games` },
-  ],
+  description: `Search for your favorite games`,
+  ogTitle: `Search - ${config.public.APP_NAME}`,
+  ogDescription: `Search for your favorite games`,
+  twitterTitle: `Search - ${config.public.APP_NAME}`,
+  twitterDescription: `Search for your favorite games`,
 });
 
 const { data: multiquery } = await useFetch("/api/search/multiquery");
