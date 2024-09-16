@@ -1,8 +1,6 @@
-import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
-
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = getCookie(event, IGDB_ACCESS_TOKEN);
+  const access_token = await $fetch("/api/token");
 
   const { slug, id, sort, limit } = getQuery(event);
 

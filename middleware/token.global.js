@@ -5,7 +5,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const access_token = useCookie(IGDB_ACCESS_TOKEN).value;
 
   if (!access_token) {
-    const data = await $fetch("/api/token", {
+    const data = await $fetch("https://id.twitch.tv/oauth2/token", {
+      method: "POST",
       params: {
         client_id: config.CLIENT_ID,
         client_secret: config.CLIENT_SECRET,
