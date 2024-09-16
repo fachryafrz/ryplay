@@ -1,4 +1,5 @@
 <script setup>
+const config = useRuntimeConfig();
 const router = useRouter();
 const route = useRoute();
 const loadMoreRef = ref();
@@ -47,8 +48,12 @@ const { execute: fetchGames } = await useAsyncData(() =>
 );
 
 useSeoMeta({
-  title: () => `Search`,
-  description: () => `Search for your favorite games`,
+  title: `Search`,
+  description: `Search for your favorite games`,
+  ogTitle: `Search - ${config.public.APP_NAME}`,
+  ogDescription: `Search for your favorite games`,
+  twitterTitle: `Search - ${config.public.APP_NAME}`,
+  twitterDescription: `Search for your favorite games`,
 });
 
 const { data: multiquery } = await useFetch("/api/search/multiquery");
