@@ -1,9 +1,14 @@
 <script setup>
+const config = useRuntimeConfig();
+
 const { game } = defineProps(["game"]);
 
 const mainSwiper = ref(null);
 const thumbSwiper = ref(null);
 const activeSlide = ref(0);
+const APP_URL = encodeURI(config.public.APP_URL);
+const swiperSlideClass =
+  "!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)]";
 
 const setMainSwiper = (swiper) => (mainSwiper.value = swiper);
 const setThumbSwiper = (swiper) => (thumbSwiper.value = swiper);
@@ -40,7 +45,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <SwiperSlide v-for="video in game.videos" :key="video.video_id">
           <figure class="aspect-video w-full overflow-hidden bg-base-100">
             <iframe
-              :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0`"
+              :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0&enablejsapi=1&origin=${APP_URL}`"
               frameborder="0"
               allowfullscreen
               class="h-full w-full rounded-xl"
@@ -116,6 +121,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           v-if="game.videos?.length > 0"
           v-for="(video, index) in game.videos"
           :key="video.video_id"
+          :class="swiperSlideClass"
         >
           <figure
             class="relative aspect-video cursor-pointer overflow-hidden rounded-xl"
@@ -164,6 +170,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           v-if="game.screenshots?.length > 0"
           v-for="(screenshot, index) in game.screenshots"
           :key="screenshot.image_id"
+          :class="swiperSlideClass"
         >
           <figure
             class="aspect-video cursor-pointer overflow-hidden rounded-xl"
@@ -185,6 +192,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           v-if="game.artworks?.length > 0"
           v-for="(artwork, index) in game.artworks"
           :key="artwork.image_id"
+          :class="swiperSlideClass"
         >
           <figure
             class="aspect-video cursor-pointer overflow-hidden rounded-xl"
