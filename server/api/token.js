@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   });
 
   setCookie(event, IGDB_ACCESS_TOKEN, data.access_token, {
-    expires: new Date(Date.now() + data.expires_in * 1000),
+    maxAge: 3600, // bisa juga data.expires_in
   });
 
   return data.access_token;
