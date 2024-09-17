@@ -21,30 +21,34 @@ const setShowFilter = () => {
   showFilter.value = !showFilter.value;
 };
 
-const { execute: fetchGames } = await useAsyncData(() =>
-  $fetch("/api/games/search", {
-    params: {
-      ...route.query,
-      offset: offset.value,
-    },
-    onResponse: ({ response: { _data: data } }) => {
-      isLoading.value = false;
-      isFinished.value = false;
+const { data: multiquery } = await useFetch("/api/search/multiquery");
 
-      const combinedGames = [...games.value, ...data];
+const { execute: fetchGames, error } = await useAsyncData(
+  () =>
+    $fetch("/api/games/search", {
+      params: {
+        ...route.query,
+        offset: offset.value,
+      },
+      onResponse: ({ response: { _data: data } }) => {
+        isLoading.value = false;
+        isFinished.value = false;
 
-      const uniqueGames = combinedGames.filter(
-        (game, index, self) =>
-          index === self.findIndex((t) => t.id === game.id),
-      );
+        const combinedGames = [...games.value, ...data];
 
-      if (uniqueGames.length === games.value.length) {
-        isFinished.value = true;
-      }
+        const uniqueGames = combinedGames.filter(
+          (game, index, self) =>
+            index === self.findIndex((t) => t.id === game.id),
+        );
 
-      games.value = uniqueGames;
-    },
-  }),
+        if (uniqueGames.length === games.value.length) {
+          isFinished.value = true;
+        }
+
+        games.value = uniqueGames;
+      },
+    }),
+  { immediate: false },
 );
 
 useSeoMeta({
@@ -55,8 +59,6 @@ useSeoMeta({
   twitterTitle: `Search - ${config.public.APP_NAME}`,
   twitterDescription: `Search for your favorite games`,
 });
-
-const { data: multiquery } = await useFetch("/api/search/multiquery");
 
 watch(
   () => route.query,
