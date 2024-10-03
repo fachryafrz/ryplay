@@ -131,12 +131,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
                 : ''
             "
           >
-            <img
-              :src="`https://img.youtube.com/vi/${video.video_id}/0.jpg`"
-              :alt="game.name"
+            <span
+              :style="`background-image: url('https://img.youtube.com/vi/${video.video_id}/0.jpg');`"
+              :aria-label="game.name"
+              class="block h-full w-full bg-cover bg-center"
               draggable="false"
-              loading="lazy"
-            />
+            ></span>
 
             <div
               class="pointer-events-none absolute inset-0 grid place-content-center"
@@ -180,12 +180,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
                 : ''
             "
           >
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg`"
-              :alt="game.name"
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg');`"
+              :aria-label="game.name"
+              class="block h-full w-full bg-cover bg-center"
               draggable="false"
-              loading="lazy"
-            />
+            ></span>
           </figure>
         </SwiperSlide>
         <SwiperSlide
@@ -205,12 +205,12 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
                 : ''
             "
           >
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg`"
-              :alt="game.name"
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg');`"
+              :aria-label="game.name"
+              class="block h-full w-full bg-cover bg-center"
               draggable="false"
-              loading="lazy"
-            />
+            ></span>
           </figure>
         </SwiperSlide>
       </Swiper>

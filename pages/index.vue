@@ -13,21 +13,38 @@ const featuredGames = home.value.find((res) => res.name === "featured").result;
 const upcomingGames = home.value.find((res) => res.name === "upcoming").result;
 const topRatedGames = home.value.find((res) => res.name === "top-rated").result;
 
-const {
-  data: multiqueryResponse,
-  error: multiqueryError,
-  execute: fetchMultiquery,
-  status: statusMultiquery,
-} = useLazyFetch("/api/multiquery", {
-  immediate: false,
-});
+// Refactored fetch for multiquery
+const { data: multiqueryData, status: statusMultiquery } =
+  await useLazyFetch("/api/multiquery");
 
-const newReleases = ref([]);
-const mostAnticipated = ref([]);
-const adventure = ref([]);
-const shooter = ref([]);
-const racing = ref([]);
-const sports = ref([]);
+const newReleases = computed(
+  () =>
+    multiqueryData.value?.find((res) => res.name === "new-releases")?.result ||
+    [],
+);
+const mostAnticipated = computed(
+  () =>
+    multiqueryData.value?.find((res) => res.name === "most-anticipated")
+      ?.result || [],
+);
+const adventure = computed(
+  () =>
+    multiqueryData.value?.find((res) => res.name === "adventure")?.result || [],
+);
+const hackAndSlashBeatEmUp = computed(
+  () =>
+    multiqueryData.value?.find(
+      (res) => res.name === "hack-and-slash-beat-em-up",
+    )?.result || [],
+);
+const racing = computed(
+  () =>
+    multiqueryData.value?.find((res) => res.name === "racing")?.result || [],
+);
+const sport = computed(
+  () => multiqueryData.value?.find((res) => res.name === "sport")?.result || [],
+);
+
 // ============== PopScore ==============
 const popularityData = home.value.find(
   (res) => res.name === "popularity-data",
@@ -53,86 +70,33 @@ const groupedWantToPlayData = wantToPlayData
   .map((data) => data.game_id)
   .join(",");
 
-const {
-  data: popularGames,
-  error: popularGamesError,
-  execute: fetchPopularGames,
-  status: statusPopularGames,
-} = useLazyFetch("/api/games/details", {
-  params: {
-    id: `${groupedPopularityData}`,
-    sort: `hypes desc`,
-    limit: 20,
-  },
-  immediate: false,
-});
-const {
-  data: mostPlayed,
-  error: mostPlayedError,
-  execute: fetchMostPlayed,
-  status: statusMostPlayed,
-} = useLazyFetch("/api/games/details", {
-  params: {
-    id: `${groupedMostPlayedData}`,
-    sort: `first_release_date desc`,
-    limit: 10,
-  },
-  immediate: false,
-});
-const {
-  data: playing,
-  error: playingError,
-  execute: fetchPlaying,
-  status: statusPlaying,
-} = useLazyFetch("/api/games/details", {
-  params: {
-    id: `${groupedPlayingData}`,
-    sort: `first_release_date desc`,
-    limit: 10,
-  },
-  immediate: false,
-});
-const {
-  data: wantToPlay,
-  error: wantToPlayError,
-  execute: fetchWantToPlay,
-  status: statusWantToPlay,
-} = useLazyFetch("/api/games/details", {
-  params: {
-    id: `${groupedWantToPlayData}`,
-    sort: `first_release_date desc`,
-    limit: 10,
-  },
-  immediate: false,
-});
-
-onMounted(() => {
-  fetchMultiquery().then(() => {
-    newReleases.value = multiqueryResponse.value.find(
-      (res) => res.name === "new-releases",
-    ).result;
-    mostAnticipated.value = multiqueryResponse.value.find(
-      (res) => res.name === "most-anticipated",
-    ).result;
-    adventure.value = multiqueryResponse.value.find(
-      (res) => res.name === "adventure",
-    ).result;
-    shooter.value = multiqueryResponse.value.find(
-      (res) => res.name === "shooter",
-    ).result;
-    racing.value = multiqueryResponse.value.find(
-      (res) => res.name === "racing",
-    ).result;
-    sports.value = multiqueryResponse.value.find(
-      (res) => res.name === "sports",
-    ).result;
-
-    fetchPopularGames();
-    fetchMostPlayed();
-    fetchPlaying();
-    fetchWantToPlay();
+// Refactored fetch for game details
+const fetchGameDetails = (id, sort, limit) => {
+  return useLazyFetch("/api/games/details", {
+    params: { id, sort, limit },
   });
-});
+};
+
+const { data: popularGames, status: statusPopularGames } = fetchGameDetails(
+  groupedPopularityData,
+  "hypes desc",
+  20,
+);
+const { data: mostPlayed, status: statusMostPlayed } = fetchGameDetails(
+  groupedMostPlayedData,
+  "first_release_date desc",
+  10,
+);
+const { data: playing, status: statusPlaying } = fetchGameDetails(
+  groupedPlayingData,
+  "first_release_date desc",
+  10,
+);
+const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
+  groupedWantToPlayData,
+  "first_release_date desc",
+  10,
+);
 </script>
 
 <template>
@@ -145,13 +109,7 @@ onMounted(() => {
 
     <section class="my-2">
       <div class="flex flex-col gap-2">
-        <NuxtLink
-          :to="`/search?limit=20&sort=first_release_date+asc&release_date=${today}..${endOfNextYear}&hypes=30&category=0`"
-          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
-        >
-          <h2 class="heading-2">Upcoming Games</h2>
-          <Icon name="ion:ios-arrow-forward" size="25" class="transition-all" />
-        </NuxtLink>
+        <h2 class="heading-2">Upcoming Games</h2>
 
         <div
           class="grid grid-cols-2 gap-2 md:grid-cols-4 2xl:flex 2xl:overflow-x-auto"
@@ -176,7 +134,6 @@ onMounted(() => {
         :games="popularGames"
         title="Popular Right Now"
         description="Popular Games of The Week"
-        :see-all="`/search?limit=20&sort=hypes+desc&id=${groupedPopularityData}`"
       />
     </section>
 
@@ -186,7 +143,7 @@ onMounted(() => {
         :games="topRatedGames"
         title="Top Rated"
         description="Most Popular Games of All Time"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&category=0`"
+        :see-all="`/search?sort=total_rating_count+desc`"
       />
     </section>
 
@@ -254,7 +211,6 @@ onMounted(() => {
           class="w-full"
           :games="mostPlayed?.slice(0, 5)"
           title="Most Played"
-          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedMostPlayedData}`"
         />
 
         <div class="lg:flex lg:justify-center">
@@ -273,7 +229,6 @@ onMounted(() => {
           class="w-full"
           :games="playing?.slice(0, 5)"
           title="Playing"
-          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedPlayingData}`"
         />
 
         <div class="lg:flex lg:justify-center">
@@ -292,7 +247,6 @@ onMounted(() => {
           class="w-full"
           :games="wantToPlay?.slice(0, 5)"
           title="Want to Play"
-          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedWantToPlayData}`"
         />
       </div>
     </section>
@@ -302,16 +256,16 @@ onMounted(() => {
         id="adventure"
         :games="adventure"
         title="Adventure"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=adventure&category=0`"
+        :see-all="`/search?genre=adventure`"
       />
     </section>
 
     <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
-        id="shooter"
-        :games="shooter"
-        title="Shooter"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=shooter&category=0`"
+        id="hack-and-slash-beat-em-up"
+        :games="hackAndSlashBeatEmUp"
+        title="Hack and Slash Beat 'Em Up"
+        :see-all="`/search?genre=hack-and-slash-beat-em-up`"
       />
     </section>
 
@@ -320,7 +274,7 @@ onMounted(() => {
         id="racing"
         :games="racing"
         title="Racing"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=racing&category=0`"
+        :see-all="`/search?genre=racing`"
       />
     </section>
 
@@ -330,30 +284,27 @@ onMounted(() => {
           class="w-full"
           :games="mostPlayed?.slice(5, 10)"
           title="Most Played"
-          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedMostPlayedData}`"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="playing?.slice(5, 10)"
           title="Playing"
-          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedPlayingData}`"
         />
         <div class="divider flex-shrink lg:divider-horizontal"></div>
         <GameTile
           class="w-full"
           :games="wantToPlay?.slice(5, 10)"
           title="Want to Play"
-          :see-all="`/search?limit=20&sort=first_release_date+desc&id=${groupedWantToPlayData}`"
         />
       </div>
     </section>
 
     <section v-show="statusMultiquery === `success`" class="my-2">
       <GameSlider
-        id="sports"
-        :games="sports"
-        title="Sports"
+        id="sport"
+        :games="sport"
+        title="Sport"
         :slides-per-group="1"
         :breakpoints="{
           768: {
@@ -366,7 +317,7 @@ onMounted(() => {
           },
         }"
         :isHorizontal="true"
-        :see-all="`/search?limit=20&sort=total_rating_count+desc&genre=14&category=0`"
+        :see-all="`/search?genre=sport`"
       />
     </section>
   </div>

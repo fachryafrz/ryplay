@@ -112,7 +112,7 @@ body {
   }
 
   .featured-games {
-    @apply relative overflow-hidden transition-all duration-700 2xl:h-[310px] 2xl:w-[230px];
+    @apply relative overflow-hidden transition-all aspect-poster @2xl:aspect-auto duration-700 2xl:h-[310px] 2xl:w-[230px];
   }
 
   .featured-games.active {

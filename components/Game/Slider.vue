@@ -43,8 +43,11 @@ const defaultBreakpoints = {
   <div class="flex flex-col gap-2">
     <div class="flex items-end justify-between">
       <div>
+        <h2 v-if="!seeAll" class="heading-2">{{ title }}</h2>
+
         <NuxtLink
-          :to="seeAll || `/`"
+          v-if="seeAll"
+          :to="seeAll"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
           <h2 class="heading-2">{{ title }}</h2>

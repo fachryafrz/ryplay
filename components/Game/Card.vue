@@ -10,20 +10,19 @@ const category = gameCategory.find((item) => item.id === game.category).name;
   <NuxtLink :to="`/games/${game.slug}`" class="relative">
     <div
       v-if="!isHorizontal"
-      :class="`after-content relative transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500`"
+      :class="`after-content relative transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_span]:scale-105 hocus:[&_span]:duration-500`"
       :data-after-content="category"
     >
       <figure
         class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral"
       >
-        <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
-          :alt="game.name"
+        <span
+          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg')`"
+          :aria-label="game.name"
           id="game-cover"
-          class="h-full w-full object-cover transition-all"
+          class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
-          loading="lazy"
-        />
+        ></span>
       </figure>
 
       <h3 :title="game.name" class="sr-only">
@@ -33,18 +32,17 @@ const category = gameCategory.find((item) => item.id === game.category).name;
 
     <div
       v-if="isHorizontal"
-      class="after-content relative mb-4 overflow-hidden rounded-xl transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500"
+      class="after-content relative mb-4 overflow-hidden rounded-xl transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_span]:scale-105 hocus:[&_span]:duration-500"
       :data-after-content="category"
     >
       <figure class="-z-10 block aspect-video overflow-hidden">
-        <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
-          :alt="game.name"
+        <span
+          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg')`"
+          :aria-label="game.name"
           id="game-cover"
-          class="h-full w-full object-cover transition-all"
+          class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
-          loading="lazy"
-        />
+        ></span>
       </figure>
 
       <div

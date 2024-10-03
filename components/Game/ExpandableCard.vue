@@ -28,25 +28,23 @@ const lastHoveredIndex = ref(0);
         { active: hoveredIndex === index || lastHoveredIndex === index },
       ]"
     >
-      <img
-        :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
-        :alt="game.name"
+      <span
+        :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg');`"
+        :aria-label="game.name"
         id="game-cover"
-        class="h-full w-full object-cover transition-all"
+        class="block h-full w-full bg-cover bg-center transition-all"
         draggable="false"
-        loading="lazy"
-      />
+      ></span>
       <div
         id="game-screenshot"
         class="absolute inset-0 opacity-0 transition-opacity duration-700"
       >
-        <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
-          :alt="game.name"
-          class="h-full w-full object-cover"
+        <span
+          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg');`"
+          :aria-label="game.name"
+          class="block h-full w-full bg-cover bg-center"
           draggable="false"
-          loading="lazy"
-        />
+        ></span>
 
         <div
           class="absolute inset-0 z-10 flex flex-col justify-end gap-1 text-pretty p-2 px-6 before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-t before:from-base-100"

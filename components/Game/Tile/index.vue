@@ -4,7 +4,10 @@ const { games, title, seeAll } = defineProps(["games", "title", "seeAll"]);
 
 <template>
   <div>
+    <h2 v-if="!seeAll" class="heading-2">{{ title }}</h2>
+
     <NuxtLink
+      v-if="seeAll"
       :to="seeAll || `/`"
       class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
     >

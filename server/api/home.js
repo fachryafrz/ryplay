@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
           l 5;
         };
         query games "upcoming" {
-          f *, cover.*, artworks.*;
+          f *, cover.*, artworks.*, screenshots.*;
           w cover != null & first_release_date >= ${today} & hypes >= 30 & category = 0;
           s first_release_date asc;
           l 5;
@@ -41,25 +41,25 @@ export default defineEventHandler(async (event) => {
           f game_id; 
           w popularity_type = 1;
           s value desc; 
-          l 500;  
+          l 20;  
         };
         query popularity_primitives "most-played-data" {
           f game_id; 
           w popularity_type = 4;
           s value desc; 
-          l 500;  
+          l 10;  
         };
         query popularity_primitives "playing-data" {
           f game_id; 
           w popularity_type = 3;
           s value desc; 
-          l 500;  
+          l 10;  
         };
         query popularity_primitives "want-to-play-data" {
           f game_id; 
           w popularity_type = 2;
           s value desc; 
-          l 500;  
+          l 10;  
         };
       `,
     });

@@ -35,21 +35,19 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         class="h-full"
       >
         <SwiperSlide v-for="game in games" :key="game.slug" class="relative">
-          <figure class="h-full">
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`"
-              :alt="game.name"
-              class="hidden min-h-full sm:block"
+          <figure class="h-full aspect-poster sm:aspect-video [&_*]:block">
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg');`"
+              :aria-label="game.name"
+              class="hidden min-h-full w-full bg-cover bg-center sm:block"
               draggable="false"
-              loading="lazy"
-            />
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`"
-              :alt="game.name"
-              class="min-h-full sm:hidden"
+            ></span>
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg');`"
+              :aria-label="game.name"
+              class="min-h-full w-full bg-cover bg-center sm:hidden"
               draggable="false"
-              loading="lazy"
-            />
+            ></span>
           </figure>
           <div
             class="absolute inset-x-0 top-0 hidden flex-wrap gap-2 p-4 md:flex"
@@ -80,13 +78,13 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         class="h-full"
       >
         <SwiperSlide v-for="game in games" :key="game.slug">
-          <figure class="h-full overflow-hidden">
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[0].image_id}.jpg`"
-              :alt="game.name"
+          <figure class="aspect-video h-full overflow-hidden">
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[0].image_id}.jpg');`"
+              :aria-label="game.name"
+              class="block h-full w-full bg-cover bg-center"
               draggable="false"
-              loading="lazy"
-            />
+            ></span>
           </figure>
         </SwiperSlide>
       </Swiper>
@@ -105,13 +103,13 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         class="h-full"
       >
         <SwiperSlide v-for="game in games" :key="game.slug">
-          <figure class="h-full overflow-hidden">
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[1].image_id}.jpg`"
-              :alt="game.name"
+          <figure class="aspect-video h-full overflow-hidden">
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[1].image_id}.jpg');`"
+              :aria-label="game.name"
+              class="block h-full w-full bg-cover bg-center"
               draggable="false"
-              loading="lazy"
-            />
+            ></span>
           </figure>
         </SwiperSlide>
       </Swiper>
@@ -181,13 +179,12 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
           <figure
             class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[50%]"
           >
-            <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.artworks[0].image_id}.jpg`"
-              :alt="game.name"
-              class="motion-safe:animate-spin-slow"
-              draggable="false"
-              loading="lazy"
-            />
+            <span
+              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.artworks[0].image_id}.jpg');`"
+              :aria-label="game.name"
+              class="block h-full w-full bg-cover bg-center bg-no-repeat motion-safe:animate-spin-slow"
+              role="img"
+            ></span>
           </figure>
         </SwiperSlide>
       </Swiper>

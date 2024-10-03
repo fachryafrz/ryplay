@@ -14,14 +14,13 @@ const category = gameCategory.find((item) => item.id === game.category).name;
     <figure
       class="block aspect-poster w-[100px] overflow-hidden rounded-md bg-neutral"
     >
-      <img
-        :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
-        :alt="game.name"
+      <span
+        :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg')`"
+        :aria-label="game.name"
         id="game-cover"
-        class="h-full w-full object-cover"
-        draggable="false"
-        loading="lazy"
-      />
+        class="block h-full w-full bg-cover bg-center bg-no-repeat"
+        role="img"
+      ></span>
     </figure>
 
     <div
