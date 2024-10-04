@@ -1,102 +1,87 @@
 <script setup>
 const config = useRuntimeConfig();
 const router = useRouter();
-
 const dayjs = useDayjs();
 const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
 const oneMonthAgo = dayjs().add(-1, "month").unix();
 
-const { data: home, error: homeError } = await useFetch("/api/home");
+const { data: home } = await useFetch("/api/home", {
+  transform: (payload) => {
+    return {
+      results: payload,
+      fetchedAt: new Date(),
+    };
+  },
+  getCachedData: (key, nuxtApp) => {
+    const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
 
-const featuredGames = home.value.find((res) => res.name === "featured").result;
-const upcomingGames = home.value.find((res) => res.name === "upcoming").result;
-const topRatedGames = home.value.find((res) => res.name === "top-rated").result;
+    if (!data) return;
 
-// Refactored fetch for multiquery
-const { data: multiqueryData, status: statusMultiquery } =
-  await useLazyFetch("/api/multiquery");
+    const expiration = new Date(data.fetchedAt);
+    expiration.setTime(expiration.getTime() + 5 * 60 * 1000);
 
-const newReleases = computed(
-  () =>
-    multiqueryData.value?.find((res) => res.name === "new-releases")?.result ||
-    [],
-);
-const mostAnticipated = computed(
-  () =>
-    multiqueryData.value?.find((res) => res.name === "most-anticipated")
-      ?.result || [],
-);
-const adventure = computed(
-  () =>
-    multiqueryData.value?.find((res) => res.name === "adventure")?.result || [],
-);
-const hackAndSlashBeatEmUp = computed(
-  () =>
-    multiqueryData.value?.find(
-      (res) => res.name === "hack-and-slash-beat-em-up",
-    )?.result || [],
-);
-const racing = computed(
-  () =>
-    multiqueryData.value?.find((res) => res.name === "racing")?.result || [],
-);
-const sport = computed(
-  () => multiqueryData.value?.find((res) => res.name === "sport")?.result || [],
-);
+    const isExpired = expiration.getTime() < Date.now();
 
-// ============== PopScore ==============
-const popularityData = home.value.find(
-  (res) => res.name === "popularity-data",
+    if (isExpired) return;
+
+    return data;
+  },
+});
+
+const featured = home.value.results.find(
+  (res) => res.name === "featured",
 ).result;
-const mostPlayedData = home.value.find(
-  (res) => res.name === "most-played-data",
+const upcoming = home.value.results.find(
+  (res) => res.name === "upcoming",
 ).result;
-const playingData = home.value.find(
-  (res) => res.name === "playing-data",
+const topRated = home.value.results.find(
+  (res) => res.name === "top-rated",
 ).result;
-const wantToPlayData = home.value.find(
-  (res) => res.name === "want-to-play-data",
+const mostAnticipated = home.value.results.find(
+  (res) => res.name === "most-anticipated",
 ).result;
+const newReleases = home.value.results.find(
+  (res) => res.name === "new-releases",
+).result;
+const adventure = home.value.results.find(
+  (res) => res.name === "adventure",
+).result;
+const hackAndSlashBeatEmUp = home.value.results.find(
+  (res) => res.name === "hack-and-slash-beat-em-up",
+).result;
+const racing = home.value.results.find((res) => res.name === "racing").result;
+const sport = home.value.results.find((res) => res.name === "sport").result;
 
-const groupedPopularityData = popularityData
-  .map((data) => data.game_id)
-  .join(",");
-const groupedMostPlayedData = mostPlayedData
-  .map((data) => data.game_id)
-  .join(",");
-const groupedPlayingData = playingData.map((data) => data.game_id).join(",");
-const groupedWantToPlayData = wantToPlayData
-  .map((data) => data.game_id)
-  .join(",");
+const { data: multiquery, status: statusMultiquery } = useLazyFetch(
+  "/api/multiquery",
+  {
+    transform: (payload) => {
+      return {
+        ...payload,
+        fetchedAt: new Date(),
+      };
+    },
+    getCachedData: (key, nuxtApp) => {
+      const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+      if (!data) return;
 
-// Refactored fetch for game details
-const fetchGameDetails = (id, sort, limit) => {
-  return useLazyFetch("/api/games/details", {
-    params: { id, sort, limit },
-  });
-};
+      const expiration = new Date(data.fetchedAt);
+      expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
 
-const { data: popularGames, status: statusPopularGames } = fetchGameDetails(
-  groupedPopularityData,
-  "hypes desc",
-  20,
+      const isExpired = expiration.getTime() < Date.now();
+
+      if (isExpired) return;
+
+      return data;
+    },
+  },
 );
-const { data: mostPlayed, status: statusMostPlayed } = fetchGameDetails(
-  groupedMostPlayedData,
-  "first_release_date desc",
-  10,
-);
-const { data: playing, status: statusPlaying } = fetchGameDetails(
-  groupedPlayingData,
-  "first_release_date desc",
-  10,
-);
-const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
-  groupedWantToPlayData,
-  "first_release_date desc",
-  10,
-);
+
+const popular = computed(() => multiquery.value?.popular);
+const mostPlayed = computed(() => multiquery.value?.mostPlayed);
+const playing = computed(() => multiquery.value?.playing);
+const wantToPlay = computed(() => multiquery.value?.wantToPlay);
 </script>
 
 <template>
@@ -104,7 +89,7 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
 
   <div class="mx-auto flex flex-col gap-4">
     <section>
-      <GameHomeSlider :games="featuredGames" />
+      <GameHomeSlider :games="featured" />
     </section>
 
     <section class="my-2">
@@ -114,14 +99,14 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
         <div
           class="grid grid-cols-2 gap-2 md:grid-cols-4 2xl:flex 2xl:overflow-x-auto"
         >
-          <GameExpandableCard :games="upcomingGames" />
+          <GameExpandableCard :games="upcoming" />
         </div>
       </div>
     </section>
 
     <section class="my-2">
       <div
-        v-show="statusPopularGames !== `success`"
+        v-show="statusMultiquery !== `success`"
         class="flex items-center justify-center gap-2"
       >
         <span class="loading loading-spinner"></span>
@@ -129,9 +114,9 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       </div>
 
       <GameSlider
-        v-show="statusPopularGames === `success`"
-        id="popularGames"
-        :games="popularGames"
+        v-show="statusMultiquery === `success`"
+        id="popular"
+        :games="popular"
         title="Popular Right Now"
         description="Popular Games of The Week"
       />
@@ -139,23 +124,15 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
 
     <section class="my-2">
       <GameSlider
-        id="topRatedGames"
-        :games="topRatedGames"
+        id="topRated"
+        :games="topRated"
         title="Top Rated"
         description="Most Popular Games of All Time"
         :see-all="`/search?sort=total_rating_count+desc`"
       />
     </section>
 
-    <div
-      v-show="statusMultiquery === `pending`"
-      class="flex items-center justify-center gap-2"
-    >
-      <span class="loading loading-spinner"></span>
-      <span>Loading other stuff...</span>
-    </div>
-
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section class="my-2">
       <GameSlider
         id="mostAnticipated"
         :games="mostAnticipated"
@@ -176,7 +153,7 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section class="my-2">
       <GameSlider
         id="newReleases"
         :games="newReleases"
@@ -197,17 +174,17 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2 lg:my-8">
+    <section class="my-2 lg:my-8">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
         <div
-          v-show="statusMostPlayed === `pending`"
+          v-show="statusMultiquery === `pending`"
           class="flex h-fit justify-center"
         >
           <span class="loading loading-spinner"></span>
         </div>
 
         <GameTile
-          v-show="statusMostPlayed === `success`"
+          v-show="statusMultiquery === `success`"
           class="w-full"
           :games="mostPlayed?.slice(0, 5)"
           title="Most Played"
@@ -218,14 +195,14 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
         </div>
 
         <div
-          v-show="statusPlaying === `pending`"
+          v-show="statusMultiquery === `pending`"
           class="flex h-fit justify-center"
         >
           <span class="loading loading-spinner"></span>
         </div>
 
         <GameTile
-          v-show="statusPlaying === `success`"
+          v-show="statusMultiquery === `success`"
           class="w-full"
           :games="playing?.slice(0, 5)"
           title="Playing"
@@ -236,14 +213,14 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
         </div>
 
         <div
-          v-show="statusWantToPlay === `pending`"
+          v-show="statusMultiquery === `pending`"
           class="flex h-fit justify-center"
         >
           <span class="loading loading-spinner"></span>
         </div>
 
         <GameTile
-          v-show="statusWantToPlay === `success`"
+          v-show="statusMultiquery === `success`"
           class="w-full"
           :games="wantToPlay?.slice(0, 5)"
           title="Want to Play"
@@ -251,7 +228,7 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       </div>
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section class="my-2">
       <GameSlider
         id="adventure"
         :games="adventure"
@@ -260,7 +237,7 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section class="my-2">
       <GameSlider
         id="hack-and-slash-beat-em-up"
         :games="hackAndSlashBeatEmUp"
@@ -269,7 +246,7 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section class="my-2">
       <GameSlider
         id="racing"
         :games="racing"
@@ -278,29 +255,61 @@ const { data: wantToPlay, status: statusWantToPlay } = fetchGameDetails(
       />
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2 lg:my-8">
-      <div class="flex flex-col gap-4 lg:flex-row [&_*]:flex-grow">
+    <section class="my-2 lg:my-8">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
+        <div
+          v-show="statusMultiquery === `pending`"
+          class="flex h-fit justify-center"
+        >
+          <span class="loading loading-spinner"></span>
+        </div>
+
         <GameTile
+          v-show="statusMultiquery === `success`"
           class="w-full"
-          :games="mostPlayed?.slice(5, 10)"
+          :games="mostPlayed?.slice(5)"
           title="Most Played"
         />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
+
+        <div class="lg:flex lg:justify-center">
+          <span class="divider flex-shrink lg:divider-horizontal"></span>
+        </div>
+
+        <div
+          v-show="statusMultiquery === `pending`"
+          class="flex h-fit justify-center"
+        >
+          <span class="loading loading-spinner"></span>
+        </div>
+
         <GameTile
+          v-show="statusMultiquery === `success`"
           class="w-full"
-          :games="playing?.slice(5, 10)"
+          :games="playing?.slice(5)"
           title="Playing"
         />
-        <div class="divider flex-shrink lg:divider-horizontal"></div>
+
+        <div class="lg:flex lg:justify-center">
+          <span class="divider flex-shrink lg:divider-horizontal"></span>
+        </div>
+
+        <div
+          v-show="statusMultiquery === `pending`"
+          class="flex h-fit justify-center"
+        >
+          <span class="loading loading-spinner"></span>
+        </div>
+
         <GameTile
+          v-show="statusMultiquery === `success`"
           class="w-full"
-          :games="wantToPlay?.slice(5, 10)"
+          :games="wantToPlay?.slice(5)"
           title="Want to Play"
         />
       </div>
     </section>
 
-    <section v-show="statusMultiquery === `success`" class="my-2">
+    <section class="my-2">
       <GameSlider
         id="sport"
         :games="sport"

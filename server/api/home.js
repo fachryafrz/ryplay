@@ -37,29 +37,41 @@ export default defineEventHandler(async (event) => {
           s total_rating_count desc;
           l 20;
         };
-        query popularity_primitives "popularity-data" {
-          f game_id; 
-          w popularity_type = 1;
-          s value desc; 
-          l 20;  
+        query games "most-anticipated" {
+          f *, cover.*, artworks.*;
+          w first_release_date >= ${today} & hypes >= 40 & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
         };
-        query popularity_primitives "most-played-data" {
-          f game_id; 
-          w popularity_type = 4;
-          s value desc; 
-          l 10;  
+        query games "new-releases" {
+          f *, cover.*, artworks.*;
+          w first_release_date <= ${today} & hypes >= 10 & category = 0;
+          s first_release_date desc;
+          l 20;
         };
-        query popularity_primitives "playing-data" {
-          f game_id; 
-          w popularity_type = 3;
-          s value desc; 
-          l 10;  
+        query games "adventure" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "adventure" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
         };
-        query popularity_primitives "want-to-play-data" {
-          f game_id; 
-          w popularity_type = 2;
-          s value desc; 
-          l 10;  
+        query games "hack-and-slash-beat-em-up" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "hack-and-slash-beat-em-up" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
+        query games "racing" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "racing" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
+        query games "sport" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "sport" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
         };
       `,
     });
