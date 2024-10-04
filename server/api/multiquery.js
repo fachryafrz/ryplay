@@ -19,6 +19,30 @@ export default defineEventHandler(async (event) => {
         Authorization: `Bearer ${access_token}`,
       },
       body: `
+        query games "adventure" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "adventure" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
+        query games "hack-and-slash-beat-em-up" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "hack-and-slash-beat-em-up" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
+        query games "racing" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "racing" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
+        query games "sport" {
+          f *, cover.*, artworks.*;
+          w cover != null & genres.slug = "sport" & screenshots != null & artworks != null & category = 0;
+          s hypes desc;
+          l 20;
+        };
         query popularity_primitives "popularity-data" {
           f game_id; 
           w popularity_type = 1;
@@ -76,6 +100,12 @@ export default defineEventHandler(async (event) => {
       });
     };
 
+    const adventure = data.find((res) => res.name === "adventure").result;
+    const hackAndSlashBeatEmUp = data.find(
+      (res) => res.name === "hack-and-slash-beat-em-up",
+    ).result;
+    const racing = data.find((res) => res.name === "racing").result;
+    const sport = data.find((res) => res.name === "sport").result;
     const popular = await fetchGameDetails(
       groupedPopularityData,
       "hypes desc",
@@ -97,7 +127,16 @@ export default defineEventHandler(async (event) => {
       10,
     );
 
-    return { popular, mostPlayed, playing, wantToPlay };
+    return {
+      adventure,
+      hackAndSlashBeatEmUp,
+      racing,
+      sport,
+      popular,
+      mostPlayed,
+      playing,
+      wantToPlay,
+    };
   };
 
   try {
