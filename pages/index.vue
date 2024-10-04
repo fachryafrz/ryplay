@@ -44,6 +44,14 @@ const mostAnticipated = home.value.results.find(
 const newReleases = home.value.results.find(
   (res) => res.name === "new-releases",
 ).result;
+const adventure = home.value.results.find(
+  (res) => res.name === "adventure",
+).result;
+const hackAndSlashBeatEmUp = home.value.results.find(
+  (res) => res.name === "hack-and-slash-beat-em-up",
+).result;
+const racing = home.value.results.find((res) => res.name === "racing").result;
+const sport = home.value.results.find((res) => res.name === "sport").result;
 
 const { data: multiquery, status: statusMultiquery } = useLazyFetch(
   "/api/multiquery",
@@ -71,12 +79,6 @@ const { data: multiquery, status: statusMultiquery } = useLazyFetch(
   },
 );
 
-const adventure = computed(() => multiquery.value?.adventure);
-const hackAndSlashBeatEmUp = computed(
-  () => multiquery.value?.hackAndSlashBeatEmUp,
-);
-const racing = computed(() => multiquery.value?.racing);
-const sport = computed(() => multiquery.value?.sport);
 const popular = computed(() => multiquery.value?.popular);
 const mostPlayed = computed(() => multiquery.value?.mostPlayed);
 const playing = computed(() => multiquery.value?.playing);
@@ -209,7 +211,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       </div>
     </section>
 
-    <section class="my-2" v-if="statusMultiquery === `success`">
+    <section class="my-2">
       <GameSlider
         id="adventure"
         :games="adventure"
@@ -218,7 +220,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       />
     </section>
 
-    <section class="my-2" v-if="statusMultiquery === `success`">
+    <section class="my-2">
       <GameSlider
         id="hack-and-slash-beat-em-up"
         :games="hackAndSlashBeatEmUp"
@@ -227,7 +229,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       />
     </section>
 
-    <section class="my-2" v-if="statusMultiquery === `success`">
+    <section class="my-2">
       <GameSlider
         id="racing"
         :games="racing"
@@ -235,6 +237,13 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         :see-all="`/search?genre=racing`"
       />
     </section>
+
+    <div
+      v-show="statusMultiquery !== `success`"
+      class="flex items-center justify-center gap-2"
+    >
+      <span class="loading loading-spinner"></span>
+    </div>
 
     <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
@@ -262,7 +271,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       </div>
     </section>
 
-    <section class="my-2" v-if="statusMultiquery === `success`">
+    <section class="my-2">
       <GameSlider
         id="sport"
         :games="sport"
