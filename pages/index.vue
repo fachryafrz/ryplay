@@ -48,6 +48,7 @@ const newReleases = home.value.results.find(
 const { data: multiquery, status: statusMultiquery } = useLazyFetch(
   "/api/multiquery",
   {
+    server: false,
     transform: (payload) => {
       return {
         ...payload,
