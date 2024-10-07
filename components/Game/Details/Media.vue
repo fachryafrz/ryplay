@@ -1,4 +1,7 @@
 <script setup>
+import LiteYouTubeEmbed from "vue-lite-youtube-embed";
+import "vue-lite-youtube-embed/style.css";
+
 const config = useRuntimeConfig();
 
 const { game } = defineProps(["game"]);
@@ -13,13 +16,25 @@ const swiperSlideClass =
 const setMainSwiper = (swiper) => (mainSwiper.value = swiper);
 const setThumbSwiper = (swiper) => (thumbSwiper.value = swiper);
 const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
+
+const youtubeParams = ref();
+
+onMounted(() => {
+  youtubeParams.value = new URLSearchParams({
+    rel: 0,
+    start: 0,
+    enablejsapi: 1,
+    origin: window.location.origin,
+    widget_referrer: window.location.href,
+  });
+});
 </script>
 
 <template>
   <div class="relative flex flex-col gap-1">
     <!-- Big -->
     <div
-      class="relative rounded-xl before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 xl:before:hidden"
+      class="relative -mx-4 overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:z-10 before:hidden before:bg-gradient-to-t before:from-base-100 lg:mx-0 lg:rounded-xl xl:before:hidden"
     >
       <Swiper
         @swiper="setMainSwiper"
@@ -44,12 +59,13 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
         <!-- NOTE: Video -->
         <SwiperSlide v-for="video in game.videos" :key="video.video_id">
           <figure class="aspect-video w-full overflow-hidden bg-base-100">
-            <iframe
-              :src="`https://youtube.com/embed/${video.video_id}?rel=0&start=0&enablejsapi=1&origin=${APP_URL}`"
-              frameborder="0"
-              allowfullscreen
-              class="h-full w-full rounded-xl"
-            ></iframe>
+            <LiteYouTubeEmbed
+              :id="video.video_id"
+              :title="video.name"
+              :cookie="true"
+              :params="youtubeParams?.toString()"
+              poster="maxresdefault"
+            />
           </figure>
         </SwiperSlide>
 
@@ -61,7 +77,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
               :alt="game.name"
-              class="rounded-xl object-contain"
+              class="object-contain"
               draggable="false"
               loading="lazy"
             />
@@ -72,7 +88,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
               :alt="game.name"
-              class="rounded-xl object-contain"
+              class="object-contain"
               draggable="false"
               loading="lazy"
             />
@@ -116,6 +132,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           },
         }"
         class="!-m-1 !mx-10 !px-1 !py-2"
+        wrapper-class="[&_*]:rounded-lg lg:[&_*]:rounded-xl"
       >
         <SwiperSlide
           v-if="game.videos?.length > 0"
@@ -124,7 +141,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           :class="swiperSlideClass"
         >
           <figure
-            class="relative aspect-video cursor-pointer overflow-hidden rounded-xl"
+            class="relative aspect-video cursor-pointer overflow-hidden"
             :class="
               activeSlide === index
                 ? 'outline-3 cursor-default border-4 border-base-100 outline outline-primary'
@@ -173,7 +190,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           :class="swiperSlideClass"
         >
           <figure
-            class="aspect-video cursor-pointer overflow-hidden rounded-xl"
+            class="aspect-video cursor-pointer overflow-hidden"
             :class="
               activeSlide === index + (game.videos?.length ?? 0)
                 ? 'outline-3 cursor-default border-4 border-base-100 outline outline-primary'
@@ -195,7 +212,7 @@ const setActiveSlide = () => (activeSlide.value = mainSwiper.value.activeIndex);
           :class="swiperSlideClass"
         >
           <figure
-            class="aspect-video cursor-pointer overflow-hidden rounded-xl"
+            class="aspect-video cursor-pointer overflow-hidden"
             :class="
               activeSlide ===
               index +
