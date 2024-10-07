@@ -21,7 +21,27 @@ const setShowFilter = () => {
   showFilter.value = !showFilter.value;
 };
 
-const { data: multiquery } = await useFetch("/api/search/multiquery");
+const { data: multiquery } = await useFetch("/api/search/multiquery", {
+  transform: (payload) => {
+    return {
+      results: payload,
+      fetchedAt: new Date(),
+    };
+  },
+  getCachedData: (key, nuxtApp) => {
+    const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+    if (!data) return;
+
+    const expiration = new Date(data.fetchedAt);
+    expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
+
+    const isExpired = expiration.getTime() < Date.now();
+
+    if (isExpired) return;
+
+    return data;
+  },
+});
 
 const { execute: fetchGames, error } = await useAsyncData(
   () =>
@@ -94,7 +114,7 @@ useInfiniteScroll(
         'translate-x-0': showFilter,
       }"
     >
-      <SearchFilter :multiquery="multiquery" />
+      <SearchFilter :multiquery="multiquery.results" />
 
       <button @click="setShowFilter" class="absolute right-4 top-2 lg:hidden">
         <Icon name="ion:close" size="28" />
