@@ -2,25 +2,39 @@
 const config = useRuntimeConfig();
 const router = useRouter();
 const route = useRoute();
-const loadMoreRef = ref();
-const games = ref([]);
-const offset = ref(0);
-const showFilter = ref(false);
-const isLoading = ref(true);
-const isFinished = ref(false);
 
-const isThereAnyFilter = computed(() => {
-  return Object.keys(route.query).length > 0;
+useSeoMeta({
+  title: `Search`,
+  description: `Search for your favorite games`,
+  ogTitle: `Search - ${config.public.APP_NAME}`,
+  ogDescription: `Search for your favorite games`,
+  twitterTitle: `Search - ${config.public.APP_NAME}`,
+  twitterDescription: `Search for your favorite games`,
 });
 
-const handleClearFilters = () => {
-  router.push({ path: "/search" });
-};
+// State
+const loadMoreRef = ref();
+const games = ref([]);
+const showFilter = ref(false);
+const isLoading = ref(false);
+const isFinished = ref(false);
 
-const setShowFilter = () => {
-  showFilter.value = !showFilter.value;
-};
+// Functions
+const handleClearFilters = () => router.push({ path: "/search" });
+const setShowFilter = () => (showFilter.value = !showFilter.value);
 
+// Computed
+const isThereAnyFilter = computed(() => Object.keys(route.query).length > 0);
+const getKey = computed(() => {
+  const params = new URLSearchParams({
+    ...route.query,
+    offset: games.value.length,
+  }).toString();
+
+  return `/api/games/search?${params}`;
+});
+
+// Fetcher
 const { data: multiquery } = await useFetch("/api/search/multiquery", {
   transform: (payload) => {
     return {
@@ -43,50 +57,55 @@ const { data: multiquery } = await useFetch("/api/search/multiquery", {
   },
 });
 
-const { execute: fetchGames, error } = await useAsyncData(
-  () =>
-    $fetch("/api/games/search", {
-      params: {
-        ...route.query,
-        offset: offset.value,
-      },
-      onResponse: ({ response: { _data: data } }) => {
-        isLoading.value = false;
-        isFinished.value = false;
+const fetchGames = async (key) => {
+  const { data } = await useAsyncData(key, () => $fetch(key), {
+    transform: (payload) => {
+      return {
+        results: payload,
+        fetchedAt: new Date(),
+      };
+    },
+    getCachedData: (key, nuxtApp) => {
+      const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+      if (!data) return;
 
-        const combinedGames = [...games.value, ...data];
+      const expiration = new Date(data.fetchedAt);
+      expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
 
-        const uniqueGames = combinedGames.filter(
-          (game, index, self) =>
-            index === self.findIndex((t) => t.id === game.id),
-        );
+      const isExpired = expiration.getTime() < Date.now();
 
-        if (uniqueGames.length === games.value.length) {
-          isFinished.value = true;
-        }
+      if (isExpired) return;
 
-        games.value = uniqueGames;
-      },
-    }),
-  { immediate: false },
-);
+      return data;
+    },
+  });
 
-useSeoMeta({
-  title: `Search`,
-  description: `Search for your favorite games`,
-  ogTitle: `Search - ${config.public.APP_NAME}`,
-  ogDescription: `Search for your favorite games`,
-  twitterTitle: `Search - ${config.public.APP_NAME}`,
-  twitterDescription: `Search for your favorite games`,
-});
+  isLoading.value = false;
+  isFinished.value = false;
 
+  const combinedGames = [...games.value, ...data.value.results];
+
+  const uniqueGames = combinedGames.filter(
+    (game, index, self) => index === self.findIndex((t) => t.id === game.id),
+  );
+
+  if (uniqueGames.length === games.value.length) {
+    isFinished.value = true;
+  }
+
+  games.value = uniqueGames;
+};
+
+// Lifecycle
 watch(
   () => route.query,
   async () => {
-    offset.value = 0;
+    // window.scrollTo({ top: 0 });
+
     games.value = [];
     isLoading.value = true;
-    await fetchGames();
+
+    await fetchGames(getKey.value);
   },
   { immediate: true },
 );
@@ -94,11 +113,10 @@ watch(
 useInfiniteScroll(
   loadMoreRef,
   async () => {
-    offset.value += 20;
-    await fetchGames();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await fetchGames(getKey.value);
+    await new Promise((resolve) => setTimeout(resolve, 1e3));
   },
-  // { distance: 100 },
+  { distance: 10 },
 );
 </script>
 
