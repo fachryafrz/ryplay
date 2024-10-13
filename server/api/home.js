@@ -67,12 +67,6 @@ export default defineEventHandler(async (event) => {
           s hypes desc;
           l 20;
         };
-        query games "sport" {
-          f *, cover.*, artworks.*;
-          w cover != null & genres.slug = "sport" & screenshots != null & artworks != null & category = 0;
-          s hypes desc;
-          l 20;
-        };
       `,
     });
 

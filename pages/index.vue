@@ -51,7 +51,6 @@ const hackAndSlashBeatEmUp = home.value.results.find(
   (res) => res.name === "hack-and-slash-beat-em-up",
 ).result;
 const racing = home.value.results.find((res) => res.name === "racing").result;
-const sport = home.value.results.find((res) => res.name === "sport").result;
 
 const { data: multiquery, status: statusMultiquery } = useLazyFetch(
   "/api/multiquery",
@@ -106,12 +105,14 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section>
 
     <section class="my-2">
-      <div
+      <!-- <div
         v-show="statusMultiquery !== `success`"
         class="flex items-center justify-center gap-2"
       >
         <span class="loading loading-spinner"></span>
-      </div>
+      </div> -->
+
+      <SkeletonSlider v-show="statusMultiquery !== `success`" />
 
       <GameSlider
         v-show="statusMultiquery === `success`"
@@ -174,12 +175,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       />
     </section>
 
-    <div
-      v-show="statusMultiquery !== `success`"
-      class="flex items-center justify-center gap-2"
-    >
-      <span class="loading loading-spinner"></span>
-    </div>
+    <SkeletonTile v-show="statusMultiquery !== `success`" />
 
     <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
@@ -238,12 +234,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       />
     </section>
 
-    <div
-      v-show="statusMultiquery !== `success`"
-      class="flex items-center justify-center gap-2"
-    >
-      <span class="loading loading-spinner"></span>
-    </div>
+    <SkeletonTile v-show="statusMultiquery !== `success`" />
 
     <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
@@ -269,27 +260,6 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
           title="Want to Play"
         />
       </div>
-    </section>
-
-    <section class="my-2">
-      <GameSlider
-        id="sport"
-        :games="sport"
-        title="Sport"
-        :slides-per-group="1"
-        :breakpoints="{
-          768: {
-            slidesPerGroup: 2,
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerGroup: 3,
-            slidesPerView: 3,
-          },
-        }"
-        :isHorizontal="true"
-        :see-all="`/search?genre=sport`"
-      />
     </section>
   </div>
 </template>
