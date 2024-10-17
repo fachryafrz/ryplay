@@ -19,7 +19,7 @@ const { data: home } = await useFetch("/api/home", {
     if (!data) return;
 
     const expiration = new Date(data.fetchedAt);
-    expiration.setTime(expiration.getTime() + 5 * 60 * 1000);
+    expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
 
     const isExpired = expiration.getTime() < Date.now();
 
