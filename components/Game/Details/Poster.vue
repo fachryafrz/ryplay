@@ -1,9 +1,12 @@
 <script setup>
 import { isPlural } from "~/helper/isPlural";
+import gameCategory from "@/json/game-category.json";
 
 const { game, gameCover } = defineProps(["game", "gameCover"]);
 
 const dayjs = useDayjs();
+
+const category = gameCategory.find((item) => item.id === game.category).name;
 
 const uniqueCompanies = game.involved_companies?.filter(
   (company, index, self) =>
@@ -31,13 +34,19 @@ const gameInfo = [
     text: publishers,
   },
 ];
+
+// NOTE: If want to combine developer and publisher
+const isSameDeveloperPublisher = developers?.length === publishers?.length && developers?.every((d, i) => d.company.name === publishers[i].company.name);
 </script>
 
 <template>
   <div
     class="top sticky top-[calc(72px+3px)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
   >
-    <figure class="">
+    <figure
+      class="after-content relative after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-sm after:text-white after:backdrop-blur"
+      :data-after-content="category"
+    >
       <img
         :src="gameCover"
         :alt="game.name"
