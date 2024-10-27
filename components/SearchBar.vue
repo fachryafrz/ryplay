@@ -10,6 +10,7 @@ const handleSubmit = () => {
       path: "/search",
       query: {
         ...route.query,
+        company: undefined,
         query: searchQuery.value.trim(),
       },
     });

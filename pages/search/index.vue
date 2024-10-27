@@ -16,7 +16,7 @@ useSeoMeta({
 const loadMoreRef = ref();
 const games = ref([]);
 const showFilter = ref(false);
-const isLoading = ref(false);
+const isLoading = ref(true);
 const isFinished = ref(false);
 
 // Functions
@@ -24,6 +24,7 @@ const handleClearFilters = () => router.push({ path: "/search" });
 const setShowFilter = () => (showFilter.value = !showFilter.value);
 
 // Computed
+const isCompanyParams = computed(() => Object.keys(route.query).includes("company"));
 const isThereAnyFilter = computed(() => Object.keys(route.query).length > 0);
 const getKey = computed(() => {
   const params = new URLSearchParams({
@@ -81,17 +82,16 @@ const fetchGames = async (key) => {
   });
 
   isLoading.value = false;
-  isFinished.value = false;
+
+  if (data.value.results.length < 1) {
+    isFinished.value = true;
+  }
 
   const combinedGames = [...games.value, ...data.value.results];
 
   const uniqueGames = combinedGames.filter(
     (game, index, self) => index === self.findIndex((t) => t.id === game.id),
   );
-
-  if (uniqueGames.length === games.value.length) {
-    isFinished.value = true;
-  }
 
   games.value = uniqueGames;
 };
@@ -105,6 +105,7 @@ onMounted(() => {
 
       games.value = [];
       isLoading.value = true;
+      isFinished.value = false;
 
       await fetchGames(getKey.value);
     },
@@ -190,7 +191,7 @@ useInfiniteScroll(
       <!-- Results -->
       <section class="p-4 py-2 @container">
         <GameGrid :games="games">
-          <template v-if="!isLoading && !isFinished">
+          <template v-if="!isFinished && !isCompanyParams">
             <span
               ref="loadMoreRef"
               class="aspect-poster animate-pulse rounded-xl bg-gray-400 bg-opacity-20"
