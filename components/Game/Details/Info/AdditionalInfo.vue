@@ -29,9 +29,9 @@ const { game, filteredExternalGames, findStoreById } = defineProps([
       </div>
     </div>
 
-    <!-- Available in -->
+    <!-- Available on -->
     <div v-show="filteredExternalGames?.length > 0">
-      <h2 class="heading-2">Available in</h2>
+      <h2 class="heading-2">Available on</h2>
 
       <GameDetailsInfoStores
         :filtered-external-games="filteredExternalGames"
