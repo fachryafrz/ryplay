@@ -37,7 +37,17 @@ const category = gameCategory.find((item) => item.id === game.category).name;
     >
       <figure class="-z-10 block aspect-video overflow-hidden">
         <span
+          v-if="game.artworks?.length > 0 || game.screenshots?.length > 0"
           :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg')`"
+          :aria-label="game.name"
+          id="game-cover"
+          class="block h-full w-full bg-cover bg-center transition-all"
+          draggable="false"
+        ></span>
+
+        <span
+          v-else
+          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg')`"
           :aria-label="game.name"
           id="game-cover"
           class="block h-full w-full bg-cover bg-center transition-all"
