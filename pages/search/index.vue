@@ -145,7 +145,7 @@ useInfiniteScroll(
 
     <!-- Filters -->
     <div
-      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all duration-300 lg:h-auto lg:max-h-none lg:min-w-[315px] lg:max-w-[315px] lg:pl-4"
+      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all duration-300 lg:sticky lg:h-auto lg:max-h-none lg:min-w-[315px] lg:max-w-[315px] lg:pl-4"
       :class="{
         '-translate-x-[calc(100%+1rem)]': !showFilter,
         'translate-x-0': showFilter,
@@ -162,7 +162,7 @@ useInfiniteScroll(
     <div
       class="flex w-full flex-col transition-all duration-300"
       :class="{
-        'lg:ml-[315px]': showFilter,
+        'lg:-ml-[315px]': !showFilter,
       }"
     >
       <section
@@ -210,7 +210,7 @@ useInfiniteScroll(
       </section>
 
       <!-- Results -->
-      <section class="p-4 py-2 @container">
+      <section class="px-4 pt-2 @container">
         <GameGrid :games="games">
           <template v-if="!isFinished && !isCompanyParams">
             <span
