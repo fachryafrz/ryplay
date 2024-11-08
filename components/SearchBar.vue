@@ -14,23 +14,19 @@ const handleSubmit = () => {
         query: searchQuery.value.trim(),
       },
     });
+
+    inputRef.value.blur();
   }
 };
 
-const clearSearch = () => {
-  router.push({
-    path: "/search",
-    query: {
-      ...route.query,
-      query: undefined,
-    },
-  });
-};
+const clearSearch = () => (searchQuery.value = "");
 
 watch(
   () => route.query,
   () => {
-    searchQuery.value = route.query.query;
+    if (route.query.query) {
+      searchQuery.value = route.query.query;
+    }
   },
   { immediate: true },
 );
@@ -66,7 +62,9 @@ onMounted(() => {
       <label
         class="input input-md flex w-full items-center gap-2 rounded-lg bg-neutral outline outline-secondary xl:max-w-md"
       >
-        <span class="material-symbols-outlined"> search </span>
+        <NuxtLink to="/search" class="flex">
+          <span class="material-symbols-outlined"> search </span>
+        </NuxtLink>
         <input
           v-model="searchQuery"
           ref="inputRef"
@@ -75,16 +73,16 @@ onMounted(() => {
           placeholder="Search"
         />
         <button
-          v-show="route.query.query"
+          v-show="searchQuery"
           @click="clearSearch"
           type="button"
           class="material-symbols-outlined"
         >
           close
         </button>
-        <NuxtLink to="/search" class="hidden xl:inline"
-          ><kbd class="kbd kbd-sm">/</kbd></NuxtLink
-        >
+        <div class="hidden xl:inline">
+          <kbd class="kbd kbd-sm">/</kbd>
+        </div>
       </label>
     </form>
   </div>
