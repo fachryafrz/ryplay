@@ -24,8 +24,12 @@ const handleClearFilters = () => router.push({ path: "/search" });
 const setShowFilter = () => (showFilter.value = !showFilter.value);
 
 // Computed
-const isCompanyParams = computed(() => Object.keys(route.query).includes("company"));
-const isThereAnyFilter = computed(() => Object.keys(route.query).length > 0);
+const isCompanyParams = computed(() =>
+  Object.keys(route.query).includes("company"),
+);
+const isThereAnyFilter = computed(
+  () => Object.keys(route.query).filter((key) => key !== "query").length > 0,
+);
 const getKey = computed(() => {
   const params = new URLSearchParams({
     ...route.query,
@@ -98,6 +102,12 @@ const fetchGames = async (key) => {
 
 // Lifecycle
 onMounted(() => {
+  if (window.innerWidth < 1024) {
+    showFilter.value = false;
+  } else {
+    showFilter.value = true;
+  }
+
   watch(
     () => route.query,
     async () => {
@@ -129,9 +139,9 @@ useInfiniteScroll(
 
     <!-- Filters -->
     <div
-      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all lg:static lg:h-auto lg:max-h-none lg:min-w-[315px] lg:max-w-[315px] lg:pl-4"
+      class="fixed inset-0 top-[72px] z-[100] mt-1 h-screen max-h-[calc(100dvh-72px)] transition-all duration-300 lg:h-auto lg:max-h-none lg:min-w-[315px] lg:max-w-[315px] lg:pl-4"
       :class="{
-        '-translate-x-full lg:translate-x-0': !showFilter,
+        '-translate-x-[calc(100%+1rem)]': !showFilter,
         'translate-x-0': showFilter,
       }"
     >
@@ -143,7 +153,12 @@ useInfiniteScroll(
     </div>
 
     <!-- Top -->
-    <div class="flex w-full flex-col">
+    <div
+      class="flex w-full flex-col transition-all duration-300"
+      :class="{
+        'lg:ml-[315px]': showFilter,
+      }"
+    >
       <section
         class="sticky top-[72px] z-[99] flex w-full flex-row items-center gap-3 bg-base-100 bg-opacity-90 p-4 backdrop-blur lg:py-2"
       >
@@ -156,22 +171,22 @@ useInfiniteScroll(
 
         <!-- Sort -->
         <div class="flex items-center gap-2 sm:w-full">
-          <div class="flex items-center gap-2 sm:h-[41px]">
+          <div class="flex items-center gap-2 sm:h-[41px] sm:flex-row-reverse">
             <button
               v-if="isThereAnyFilter"
               @click="handleClearFilters"
               class="btn btn-square btn-outline btn-error sm:btn-sm sm:h-full sm:w-fit sm:px-4"
             >
               <Icon name="ion:close" size="20" />
-              <span class="hidden sm:block">Clear</span>
+              <span class="hidden sm:block">Reset</span>
             </button>
 
             <button
               @click="setShowFilter"
-              class="btn btn-square btn-secondary sm:btn-sm sm:h-full sm:w-fit sm:px-4 lg:hidden"
+              class="btn btn-square btn-secondary aspect-square sm:btn-sm sm:h-full sm:w-fit sm:px-0"
             >
-              <span class="hidden sm:block">Filters</span>
-              <Icon name="ion:filter" size="20" />
+              <!-- <span class="hidden sm:block">Filters</span> -->
+              <Icon name="ion:options" size="20" />
             </button>
           </div>
 
