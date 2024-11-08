@@ -19,11 +19,10 @@ const showFilter = ref(false);
 const isLoading = ref(true);
 const isFinished = ref(false);
 
-// Functions
-const handleClearFilters = () => router.push({ path: "/search" });
-const setShowFilter = () => (showFilter.value = !showFilter.value);
-
 // Computed
+const isQueryParams = computed(() =>
+  Object.keys(route.query).includes("query"),
+);
 const isCompanyParams = computed(() =>
   Object.keys(route.query).includes("company"),
 );
@@ -38,6 +37,13 @@ const getKey = computed(() => {
 
   return `/api/games/search?${params}`;
 });
+
+// Functions
+const handleClearFilters = () =>
+  isQueryParams.value
+    ? router.push({ path: "/search", query: { query: route.query.query } })
+    : router.push({ path: "/search" });
+const setShowFilter = () => (showFilter.value = !showFilter.value);
 
 // Fetcher
 const { data: multiquery } = await useFetch("/api/search/multiquery", {
