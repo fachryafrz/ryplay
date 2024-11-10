@@ -55,7 +55,9 @@ watch(
 </script>
 
 <template>
-  <div class="grid gap-2 @xs:grid-cols-2 [&_label]:text-sm">
+  <div
+    class="grid gap-2 @xs:grid-flow-col @xs:grid-rows-5 @xl:grid-rows-4 @3xl:grid-rows-3 [&_label]:text-sm"
+  >
     <div class="flex items-center">
       <input
         id="category_all"

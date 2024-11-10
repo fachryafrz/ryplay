@@ -53,7 +53,9 @@ watch(
 </script>
 
 <template>
-  <div class="grid gap-2 @xs:grid-cols-2 [&_label]:text-sm">
+  <div
+    class="grid gap-2 @lg:grid-flow-col @lg:grid-rows-4 @xl:grid-rows-3 [&_label]:text-sm"
+  >
     <div class="flex items-center">
       <input
         id="game_mode_all"
