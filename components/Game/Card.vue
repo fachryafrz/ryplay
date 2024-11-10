@@ -10,7 +10,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
   <NuxtLink :to="`/games/${game.slug}`" class="relative">
     <div
       v-if="!isHorizontal"
-      :class="`after-content relative transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_span]:scale-105 hocus:[&_span]:duration-500`"
+      :class="`after-content relative transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500`"
       :data-after-content="category"
     >
       <figure
@@ -24,6 +24,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
           sizes="100vw"
           alt=""
           :aria-hidden="true"
+          id="game-cover"
           class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
           loading="lazy"
@@ -38,7 +39,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
 
     <div
       v-if="isHorizontal"
-      class="after-content relative mb-4 overflow-hidden rounded-xl transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_span]:scale-105 hocus:[&_span]:duration-500"
+      class="after-content relative mb-4 overflow-hidden rounded-xl transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500"
       :data-after-content="category"
     >
       <figure class="-z-10 block aspect-video overflow-hidden">
@@ -67,7 +68,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
           sizes="100vw"
           alt=""
           id="game-cover"
-          draggable="false"
+          draggable=""
           class="block h-full w-full transition-all"
           loading="lazy"
           role="presentation"

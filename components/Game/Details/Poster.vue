@@ -36,7 +36,9 @@ const gameInfo = [
 ];
 
 // NOTE: If want to combine developer and publisher
-const isSameDeveloperPublisher = developers?.length === publishers?.length && developers?.every((d, i) => d.company.name === publishers[i].company.name);
+const isSameDeveloperPublisher =
+  developers?.length === publishers?.length &&
+  developers?.every((d, i) => d.company.name === publishers[i].company.name);
 </script>
 
 <template>
@@ -48,7 +50,11 @@ const isSameDeveloperPublisher = developers?.length === publishers?.length && de
       :data-after-content="category"
     >
       <img
-        :src="gameCover"
+        :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover?.image_id}.jpg`"
+        :srcset="`
+          https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg 100w,
+        `"
+        sizes="100vw"
         :alt="game.name"
         class="rounded-md"
         draggable="false"
