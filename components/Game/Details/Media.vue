@@ -75,7 +75,9 @@ onMounted(() => {
         >
           <figure class="aspect-video overflow-hidden bg-base-100">
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
+              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${screenshot.image_id}.jpg`"
+              :srcset="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg 100w`"
+              sizes="100vw"
               :alt="game.name"
               class="object-contain"
               draggable="false"
@@ -86,7 +88,9 @@ onMounted(() => {
         <SwiperSlide v-for="artwork in game.artworks" :key="artwork.image_id">
           <figure class="aspect-video overflow-hidden bg-base-100">
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
+              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${artwork.image_id}.jpg`"
+              :srcset="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg 100w`"
+              sizes="100vw"
               :alt="game.name"
               class="object-contain"
               draggable="false"
@@ -148,12 +152,15 @@ onMounted(() => {
                 : ''
             "
           >
-            <span
-              :style="`background-image: url('https://img.youtube.com/vi/${video.video_id}/0.jpg');`"
-              :aria-label="game.name"
+            <img
+              :src="`https://img.youtube.com/vi/${video.video_id}/0.jpg`"
+              alt=""
+              role="presentation"
+              aria-hidden="true"
               class="block h-full w-full bg-cover bg-center"
               draggable="false"
-            ></span>
+              loading="lazy"
+            />
 
             <div
               class="pointer-events-none absolute inset-0 grid place-content-center"
@@ -197,12 +204,16 @@ onMounted(() => {
                 : ''
             "
           >
-            <span
-              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg');`"
-              :aria-label="game.name"
-              class="block h-full w-full bg-cover bg-center"
-              draggable="false"
-            ></span>
+            <img
+              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${screenshot.image_id}.jpg`"
+              :srcset="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg 100w`"
+              sizes="100vw"
+              alt=""
+              role="presentation"
+              aria-hidden="true"
+              loading="lazy"
+              class="block h-full w-full"
+            />
           </figure>
         </SwiperSlide>
         <SwiperSlide
@@ -222,12 +233,16 @@ onMounted(() => {
                 : ''
             "
           >
-            <span
-              :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg');`"
-              :aria-label="game.name"
-              class="block h-full w-full bg-cover bg-center"
-              draggable="false"
-            ></span>
+            <img
+              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${artwork.image_id}.jpg`"
+              :srcset="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg 100w`"
+              sizes="100vw"
+              alt=""
+              role="presentation"
+              aria-hidden="true"
+              loading="lazy"
+              class="block h-full w-full"
+            />
           </figure>
         </SwiperSlide>
       </Swiper>

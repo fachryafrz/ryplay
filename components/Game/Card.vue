@@ -16,13 +16,19 @@ const category = gameCategory.find((item) => item.id === game.category).name;
       <figure
         class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral"
       >
-        <span
-          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg')`"
-          :aria-label="game.name"
-          id="game-cover"
+        <img
+          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover?.image_id}.jpg`"
+          :srcset="`
+            https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg 100w,
+            `"
+          sizes="100vw"
+          alt=""
+          :aria-hidden="true"
           class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
-        ></span>
+          loading="lazy"
+          role="presentation"
+        />
       </figure>
 
       <h3 :title="game.name" class="sr-only">
@@ -36,23 +42,37 @@ const category = gameCategory.find((item) => item.id === game.category).name;
       :data-after-content="category"
     >
       <figure class="-z-10 block aspect-video overflow-hidden">
-        <span
+        <img
           v-if="game.artworks?.length > 0 || game.screenshots?.length > 0"
-          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg')`"
-          :aria-label="game.name"
+          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
+          :srcset="`
+            https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg 100w,
+            `"
+          sizes="100vw"
+          alt=""
           id="game-cover"
-          class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
-        ></span>
+          class="block h-full w-full transition-all"
+          loading="lazy"
+          role="presentation"
+          aria-hidden="true"
+        />
 
-        <span
+        <img
           v-else
-          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg')`"
-          :aria-label="game.name"
+          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`"
+          :srcset="`
+            https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg 100w,
+            `"
+          sizes="100vw"
+          alt=""
           id="game-cover"
-          class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
-        ></span>
+          class="block h-full w-full transition-all"
+          loading="lazy"
+          role="presentation"
+          aria-hidden="true"
+        />
       </figure>
 
       <div

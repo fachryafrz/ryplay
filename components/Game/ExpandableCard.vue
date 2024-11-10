@@ -28,23 +28,34 @@ const lastHoveredIndex = ref(0);
         { active: hoveredIndex === index || lastHoveredIndex === index },
       ]"
     >
-      <span
-        :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg');`"
-        :aria-label="game.name"
+      <img
+        :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`"
+        :srcset="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg 100w`"
+        sizes="100vw"
+        alt=""
         id="game-cover"
         class="block h-full w-full bg-cover bg-center transition-all"
         draggable="false"
-      ></span>
+        loading="lazy"
+        role="presentation"
+        aria-hidden="true"
+      />
       <div
         id="game-screenshot"
         class="absolute inset-0 opacity-0 transition-opacity duration-700"
       >
-        <span
-          :style="`background-image: url('https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg');`"
-          :aria-label="game.name"
-          class="block h-full w-full bg-cover bg-center"
+        <img
+          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.screenshots[0].image_id}.jpg`"
+          :srcset="`https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg 100w`"
+          sizes="100vw"
+          alt=""
+          id="game-screenshot"
+          class="block h-full w-full bg-cover bg-center transition-all"
           draggable="false"
-        ></span>
+          loading="lazy"
+          role="presentation"
+          aria-hidden="true"
+        />
 
         <div
           class="absolute inset-0 z-10 flex flex-col justify-end gap-1 text-pretty p-2 px-6 before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-t before:from-base-100"
