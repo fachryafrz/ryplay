@@ -76,15 +76,12 @@ useSeoMeta({
     </div>
   </div>
 
-  <div v-if="game.similar_games?.length > 0" class="col-span-full pt-4">
-    <div class="flex flex-col gap-4">
-      <div>
-        <h2 class="heading-2">Similar Games</h2>
-        <p class="text-sm text-neutral-500">
-          Discover games similar to this one
-        </p>
-      </div>
-      <GameGrid :games="game.similar_games" />
-    </div>
+  <div v-if="game.similar_games?.length > 0" class="col-span-full pt-4 max-w-7xl mx-auto">
+    <GameSlider
+      id="similarGames"
+      :games="game.similar_games"
+      title="Similar Games"
+      description="Discover games similar to this one"
+    />
   </div>
 </template>
