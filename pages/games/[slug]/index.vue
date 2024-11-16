@@ -76,12 +76,25 @@ useSeoMeta({
     </div>
   </div>
 
-  <div v-if="game.similar_games?.length > 0" class="col-span-full pt-4 max-w-7xl mx-auto">
+  <div
+    v-if="game.similar_games?.length > 0"
+    class="col-span-full mx-auto max-w-7xl pt-4"
+  >
     <GameSlider
       id="similarGames"
       :games="game.similar_games"
       title="Similar Games"
       description="Discover games similar to this one"
+      :breakpoints="{
+        768: {
+          slidesPerGroup: 4,
+          slidesPerView: 4,
+        },
+        1024: {
+          slidesPerGroup: 5,
+          slidesPerView: 5,
+        },
+      }"
     />
   </div>
 </template>

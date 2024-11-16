@@ -40,7 +40,7 @@ const defaultBreakpoints = {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 @container">
     <div class="flex items-end justify-between">
       <div>
         <h2 v-if="!seeAll" class="heading-2">{{ title }}</h2>
@@ -72,17 +72,6 @@ const defaultBreakpoints = {
           <Icon name="ion:md-arrow-dropright" size="20" />
         </button>
       </div>
-
-      <!-- <NuxtLink
-        to="/"
-        class="flex items-center gap-2 !bg-transparent text-sm font-medium text-primary [&_*]:transition-all first:[&_span]:hocus:-translate-x-1 last:[&_span]:hocus:scale-125"
-      >
-        <span class="whitespace-nowrap">See all</span>
-
-        <span class="material-symbols-outlined text-sm">
-          arrow_forward_ios
-        </span>
-      </NuxtLink> -->
     </div>
 
     <div
@@ -104,8 +93,8 @@ const defaultBreakpoints = {
           :key="game.slug"
           :class="
             !isHorizontal
-              ? `max-w-[calc(100%/2.5)] md:max-w-[calc(100%/4)] lg:max-w-[calc(100%/5)] xl:max-w-[calc(100%/6)]`
-              : `max-w-[calc(100%/1.25)] md:max-w-[calc(100%/2.25)] lg:max-w-[calc(100%/${slidesPerView || 3})]`
+              ? `max-w-[calc(100%/2.5)] @3xl:max-w-[calc(100%/4)]`
+              : `max-w-[calc(100%/1.25)] @3xl:max-w-[calc(100%/2.25)]`
           "
         >
           <GameCard :game="game" :isHorizontal="isHorizontal" />

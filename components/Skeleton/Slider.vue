@@ -20,7 +20,7 @@ const SLIDER_COUNT = 6;
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 @container">
     <div class="flex items-end justify-between">
       <div class="flex flex-col gap-1">
         <span :class="`block h-7 w-44 rounded ${loadingClass}`"></span>
@@ -46,8 +46,8 @@ const SLIDER_COUNT = 6;
           :key="slider"
           :class="
             !isHorizontal
-              ? `max-w-[calc(100%/2.5)] md:max-w-[calc(100%/4)] lg:max-w-[calc(100%/5)] xl:max-w-[calc(100%/6)]`
-              : `max-w-[calc(100%/1.25)] md:max-w-[calc(100%/2.25)] lg:max-w-[calc(100%/3)]`
+              ? `max-w-[calc(100%/2.5)] @3xl:max-w-[calc(100%/4)]`
+              : `max-w-[calc(100%/1.25)] @3xl:max-w-[calc(100%/2.25)]`
           "
         >
           <span
