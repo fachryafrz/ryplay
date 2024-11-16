@@ -75,9 +75,7 @@ onMounted(() => {
         >
           <figure class="aspect-video overflow-hidden bg-base-100">
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${screenshot.image_id}.jpg`"
-              :srcset="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg 100w`"
-              sizes="100vw"
+              :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${screenshot.image_id}.jpg`"
               :alt="game.name"
               class="object-contain"
               draggable="false"
@@ -88,9 +86,7 @@ onMounted(() => {
         <SwiperSlide v-for="artwork in game.artworks" :key="artwork.image_id">
           <figure class="aspect-video overflow-hidden bg-base-100">
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${artwork.image_id}.jpg`"
-              :srcset="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg 100w`"
-              sizes="100vw"
+              :src="`https://images.igdb.com/igdb/image/upload/t_1080p/${artwork.image_id}.jpg`"
               :alt="game.name"
               class="object-contain"
               draggable="false"
@@ -205,9 +201,7 @@ onMounted(() => {
             "
           >
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${screenshot.image_id}.jpg`"
-              :srcset="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg 100w`"
-              sizes="100vw"
+              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${screenshot.image_id}.jpg`"
               alt=""
               role="presentation"
               aria-hidden="true"
@@ -234,9 +228,7 @@ onMounted(() => {
             "
           >
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${artwork.image_id}.jpg`"
-              :srcset="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg 100w`"
-              sizes="100vw"
+              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${artwork.image_id}.jpg`"
               alt=""
               role="presentation"
               aria-hidden="true"

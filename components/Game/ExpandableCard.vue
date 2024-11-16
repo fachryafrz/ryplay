@@ -29,9 +29,7 @@ const lastHoveredIndex = ref(0);
       ]"
     >
       <img
-        :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`"
-        :srcset="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg 100w`"
-        sizes="100vw"
+        :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
         alt=""
         id="game-cover"
         class="block h-full w-full bg-cover bg-center transition-all"
@@ -45,9 +43,7 @@ const lastHoveredIndex = ref(0);
         class="absolute inset-0 opacity-0 transition-opacity duration-700"
       >
         <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.screenshots[0].image_id}.jpg`"
-          :srcset="`https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg 100w`"
-          sizes="100vw"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg`"
           alt=""
           id="game-screenshot"
           class="block h-full w-full bg-cover bg-center transition-all"

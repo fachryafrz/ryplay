@@ -17,11 +17,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
         class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral"
       >
         <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover?.image_id}.jpg`"
-          :srcset="`
-            https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg 100w,
-            `"
-          sizes="100vw"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
           alt=""
           :aria-hidden="true"
           id="game-cover"
@@ -45,11 +41,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
       <figure class="-z-10 block aspect-video overflow-hidden">
         <img
           v-if="game.artworks?.length > 0 || game.screenshots?.length > 0"
-          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
-          :srcset="`
-            https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg 100w,
-            `"
-          sizes="100vw"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           alt=""
           id="game-cover"
           draggable="false"
@@ -61,11 +53,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
 
         <img
           v-else
-          :src="`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`"
-          :srcset="`
-            https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg 100w,
-            `"
-          sizes="100vw"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
           alt=""
           id="game-cover"
           draggable=""
