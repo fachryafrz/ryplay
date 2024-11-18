@@ -39,7 +39,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             <picture>
               <source
                 media="(min-width: 640px)"
-                :srcset="`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0]?.image_id}.jpg`"
+                :srcset="`https://images.igdb.com/igdb/image/upload/t_1080p/${game?.artworks[0]?.image_id}.jpg`"
               />
               <img
                 :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
@@ -82,7 +82,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         <SwiperSlide v-for="game in games" :key="game.slug">
           <figure class="h-full overflow-hidden">
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[0]?.image_id}.jpg`"
+              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.screenshots[0]?.image_id}.jpg`"
               alt=""
               role="presentation"
               aria-hidden="true"
@@ -109,7 +109,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         <SwiperSlide v-for="game in games" :key="game.slug">
           <figure class="aspect-video h-full overflow-hidden">
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.screenshots[1]?.image_id}.jpg`"
+              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.screenshots[1]?.image_id}.jpg`"
               alt=""
               role="presentation"
               aria-hidden="true"
@@ -186,7 +186,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[50%]"
           >
             <img
-              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game.artworks[0]?.image_id}.jpg`"
+              :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.artworks[0]?.image_id}.jpg`"
               alt=""
               role="presentation"
               aria-hidden="true"
