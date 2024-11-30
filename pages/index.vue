@@ -6,28 +6,53 @@ const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
 const oneMonthAgo = dayjs().add(-1, "month").unix();
 
-const { data: home } = await useFetch("/api/home", {
-  transform: (payload) => {
-    return {
-      results: payload,
-      fetchedAt: new Date(),
-    };
-  },
-  getCachedData: (key, nuxtApp) => {
-    const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+const [{ data: home }, { data: multiquery, status: statusMultiquery }] =
+  await Promise.all([
+    useFetch("/api/home", {
+      transform: (payload) => {
+        return {
+          results: payload,
+          fetchedAt: new Date(),
+        };
+      },
+      getCachedData: (key, nuxtApp) => {
+        const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
 
-    if (!data) return;
+        if (!data) return;
 
-    const expiration = new Date(data.fetchedAt);
-    expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
+        const expiration = new Date(data.fetchedAt);
+        expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
 
-    const isExpired = expiration.getTime() < Date.now();
+        const isExpired = expiration.getTime() < Date.now();
 
-    if (isExpired) return;
+        if (isExpired) return;
 
-    return data;
-  },
-});
+        return data;
+      },
+    }),
+    useLazyFetch("/api/multiquery", {
+      server: false,
+      transform: (payload) => {
+        return {
+          ...payload,
+          fetchedAt: new Date(),
+        };
+      },
+      getCachedData: (key, nuxtApp) => {
+        const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+        if (!data) return;
+
+        const expiration = new Date(data.fetchedAt);
+        expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
+
+        const isExpired = expiration.getTime() < Date.now();
+
+        if (isExpired) return;
+
+        return data;
+      },
+    }),
+  ]);
 
 const featured = home.value.results.find(
   (res) => res.name === "featured",
@@ -51,32 +76,6 @@ const hackAndSlashBeatEmUp = home.value.results.find(
   (res) => res.name === "hack-and-slash-beat-em-up",
 ).result;
 const racing = home.value.results.find((res) => res.name === "racing").result;
-
-const { data: multiquery, status: statusMultiquery } = useLazyFetch(
-  "/api/multiquery",
-  {
-    server: false,
-    transform: (payload) => {
-      return {
-        ...payload,
-        fetchedAt: new Date(),
-      };
-    },
-    getCachedData: (key, nuxtApp) => {
-      const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
-      if (!data) return;
-
-      const expiration = new Date(data.fetchedAt);
-      expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
-
-      const isExpired = expiration.getTime() < Date.now();
-
-      if (isExpired) return;
-
-      return data;
-    },
-  },
-);
 
 const popular = computed(() => multiquery.value?.popular);
 const mostPlayed = computed(() => multiquery.value?.mostPlayed);
