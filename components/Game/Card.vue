@@ -40,7 +40,6 @@ const category = gameCategory.find((item) => item.id === game.category).name;
     >
       <figure class="-z-10 block aspect-video overflow-hidden">
         <img
-          v-if="game.artworks?.length > 0 || game.screenshots?.length > 0"
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           alt=""
           id="game-cover"
@@ -49,18 +48,9 @@ const category = gameCategory.find((item) => item.id === game.category).name;
           loading="lazy"
           role="presentation"
           aria-hidden="true"
-        />
-
-        <img
-          v-else
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`"
-          alt=""
-          id="game-cover"
-          draggable=""
-          class="block h-full w-full transition-all"
-          loading="lazy"
-          role="presentation"
-          aria-hidden="true"
+          @error="
+            $event.target.src = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`
+          "
         />
       </figure>
 

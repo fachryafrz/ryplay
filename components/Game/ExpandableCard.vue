@@ -3,6 +3,8 @@ const { games } = defineProps(["games"]);
 
 const hoveredIndex = ref(null);
 const lastHoveredIndex = ref(0);
+
+console.log(games);
 </script>
 
 <template>
@@ -43,7 +45,7 @@ const lastHoveredIndex = ref(0);
         class="absolute inset-0 opacity-0 transition-opacity duration-700"
       >
         <img
-          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.screenshots[0].image_id}.jpg`"
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           alt=""
           id="game-screenshot"
           class="block h-full w-full bg-cover bg-center transition-all"
@@ -51,6 +53,9 @@ const lastHoveredIndex = ref(0);
           loading="lazy"
           role="presentation"
           aria-hidden="true"
+          @error="
+            $event.target.src = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`
+          "
         />
 
         <div

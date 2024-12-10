@@ -91,6 +91,9 @@ onMounted(() => {
               class="object-contain"
               draggable="false"
               loading="lazy"
+              @error="
+                $event.target.style = `background-image:url(/logo.svg); background-repeat:no-repeat; background-position:center; background-size: 10rem;`
+              "
             />
           </figure>
         </SwiperSlide>
@@ -234,6 +237,9 @@ onMounted(() => {
               aria-hidden="true"
               loading="lazy"
               class="block h-full w-full"
+              @error="
+                $event.target.style = `background-image:url(/logo.svg); background-repeat:no-repeat; background-position:center;`
+              "
             />
           </figure>
         </SwiperSlide>
