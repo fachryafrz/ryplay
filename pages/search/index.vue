@@ -71,8 +71,14 @@ const { data: multiquery } = await useFetch("/api/search/multiquery", {
 const fetchGames = async (key) => {
   const { data } = await useAsyncData(key, () => $fetch(key), {
     transform: (payload) => {
+      const combinedGames = [...games.value, ...payload];
+      const uniqueGames = combinedGames.filter(
+        (game, index, self) =>
+          index === self.findIndex((t) => t.id === game.id),
+      );
+
       return {
-        results: payload,
+        results: uniqueGames,
         fetchedAt: new Date(),
       };
     },
@@ -97,13 +103,7 @@ const fetchGames = async (key) => {
     isFinished.value = true;
   }
 
-  const combinedGames = [...games.value, ...data.value.results];
-
-  const uniqueGames = combinedGames.filter(
-    (game, index, self) => index === self.findIndex((t) => t.id === game.id),
-  );
-
-  games.value = uniqueGames;
+  games.value = data.value.results;
 };
 
 // Lifecycle

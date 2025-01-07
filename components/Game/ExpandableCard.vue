@@ -3,8 +3,6 @@ const { games } = defineProps(["games"]);
 
 const hoveredIndex = ref(null);
 const lastHoveredIndex = ref(0);
-
-console.log(games);
 </script>
 
 <template>
