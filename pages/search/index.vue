@@ -15,7 +15,7 @@ useSeoMeta({
 // State
 const loadMoreRef = ref();
 const games = ref([]);
-const showFilter = ref(false);
+const showFilter = useShowFilter();
 const isLoading = ref(true);
 const isFinished = ref(false);
 
@@ -108,12 +108,6 @@ const fetchGames = async (key) => {
 
 // Lifecycle
 onMounted(() => {
-  if (window.innerWidth < 1024) {
-    showFilter.value = false;
-  } else {
-    showFilter.value = true;
-  }
-
   watch(
     () => route.query,
     async () => {

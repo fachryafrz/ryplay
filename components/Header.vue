@@ -1,6 +1,15 @@
 <script setup>
 const config = useRuntimeConfig();
 const route = useRoute();
+const showFilter = useShowFilter();
+
+onMounted(() => {
+  if (window.innerWidth < 1024) {
+    showFilter.value = false;
+  } else {
+    showFilter.value = true;
+  }
+});
 </script>
 
 <template>
