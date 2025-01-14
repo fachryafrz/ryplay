@@ -2,7 +2,7 @@
 
 [![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/home.png)](https://ryplay.vercel.app)
 
-[![Website](https://img.shields.io/badge/Ryplay-Discover%20your%20next%20favorite%20game%20now!-blue)](https://ryplayapp.com)
+[![Website](https://img.shields.io/badge/Ryplay-Discover%20your%20next%20favorite%20game%20now!-blue)](https://ryplay.vercel.app)
 
 ## 🎮 Welcome to Ryplay 🕹️
 
@@ -32,19 +32,15 @@ Find exactly what you’re looking for with our powerful search and filter optio
 [![Game Search with Filters](https://fachryafrz.vercel.app/projects/ryplay/search.png)](https://ryplay.vercel.app)
 _Refine your game search with multiple filters to find exactly what suits your preferences._
 
-### 🎮 Game Reviews & Ratings:
+### 🎮 Game Ratings:
 
-Check out reviews and ratings from other gamers. Discover what the community thinks about a game and find the best games based on player feedback. Don't waste time on mediocre titles!
-
-### 👥 Game Developer Profiles:
-
-Learn about the companies and developers behind your favorite games. Get insights into their other projects, discover their development history, and stay up-to-date with their latest releases.
+Check out ratings from other gamers. Discover what the community thinks about a game and find the best games based on player feedback. Don't waste time on mediocre titles!
 
 ### 🔍 Easy Search Functionality:
 
 Our intuitive search bar lets you find games with just a few clicks. Whether you’re searching by title, genre, or platform, Ryplay makes it simple to navigate and discover new favorites.
 
-🎉 Visit our website at https://ryplayapp.com and start exploring the world of games today!
+🎉 Visit our website at [Ryplay](https://ryplay.vercel.app) and start exploring the world of games today!
 
 Ready to discover your next gaming obsession? Let Ryplay guide you through the exciting world of video games. 🎮🔍🕹️
 
