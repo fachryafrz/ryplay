@@ -16,7 +16,6 @@ useSeoMeta({
 const loadMoreRef = ref();
 const games = ref([]);
 const showFilter = useShowFilter();
-const isLoading = ref(true);
 const isFinished = ref(false);
 
 // Computed
@@ -71,6 +70,10 @@ const { data: multiquery } = await useFetch("/api/search/multiquery", {
 const fetchGames = async (key) => {
   const { data } = await useAsyncData(key, () => $fetch(key), {
     transform: (payload) => {
+      if (payload.length < 1) {
+        isFinished.value = true;
+      }
+
       const combinedGames = [...games.value, ...payload];
       const uniqueGames = combinedGames.filter(
         (game, index, self) =>
@@ -97,12 +100,6 @@ const fetchGames = async (key) => {
     },
   });
 
-  isLoading.value = false;
-
-  if (data.value.results.length < 1) {
-    isFinished.value = true;
-  }
-
   games.value = data.value.results;
 };
 
@@ -114,7 +111,6 @@ onMounted(() => {
       window.scrollTo({ top: 0 });
 
       games.value = [];
-      isLoading.value = true;
       isFinished.value = false;
 
       await fetchGames(getKey.value);
@@ -219,7 +215,7 @@ useInfiniteScroll(
           </template>
         </GameGrid>
 
-        <div v-show="!isLoading && games.length < 1" class="flex justify-start">
+        <div v-show="isFinished && games.length < 1" class="flex justify-start">
           <span class="">No game found</span>
         </div>
       </section>
