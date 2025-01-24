@@ -106,7 +106,7 @@ onMounted(() => {
       class="relative z-10"
     >
       <div
-        class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between [&_*]:pointer-events-auto"
+        class="pointer-events-none absolute inset-0 z-10 hidden items-center justify-between px-2 lg:flex [&_*]:pointer-events-auto"
       >
         <button class="prev btn btn-primary btn-sm aspect-square px-0">
           <Icon name="ion:md-arrow-dropleft" size="20" />
@@ -119,7 +119,7 @@ onMounted(() => {
       <Swiper
         @swiper="setThumbSwiper"
         :modules="[SwiperThumbs, SwiperFreeMode]"
-        :slides-per-view="2"
+        :slides-per-view="3"
         :space-between="8"
         :watch-slides-progress="true"
         :free-mode="true"
@@ -134,7 +134,7 @@ onMounted(() => {
             slidesPerView: 5,
           },
         }"
-        class="!-m-1 !mx-10 !px-1 !py-2"
+        class="!-mx-4 !px-4 !py-2 lg:!-mx-1 lg:!px-1"
         wrapper-class="[&_*]:rounded-lg lg:[&_*]:rounded-xl"
       >
         <SwiperSlide
@@ -156,7 +156,7 @@ onMounted(() => {
               alt=""
               role="presentation"
               aria-hidden="true"
-              class="block h-full w-full bg-cover bg-center"
+              class="block h-full w-full"
               draggable="false"
               loading="lazy"
             />
