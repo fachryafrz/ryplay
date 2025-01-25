@@ -1,8 +1,11 @@
 <script setup>
+import Typewriter from "typewriter-effect/dist/core";
+
 const searchQuery = ref("");
 const router = useRouter();
 const route = useRoute();
 const inputRef = ref(null);
+const typewriter = ref(null);
 
 const handleSubmit = () => {
   if (searchQuery.value) {
@@ -32,6 +35,38 @@ watch(
 );
 
 onMounted(() => {
+  var input = inputRef.value;
+
+  const customNodeCreator = (character) => {
+    // Add character to input placeholder
+    input.placeholder = input.placeholder + character;
+
+    // Return null to skip internal adding of dom node
+    return null;
+  };
+
+  const onRemoveNode = ({ character }) => {
+    if (input.placeholder) {
+      // Remove last character from input placeholder
+      input.placeholder = input.placeholder.slice(0, -1);
+    }
+  };
+
+  const typewriter = new Typewriter(null, {
+    loop: true,
+    delay: 50,
+    onCreateTextNode: customNodeCreator,
+    onRemoveNode: onRemoveNode,
+  });
+
+  typewriter
+    .typeString("Search a game title")
+    .pauseFor(5e3)
+    .deleteAll()
+    .typeString("Type / to search")
+    .pauseFor(5e3)
+    .start();
+
   const onKeyDown = (event) => {
     if (event.key === "/") {
       if (document.activeElement !== inputRef.value) {
@@ -70,7 +105,6 @@ onMounted(() => {
           ref="inputRef"
           type="text"
           class="w-full grow"
-          placeholder="Search"
         />
         <button
           v-show="searchQuery"
@@ -80,9 +114,6 @@ onMounted(() => {
         >
           close
         </button>
-        <div class="hidden xl:inline">
-          <kbd class="kbd kbd-sm">/</kbd>
-        </div>
       </label>
     </form>
   </div>
