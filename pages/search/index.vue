@@ -160,6 +160,7 @@ useInfiniteScroll(
       >
         <!-- Search Bar for Mobile -->
         <SearchBar
+          placeholder="Tap to search"
           :class="{
             'sm:hidden': route.path === '/search',
           }"

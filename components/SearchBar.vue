@@ -1,6 +1,8 @@
 <script setup>
 import Typewriter from "typewriter-effect/dist/core";
 
+const { placeholder } = defineProps(["placeholder"]);
+
 const searchQuery = ref("");
 const router = useRouter();
 const route = useRoute();
@@ -63,7 +65,7 @@ onMounted(() => {
     .typeString("Search a game title")
     .pauseFor(5e3)
     .deleteAll()
-    .typeString("Type / to search")
+    .typeString(placeholder)
     .pauseFor(5e3)
     .start();
 

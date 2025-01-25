@@ -56,7 +56,7 @@ onMounted(() => {
             <span class="material-symbols-outlined"> search </span>
             <span>Search</span>
           </NuxtLink>
-          <SearchBar class="hidden sm:block" />
+          <SearchBar placeholder="Type / to search" class="hidden sm:block" />
         </div>
       </div>
     </header>
