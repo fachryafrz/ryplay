@@ -62,9 +62,7 @@ const { game, filteredExternalGames, findStoreById } = defineProps([
       <h2 class="heading-2">Rating</h2>
 
       <div class="flex items-center gap-1 text-lg sm:text-2xl">
-        <span class="material-symbols-outlined fill !text-xl sm:!text-3xl">
-          star
-        </span>
+        <Icon name="ion:star" size="30" class="!text-xl text-yellow-500 sm:!text-3xl" />
         <span class="font-semibold">{{ formatRating(game.rating) }}</span>
         <span>({{ formatNumber(game.rating_count) }})</span>
       </div>

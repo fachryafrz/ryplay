@@ -66,7 +66,7 @@ onMounted(() => {
     .pauseFor(5e3)
     .deleteAll()
     .typeString(placeholder)
-    .pauseFor(5e3)
+    .pauseFor(15e3)
     .start();
 
   const onKeyDown = (event) => {
@@ -100,7 +100,7 @@ onMounted(() => {
         class="input input-md flex w-full items-center gap-2 rounded-lg bg-neutral outline outline-secondary xl:max-w-md"
       >
         <NuxtLink to="/search" class="flex">
-          <span class="material-symbols-outlined"> search </span>
+          <Icon name="ion:search" size="20" />
         </NuxtLink>
         <input
           v-model="searchQuery"
@@ -112,9 +112,9 @@ onMounted(() => {
           v-show="searchQuery"
           @click="clearSearch"
           type="button"
-          class="material-symbols-outlined"
+          class="flex"
         >
-          close
+          <Icon name="ion:close" size="25" />
         </button>
       </label>
     </form>

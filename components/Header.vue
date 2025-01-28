@@ -53,7 +53,7 @@ onMounted(() => {
             v-show="route.path !== '/search'"
             class="btn btn-neutral outline outline-secondary sm:hidden"
           >
-            <span class="material-symbols-outlined"> search </span>
+            <Icon name="ion:search" size="20" />
             <span>Search</span>
           </NuxtLink>
           <SearchBar placeholder="Type / to search" class="hidden sm:block" />

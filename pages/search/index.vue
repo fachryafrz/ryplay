@@ -25,9 +25,7 @@ const isQueryParams = computed(() =>
 const isCompanyParams = computed(() =>
   Object.keys(route.query).includes("company"),
 );
-const isThereAnyFilter = computed(
-  () => Object.keys(route.query).filter((key) => key !== "query").length > 0,
-);
+const isThereAnyFilter = computed(() => Object.keys(route.query).length > 0);
 const getKey = computed(() => {
   const params = new URLSearchParams({
     ...route.query,
@@ -38,10 +36,7 @@ const getKey = computed(() => {
 });
 
 // Functions
-const handleClearFilters = () =>
-  isQueryParams.value
-    ? router.push({ path: "/search", query: { query: route.query.query } })
-    : router.push({ path: "/search" });
+const handleClearFilters = () => router.push({ path: "/search" });
 const setShowFilter = () => (showFilter.value = !showFilter.value);
 
 // Fetcher

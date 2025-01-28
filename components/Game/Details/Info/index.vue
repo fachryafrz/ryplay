@@ -66,9 +66,7 @@ const isNoStoreURL = filteredExternalGames?.every(
         class="flex w-fit items-center gap-1 text-primary"
       >
         <span>{{ readMore ? "Read less" : "Read more" }}</span>
-        <span class="material-symbols-outlined">
-          {{ readMore ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
-        </span>
+        <Icon :name="readMore ? 'ion:chevron-up-outline' : 'ion:chevron-down-outline'" size="20" />
       </button>
     </section>
 
