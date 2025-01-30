@@ -47,7 +47,7 @@ onMounted(() => {
       </div>
 
       <div class="navbar-end">
-        <div>
+        <div class="flex-1 flex justify-end">
           <NuxtLink
             to="/search"
             v-show="route.path !== '/search'"
@@ -56,7 +56,7 @@ onMounted(() => {
             <Icon name="ion:search" size="20" />
             <span>Search</span>
           </NuxtLink>
-          <SearchBar placeholder="Type / to search" class="hidden sm:block" />
+          <SearchBar placeholder="Type / to search" class="hidden sm:block max-w-[300px]" />
         </div>
       </div>
     </header>

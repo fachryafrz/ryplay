@@ -12,9 +12,7 @@ const lastHoveredIndex = ref(0);
     :to="`/games/${game.slug}`"
     :class="[
       'featured-games last:hidden xl:last:flex',
-      {
-        active: hoveredIndex === index || lastHoveredIndex === index,
-      },
+      { active: hoveredIndex === index || lastHoveredIndex === index },
     ]"
     @mouseover="
       hoveredIndex = index;

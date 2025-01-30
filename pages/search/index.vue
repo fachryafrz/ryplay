@@ -1,4 +1,6 @@
 <script setup>
+import pluralize from "pluralize";
+
 const config = useRuntimeConfig();
 const router = useRouter();
 const route = useRoute();
@@ -187,7 +189,9 @@ useInfiniteScroll(
               v-show="games?.length > 0"
               class="hidden text-xs font-medium md:block"
             >
-              <span>Showing {{ games.length }} Games</span>
+              <span>
+                Showing {{ games.length }} {{ pluralize("Game", games.length) }}
+              </span>
             </div>
 
             <SearchSort class="hidden sm:flex" />
