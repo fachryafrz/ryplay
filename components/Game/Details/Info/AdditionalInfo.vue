@@ -1,6 +1,6 @@
 <script setup>
 import { formatNumber, formatRating } from "~/helper/formats";
-import { isPlural } from "~/helper/isPlural";
+import pluralize from "pluralize";
 
 const { game, filteredExternalGames, findStoreById } = defineProps([
   "game",
@@ -42,7 +42,7 @@ const { game, filteredExternalGames, findStoreById } = defineProps([
     <!-- Genres -->
     <div v-show="game.genres?.length > 0">
       <h2 class="heading-2">
-        {{ isPlural(game.genres?.length, `Genre`, `Genres`) }}
+        {{ pluralize("Genre", game.genres?.length) }}
       </h2>
 
       <div class="flex flex-wrap gap-2">
@@ -62,7 +62,11 @@ const { game, filteredExternalGames, findStoreById } = defineProps([
       <h2 class="heading-2">Rating</h2>
 
       <div class="flex items-center gap-1 text-lg sm:text-2xl">
-        <Icon name="ion:star" size="30" class="!text-xl text-yellow-500 sm:!text-3xl" />
+        <Icon
+          name="ion:star"
+          size="30"
+          class="!text-xl text-yellow-500 sm:!text-3xl"
+        />
         <span class="font-semibold">{{ formatRating(game.rating) }}</span>
         <span>({{ formatNumber(game.rating_count) }})</span>
       </div>

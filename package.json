@@ -20,6 +20,7 @@
     "nuxt": "^3.12.4",
     "nuxt-gtag": "^2.1.0",
     "nuxt-swiper": "^1.2.2",
+    "pluralize": "^8.0.0",
     "typewriter-effect": "^2.21.0",
     "vue": "latest",
     "vue-lite-youtube-embed": "^1.2.4",

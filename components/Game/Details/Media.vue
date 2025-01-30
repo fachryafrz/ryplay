@@ -134,6 +134,7 @@ onMounted(() => {
             slidesPerView: 5,
           },
         }"
+        :grab-cursor="true"
         class="!-mx-4 !px-4 !py-2 lg:!-mx-1 lg:!px-1"
         wrapper-class="[&_*]:rounded-lg lg:[&_*]:rounded-xl"
       >

@@ -1,5 +1,5 @@
 <script setup>
-import { isPlural } from "~/helper/isPlural";
+import pluralize from "pluralize";
 import gameCategory from "@/json/game-category.json";
 
 const { game, gameCover } = defineProps(["game", "gameCover"]);
@@ -72,7 +72,7 @@ const isSameDeveloperPublisher =
           <span v-if="info.text" class="font-medium text-neutral-500">
             {{
               info.section === "Developer" || info.section === "Publisher"
-                ? isPlural(info.text?.length, info.section, `${info.section}s`)
+                ? pluralize(info.section, info.text?.length)
                 : info.section
             }}
           </span>

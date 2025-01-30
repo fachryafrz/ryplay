@@ -1,7 +1,7 @@
 <script setup>
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import { isPlural } from "~/helper/isPlural";
+import pluralize from "pluralize";
 
 const { game } = defineProps(["game"]);
 
@@ -62,7 +62,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.years }"></span>
       </span>
-      {{ isPlural(countdown.years, `year`, `years`) }}
+      {{ pluralize("year", countdown.years) }}
     </div>
     <div
       v-if="countdown.months > 0"
@@ -71,7 +71,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.months }"></span>
       </span>
-      {{ isPlural(countdown.months, `month`, `months`) }}
+      {{ pluralize("month", countdown.months) }}
     </div>
     <div
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
@@ -79,7 +79,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.days }"></span>
       </span>
-      {{ isPlural(countdown.days, `day`, `days`) }}
+      {{ pluralize(`day`, countdown.days) }}
     </div>
     <div
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
@@ -87,7 +87,7 @@ onMounted(() => {
       <span class="countdown font-mono text-5xl">
         <span :style="{ '--value': countdown.hours }"></span>
       </span>
-      {{ isPlural(countdown.hours, `hour`, `hours`) }}
+      {{ pluralize(`hour`, countdown.hours) }}
     </div>
     <div
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
