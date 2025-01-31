@@ -1,5 +1,7 @@
 <script setup>
+import axios from "axios";
 import pluralize from "pluralize";
+import useSWRV from "swrv";
 
 const config = useRuntimeConfig();
 const router = useRouter();
@@ -14,28 +16,31 @@ useSeoMeta({
   twitterDescription: `Search for your favorite games`,
 });
 
-// State
-const loadMoreRef = ref();
-const games = ref([]);
+// State Management
 const showFilter = useShowFilter();
 const isFinished = ref(false);
+const loadMoreRef = ref(null);
+const offset = ref(0);
+const limit = 10;
 
 // Computed
-const isQueryParams = computed(() =>
-  Object.keys(route.query).includes("query"),
-);
-const isCompanyParams = computed(() =>
-  Object.keys(route.query).includes("company"),
-);
+const isQueryParams = computed(() => !!route.query.query);
+const isCompanyParams = computed(() => !!route.query.company);
 const isThereAnyFilter = computed(() => Object.keys(route.query).length > 0);
+
+// Generate Query Key
 const getKey = computed(() => {
   const params = new URLSearchParams({
     ...route.query,
-    offset: games.value.length,
   }).toString();
-
   return `/api/games/search?${params}`;
 });
+
+// Fetcher Function
+const fetcher = async (url) => {
+  const response = await axios.get(url);
+  return response.data;
+};
 
 // Functions
 const handleClearFilters = () => router.push({ path: "/search" });
@@ -64,63 +69,61 @@ const { data: multiquery } = await useFetch("/api/search/multiquery", {
   },
 });
 
-const fetchGames = async (key) => {
-  const { data } = await useAsyncData(key, () => $fetch(key), {
-    transform: (payload) => {
-      if (payload.length < 1) {
-        isFinished.value = true;
-      }
+const {
+  data: gamesData,
+  isValidating,
+  isLoading,
+} = useSWRV(getKey, () => fetcher(`${getKey.value}&offset=0`), {
+  dedupingInterval: Infinity,
+  revalidateOnFocus: false,
+});
 
-      const combinedGames = [...games.value, ...payload];
-      const uniqueGames = combinedGames.filter(
-        (game, index, self) =>
-          index === self.findIndex((t) => t.id === game.id),
-      );
-
-      return {
-        results: uniqueGames,
-        fetchedAt: new Date(),
-      };
-    },
-    getCachedData: (key, nuxtApp) => {
-      const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
-      if (!data) return;
-
-      const expiration = new Date(data.fetchedAt);
-      expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
-
-      const isExpired = expiration.getTime() < Date.now();
-
-      if (isExpired) return;
-
-      return data;
-    },
-  });
-
-  games.value = data.value.results;
-};
+// Process and Deduplicate Games
+const games = computed(() => {
+  if (!gamesData.value) return [];
+  const allGames = gamesData.value || [];
+  const uniqueGames = allGames.filter(
+    (game, index, self) => index === self.findIndex((t) => t.id === game.id),
+  );
+  return uniqueGames;
+});
 
 // Lifecycle
 onMounted(() => {
   watch(
     () => route.query,
-    async () => {
+    () => {
       window.scrollTo({ top: 0 });
-
-      games.value = [];
       isFinished.value = false;
-
-      await fetchGames(getKey.value);
     },
     { immediate: true },
   );
 });
 
+// Infinite Scroll Logic
+const fetchNextPage = async () => {
+  if (isFinished.value || isValidating.value) return;
+
+  const nextPageOffset = games.value.length;
+  const nextPageKey = `${getKey.value}&offset=${nextPageOffset}`;
+
+  try {
+    const nextPageData = await fetcher(nextPageKey);
+
+    if (nextPageData.length < limit) {
+      isFinished.value = true;
+    }
+
+    gamesData.value.push(...nextPageData);
+  } catch (err) {
+    console.error("Error fetching next page:", err);
+  }
+};
+
 useInfiniteScroll(
   loadMoreRef,
   async () => {
-    await fetchGames(getKey.value);
-    await new Promise((resolve) => setTimeout(resolve, 5e2));
+    await fetchNextPage();
   },
   { distance: 10 },
 );
@@ -201,6 +204,19 @@ useInfiniteScroll(
 
       <!-- Results -->
       <section class="px-4 pt-2 @container">
+        <!-- Initial Loading Skeleton -->
+        <div v-if="isLoading" class="@container">
+          <div
+            class="grid grid-cols-3 gap-2 @2xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6 @7xl:grid-cols-7"
+          >
+            <span
+              v-for="i in 20"
+              :key="i"
+              class="aspect-poster animate-pulse rounded-xl bg-gray-400 bg-opacity-20"
+            ></span>
+          </div>
+        </div>
+
         <GameGrid :games="games">
           <template v-if="!isFinished && !isCompanyParams">
             <span
