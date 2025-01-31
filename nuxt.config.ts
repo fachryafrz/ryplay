@@ -11,6 +11,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/sitemap",
     "nuxt-gtag",
+    "@hebilicious/vue-query-nuxt",
+    "@nuxt/image",
   ],
   gtag: {
     id: "G-NRZR500XVB",
