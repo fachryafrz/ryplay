@@ -29,7 +29,7 @@ if (error.value) throw error.value;
 
 const [game] = response.value.results;
 const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
-const gameDescription = (game.storyline ?? game.summary).replace(
+const gameDescription = (game.storyline ?? game.summary ?? "").replace(
   /(\r\n|\n|\r)/gm,
   " ",
 );
