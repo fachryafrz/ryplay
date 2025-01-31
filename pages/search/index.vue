@@ -1,130 +1,129 @@
 <script setup>
-import axios from "axios";
 import pluralize from "pluralize";
-import { useInfiniteQuery } from "@tanstack/vue-query";
 
-// Runtime Config and Router
 const config = useRuntimeConfig();
 const router = useRouter();
 const route = useRoute();
 
-// State Management
+useSeoMeta({
+  title: `Search`,
+  description: `Search for your favorite games`,
+  ogTitle: `Search - ${config.public.APP_NAME}`,
+  ogDescription: `Search for your favorite games`,
+  twitterTitle: `Search - ${config.public.APP_NAME}`,
+  twitterDescription: `Search for your favorite games`,
+});
+
+// State
+const loadMoreRef = ref();
+const games = ref([]);
 const showFilter = useShowFilter();
 const isFinished = ref(false);
 
-// Computed Properties
-const isQueryParams = computed(() => !!route.query.query);
-const isCompanyParams = computed(() => !!route.query.company);
+// Computed
+const isQueryParams = computed(() =>
+  Object.keys(route.query).includes("query"),
+);
+const isCompanyParams = computed(() =>
+  Object.keys(route.query).includes("company"),
+);
 const isThereAnyFilter = computed(() => Object.keys(route.query).length > 0);
-
-// Generate Query Key
 const getKey = computed(() => {
   const params = new URLSearchParams({
     ...route.query,
+    offset: games.value.length,
   }).toString();
+
   return `/api/games/search?${params}`;
 });
 
-// Fetcher Function
-const fetcher = async ({ pageParam = 0 }) => {
-  const response = await axios.get(`${getKey.value}&offset=${pageParam}`);
-  return response.data;
-};
+// Functions
+const handleClearFilters = () => router.push({ path: "/search" });
+const setShowFilter = () => (showFilter.value = !showFilter.value);
 
-// Multiquery Fetching
-const { data: multiquery, isLoading: isMultiqueryLoading } = useQuery({
-  queryKey: ["multiquery"],
-  queryFn: () => axios.get("/api/search/multiquery").then((res) => res.data),
-  select: (data) => {
-    // Transform multiquery data if needed
+// Fetcher
+const { data: multiquery } = await useFetch("/api/search/multiquery", {
+  transform: (payload) => {
     return {
-      results: data,
+      results: payload,
       fetchedAt: new Date(),
     };
   },
-  staleTime: Infinity,
+  getCachedData: (key, nuxtApp) => {
+    const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+    if (!data) return;
+
+    const expiration = new Date(data.fetchedAt);
+    expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
+
+    const isExpired = expiration.getTime() < Date.now();
+
+    if (isExpired) return;
+
+    return data;
+  },
 });
 
-// Infinite Query for Games
-const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-  useInfiniteQuery({
-    queryKey: ["games", getKey],
-    queryFn: ({ pageParam }) => fetcher({ pageParam }),
-    getNextPageParam: (lastPage, allPages) => {
-      // Hitung offset berikutnya berdasarkan jumlah halaman
-      const limit = 20; // Batas hasil per halaman
-      const currentOffset = allPages.length * limit;
-
-      // Jika jumlah hasil sama dengan batas, lanjutkan ke halaman berikutnya
-      if (lastPage.length === limit) {
-        return currentOffset;
+const fetchGames = async (key) => {
+  const { data } = await useAsyncData(key, () => $fetch(key), {
+    transform: (payload) => {
+      if (payload.length < 1) {
+        isFinished.value = true;
       }
 
-      // Jika tidak, tidak ada halaman berikutnya
-      isFinished.value = true;
-      return undefined;
+      const combinedGames = [...games.value, ...payload];
+      const uniqueGames = combinedGames.filter(
+        (game, index, self) =>
+          index === self.findIndex((t) => t.id === game.id),
+      );
+
+      return {
+        results: uniqueGames,
+        fetchedAt: new Date(),
+      };
     },
-    staleTime: Infinity,
+    getCachedData: (key, nuxtApp) => {
+      const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
+      if (!data) return;
+
+      const expiration = new Date(data.fetchedAt);
+      expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
+
+      const isExpired = expiration.getTime() < Date.now();
+
+      if (isExpired) return;
+
+      return data;
+    },
   });
 
-// Process and Deduplicate Games
-const games = computed(() => {
-  if (!data.value) return [];
-  const allGames = data.value.pages.flat();
-  const uniqueGames = allGames.filter(
-    (game, index, self) => index === self.findIndex((t) => t.id === game.id),
-  );
-  return uniqueGames;
-});
+  games.value = data.value.results;
+};
 
-// Watch for Route Changes
+// Lifecycle
 onMounted(() => {
   watch(
     () => route.query,
-    () => {
+    async () => {
       window.scrollTo({ top: 0 });
 
-      // Reset Infinite Scroll
+      games.value = [];
       isFinished.value = false;
+
+      await fetchGames(getKey.value);
     },
     { immediate: true },
   );
-
-  // Update `isFinished` based on cached data
-  watchEffect(() => {
-    if (data.value) {
-      const allGames = data.value.pages.flat();
-      const limit = 20; // Batas hasil per halaman
-      isFinished.value = allGames.length < limit || !hasNextPage.value;
-    }
-  });
 });
-
-// Infinite Scroll Logic
-const loadMoreRef = ref(null);
-const isFetchingDelayed = ref(false);
 
 useInfiniteScroll(
   loadMoreRef,
   async () => {
-    if (hasNextPage.value && !isFetchingNextPage.value) {
-      isFetchingDelayed.value = true; // Set flag to true to prevent multiple triggers
-
-      // Add a delay before fetching the next page
-      await new Promise((resolve) => setTimeout(resolve, 500)); // 500ms delay
-
-      await fetchNextPage();
-
-      isFetchingDelayed.value = false; // Reset flag after fetching
-    }
+    await fetchGames(getKey.value);
+    await new Promise((resolve) => setTimeout(resolve, 5e2));
   },
   { distance: 10 },
 );
-
-// Functions
-const handleClearFilters = () => {
-  router.push({ path: "/search" });
-};
 </script>
 
 <template>
@@ -139,10 +138,7 @@ const handleClearFilters = () => {
         'translate-x-0': showFilter,
       }"
     >
-      <SearchFilter
-        v-if="!isMultiqueryLoading"
-        :multiquery="multiquery.results"
-      />
+      <SearchFilter :multiquery="multiquery.results" />
 
       <button @click="setShowFilter" class="absolute right-4 top-2 lg:hidden">
         <Icon name="ion:close" size="28" />
