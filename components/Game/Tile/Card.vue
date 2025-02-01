@@ -1,7 +1,11 @@
 <script setup>
 import gameCategory from "@/json/game-category.json";
 
-const { game } = defineProps(["game"]);
+const {
+  game,
+  showCategory = true,
+  showDescription = true,
+} = defineProps(["game", "showCategory", "showDescription"]);
 
 const category = gameCategory.find((item) => item.id === game.category).name;
 </script>
@@ -27,6 +31,9 @@ const category = gameCategory.find((item) => item.id === game.category).name;
 
     <div
       class="before-content after-content relative w-full before:text-xs before:font-semibold before:text-neutral-500 after:mt-1 after:line-clamp-2 after:text-xs after:font-semibold after:text-neutral-500"
+      :class="[
+        { 'before:hidden': !showCategory, 'after:hidden': !showDescription },
+      ]"
       :data-before-content="category"
       :data-after-content="game.storyline || game.summary"
     >

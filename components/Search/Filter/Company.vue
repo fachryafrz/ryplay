@@ -22,7 +22,7 @@ const fetchCompanies = async (query, body) => {
         ? body
         : `
         f *; 
-        w name ~ *"${query}"* | slug ~ *"${query}"*;
+        w name ~ *"${query}"* | slug ~ *"${query.replace(/ /g, "-")}"*;
         l 10;`,
     },
   });

@@ -29,26 +29,20 @@ const hasImageId = (category) => {
 };
 
 // Memfilter game.external_games untuk hanya item dengan image_id yang valid
-const uniqueExternalGames = game.external_games.filter(
+const uniqueExternalGames = game.external_games?.filter(
   (item, index, self) =>
     self.findIndex((t) => t.category === item.category) === index,
 );
 
-// const filteredExternalGames = game.external_games?.filter((externalGame) =>
-//   hasImageId(externalGame.category),
-// );
-
-const filteredExternalGames = uniqueExternalGames.filter((externalGame) =>
+const filteredExternalGames = uniqueExternalGames?.filter((externalGame) =>
   hasImageId(externalGame.category),
 );
 
-const hasURLExternalGames = filteredExternalGames.filter((item) => item.url);
-
-console.log(game.external_games);
+const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-6 @container">
     <h1 class="mt-4 text-pretty text-center text-3xl font-bold">
       {{ game.name }}
     </h1>
@@ -103,53 +97,174 @@ console.log(game.external_games);
 
     <!-- DLC -->
     <div v-if="game.dlcs?.length > 0" class="">
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">DLC</h2>
-          <p class="text-sm text-neutral-500">
-            Additional content for {{ game.name }}
-          </p>
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">DLC</h2>
+
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.dlcs.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.dlcs"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
         </div>
-        <GameGrid :games="game.dlcs" />
       </div>
     </div>
 
     <!-- Expansions (2) -->
+    <div v-if="game.expansions?.length > 0" class="">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Expansions</h2>
+
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.expansions.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.expansions"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
+        </div>
+      </div>
+    </div>
 
     <!-- Bundles -->
     <div v-if="game.bundles?.length > 0" class="">
-      <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Bundles</h2>
-          <p class="text-sm text-neutral-500">
-            Games that are bundled together
-          </p>
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Bundles</h2>
+
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.bundles.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.bundles"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
         </div>
-        <GameGrid :games="game.bundles" />
       </div>
     </div>
 
     <!-- Standalone Expansion (4) -->
+    <div v-if="game.standalone_expansions?.length > 0" class="">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Standalone Expansion</h2>
 
-    <!-- Mods (5) -->
+        <div
+          :class="[
+            'grid',
+            {
+              '@xl:grid-cols-2 @4xl:grid-cols-3':
+                game.standalone_expansions.length > 1,
+            },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.standalone_expansions"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
+        </div>
+      </div>
+    </div>
 
-    <!-- Episodes (6) -->
+    <!-- Remakes (8) -->
+    <div v-if="game.remakes?.length > 0" class="">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Remakes</h2>
 
-    <!-- Seasons (7) -->
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.remakes.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.remakes"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
+        </div>
+      </div>
+    </div>
 
-    <!-- Remake (8) -->
+    <!-- Remasters (9) -->
+    <div v-if="game.remasters?.length > 0" class="">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Remasters</h2>
 
-    <!-- Remaster (9) -->
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.remasters.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.remasters"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
+        </div>
+      </div>
+    </div>
 
-    <!-- Expanded Version (10) -->
+    <!-- Ports (11) -->
+    <div v-if="game.ports?.length > 0" class="">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Ports</h2>
 
-    <!-- Port (11) -->
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.ports.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.ports"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
+        </div>
+      </div>
+    </div>
 
-    <!-- Fork (12) -->
+    <!-- Forks (12) -->
+    <div v-if="game.forks?.length > 0" class="">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold">Forks</h2>
 
-    <!-- Game Packs (13) -->
-
-    <!-- Updates (14) -->
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.forks.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in game.forks"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
+        </div>
+      </div>
+    </div>
 
     <!-- Collection -->
     <div
@@ -164,19 +279,31 @@ console.log(game.external_games);
       class=""
     >
       <div class="flex flex-col gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">{{ collection.name }} Collection</h2>
-          <p class="text-sm text-neutral-500">
-            Discover games that are part of {{ game.name }}
-          </p>
+        <h2 class="text-2xl font-bold">{{ collection.name }} Collection</h2>
+
+        <div
+          :class="[
+            'grid',
+            { '@xl:grid-cols-2 @4xl:grid-cols-3': collection.games.length > 1 },
+          ]"
+        >
+          <GameTileCard
+            v-for="game in collection.games
+              ?.filter((game) => game.category === 0)
+              .sort((a, b) => a.first_release_date - b.first_release_date)"
+            :key="game.slug"
+            :game="game"
+            :show-category="false"
+          />
         </div>
-        <GameGrid
+
+        <!-- <GameGrid
           :games="
             collection.games
-              .filter((game) => game.category === 0)
+              ?.filter((game) => game.category === 0)
               .sort((a, b) => a.first_release_date - b.first_release_date)
           "
-        />
+        /> -->
       </div>
     </div>
   </div>
