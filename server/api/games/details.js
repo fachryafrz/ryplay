@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const { slug, id, sort, limit } = getQuery(event);
 
-  let whereClause = "cover != null";
+  let whereClause = "name != null";
 
   if (slug) whereClause += ` & slug = "${slug}"`;
   if (id) whereClause += ` & id = (${id})`;
