@@ -103,7 +103,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.dlcs.length > 1 },
+            {
+              '@xl:grid-cols-2': game.dlcs.length > 1,
+              '@4xl:grid-cols-3': game.dlcs.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -124,7 +127,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.expansions.length > 1 },
+            {
+              '@xl:grid-cols-2': game.expansions.length > 1,
+              '@4xl:grid-cols-3': game.expansions.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -145,7 +151,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.bundles.length > 1 },
+            {
+              '@xl:grid-cols-2': game.bundles.length > 1,
+              '@4xl:grid-cols-3': game.bundles.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -167,8 +176,8 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
           :class="[
             'grid',
             {
-              '@xl:grid-cols-2 @4xl:grid-cols-3':
-                game.standalone_expansions.length > 1,
+              '@xl:grid-cols-2': game.standalone_expansions.length > 1,
+              '@4xl:grid-cols-3': game.standalone_expansions.length > 2,
             },
           ]"
         >
@@ -190,7 +199,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.remakes.length > 1 },
+            {
+              '@xl:grid-cols-2': game.remakes.length > 1,
+              '@4xl:grid-cols-3': game.remakes.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -211,7 +223,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.remasters.length > 1 },
+            {
+              '@xl:grid-cols-2': game.remasters.length > 1,
+              '@4xl:grid-cols-3': game.remasters.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -232,7 +247,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.ports.length > 1 },
+            {
+              '@xl:grid-cols-2': game.ports.length > 1,
+              '@4xl:grid-cols-3': game.ports.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -253,7 +271,10 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': game.forks.length > 1 },
+            {
+              '@xl:grid-cols-2': game.forks.length > 1,
+              '@4xl:grid-cols-3': collection.games.length > 2,
+            },
           ]"
         >
           <GameTileCard
@@ -284,7 +305,14 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
         <div
           :class="[
             'grid',
-            { '@xl:grid-cols-2 @4xl:grid-cols-3': collection.games.length > 1 },
+            {
+              '@xl:grid-cols-2':
+                collection.games?.filter((game) => game.category === 0).length >
+                1,
+              '@4xl:grid-cols-3':
+                collection.games?.filter((game) => game.category === 0).length >
+                2,
+            },
           ]"
         >
           <GameTileCard
