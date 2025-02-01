@@ -29,13 +29,22 @@ const hasImageId = (category) => {
 };
 
 // Memfilter game.external_games untuk hanya item dengan image_id yang valid
-const filteredExternalGames = game.external_games?.filter((externalGame) =>
+const uniqueExternalGames = game.external_games.filter(
+  (item, index, self) =>
+    self.findIndex((t) => t.category === item.category) === index,
+);
+
+// const filteredExternalGames = game.external_games?.filter((externalGame) =>
+//   hasImageId(externalGame.category),
+// );
+
+const filteredExternalGames = uniqueExternalGames.filter((externalGame) =>
   hasImageId(externalGame.category),
 );
 
-const isNoStoreURL = filteredExternalGames?.every(
-  (externalGame) => !externalGame.url,
-);
+const hasURLExternalGames = filteredExternalGames.filter((item) => item.url);
+
+console.log(game.external_games);
 </script>
 
 <template>
@@ -66,7 +75,12 @@ const isNoStoreURL = filteredExternalGames?.every(
         class="flex w-fit items-center gap-1 text-primary"
       >
         <span>{{ readMore ? "Read less" : "Read more" }}</span>
-        <Icon :name="readMore ? 'ion:chevron-up-outline' : 'ion:chevron-down-outline'" size="20" />
+        <Icon
+          :name="
+            readMore ? 'ion:chevron-up-outline' : 'ion:chevron-down-outline'
+          "
+          size="20"
+        />
       </button>
     </section>
 
@@ -75,14 +89,14 @@ const isNoStoreURL = filteredExternalGames?.every(
       class="@container"
       v-if="
         game.platforms ||
-        filteredExternalGames?.length > 0 ||
+        hasURLExternalGames?.length > 0 ||
         game.genres ||
         game.rating
       "
     >
       <GameDetailsInfoAdditionalInfo
         :game="game"
-        :filtered-external-games="filteredExternalGames"
+        :external-games="hasURLExternalGames"
         :find-store-by-id="findStoreById"
       />
     </section>

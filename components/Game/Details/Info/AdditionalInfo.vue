@@ -2,9 +2,9 @@
 import { formatNumber, formatRating } from "~/helper/formats";
 import pluralize from "pluralize";
 
-const { game, filteredExternalGames, findStoreById } = defineProps([
+const { game, externalGames, findStoreById } = defineProps([
   "game",
-  "filteredExternalGames",
+  "externalGames",
   "findStoreById",
 ]);
 </script>
@@ -30,11 +30,11 @@ const { game, filteredExternalGames, findStoreById } = defineProps([
     </div>
 
     <!-- Available on -->
-    <div v-show="filteredExternalGames?.length > 0">
+    <div v-show="externalGames?.length > 0">
       <h2 class="heading-2">Available on</h2>
 
       <GameDetailsInfoStores
-        :filtered-external-games="filteredExternalGames"
+        :external-games="externalGames"
         :find-store-by-id="findStoreById"
       />
     </div>
