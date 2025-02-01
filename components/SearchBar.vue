@@ -37,7 +37,7 @@ const handleBlur = (e) => {
   isFocus.value = false;
 };
 const debounce = useDebounceFn(async (e) => {
-  const response = await $fetch(`/api/games/search`, {
+  const response = await $fetch(`/api/autocomplete`, {
     params: { query: e.target.value },
   });
 
@@ -47,7 +47,12 @@ const debounce = useDebounceFn(async (e) => {
     return self.findIndex((t) => t.name.toLowerCase() === gameName) === index;
   });
 
-  autocompleteData.value = filteredResponse.slice(0, 10);
+  autocompleteData.value = filteredResponse.slice(0, 10).sort((a, b) => {
+    const aName = a.name.toLowerCase();
+    const bName = b.name.toLowerCase();
+
+    return aName - bName;
+  });
 }, DEBOUNCE_DELAY);
 const handleAutocomplete = (e) => {
   if (!e.target.value) {

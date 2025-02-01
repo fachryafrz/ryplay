@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const { slug, id, sort, limit } = getQuery(event);
 
-  let whereClause = "cover != null";
+  let whereClause = "name != null";
 
   if (slug) whereClause += ` & slug = "${slug}"`;
   if (id) whereClause += ` & id = (${id})`;
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
         Authorization: `Bearer ${access_token}`,
       },
       body: `
-      f *, screenshots.*, cover.*, artworks.*, involved_companies.*, involved_companies.company.*, platforms.*, genres.*, videos.*, similar_games.*, similar_games.cover.*, collection.*, collection.games.*, collection.games.cover.*, external_games.*, bundles.*, bundles.cover.*, dlcs.*, dlcs.cover.*, collections.*, collections.games.*, collections.games.cover.*;
+      f *, screenshots.*, cover.*, artworks.*, involved_companies.*, involved_companies.company.*, platforms.*, genres.*, videos.*, similar_games.*, similar_games.cover.*, collection.*, collection.games.*, collection.games.cover.*, external_games.*, bundles.*, bundles.cover.*, dlcs.*, dlcs.cover.*, collections.*, collections.games.*, collections.games.cover.*, expansions.*, expansions.cover.*, standalone_expansions.*, standalone_expansions.cover.*, remakes.*, remakes.cover.*, remasters.*, remasters.cover.*, ports.*, ports.cover.*, forks.*, forks.cover.*;
       w ${whereClause};
       ${sort ? `s ${sort};` : "s total_rating_count desc;"}
       ${limit ? `l ${limit};` : "l 1;"}
