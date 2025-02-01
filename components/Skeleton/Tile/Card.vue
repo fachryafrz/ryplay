@@ -5,10 +5,10 @@ const loadingClass = "animate-pulse bg-gray-400 bg-opacity-20";
 <template>
   <div class="flex items-center gap-2 rounded-xl p-2">
     <span
-      :class="`block aspect-poster w-[100px] rounded-md ${loadingClass}`"
+      :class="`block aspect-poster w-[80px] rounded-md ${loadingClass}`"
     ></span>
 
-    <div class="w-full">
+    <div class="flex-1">
       <span
         :class="`mb-1 block h-4 w-full max-w-32 rounded ${loadingClass}`"
       ></span>
