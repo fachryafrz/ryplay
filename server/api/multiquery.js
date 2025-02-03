@@ -1,11 +1,10 @@
 import dayjs from "dayjs";
+import { getAccessToken } from "../utils/token";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookie = getCookie(event, IGDB_ACCESS_TOKEN);
-  const access_token = await $fetch("/api/token", {
-    params: { access_token: cookie },
-  });
+  const access_token = await getAccessToken(event);
 
   const today = dayjs().unix();
   const monthsAgo = dayjs().subtract(1, "month").unix();
