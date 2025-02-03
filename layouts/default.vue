@@ -1,4 +1,6 @@
 <script setup>
+import { Analytics } from "@vercel/analytics/nuxt";
+
 const config = useRuntimeConfig();
 
 useHead({
@@ -51,4 +53,6 @@ useSeoMeta({
     </div>
     <!-- </Sidebar> -->
   </div>
+
+  <Analytics />
 </template>
