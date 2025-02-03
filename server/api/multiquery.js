@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookie = getCookie(event, IGDB_ACCESS_TOKEN);
   const headers = getRequestHeaders(event);
-  const access_token = await getAccessToken(event);
+  const access_token = await getAccessToken(event, "multiquery/home");
 
   const today = dayjs().unix();
   const monthsAgo = dayjs().subtract(1, "month").unix();

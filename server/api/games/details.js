@@ -2,7 +2,7 @@ import { getAccessToken } from "~/server/utils/token";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = await getAccessToken(event);
+  const access_token = await getAccessToken(event, "details");
 
   const { slug, id, sort, limit } = getQuery(event);
 
