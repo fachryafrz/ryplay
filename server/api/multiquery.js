@@ -3,8 +3,9 @@ import { getAccessToken } from "../utils/token";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
+  const headers = getRequestHeaders(event);
   const cookie = getCookie(event, IGDB_ACCESS_TOKEN);
-  const access_token = await getAccessToken(event);
+  const access_token = await getAccessToken(event, "multiquery/home");
 
   const today = dayjs().unix();
   const monthsAgo = dayjs().subtract(1, "month").unix();
@@ -71,6 +72,7 @@ export default defineEventHandler(async (event) => {
 
     const fetchGameDetails = async (id, sort, limit) => {
       return await $fetch("/api/games/details", {
+        headers,
         params: { id, sort, limit },
       });
     };

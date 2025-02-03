@@ -1,4 +1,4 @@
-export async function getAccessToken(event) {
+export async function getAccessToken(event, page) {
   const config = useRuntimeConfig();
   // Cek apakah sudah ada token di cookie
   let accessToken = getCookie(event, IGDB_ACCESS_TOKEN);
@@ -19,6 +19,8 @@ export async function getAccessToken(event) {
 
     accessToken = access_token;
   }
+
+  // console.log(page, accessToken);
 
   return accessToken;
 }
