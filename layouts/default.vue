@@ -2,6 +2,7 @@
 import { Analytics } from "@vercel/analytics/nuxt";
 
 const config = useRuntimeConfig();
+useAccessTokenExpired(); // Otomatis refresh token ketika expired
 
 useHead({
   titleTemplate: (title) => {
