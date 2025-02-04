@@ -36,6 +36,14 @@ useSeoMeta({
   twitterImage: `${config.public.APP_URL}/maskable_icon_x192.png`,
   twitterCard: `summary_large_image`,
   twitterCreator: `@fachryafrz`,
+  robots: {
+    index: false,
+    follow: false,
+    noimageindex: true,
+    maxVideoPreview: -1,
+    maxImagePreview: "large",
+    maxSnippet: -1,
+  },
 });
 </script>
 
