@@ -18,9 +18,9 @@ export default defineNuxtConfig({
   site: {
     trailingSlash: false,
   },
-  sitemap: {
-    sources: ["/api/sitemap"],
-  },
+  // sitemap: {
+  //   sources: ["/api/sitemap"],
+  // },
   build: {
     transpile: ["@vuepic/vue-datepicker"],
   },
