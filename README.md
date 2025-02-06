@@ -4,7 +4,7 @@
 
 # 🎮 Ryplay - Game Discovery Platform 🕹️
 
-Are you a gaming enthusiast or looking for your next favorite game? Look no further! I'm excited to introduce you to **Ryplay**—your ultimate game discovery platform! 🎮✨
+Are you a gaming enthusiast or looking for your next favorite game? Look no further! I'm excited to introduce you to **Ryplay**! 🎮✨
 
 Ryplay offers an extensive database of games from all genres and platforms, making it easy for you to explore new releases, find hidden gems, and dive deeper into game details like never before.
 
