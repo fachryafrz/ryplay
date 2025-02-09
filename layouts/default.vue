@@ -38,7 +38,7 @@ useSeoMeta({
   twitterCreator: `@fachryafrz`,
   robots: {
     index: true,
-    follow: false,
+    nofollow: true,
     noimageindex: true,
   },
 });
