@@ -61,4 +61,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+  routeRules: {
+    "/search": { ssr: false },
+  },
 });
