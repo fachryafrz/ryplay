@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/sitemap",
     "nuxt-gtag",
+    "@nuxtjs/supabase",
   ],
   gtag: {
     id: "G-NRZR500XVB",
@@ -34,6 +35,8 @@ export default defineNuxtConfig({
     API_URL: process.env.API_URL,
     CLIENT_ID: process.env.CLIENT_ID,
     CLIENT_SECRET: process.env.CLIENT_SECRET,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY,
     public: {
       APP_NAME: process.env.APP_NAME,
       APP_URL: process.env.APP_URL,
@@ -63,5 +66,12 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/search": { ssr: false },
+  },
+  supabase: {
+    redirect: false,
+    redirectOptions: {
+      login: "/login",
+      callback: "/login",
+    },
   },
 });

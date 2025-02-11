@@ -16,8 +16,11 @@ onMounted(() => {
   <div
     class="sticky top-0 z-[101] bg-base-100 bg-opacity-90 px-4 py-3 backdrop-blur"
   >
-    <header class="navbar min-h-0 rounded-xl bg-neutral bg-opacity-10 p-0">
-      <div class="navbar-start">
+    <header
+      class="grid grid-cols-[auto_1fr_auto] items-center justify-between rounded-xl bg-neutral bg-opacity-10 p-0 sm:gap-2 lg:!grid-cols-3"
+    >
+      <!-- Left -->
+      <div class="">
         <NuxtLink to="/" class="btn btn-ghost px-2 text-lg sm:px-2 sm:text-xl">
           <svg
             id="logo-86"
@@ -46,59 +49,37 @@ onMounted(() => {
         </NuxtLink>
       </div>
 
-      <div class="navbar-end">
-        <div class="flex-1 flex justify-end">
-          <NuxtLink
-            to="/search"
-            v-show="route.path !== '/search'"
-            class="btn btn-neutral outline outline-secondary sm:hidden"
-          >
-            <Icon name="ion:search" size="20" />
-            <span>Search</span>
-          </NuxtLink>
-          <SearchBar placeholder="Type / to search" class="hidden sm:block max-w-[300px]" />
+      <!-- Center -->
+      <div class="hidden sm:block">
+        <div class="flex flex-1 justify-end">
+          <SearchBar
+            placeholder="Type / to search"
+            class="hidden max-w-7xl sm:block"
+          />
         </div>
+      </div>
+
+      <!-- Right -->
+      <div class="flex items-center justify-end gap-2">
+        <NuxtLink
+          to="/search"
+          v-show="route.path !== '/search'"
+          class="btn btn-neutral aspect-square px-0 outline outline-secondary xs:aspect-auto xs:px-2 sm:hidden"
+        >
+          <Icon name="ion:search" size="20" />
+          <span class="hidden xs:block">Search</span>
+        </NuxtLink>
+        <NuxtLink to="/sign-up" class="btn btn-ghost hidden sm:flex">
+          Sign up
+        </NuxtLink>
+        <NuxtLink
+          to="/login"
+          class="btn btn-primary aspect-square px-0 xs:aspect-auto xs:px-4"
+        >
+          <Icon name="ion:person" size="20" class="xs:hidden" />
+          <span class="hidden xs:block">Sign in</span>
+        </NuxtLink>
       </div>
     </header>
   </div>
-
-  <!-- <header
-    class="sticky top-0 z-[99] -m-4 flex flex-col gap-4 bg-base-100 bg-opacity-90 p-4 backdrop-blur"
-  >
-    <NuxtLink
-      to="/"
-      class="flex h-[48px] max-w-fit items-center gap-2 !bg-transparent xl:hidden"
-    >
-      <svg
-        id="logo-86"
-        width="40"
-        height="40"
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          class="ccustom"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M25.5557 11.6853C23.9112 10.5865 21.9778 10 20 10V0C23.9556 0 27.8224 1.17298 31.1114 3.37061C34.4004 5.56823 36.9638 8.69181 38.4776 12.3463C39.9913 16.0008 40.3874 20.0222 39.6157 23.9018C38.844 27.7814 36.9392 31.3451 34.1421 34.1421C31.3451 36.9392 27.7814 38.844 23.9018 39.6157C20.0222 40.3874 16.0008 39.9913 12.3463 38.4776C8.69181 36.9638 5.56823 34.4004 3.37061 31.1114C1.17298 27.8224 0 23.9556 0 20H10C10 21.9778 10.5865 23.9112 11.6853 25.5557C12.7841 27.2002 14.3459 28.4819 16.1732 29.2388C18.0004 29.9957 20.0111 30.1937 21.9509 29.8078C23.8907 29.422 25.6725 28.4696 27.0711 27.0711C28.4696 25.6725 29.422 23.8907 29.8078 21.9509C30.1937 20.0111 29.9957 18.0004 29.2388 16.1732C28.4819 14.3459 27.2002 12.7841 25.5557 11.6853Z"
-          fill="#FFFFFF"
-        ></path>
-        <path
-          class="ccustom"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M10 5.16562e-07C10 1.31322 9.74135 2.61358 9.2388 3.82683C8.73625 5.04009 7.99966 6.14248 7.07107 7.07107C6.14249 7.99966 5.0401 8.73625 3.82684 9.2388C2.61358 9.74134 1.31322 10 5.4439e-06 10L5.00679e-06 20C2.62644 20 5.22716 19.4827 7.65368 18.4776C10.0802 17.4725 12.285 15.9993 14.1421 14.1421C15.9993 12.285 17.4725 10.0802 18.4776 7.65367C19.4827 5.22715 20 2.62643 20 -3.81469e-06L10 5.16562e-07Z"
-          fill="#FFFFFF"
-        ></path>
-      </svg>
-      <span class="text-2xl font-bold">
-        <p>{{ config.public.APP_NAME }}</p>
-      </span>
-    </NuxtLink>
-
-    <div class="hidden xl:block">
-      <SearchBar />
-    </div>
-  </header> -->
 </template>
