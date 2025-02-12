@@ -35,8 +35,6 @@ export default defineNuxtConfig({
     API_URL: process.env.API_URL,
     CLIENT_ID: process.env.CLIENT_ID,
     CLIENT_SECRET: process.env.CLIENT_SECRET,
-    SUPABASE_URL: process.env.SUPABASE_URL,
-    SUPABASE_KEY: process.env.SUPABASE_KEY,
     public: {
       APP_NAME: process.env.APP_NAME,
       APP_URL: process.env.APP_URL,
