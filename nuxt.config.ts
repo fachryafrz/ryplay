@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     "nuxt-gtag",
   ],
   gtag: {
-    id: "G-NRZR500XVB",
+    id: process.env.GA_MEASUREMENT_ID,
   },
   site: {
     trailingSlash: false,
