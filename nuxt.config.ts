@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
   ],
   gtag: {
-    id: "G-NRZR500XVB",
+    id: process.env.GA_MEASUREMENT_ID,
   },
   site: {
     trailingSlash: false,
