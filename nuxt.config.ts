@@ -74,9 +74,12 @@ export default defineNuxtConfig({
     },
   },
   security: {
+    headers: {
+      contentSecurityPolicy: false,
+    },
     rateLimiter: {
-      tokensPerInterval: 5,
-      interval: "minute",
+      tokensPerInterval: 150,
+      interval: 300000,
     },
   },
 });
