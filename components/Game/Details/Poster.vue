@@ -1,6 +1,8 @@
 <script setup>
 import pluralize from "pluralize";
 import gameCategory from "@/json/game-category.json";
+import Wishlist from "./Wishlist.vue";
+import Favorite from "./Favorite.vue";
 
 const { game, gameCover } = defineProps(["game", "gameCover"]);
 
@@ -42,61 +44,75 @@ const isSameDeveloperPublisher =
 </script>
 
 <template>
-  <div
-    class="top sticky top-[calc(72px+3px)] flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
-  >
-    <figure
-      class="after-content relative after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-sm after:text-white after:backdrop-blur"
-      :data-after-content="category"
+  <div class="sticky top-[calc(72px+3px)] space-y-2">
+    <!-- Poster -->
+    <div
+      class="flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
     >
-      <img
-        :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
-        :alt="game.name"
-        class="rounded-md"
-        draggable="false"
-        loading="lazy"
-      />
-    </figure>
+      <figure
+        class="after-content relative after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-sm after:text-white after:backdrop-blur"
+        :data-after-content="category"
+      >
+        <img
+          :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
+          :alt="game.name"
+          class="rounded-md"
+          draggable="false"
+          loading="lazy"
+        />
+      </figure>
 
-    <div class="flex flex-col gap-4">
-      <!-- Release date, devs, publishers -->
-      <ul class="flex flex-wrap gap-4">
-        <li
-          v-for="info in gameInfo"
-          v-show="
-            info.section === 'Release Date' ? info.text : info.text?.length > 0
-          "
-          :key="info.section"
-          class="flex flex-col items-start text-sm"
-        >
-          <span v-if="info.text" class="font-medium text-neutral-500">
-            {{
-              info.section === "Developer" || info.section === "Publisher"
-                ? pluralize(info.section, info.text?.length)
-                : info.section
-            }}
-          </span>
+      <div class="flex flex-col gap-4">
+        <!-- Release date, devs, publishers -->
+        <ul class="flex flex-wrap gap-4">
+          <li
+            v-for="info in gameInfo"
+            v-show="
+              info.section === 'Release Date'
+                ? info.text
+                : info.text?.length > 0
+            "
+            :key="info.section"
+            class="flex flex-col items-start text-sm"
+          >
+            <span v-if="info.text" class="font-medium text-neutral-500">
+              {{
+                info.section === "Developer" || info.section === "Publisher"
+                  ? pluralize(info.section, info.text?.length)
+                  : info.section
+              }}
+            </span>
 
-          <span v-if="info.text" class="font-semibold">
-            <template v-if="info.section === 'Release Date'">
-              <time :datetime="$dayjs.unix(game.first_release_date).format()">
-                {{ info.text }}
-              </time>
-            </template>
+            <span v-if="info.text" class="font-semibold">
+              <template v-if="info.section === 'Release Date'">
+                <time :datetime="$dayjs.unix(game.first_release_date).format()">
+                  {{ info.text }}
+                </time>
+              </template>
 
-            <template v-else v-for="dev in info.text">
-              <NuxtLink
-                :to="`/search?company=${dev.company.slug}`"
-                class="hocus:text-primary"
-              >
-                {{ dev.company.name }}
-              </NuxtLink>
+              <template v-else v-for="dev in info.text">
+                <NuxtLink
+                  :to="`/search?company=${dev.company.slug}`"
+                  class="hocus:text-primary"
+                >
+                  {{ dev.company.name }}
+                </NuxtLink>
 
-              <span class="last:hidden">, </span>
-            </template>
-          </span>
-        </li>
-      </ul>
+                <span class="last:hidden">, </span>
+              </template>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="flex gap-1">
+      <!-- Favorite -->
+      <Favorite :game="game" />
+
+      <!-- Wishlist -->
+      <Wishlist :game="game" />
     </div>
   </div>
 </template>

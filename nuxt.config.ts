@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/sitemap",
     "nuxt-gtag",
+    "@nuxtjs/supabase",
   ],
   gtag: {
     id: process.env.GA_MEASUREMENT_ID,
@@ -63,5 +64,12 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/search": { ssr: false },
+  },
+  supabase: {
+    redirect: false,
+    redirectOptions: {
+      login: "/login",
+      callback: "/login",
+    },
   },
 });
