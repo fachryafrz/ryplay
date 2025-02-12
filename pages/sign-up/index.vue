@@ -132,5 +132,7 @@ const signUp = async () => {
         <span v-else>Sign Up</span>
       </button>
     </form>
+
+    <p>Already have an account? <NuxtLink to="/login" class="link link-primary">Sign In</NuxtLink></p>
   </div>
 </template>
