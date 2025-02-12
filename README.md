@@ -70,3 +70,8 @@ This project is licensed under the [MIT License](LICENSE.md).
 ## 📬 Contact
 
 For any questions or feedback, reach out at [fachrydwiafriza@gmail.com](mailto:fachrydwiafriza@gmail.com).
+
+## 📸 Screenshots
+
+[![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/game-details.png)](https://ryplay.vercel.app)
+[![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/search.png)](https://ryplay.vercel.app)
