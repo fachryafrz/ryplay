@@ -3,6 +3,7 @@ import pluralize from "pluralize";
 import gameCategory from "@/json/game-category.json";
 import Wishlist from "./Wishlist.vue";
 import Favorite from "./Favorite.vue";
+import AlreadyPlayed from "./AlreadyPlayed.vue";
 
 const { game, gameCover } = defineProps(["game", "gameCover"]);
 
@@ -107,12 +108,17 @@ const isSameDeveloperPublisher =
     </div>
 
     <!-- CTA -->
-    <div class="flex gap-1">
-      <!-- Favorite -->
-      <Favorite :game="game" />
+    <div class="flex gap-1 flex-col max-w-[640px] mx-auto">
+      <div class="flex">
+        <!-- Favorite -->
+        <Favorite :game="game" />
 
-      <!-- Wishlist -->
-      <Wishlist :game="game" />
+        <!-- Wishlist -->
+        <Wishlist :game="game" />
+      </div>
+
+      <!-- Already Played -->
+      <AlreadyPlayed :game="game" />
     </div>
   </div>
 </template>
