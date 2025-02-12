@@ -15,7 +15,6 @@
     "@nuxtjs/mdc": "^0.13.3",
     "@nuxtjs/sitemap": "^7.2.4",
     "@tailwindcss/container-queries": "^0.1.1",
-    "@vercel/analytics": "^1.4.1",
     "@vuepic/vue-datepicker": "^11.0.1",
     "axios": "^1.7.9",
     "debounce": "^2.2.0",

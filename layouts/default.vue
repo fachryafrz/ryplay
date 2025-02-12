@@ -1,6 +1,4 @@
 <script setup>
-import { Analytics } from "@vercel/analytics/nuxt";
-
 const config = useRuntimeConfig();
 useAccessTokenExpired(); // Otomatis refresh token ketika expired
 
@@ -59,6 +57,4 @@ useSeoMeta({
     </div>
     <!-- </Sidebar> -->
   </div>
-
-  <Analytics />
 </template>
