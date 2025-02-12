@@ -1,47 +1,56 @@
 [![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/home.png)](https://ryplay.vercel.app)
 
-[![Website](https://img.shields.io/badge/Ryplay-Discover%20your%20next%20favorite%20game%20now!-blue)](https://ryplay.vercel.app)
+# RyPlay - Game Discovery
 
-# 🎮 Ryplay - Game Discovery Platform 🕹️
+RyPlay is a game discovery platform built with Nuxt 3 and the IGDB API. It allows users to browse and search for games, authenticate with Supabase, and save their favorite games.
 
-Are you a gaming enthusiast or looking for your next favorite game? Look no further! I'm excited to introduce you to **Ryplay**! 🎮✨
+## ✨ Features
 
-Ryplay offers an extensive database of games from all genres and platforms, making it easy for you to explore new releases, find hidden gems, and dive deeper into game details like never before.
+- 📚 Extensive game library
+- 🔍 Search and browse games using our advanced filters
+- 🎮 View detailed game information
+- 🔑 Authentication with Supabase
+- ⭐ Add games to:
+  - Wishlist
+  - Favorites
+  - Already Played
 
-With a sleek interface and powerful search functionality, Ryplay is your go-to destination for all things gaming. You can easily access the platform through our website or install the app on your mobile device! 📱
+## 🛠️ Tech Stack
 
-Here’s what you can expect from Ryplay:
+- **Nuxt 3** - Vue-based framework for a smooth user experience
+- **IGDB API** - The biggest game database
+- **Supabase** - Authentication & database
+- **Tailwind CSS** - Styling and UI design
+- **DaisyUI** - Tailwind CSS component library
 
-## 🎮 Extensive Game Library:
+## 🚀 Fork the repository
 
-Browse through an extensive collection of games. From action-packed titles to relaxing indie games, we’ve got it all. Whether you're a casual gamer or a hardcore enthusiast, Ryplay has something for you.
+### 1. Fork
 
-## 📝 Detailed Game Information:
+Click the **Fork** button at the top-right corner of this page to create a copy of this repository in your account.
 
-Explore in-depth details about each game, including release dates, descriptions, game modes, and more. Our comprehensive game profiles give you a complete picture before you start playing!
+### 2. Clone Your Forked Repository
 
-[![Game Details](https://fachryafrz.vercel.app/projects/ryplay/game-details.png)](https://ryplay.vercel.app)
-_Explore detailed game information, including description, genre, platform, company, and more._
+```sh
+git clone https://github.com/{your-username}/ryplay.git
 
-## 🔍 Advanced Search with Filters:
+cd ryplay
 
-Find exactly what you’re looking for with our powerful search and filter options. Narrow down your results based on various criteria such as release date, category, genre, platform, company, game mode, theme, keyword, and player perspective. Finding your perfect game has never been easier!
+npm install
 
-[![Game Search with Filters](https://fachryafrz.vercel.app/projects/ryplay/search.png)](https://ryplay.vercel.app)
-_Refine your game search with multiple filters to find exactly what suits your preferences._
+cp .env.example .env
 
-## 🎮 Game Ratings:
+npm run dev
+```
 
-Check out ratings from other gamers. Discover what the community thinks about a game and find the best games based on player feedback. Don't waste time on mediocre titles!
+## 🤝 Contributing
 
-## 🔍 Easy Search Functionality:
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. We'll review and merge your contributions as we continue to improve RyPlay.
 
-Our intuitive search bar lets you find games with just a few clicks. Whether you’re searching by title, genre, or platform, Ryplay makes it simple to navigate and discover new favorites.
+## 📜 License
 
-🎉 Visit our website at [Ryplay](https://ryplay.vercel.app) and start exploring the world of games today!
+This project is licensed under the [MIT License](LICENSE.md).
 
-Ready to discover your next gaming obsession? Let Ryplay guide you through the exciting world of video games. 🎮🔍🕹️
+## 📬 Contact
 
-## License
-
-This project is licensed under the [MIT License](LICENSE.md). Feel free to use, modify, and distribute the code.
+For any questions or feedback, reach out at [fachrydwiafriza@gmail.com](mailto:fachrydwiafriza@gmail.com).
