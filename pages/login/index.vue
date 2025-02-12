@@ -20,6 +20,7 @@ const signIn = async () => {
 
     if (error) {
       console.error("Username not found:", error.message);
+      loading.value = false;
       loginError.value = "Username not found";
       return;
     }
@@ -32,14 +33,14 @@ const signIn = async () => {
     password: password.value,
   });
 
-  loading.value = false;
-
   if (error) {
     console.error("Error signing in:", error.message);
+    loading.value = false;
     loginError.value = error.message;
     return;
   } else {
     console.log("Sign-in successful");
+    loading.value = false;
     loginError.value = "";
     navigateTo("/");
   }

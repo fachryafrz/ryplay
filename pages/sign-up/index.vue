@@ -20,15 +20,15 @@ const signUp = async () => {
     },
   });
 
-  loading.value = false;
-
   if (error) {
     console.error("Error signing up:", error.message);
+    loading.value = false;
     loginError.value = "Error signing up, try different email or username";
     emailConfirmMessage.value = "";
     return;
   } else {
     console.log("Sign-up successful:", data);
+    loading.value = false;
     loginError.value = "";
     emailConfirmMessage.value = "Check your email for confirmation";
   }
