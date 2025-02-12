@@ -108,7 +108,7 @@ const isSameDeveloperPublisher =
     </div>
 
     <!-- CTA -->
-    <div class="flex gap-1 flex-col">
+    <div class="flex gap-1 flex-col max-w-[640px] mx-auto">
       <div class="flex">
         <!-- Favorite -->
         <Favorite :game="game" />
