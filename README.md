@@ -2,7 +2,7 @@
 
 # RyPlay - Game Discovery
 
-RyPlay is a game discovery platform built with Nuxt 3 and the IGDB API. It allows users to browse and search for games, authenticate with Supabase, and save their favorite games.
+RyPlay is a game discovery platform built with Nuxt 3 and IGDB API. It allows users to browse and search for games, authenticate with Supabase, and save their favorite games.
 
 ## ✨ Features
 
@@ -18,10 +18,11 @@ RyPlay is a game discovery platform built with Nuxt 3 and the IGDB API. It allow
 ## 🛠️ Tech Stack
 
 - **Nuxt 3** - Vue-based framework for a smooth user experience
-- **IGDB API** - The biggest game database
-- **Supabase** - Authentication & database
+- **Vue** - JavaScript framework
 - **Tailwind CSS** - Styling and UI design
 - **DaisyUI** - Tailwind CSS component library
+- **IGDB API** - The biggest game database
+- **Supabase** - Authentication & database
 
 ## 🚀 Fork the repository
 
