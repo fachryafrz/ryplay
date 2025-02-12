@@ -1,15 +1,14 @@
-export default defineNuxtRouteMiddleware((to, _from) => {
+export default defineNuxtRouteMiddleware(async (to, _from) => {
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
 
   if (to.query.code) {
-    const exchangeCodeForSession = async () => {
-      await supabase.auth.exchangeCodeForSession(to.query.code);
-
+    const { error } = await supabase.auth.exchangeCodeForSession(to.query.code);
+    if (error) {
+      console.error("Error exchanging code for session:", error);
+    } else {
       return navigateTo(to.path);
-    };
-
-    exchangeCodeForSession();
+    }
   }
 
   if (!user.value && to.path === "/profile") {
