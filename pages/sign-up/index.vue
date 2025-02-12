@@ -2,7 +2,6 @@
 const email = ref("");
 const username = ref("");
 const password = ref("");
-const emailConfirmMessage = ref("");
 const loginError = ref("");
 const supabase = useSupabaseClient();
 const loading = ref(false);
@@ -17,7 +16,6 @@ const signUp = async () => {
       data: {
         username: username.value,
       },
-      emailRedirectTo: location.origin,
     },
   });
 
@@ -25,13 +23,12 @@ const signUp = async () => {
     console.error("Error signing up:", error.message);
     loading.value = false;
     loginError.value = "Error signing up, try different email or username";
-    emailConfirmMessage.value = "";
     return;
   } else {
     console.log("Sign-up successful:", data);
     loading.value = false;
     loginError.value = "";
-    emailConfirmMessage.value = "Check your email for confirmation";
+    return navigateTo("/");
   }
 };
 </script>
@@ -61,27 +58,6 @@ const signUp = async () => {
         />
       </svg>
       <span>{{ loginError }}</span>
-    </div>
-
-    <div
-      v-if="emailConfirmMessage"
-      role="alert"
-      class="alert alert-success max-w-sm"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 shrink-0 stroke-current"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-      <span>{{ emailConfirmMessage }}</span>
     </div>
 
     <form @submit.prevent="signUp" class="flex w-full max-w-sm flex-col gap-2">

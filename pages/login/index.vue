@@ -42,7 +42,7 @@ const signIn = async () => {
     console.log("Sign-in successful");
     loading.value = false;
     loginError.value = "";
-    navigateTo("/");
+    return navigateTo("/");
   }
 };
 </script>
