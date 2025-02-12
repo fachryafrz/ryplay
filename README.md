@@ -34,8 +34,8 @@ RyPlay is a game discovery platform built with Nuxt 3 and IGDB API. It allows us
 
 - **Nuxt 3** - Vue-based framework for a smooth user experience
 - **Vue** - JavaScript framework
-- **Tailwind CSS** - Styling and UI design
 - **DaisyUI** - Tailwind CSS component library
+- **Tailwind CSS** - Styling and UI design
 - **IGDB API** - The biggest game database
 - **Supabase** - Authentication & database
 
