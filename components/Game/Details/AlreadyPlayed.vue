@@ -6,6 +6,7 @@ const user = useSupabaseUser();
 
 const isAlreadyPlayed = ref(false);
 const errorMessage = ref(null);
+const isUpcoming = ref(game.first_release_date > Date.now() / 1000);
 
 const checkAlreadyPlayed = async () => {
   const { data } = await supabase
@@ -73,6 +74,7 @@ watch(errorMessage, () => setTimeout(() => (errorMessage.value = null), 5e3), {
 <template>
   <button
     @click.prevent="() => (isAlreadyPlayed ? removeFromAlreadyPlayed() : addToAlreadyPlayed())"
+    :disabled="isUpcoming"
     :class="[
       'btn flex-1',
       { 'btn-ghost': !isAlreadyPlayed, 'btn-primary': isAlreadyPlayed },
