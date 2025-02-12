@@ -6,14 +6,29 @@ RyPlay is a game discovery platform built with Nuxt 3 and IGDB API. It allows us
 
 ## ✨ Features
 
+- 🔑 Authentication with Supabase:
+  - 👤 Register
+  - 🔑 Login
+  - 🌟 Save favorite games
+  - 🔖 Add games to wishlist
+  - 🎮 Mark game as played
 - 📚 Extensive game library
-- 🔍 Search and browse games using our advanced filters
-- 🎮 View detailed game information
-- 🔑 Authentication with Supabase
-- ⭐ Add games to:
-  - Wishlist
-  - Favorites
-  - Already Played
+- 🎮 View detailed game information:
+  - 📝 Summary and Description
+  - 🎮 Game trailers and screenshots
+  - 📱 Compatible platforms
+  - 🏬 Available stores
+  - 🌟 Rating
+- 🔍 Advanced search with filters:
+  - 📅 Release date
+  - 🎮 Category
+  - 🎮 Genre
+  - 🕹️ Platform
+  - 🏢 Company
+  - 👥 Game mode
+  - 🎮 Theme
+  - 🌟 Keyword
+  - 👥 Player perspective
 
 ## 🛠️ Tech Stack
 
