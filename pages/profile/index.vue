@@ -22,7 +22,7 @@ const signOut = async () => {
       <h2>{{ user.email }}</h2>
     </div>
 
-    <div class="absolute right-4 top-4">
+    <div class="mx-auto w-fit sm:absolute sm:right-4 sm:top-4">
       <button @click="signOut" class="btn btn-error btn-sm">Logout</button>
     </div>
   </div>
