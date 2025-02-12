@@ -179,7 +179,7 @@ onMounted(() => {
       </div>
 
       <!-- Already Played -->
-      <div class="rounded-2xl bg-neutral h-fit p-2 space-y-2">
+      <div class="rounded-2xl bg-neutral h-fit p-2 space-y-2 md:col-span-2 lg:col-span-1">
         <h2 class="heading-2 text-center">Already Played</h2>
 
         <ul v-if="loadingAlreadyPlayed">
