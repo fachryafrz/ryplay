@@ -35,7 +35,7 @@ useSeoMeta({
   twitterCard: `summary_large_image`,
   twitterCreator: `@fachryafrz`,
   robots: {
-    index: true,
+    noindex: true,
     nofollow: true,
     noimageindex: true,
   },

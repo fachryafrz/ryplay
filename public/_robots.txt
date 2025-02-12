@@ -1,3 +1,0 @@
-User-agent: *
-
-Sitemap: https://ryplay.vercel.app/sitemap.xml
