@@ -17,6 +17,7 @@ const signUp = async () => {
       data: {
         username: username.value,
       },
+      emailRedirectTo: location.origin,
     },
   });
 
