@@ -1,6 +1,12 @@
 <script setup>
+import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
+
 const config = useRuntimeConfig();
-useAccessTokenExpired(); // Otomatis refresh token ketika expired
+
+const token = useCookie(IGDB_ACCESS_TOKEN);
+watch(token, () => {
+  if (!token.value) location.reload();
+});
 
 const mustLogin = useShowMustLogin();
 
