@@ -108,14 +108,12 @@ const isSameDeveloperPublisher =
     </div>
 
     <!-- CTA -->
-    <div class="flex gap-1 flex-col max-w-[640px] mx-auto">
-      <div class="flex">
-        <!-- Favorite -->
-        <Favorite :game="game" />
+    <div class="mx-auto flex max-w-[640px] gap-1 flex-wrap">
+      <!-- Favorite -->
+      <Favorite :game="game" />
 
-        <!-- Wishlist -->
-        <Wishlist :game="game" />
-      </div>
+      <!-- Wishlist -->
+      <Wishlist :game="game" />
 
       <!-- Already Played -->
       <AlreadyPlayed :game="game" />

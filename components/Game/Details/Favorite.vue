@@ -3,9 +3,9 @@ const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
+const mustLogin = useShowMustLogin();
 
 const isFavorite = ref(false);
-const errorMessage = ref(null);
 const isUpcoming = ref(game.first_release_date > Date.now() / 1000);
 
 const checkFavorite = async () => {
@@ -24,7 +24,7 @@ const checkFavorite = async () => {
 
 const addToFavorite = async () => {
   if (!user.value) {
-    errorMessage.value = "You must be logged in";
+    mustLogin.value = "You must be logged in";
     return;
   }
 
@@ -65,7 +65,7 @@ onMounted(() => {
   }
 });
 
-watch(errorMessage, () => setTimeout(() => (errorMessage.value = null), 5e3), {
+watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
   immediate: true,
 });
 </script>
@@ -75,18 +75,11 @@ watch(errorMessage, () => setTimeout(() => (errorMessage.value = null), 5e3), {
     @click.prevent="() => (isFavorite ? removeFromFavorite() : addToFavorite())"
     :disabled="isUpcoming"
     :class="[
-      'btn flex-1',
+      'btn flex-1 flex-nowrap',
       { 'btn-ghost': !isFavorite, 'btn-primary': isFavorite },
     ]"
   >
     <Icon name="ion:star" size="20" />
     <span>Favorite</span>
   </button>
-
-  <div v-if="errorMessage" class="toast">
-    <div class="alert alert-error">
-      <Icon name="ion:locked" size="20" />
-      <span>{{ errorMessage }}</span>
-    </div>
-  </div>
 </template>

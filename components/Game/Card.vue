@@ -13,9 +13,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
       :class="`after-content relative transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500`"
       :data-after-content="category"
     >
-      <figure
-        class="-z-10 block aspect-poster overflow-hidden rounded-xl bg-neutral"
-      >
+      <figure class="block aspect-poster overflow-hidden rounded-xl bg-neutral">
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`"
           alt=""
@@ -38,7 +36,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
       class="after-content relative mb-4 overflow-hidden rounded-xl transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500"
       :data-after-content="category"
     >
-      <figure class="-z-10 block aspect-video overflow-hidden">
+      <figure class="block aspect-video overflow-hidden">
         <img
           :src="`https://images.igdb.com/igdb/image/upload/t_720p/${game.artworks[0].image_id || game.screenshots[0].image_id}.jpg`"
           alt=""

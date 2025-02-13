@@ -3,9 +3,9 @@ const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
+const mustLogin = useShowMustLogin();
 
 const isWishlist = ref(false);
-const errorMessage = ref(null);
 
 const checkWishlist = async () => {
   const { data } = await supabase
@@ -23,7 +23,7 @@ const checkWishlist = async () => {
 
 const addToWishlist = async () => {
   if (!user.value) {
-    errorMessage.value = "You must be logged in";
+    mustLogin.value = "You must be logged in";
     return;
   }
 
@@ -51,7 +51,7 @@ const removeFromWishlist = async () => {
 
   if (error) {
     console.error(error);
-    errorMessage.value = "Error removing from wishlist";
+    mustLogin.value = "Error removing from wishlist";
     return;
   } else {
     console.log(data);
@@ -65,7 +65,7 @@ onMounted(() => {
   }
 });
 
-watch(errorMessage, () => setTimeout(() => (errorMessage.value = null), 5e3), {
+watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
   immediate: true,
 });
 </script>
@@ -74,18 +74,11 @@ watch(errorMessage, () => setTimeout(() => (errorMessage.value = null), 5e3), {
   <button
     @click.prevent="() => (isWishlist ? removeFromWishlist() : addToWishlist())"
     :class="[
-      'btn flex-1',
+      'btn flex-1 flex-nowrap',
       { 'btn-ghost': !isWishlist, 'btn-primary': isWishlist },
     ]"
   >
     <Icon name="ion:bookmark" size="20" />
     <span>Wishlist</span>
   </button>
-
-  <div v-if="errorMessage" class="toast">
-    <div class="alert alert-error">
-      <Icon name="ion:locked" size="20" />
-      <span>{{ errorMessage }}</span>
-    </div>
-  </div>
 </template>

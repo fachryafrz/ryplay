@@ -135,7 +135,9 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         class="h-full"
       >
         <SwiperSlide v-for="game in games" :key="game.slug" class="relative">
-          <div class="flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-6">
+          <div
+            class="relative z-10 flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-6"
+          >
             <h2
               class="line-clamp-2 text-pretty text-center text-xl font-semibold md:text-start lg:text-2xl"
             >
@@ -183,7 +185,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
           </div>
 
           <figure
-            class="absolute inset-0 -z-10 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[50%]"
+            class="absolute inset-0 scale-[2.0] blur-xl before:absolute before:inset-0 before:z-10 before:bg-base-100 before:opacity-[50%]"
           >
             <img
               :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.artworks[0]?.image_id}.jpg`"
@@ -191,6 +193,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               role="presentation"
               aria-hidden="true"
               loading="lazy"
+              draggable="false"
               class="block h-full w-full bg-cover bg-center bg-no-repeat motion-safe:animate-spin-slow"
             />
           </figure>

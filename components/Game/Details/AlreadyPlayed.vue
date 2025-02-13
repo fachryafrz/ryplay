@@ -3,9 +3,9 @@ const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
+const mustLogin = useShowMustLogin();
 
 const isAlreadyPlayed = ref(false);
-const errorMessage = ref(null);
 const isUpcoming = ref(game.first_release_date > Date.now() / 1000);
 
 const checkAlreadyPlayed = async () => {
@@ -24,7 +24,7 @@ const checkAlreadyPlayed = async () => {
 
 const addToAlreadyPlayed = async () => {
   if (!user.value) {
-    errorMessage.value = "You must be logged in";
+    mustLogin.value = "You must be logged in";
     return;
   }
 
@@ -52,7 +52,7 @@ const removeFromAlreadyPlayed = async () => {
 
   if (error) {
     console.error(error);
-    errorMessage.value = "Error removing from alreadyPlayed";
+    mustLogin.value = "Error removing from alreadyPlayed";
     return;
   } else {
     console.log(data);
@@ -66,28 +66,23 @@ onMounted(() => {
   }
 });
 
-watch(errorMessage, () => setTimeout(() => (errorMessage.value = null), 5e3), {
+watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
   immediate: true,
 });
 </script>
 
 <template>
   <button
-    @click.prevent="() => (isAlreadyPlayed ? removeFromAlreadyPlayed() : addToAlreadyPlayed())"
+    @click.prevent="
+      () => (isAlreadyPlayed ? removeFromAlreadyPlayed() : addToAlreadyPlayed())
+    "
     :disabled="isUpcoming"
     :class="[
-      'btn flex-1',
+      'btn flex-1 flex-nowrap',
       { 'btn-ghost': !isAlreadyPlayed, 'btn-primary': isAlreadyPlayed },
     ]"
   >
     <Icon name="ion:game-controller" size="20" />
-    <span>Already Played</span>
+    <span class="whitespace-nowrap">Already Played</span>
   </button>
-
-  <div v-if="errorMessage" class="toast">
-    <div class="alert alert-error">
-      <Icon name="ion:locked" size="20" />
-      <span>{{ errorMessage }}</span>
-    </div>
-  </div>
 </template>
