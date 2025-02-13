@@ -63,9 +63,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  routeRules: {
-    "/search": { ssr: false },
-  },
   supabase: {
     redirect: false,
     redirectOptions: {
