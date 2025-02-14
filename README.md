@@ -4,7 +4,7 @@
 
 RyPlay is a comprehensive gaming platform designed to enhance your gaming experience. It allows users to register and log in securely, enabling them to save their favorite games, create a wishlist, and mark games as played. 
 
-## 🔍 How It Works:
+## 🔍 How It Works
 
 - **Authenticate Securely** – Log in to access your personalized gaming experience.
 - **Discover Games** – Explore a vast library with detailed game information.
@@ -12,7 +12,7 @@ RyPlay is a comprehensive gaming platform designed to enhance your gaming experi
 - **Find Games Easily** – Use advanced search and filters to discover games that match your interests.
 - **Track & Explore** – View game details, watch trailers, and check availability across platforms and stores.
 
-## ✨ Key Features:
+## ✨ Key Features
 
 - **Extensive Game Library** – Browse a wide selection of games with in-depth details.
 - **Save & Track Games** – Add favorites, wishlist games, and mark played titles.
@@ -48,12 +48,12 @@ RyPlay is a comprehensive gaming platform designed to enhance your gaming experi
 
 ## 🛠️ Tech Stack
 
-- **Nuxt 3** - Vue-based framework
-- **Vue** - JavaScript framework
-- **DaisyUI** - Tailwind CSS component library
-- **Tailwind CSS** - Styling and UI design
-- **IGDB API** - The biggest game database
-- **Supabase** - Authentication & database
+- **Nuxt 3** – Vue-based framework
+- **Vue** – JavaScript framework
+- **DaisyUI** – Tailwind CSS component library
+- **Tailwind CSS** – Styling and UI design
+- **IGDB API** – The biggest game database
+- **Supabase** – Authentication & database
 
 ## 🚀 Fork the repository
 
