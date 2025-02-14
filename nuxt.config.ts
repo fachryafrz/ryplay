@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "nuxt-gtag",
     "@nuxtjs/supabase",
-    "nuxt-security",
   ],
   gtag: {
     id: process.env.GA_MEASUREMENT_ID,
@@ -68,15 +67,6 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: "/login",
       callback: "/login",
-    },
-  },
-  security: {
-    headers: {
-      contentSecurityPolicy: false,
-    },
-    rateLimiter: {
-      tokensPerInterval: 150,
-      interval: 300000,
     },
   },
 });
