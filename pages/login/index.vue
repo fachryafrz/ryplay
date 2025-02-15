@@ -39,7 +39,6 @@ const signIn = async () => {
     loginError.value = error.message;
     return;
   } else {
-    console.log("Sign-in successful");
     loading.value = false;
     loginError.value = "";
     return navigateTo("/");

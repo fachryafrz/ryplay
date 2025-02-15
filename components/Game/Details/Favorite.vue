@@ -1,4 +1,6 @@
 <script setup>
+import useSWRV from "swrv";
+
 const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
@@ -9,18 +11,26 @@ const isFavorite = ref(false);
 const isUpcoming = ref(game.first_release_date > Date.now() / 1000);
 
 const checkFavorite = async () => {
+  if (!user.value) {
+    isFavorite.value = false;
+    return;
+  }
+
   const { data } = await supabase
     .from("favorites")
     .select("*")
     .eq("user_id", user.value.id)
     .eq("game_slug", game.slug);
 
-  if (data.length > 0) {
-    isFavorite.value = true;
-  } else {
-    isFavorite.value = false;
-  }
+  isFavorite.value = data.length > 0;
 };
+
+// NOTE: Can't mutate/revalidate with SWRV, maybe a bug
+const { data, mutate } = useSWRV(
+  ["details", "favorite"],
+  () => checkFavorite(),
+  { revalidateOnFocus: false },
+);
 
 const addToFavorite = async () => {
   if (!user.value) {
@@ -37,7 +47,6 @@ const addToFavorite = async () => {
     console.error(error);
     return;
   } else {
-    console.log(data);
     checkFavorite();
   }
 };
@@ -54,16 +63,9 @@ const removeFromFavorite = async () => {
     console.error(error);
     return;
   } else {
-    console.log(data);
     checkFavorite();
   }
 };
-
-onMounted(() => {
-  if (user.value) {
-    checkFavorite();
-  }
-});
 
 watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
   immediate: true,

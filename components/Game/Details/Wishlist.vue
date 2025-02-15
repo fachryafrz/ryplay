@@ -1,4 +1,6 @@
 <script setup>
+import useSWRV from "swrv";
+
 const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
@@ -8,18 +10,26 @@ const mustLogin = useShowMustLogin();
 const isWishlist = ref(false);
 
 const checkWishlist = async () => {
+  if (!user.value) {
+    isWishlist.value = false;
+    return;
+  }
+
   const { data } = await supabase
     .from("wishlist")
     .select("*")
     .eq("user_id", user.value.id)
     .eq("game_slug", game.slug);
 
-  if (data.length > 0) {
-    isWishlist.value = true;
-  } else {
-    isWishlist.value = false;
-  }
+  isWishlist.value = data.length > 0;
 };
+
+// NOTE: Can't mutate/revalidate with SWRV, maybe a bug
+const { data, mutate } = useSWRV(
+  ["details", "wishlist"],
+  () => checkWishlist(),
+  { revalidateOnFocus: false },
+);
 
 const addToWishlist = async () => {
   if (!user.value) {
@@ -36,7 +46,6 @@ const addToWishlist = async () => {
     console.error(error);
     return;
   } else {
-    console.log(data);
     checkWishlist();
   }
 };
@@ -54,16 +63,9 @@ const removeFromWishlist = async () => {
     mustLogin.value = "Error removing from wishlist";
     return;
   } else {
-    console.log(data);
     checkWishlist();
   }
 };
-
-onMounted(() => {
-  if (user.value) {
-    checkWishlist();
-  }
-});
 
 watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
   immediate: true,

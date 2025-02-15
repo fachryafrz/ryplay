@@ -1,87 +1,7 @@
 <script setup>
-import axios from "axios";
-
 const supabase = useSupabaseClient();
 const route = useRoute();
 const user = useSupabaseUser();
-
-const favorites = ref([]);
-const wishlist = ref([]);
-const alreadyPlayed = ref([]);
-const loadingFavorites = ref(false);
-const loadingWishlist = ref(false);
-const loadingAlreadyPlayed = ref(false);
-
-const fetchGameDetails = async (games) => {
-  const { data } = await axios.get("/api/games/details", {
-    params: {
-      slug: games.map((game) => `"${game.game_slug}"`).join(","),
-      limit: games.length,
-    },
-  });
-
-  return data;
-};
-
-const getFavorites = async () => {
-  loadingFavorites.value = true;
-
-  const { data, error } = await supabase
-    .from("favorites")
-    .select("*")
-    .eq("user_id", user.value.id);
-
-  if (error) {
-    console.error(error);
-    loadingFavorites.value = false;
-    return;
-  } else {
-    const games = await fetchGameDetails(data);
-
-    loadingFavorites.value = false;
-    favorites.value = games;
-  }
-};
-
-const getWishlist = async () => {
-  loadingWishlist.value = true;
-
-  const { data, error } = await supabase
-    .from("wishlist")
-    .select("*")
-    .eq("user_id", user.value.id);
-
-  if (error) {
-    console.error(error);
-    loadingWishlist.value = false;
-    return;
-  } else {
-    const games = await fetchGameDetails(data);
-
-    loadingWishlist.value = false;
-    wishlist.value = games;
-  }
-};
-
-const getAlreadyPlayed = async () => {
-  loadingAlreadyPlayed.value = true;
-
-  const { data, error } = await supabase
-    .from("already_played")
-    .select("*")
-    .eq("user_id", user.value.id);
-
-  if (error) {
-    console.error(error);
-    loadingAlreadyPlayed.value = false;
-    return;
-  } else {
-    const games = await fetchGameDetails(data);
-
-    loadingAlreadyPlayed.value = false;
-    alreadyPlayed.value = games;
-  }
-};
 
 const signOut = async () => {
   await supabase.auth.signOut();
@@ -90,12 +10,6 @@ const signOut = async () => {
     return navigateTo("/login");
   }
 };
-
-onMounted(() => {
-  getFavorites();
-  getWishlist();
-  getAlreadyPlayed();
-});
 </script>
 
 <template>
@@ -118,78 +32,31 @@ onMounted(() => {
     <!-- Games -->
     <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <!-- Favorites -->
-      <div class="h-fit space-y-2 rounded-2xl bg-neutral p-2">
-        <h2 class="heading-2 text-center">Favorites</h2>
-
-        <ul v-if="loadingFavorites">
-          <li v-for="i in 3" :key="i">
-            <SkeletonTileCard />
-          </li>
-        </ul>
-
-        <ul v-if="favorites.length > 0">
-          <li v-for="game in favorites" :key="game.slug">
-            <GameTileCard :game="game" />
-          </li>
-        </ul>
-
-        <div
-          v-if="!loadingFavorites && favorites.length === 0"
-          class="flex items-center justify-center"
-        >
-          <p class="text-center">No favorites yet.</p>
-        </div>
-      </div>
+      <ClientOnly>
+        <ProfileTileList
+          title="Favorites"
+          empty-message="No favorites yet."
+          table="favorites"
+        />
+      </ClientOnly>
 
       <!-- Wishlist -->
-      <div class="h-fit space-y-2 rounded-2xl bg-neutral p-2">
-        <h2 class="heading-2 text-center">Wishlist</h2>
-
-        <ul v-if="loadingWishlist">
-          <li v-for="i in 3" :key="i">
-            <SkeletonTileCard />
-          </li>
-        </ul>
-
-        <ul v-if="wishlist.length > 0">
-          <li v-for="game in wishlist" :key="game.slug">
-            <GameTileCard :game="game" />
-          </li>
-        </ul>
-
-        <div
-          v-if="!loadingWishlist && wishlist.length === 0"
-          class="flex items-center justify-center"
-        >
-          <p class="text-center">No wishlist yet.</p>
-        </div>
-      </div>
+      <ClientOnly>
+        <ProfileTileList
+          title="Wishlist"
+          empty-message="No wishlist yet."
+          table="wishlist"
+        />
+      </ClientOnly>
 
       <!-- Already Played -->
-      <div
-        class="h-fit space-y-2 rounded-2xl bg-neutral p-2 md:col-span-2 lg:col-span-1"
-      >
-        <h2 class="heading-2 text-center">Already Played</h2>
-
-        <ul v-if="loadingAlreadyPlayed">
-          <li v-for="i in 3" :key="i">
-            <SkeletonTileCard />
-          </li>
-        </ul>
-
-        <ul v-if="alreadyPlayed.length > 0">
-          <li v-for="game in alreadyPlayed" :key="game.slug">
-            <GameTileCard :game="game" />
-          </li>
-        </ul>
-
-        <div
-          v-if="!loadingAlreadyPlayed && alreadyPlayed.length === 0"
-          class="flex items-center justify-center"
-        >
-          <p class="text-center">Haven't played yet.</p>
-        </div>
-      </div>
+      <ClientOnly>
+        <ProfileTileList
+          title="Already Played"
+          empty-message="Haven't played yet."
+          table="already_played"
+        />
+      </ClientOnly>
     </section>
   </div>
 </template>

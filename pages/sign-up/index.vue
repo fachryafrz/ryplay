@@ -25,7 +25,6 @@ const signUp = async () => {
     loginError.value = "Error signing up, try different email or username";
     return;
   } else {
-    console.log("Sign-up successful:", data);
     loading.value = false;
     loginError.value = "";
     return navigateTo("/");
