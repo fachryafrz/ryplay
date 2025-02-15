@@ -3,7 +3,7 @@ const config = useRuntimeConfig();
 const { slug } = useRoute().params;
 
 const { data: response, error } = await useFetch("/api/games/details", {
-  params: { slug },
+  params: { slug: `"${slug}"` },
   transform: (payload) => {
     return {
       results: payload,
