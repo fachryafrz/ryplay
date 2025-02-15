@@ -1,8 +1,8 @@
 [![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/home.png)](https://ryplay.vercel.app)
 
-# RyPlay – Game Discovery
+# Ryplay – Game Discovery
 
-RyPlay is a comprehensive gaming platform designed to enhance your gaming experience. It allows users to register and log in securely, enabling them to save their favorite games, create a wishlist, and mark games as played. 
+Ryplay is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.
 
 ## 🔍 How It Works
 
