@@ -12,6 +12,17 @@ const loadingFavorites = ref(false);
 const loadingWishlist = ref(false);
 const loadingAlreadyPlayed = ref(false);
 
+const fetchGameDetails = async (games) => {
+  const { data } = await axios.get("/api/games/details", {
+    params: {
+      slug: games.map((game) => `"${game.game_slug}"`).join(","),
+      limit: games.length,
+    },
+  });
+
+  return data;
+};
+
 const getFavorites = async () => {
   loadingFavorites.value = true;
 
@@ -25,17 +36,7 @@ const getFavorites = async () => {
     loadingFavorites.value = false;
     return;
   } else {
-    const games = await Promise.all(
-      data.map(async (game) => {
-        const { data: gameData } = await axios.get("/api/games/details", {
-          params: {
-            slug: game.game_slug,
-          },
-        });
-
-        return gameData[0];
-      }),
-    );
+    const games = await fetchGameDetails(data);
 
     loadingFavorites.value = false;
     favorites.value = games;
@@ -55,17 +56,7 @@ const getWishlist = async () => {
     loadingWishlist.value = false;
     return;
   } else {
-    const games = await Promise.all(
-      data.map(async (game) => {
-        const { data: gameData } = await axios.get("/api/games/details", {
-          params: {
-            slug: game.game_slug,
-          },
-        });
-
-        return gameData[0];
-      }),
-    );
+    const games = await fetchGameDetails(data);
 
     loadingWishlist.value = false;
     wishlist.value = games;
@@ -85,17 +76,7 @@ const getAlreadyPlayed = async () => {
     loadingAlreadyPlayed.value = false;
     return;
   } else {
-    const games = await Promise.all(
-      data.map(async (game) => {
-        const { data: gameData } = await axios.get("/api/games/details", {
-          params: {
-            slug: game.game_slug,
-          },
-        });
-
-        return gameData[0];
-      }),
-    );
+    const games = await fetchGameDetails(data);
 
     loadingAlreadyPlayed.value = false;
     alreadyPlayed.value = games;
@@ -137,7 +118,7 @@ onMounted(() => {
     <!-- Games -->
     <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <!-- Favorites -->
-      <div class="rounded-2xl bg-neutral h-fit p-2 space-y-2">
+      <div class="h-fit space-y-2 rounded-2xl bg-neutral p-2">
         <h2 class="heading-2 text-center">Favorites</h2>
 
         <ul v-if="loadingFavorites">
@@ -152,13 +133,16 @@ onMounted(() => {
           </li>
         </ul>
 
-        <div v-else class="flex items-center justify-center">
+        <div
+          v-if="!loadingFavorites && favorites.length === 0"
+          class="flex items-center justify-center"
+        >
           <p class="text-center">No favorites yet.</p>
         </div>
       </div>
 
       <!-- Wishlist -->
-      <div class="rounded-2xl bg-neutral h-fit p-2 space-y-2">
+      <div class="h-fit space-y-2 rounded-2xl bg-neutral p-2">
         <h2 class="heading-2 text-center">Wishlist</h2>
 
         <ul v-if="loadingWishlist">
@@ -173,13 +157,18 @@ onMounted(() => {
           </li>
         </ul>
 
-        <div v-else class="flex items-center justify-center">
+        <div
+          v-if="!loadingWishlist && wishlist.length === 0"
+          class="flex items-center justify-center"
+        >
           <p class="text-center">No wishlist yet.</p>
         </div>
       </div>
 
       <!-- Already Played -->
-      <div class="rounded-2xl bg-neutral h-fit p-2 space-y-2 md:col-span-2 lg:col-span-1">
+      <div
+        class="h-fit space-y-2 rounded-2xl bg-neutral p-2 md:col-span-2 lg:col-span-1"
+      >
         <h2 class="heading-2 text-center">Already Played</h2>
 
         <ul v-if="loadingAlreadyPlayed">
@@ -194,7 +183,10 @@ onMounted(() => {
           </li>
         </ul>
 
-        <div v-else class="flex items-center justify-center">
+        <div
+          v-if="!loadingAlreadyPlayed && alreadyPlayed.length === 0"
+          class="flex items-center justify-center"
+        >
           <p class="text-center">Haven't played yet.</p>
         </div>
       </div>

@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
   let whereClause = "name != null";
 
-  if (slug) whereClause += ` & slug = "${slug}"`;
+  if (slug) whereClause += ` & slug = (${slug})`;
   if (id) whereClause += ` & id = (${id})`;
 
   const fetchGame = async (access_token) => {
