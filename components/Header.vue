@@ -52,10 +52,10 @@ onMounted(() => {
 
       <!-- Center -->
       <div class="hidden sm:block">
-        <div class="flex flex-1 justify-center">
+        <div class="flex flex-1 justify-end">
           <SearchBar
             placeholder="Type / to search"
-            class="hidden sm:block md:max-w-sm"
+            class="hidden max-w-7xl sm:block"
           />
         </div>
       </div>
@@ -70,13 +70,17 @@ onMounted(() => {
           <Icon name="ion:search" size="20" />
           <span class="hidden xs:block">Search</span>
         </NuxtLink>
-
-        <BuyMeACoffee class="hidden md:block" />
-
+        <NuxtLink
+          v-if="!user"
+          to="/sign-up"
+          class="btn btn-ghost hidden sm:flex"
+        >
+          Sign up
+        </NuxtLink>
         <NuxtLink
           v-if="!user"
           to="/login"
-          class="btn btn-primary hidden aspect-square px-0 xs:aspect-auto xs:px-4 md:flex"
+          class="btn btn-primary aspect-square px-0 xs:aspect-auto xs:px-4"
         >
           <Icon name="ion:person" size="20" class="xs:hidden" />
           <span class="hidden xs:block">Sign in</span>
@@ -84,62 +88,11 @@ onMounted(() => {
         <NuxtLink
           v-if="user"
           to="/profile"
-          class="btn hidden aspect-square bg-neutral px-0 outline outline-secondary xs:aspect-auto xs:px-4 md:flex"
+          class="btn btn-ghost aspect-square px-0 xs:aspect-auto xs:px-4"
         >
           <Icon name="ion:person" size="20" class="xs:hidden" />
           <span class="hidden xs:block">{{ user.user_metadata.username }}</span>
         </NuxtLink>
-
-        <!-- Mobile Menu -->
-        <div className="dropdown dropdown-end md:hidden">
-          <div
-            tabIndex="0"
-            role="button"
-            className="btn outline outline-secondary btn-neutral aspect-square px-0"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 !-scale-x-[1]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h7"
-              />
-            </svg>
-          </div>
-          <ul
-            className="menu dropdown-content mt-2 bg-neutral outline outline-secondary rounded-xl gap-1 z-[1] w-52 p-2 shadow"
-          >
-            <li>
-              <NuxtLink
-                v-if="!user"
-                to="/login"
-                class="btn btn-primary aspect-square px-0 xs:aspect-auto xs:px-4"
-              >
-                <Icon name="ion:person" size="20" class="xs:hidden" />
-                <span>Sign in</span>
-              </NuxtLink>
-              <NuxtLink
-                v-if="user"
-                to="/profile"
-                class="btn btn-ghost aspect-square px-0 xs:aspect-auto xs:px-4"
-              >
-                <Icon name="ion:person" size="20" class="xs:hidden" />
-                <span class="hidden xs:block">{{
-                  user.user_metadata.username
-                }}</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <BuyMeACoffee />
-            </li>
-          </ul>
-        </div>
       </div>
     </header>
   </div>
