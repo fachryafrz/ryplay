@@ -55,6 +55,7 @@ const signOut = async () => {
           title="Already Played"
           empty-message="Haven't played yet."
           table="already_played"
+          class="md:col-span-2 lg:col-span-1"
         />
       </ClientOnly>
     </section>
