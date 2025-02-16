@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "nuxt-gtag",
     "@nuxtjs/supabase",
+    "@nuxtjs/google-adsense",
   ],
   gtag: {
     id: process.env.GA_MEASUREMENT_ID,
@@ -68,5 +69,8 @@ export default defineNuxtConfig({
       login: "/login",
       callback: "/login",
     },
+  },
+  googleAdsense: {
+    id: process.env.ADSENSE_CLIENT_ID,
   },
 });

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxt/icon": "^1.10.3",
+    "@nuxtjs/google-adsense": "^3.0.0",
     "@nuxtjs/mdc": "^0.13.3",
     "@nuxtjs/sitemap": "^7.2.4",
     "@nuxtjs/supabase": "^1.4.6",
