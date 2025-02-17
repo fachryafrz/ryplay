@@ -27,13 +27,6 @@ useHead({
       href: `/manifest.webmanifest`,
     },
   ],
-  script: [
-    {
-      async: true,
-      src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${config.public.ADSENSE_CLIENT_ID}`,
-      crossorigin: `anonymous`,
-    },
-  ],
 });
 
 useSeoMeta({

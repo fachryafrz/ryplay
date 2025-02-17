@@ -39,7 +39,6 @@ export default defineNuxtConfig({
       APP_NAME: process.env.APP_NAME,
       APP_URL: process.env.APP_URL,
       APP_DESCRIPTION: process.env.APP_DESCRIPTION,
-      ADSENSE_CLIENT_ID: process.env.ADSENSE_CLIENT_ID,
     },
   },
   app: {
