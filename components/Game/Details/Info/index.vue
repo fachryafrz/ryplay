@@ -38,7 +38,13 @@ const filteredExternalGames = uniqueExternalGames?.filter((externalGame) =>
   hasImageId(externalGame.category),
 );
 
-const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
+const includeIGDB = [
+  ...filteredExternalGames,
+  {
+    url: `https://www.igdb.com/games/${game.slug}`,
+    category: 0,
+  },
+];
 </script>
 
 <template>
@@ -81,16 +87,11 @@ const hasURLExternalGames = filteredExternalGames?.filter((item) => item.url);
     <!-- Additional Info -->
     <section
       class="@container"
-      v-if="
-        game.platforms ||
-        hasURLExternalGames?.length > 0 ||
-        game.genres ||
-        game.rating
-      "
+      v-if="game.platforms || game.genres || game.rating"
     >
       <GameDetailsInfoAdditionalInfo
         :game="game"
-        :external-games="hasURLExternalGames"
+        :external-games="includeIGDB"
         :find-store-by-id="findStoreById"
       />
     </section>

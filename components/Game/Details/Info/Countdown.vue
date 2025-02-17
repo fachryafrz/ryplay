@@ -74,6 +74,7 @@ onMounted(() => {
       {{ pluralize("month", countdown.months) }}
     </div>
     <div
+      v-if="countdown.days > 0"
       class="flex flex-col rounded-box bg-neutral p-2 text-neutral-content outline outline-secondary"
     >
       <span class="countdown font-mono text-5xl">
