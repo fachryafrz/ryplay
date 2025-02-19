@@ -39,11 +39,11 @@ const filteredExternalGames = uniqueExternalGames?.filter((externalGame) =>
 );
 
 const includeIGDB = [
-  ...filteredExternalGames,
   {
     url: `https://www.igdb.com/games/${game.slug}`,
     category: 0,
   },
+  ...filteredExternalGames,
 ];
 </script>
 
