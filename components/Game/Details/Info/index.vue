@@ -38,13 +38,14 @@ const filteredExternalGames = uniqueExternalGames?.filter((externalGame) =>
   hasImageId(externalGame.category),
 );
 
-const includeIGDB = [
-  {
-    url: `https://www.igdb.com/games/${game.slug}`,
-    category: 0,
-  },
-  ...filteredExternalGames,
-];
+const IGDB = {
+  url: `https://www.igdb.com/games/${game.slug}`,
+  category: 0,
+};
+
+const includeIGDB = filteredExternalGames
+  ? [IGDB, ...filteredExternalGames]
+  : [IGDB];
 </script>
 
 <template>
