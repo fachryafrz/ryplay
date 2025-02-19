@@ -11,27 +11,7 @@ useSeoMeta({
   twitterDescription: `Search for your favorite games`,
 });
 
-const { data: multiquery } = await useFetch("/api/search/multiquery", {
-  transform: (payload) => {
-    return {
-      results: payload,
-      fetchedAt: new Date(),
-    };
-  },
-  getCachedData: (key, nuxtApp) => {
-    const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
-    if (!data) return;
-
-    const expiration = new Date(data.fetchedAt);
-    expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
-
-    const isExpired = expiration.getTime() < Date.now();
-
-    if (isExpired) return;
-
-    return data;
-  },
-});
+const { data: multiquery } = await useFetch("/api/search/multiquery");
 </script>
 
 <template>
@@ -46,7 +26,7 @@ const { data: multiquery } = await useFetch("/api/search/multiquery", {
         'translate-x-0': showFilter,
       }"
     >
-      <SearchFilter :multiquery="multiquery.results" />
+      <SearchFilter :multiquery="multiquery" />
 
       <button @click="setShowFilter" class="absolute right-4 top-2 lg:hidden">
         <Icon name="ion:close" size="28" />

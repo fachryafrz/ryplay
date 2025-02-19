@@ -4,30 +4,11 @@ const { slug } = useRoute().params;
 
 const { data: response, error } = await useFetch("/api/games/details", {
   params: { slug: `"${slug}"` },
-  transform: (payload) => {
-    return {
-      results: payload,
-      fetchedAt: new Date(),
-    };
-  },
-  getCachedData: (key, nuxtApp) => {
-    const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
-    if (!data) return;
-
-    const expiration = new Date(data.fetchedAt);
-    expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
-
-    const isExpired = expiration.getTime() < Date.now();
-
-    if (isExpired) return;
-
-    return data;
-  },
 });
 
 if (error.value) throw error.value;
 
-const [game] = response.value.results;
+const [game] = response.value;
 const gameCover = `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`;
 const gameDescription = (game.storyline ?? game.summary ?? "").replace(
   /(\r\n|\n|\r)/gm,

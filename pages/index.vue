@@ -8,74 +8,26 @@ const oneMonthAgo = dayjs().add(-1, "month").unix();
 
 const [{ data: home }, { data: multiquery, status: statusMultiquery }] =
   await Promise.all([
-    useFetch("/api/home", {
-      transform: (payload) => {
-        return {
-          results: payload,
-          fetchedAt: new Date(),
-        };
-      },
-      getCachedData: (key, nuxtApp) => {
-        const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
-
-        if (!data) return;
-
-        const expiration = new Date(data.fetchedAt);
-        expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
-
-        const isExpired = expiration.getTime() < Date.now();
-
-        if (isExpired) return;
-
-        return data;
-      },
-    }),
+    useFetch("/api/home"),
     useLazyFetch("/api/multiquery", {
       server: false,
-      transform: (payload) => {
-        return {
-          ...payload,
-          fetchedAt: new Date(),
-        };
-      },
-      getCachedData: (key, nuxtApp) => {
-        const data = nuxtApp.payload.data[key] ?? nuxtApp.static.data[key];
-        if (!data) return;
-
-        const expiration = new Date(data.fetchedAt);
-        expiration.setTime(expiration.getTime() + 30 * 60 * 1000);
-
-        const isExpired = expiration.getTime() < Date.now();
-
-        if (isExpired) return;
-
-        return data;
-      },
     }),
   ]);
 
-const featured = home.value.results.find(
-  (res) => res.name === "featured",
-).result;
-const upcoming = home.value.results.find(
-  (res) => res.name === "upcoming",
-).result;
-const topRated = home.value.results.find(
-  (res) => res.name === "top-rated",
-).result;
-const mostAnticipated = home.value.results.find(
+const featured = home.value.find((res) => res.name === "featured").result;
+const upcoming = home.value.find((res) => res.name === "upcoming").result;
+const topRated = home.value.find((res) => res.name === "top-rated").result;
+const mostAnticipated = home.value.find(
   (res) => res.name === "most-anticipated",
 ).result;
-const newReleases = home.value.results.find(
+const newReleases = home.value.find(
   (res) => res.name === "new-releases",
 ).result;
-const adventure = home.value.results.find(
-  (res) => res.name === "adventure",
-).result;
-const hackAndSlashBeatEmUp = home.value.results.find(
+const adventure = home.value.find((res) => res.name === "adventure").result;
+const hackAndSlashBeatEmUp = home.value.find(
   (res) => res.name === "hack-and-slash-beat-em-up",
 ).result;
-const racing = home.value.results.find((res) => res.name === "racing").result;
+const racing = home.value.find((res) => res.name === "racing").result;
 
 const popular = computed(() => multiquery.value?.popular);
 const mostPlayed = computed(() => multiquery.value?.mostPlayed);
