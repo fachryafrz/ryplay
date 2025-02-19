@@ -89,15 +89,14 @@ if (createdYear === currentYear) {
       </aside>
       <nav class="md:place-self-center md:justify-self-end">
         <div class="grid grid-flow-col gap-2">
-          <NuxtLink
+          <button
             v-for="social in socialLinks"
             :key="social.name"
-            :to="social.link"
-            target="_blank"
+            @click="() => handleOpenWindow(social.link)"
             class="outline-none transition-all hocus:scale-110"
           >
             <Icon :name="social.icon" size="28" />
-          </NuxtLink>
+          </button>
         </div>
       </nav>
     </footer>
