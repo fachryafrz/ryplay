@@ -174,11 +174,12 @@ useEventListener(document, "keydown", handleKeyDown);
   <div class="relative flex w-full gap-4">
     <form @submit.prevent="handleSubmit" class="flex w-full items-center gap-2">
       <label
-        class="input input-md flex w-full items-center gap-2 rounded-lg bg-neutral outline outline-secondary"
+        class="input input-md flex w-full items-center gap-2 rounded-lg bg-neutral pr-0 outline outline-secondary"
       >
-        <NuxtLink to="/search" class="flex">
+        <div class="flex">
           <Icon name="ion:search" size="20" />
-        </NuxtLink>
+        </div>
+
         <input
           v-model="searchQuery"
           ref="inputRef"
@@ -188,13 +189,28 @@ useEventListener(document, "keydown", handleKeyDown);
           @input="handleAutocomplete"
           class="w-full grow"
         />
+
         <button
           @click="clearSearch"
           type="button"
-          :class="['flex', { hidden: searchQuery === '' }]"
+          :class="[
+            'flex',
+            {
+              hidden: searchQuery === '',
+              'btn btn-square btn-ghost': route.path === '/search',
+            },
+          ]"
         >
           <Icon name="ion:close" size="25" />
         </button>
+
+        <NuxtLink
+          v-if="route.path !== '/search'"
+          to="/search"
+          class="btn btn-square btn-ghost"
+        >
+          <Icon name="ion:options" size="25" />
+        </NuxtLink>
       </label>
     </form>
 
