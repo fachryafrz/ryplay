@@ -8,7 +8,9 @@ const user = useSupabaseUser();
 const mustLogin = useShowMustLogin();
 
 const isAlreadyPlayed = ref(false);
-const isUpcoming = ref(game.first_release_date > Date.now() / 1000);
+const isUpcoming = ref(
+  !game.first_release_date || game.first_release_date > Date.now() / 1000,
+);
 
 const checkAlreadyPlayed = async () => {
   if (!user.value) {

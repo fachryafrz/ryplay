@@ -8,7 +8,9 @@ const user = useSupabaseUser();
 const mustLogin = useShowMustLogin();
 
 const isFavorite = ref(false);
-const isUpcoming = ref(game.first_release_date > Date.now() / 1000);
+const isUpcoming = ref(
+  !game.first_release_date || game.first_release_date > Date.now() / 1000,
+);
 
 const checkFavorite = async () => {
   if (!user.value) {
