@@ -28,7 +28,7 @@ const { data: multiquery } = await useFetch("/api/search/multiquery");
     >
       <SearchFilter :multiquery="multiquery" />
 
-      <button @click="setShowFilter" class="absolute right-4 top-2 lg:hidden">
+      <button @click="showFilter = false" class="absolute right-4 top-2 lg:hidden">
         <Icon name="ion:close" size="28" />
       </button>
     </div>

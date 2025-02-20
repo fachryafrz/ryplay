@@ -90,8 +90,8 @@ onMounted(() => {
           to="/profile"
           class="btn btn-ghost aspect-square px-0 xs:aspect-auto xs:px-4"
         >
-          <Icon name="ion:person" size="20" class="xs:hidden" />
-          <span class="hidden xs:block">{{ user.user_metadata.username }}</span>
+          <Icon name="ion:person" size="20" class="sm:hidden" />
+          <span class="hidden sm:block">{{ user.user_metadata.username }}</span>
         </NuxtLink>
       </div>
     </header>
