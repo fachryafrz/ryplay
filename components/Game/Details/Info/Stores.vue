@@ -16,7 +16,7 @@ const { externalGames, findStoreById } = defineProps([
           <img
             :src="`/store_icons/${findStoreById(externalGame.category).image_id}.png`"
             :alt="''"
-            class="aspect-square w-[40px] object-contain"
+            class="aspect-square w-[50px] object-contain"
             draggable="false"
             loading="lazy"
             role="presentation"
