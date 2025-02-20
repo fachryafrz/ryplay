@@ -88,7 +88,7 @@ onMounted(() => {
         <NuxtLink
           v-if="user"
           to="/profile"
-          class="btn btn-ghost aspect-square px-0 xs:aspect-auto xs:px-4"
+          class="btn btn-ghost aspect-square px-0 sm:aspect-auto sm:px-4"
         >
           <Icon name="ion:person" size="20" class="sm:hidden" />
           <span class="hidden sm:block">{{ user.user_metadata.username }}</span>
