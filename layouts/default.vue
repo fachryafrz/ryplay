@@ -36,10 +36,10 @@ useSeoMeta({
   ogUrl: config.public.APP_URL,
   ogTitle: config.public.APP_NAME,
   ogDescription: config.public.APP_DESCRIPTION,
-  ogImage: `${config.public.APP_URL}/maskable/maskable_icon_x192.png`,
+  ogImage: `${config.public.APP_URL}/maskable/maskable_icon_x512.png`,
   twitterTitle: config.public.APP_NAME,
   twitterDescription: config.public.APP_DESCRIPTION,
-  twitterImage: `${config.public.APP_URL}/maskable/maskable_icon_x192.png`,
+  twitterImage: `${config.public.APP_URL}/maskable/maskable_icon_x512.png`,
   twitterCard: `summary_large_image`,
   twitterCreator: `@fachryafrz`,
   robots: {
