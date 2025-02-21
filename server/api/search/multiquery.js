@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
-import { getAccessToken } from "~/server/utils/token";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();

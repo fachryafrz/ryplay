@@ -1,5 +1,3 @@
-import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
-
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const access_token = await getAccessToken(event, "autocomplete");

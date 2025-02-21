@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { getAccessToken } from "../utils/token";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();

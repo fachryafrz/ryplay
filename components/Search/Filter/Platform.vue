@@ -9,24 +9,14 @@ const platforms = ref([]);
 const selectedValues = ref(null);
 const timerRef = ref(null);
 
-const fetchPlatforms = async (query, body) => {
+const fetchPlatforms = useDebounceFn(async (query, isMulti = false) => {
+  if (!query) return;
+
   isLoading.value = true;
 
   const data = await $fetch("/api/platforms", {
     method: "POST",
-    params: {
-      name: query,
-    },
-    body: {
-      body: body
-        ? body
-        : `
-        f *; w 
-        name ~ *"${query}"* | slug ~ *"${query}"* | abbreviation ~ *"${query}"*; 
-        s name asc;
-        l 10;
-      `,
-    },
+    params: { name: query, isMulti },
   });
 
   if (data.length < 1) {
@@ -40,7 +30,7 @@ const fetchPlatforms = async (query, body) => {
 
     return data;
   }
-};
+}, 1000);
 
 watch(selectedValues, (newValues) => {
   if (newValues.length) {
@@ -73,10 +63,7 @@ watch(
         .map((i) => `"${i}"`)
         .join(",");
 
-      const platformsData = await fetchPlatforms(
-        searchParams.platform,
-        `f *; w slug = (${separateItem}); s name asc; l 10;`,
-      );
+      const platformsData = await fetchPlatforms(separateItem, true);
 
       selectedValues.value = platformsData;
     } else {
