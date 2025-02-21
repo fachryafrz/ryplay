@@ -201,7 +201,7 @@ useEventListener(document, "keydown", handleKeyDown);
             },
           ]"
         >
-          <Icon name="ion:close" size="25" />
+          <Icon name="ion:close" size="22" />
         </button>
 
         <NuxtLink
@@ -209,7 +209,7 @@ useEventListener(document, "keydown", handleKeyDown);
           to="/search"
           class="btn btn-square btn-ghost"
         >
-          <Icon name="ion:options" size="25" />
+          <Icon name="ion:options" size="20" />
         </NuxtLink>
       </label>
     </form>
