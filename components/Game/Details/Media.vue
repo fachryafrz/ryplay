@@ -92,7 +92,7 @@ onMounted(() => {
               draggable="false"
               loading="lazy"
               @error="
-                $event.target.style = `background-image:url(/logo.svg); background-repeat:no-repeat; background-position:center; background-size: 10rem;`
+                $event.target.style = `background-image:url(/logo/logo.svg); background-repeat:no-repeat; background-position:center; background-size: 10rem;`
               "
             />
           </figure>
@@ -239,7 +239,7 @@ onMounted(() => {
               loading="lazy"
               class="block h-full w-full"
               @error="
-                $event.target.style = `background-image:url(/logo.svg); background-repeat:no-repeat; background-position:center;`
+                $event.target.style = `background-image:url(/logo/logo.svg); background-repeat:no-repeat; background-position:center;`
               "
             />
           </figure>
