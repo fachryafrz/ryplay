@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/fachryafrz/ryplay/compare/v1.0.0...v1.0.1) (2025-02-24)
+
+
+### Bug Fixes
+
+* LICENSE ([572fadc](https://github.com/fachryafrz/ryplay/commit/572fadc32d0dee9428ba4e5b53562f31bb31c26a))
+
 ## 1.0.0 (2025-02-22)
 
 
