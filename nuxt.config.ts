@@ -70,7 +70,6 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    "/**": { cache: { maxAge: 3600 } },
     "/api/**": { cache: { maxAge: 3600 } },
   },
 });

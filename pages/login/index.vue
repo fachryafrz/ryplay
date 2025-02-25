@@ -48,7 +48,7 @@ const signIn = async () => {
 
 <template>
   <div
-    class="flex h-[calc(100dvh-72px)] flex-col items-center justify-center gap-4 pb-20"
+    class="flex min-h-[calc(100dvh-72px)] flex-col items-center justify-center gap-4 pb-20"
   >
     <div class="flex flex-col items-center gap-2">
       <Logo width="60" height="60" />
