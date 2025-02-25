@@ -44,7 +44,7 @@ const { data, isLoading } = useSWRV(
 </script>
 
 <template>
-  <div class="h-fit space-y-2 rounded-2xl bg-neutral p-2">
+  <div class="space-y-2 rounded-2xl bg-neutral p-2">
     <h2 class="heading-2 text-center">{{ title }}</h2>
 
     <ul v-if="isLoading">
@@ -53,7 +53,7 @@ const { data, isLoading } = useSWRV(
       </li>
     </ul>
 
-    <ul v-if="data?.length > 0">
+    <ul v-if="data?.length > 0" class="max-h-[500px] overflow-y-auto">
       <li v-for="game in data" :key="game.slug">
         <GameTileCard :game="game" />
       </li>
@@ -61,7 +61,7 @@ const { data, isLoading } = useSWRV(
 
     <div
       v-if="!isLoading && data?.length === 0"
-      class="flex items-center justify-center"
+      class="flex h-full items-center justify-center"
     >
       <p class="text-center">{{ emptyMessage }}</p>
     </div>
