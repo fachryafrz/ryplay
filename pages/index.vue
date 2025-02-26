@@ -6,28 +6,42 @@ const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
 const oneMonthAgo = dayjs().add(-1, "month").unix();
 
-const [{ data: home }, { data: multiquery, status: statusMultiquery }] =
-  await Promise.all([
-    useFetch("/api/home"),
-    useLazyFetch("/api/multiquery", {
-      server: false,
-    }),
-  ]);
+const [
+  { data: home, status: statusHome },
+  { data: homeMore, status: statusHomeMore },
+  { data: multiquery, status: statusMultiquery },
+] = await Promise.all([
+  useLazyFetch("/api/home", { server: false }),
+  useLazyFetch("/api/home-more", { server: false }),
+  useLazyFetch("/api/multiquery", { server: false }),
+]);
 
-const featured = home.value.find((res) => res.name === "featured").result;
-const upcoming = home.value.find((res) => res.name === "upcoming").result;
-const topRated = home.value.find((res) => res.name === "top-rated").result;
-const mostAnticipated = home.value.find(
-  (res) => res.name === "most-anticipated",
-).result;
-const newReleases = home.value.find(
-  (res) => res.name === "new-releases",
-).result;
-const adventure = home.value.find((res) => res.name === "adventure").result;
-const hackAndSlashBeatEmUp = home.value.find(
-  (res) => res.name === "hack-and-slash-beat-em-up",
-).result;
-const racing = home.value.find((res) => res.name === "racing").result;
+const featured = computed(
+  () => home.value?.find((res) => res.name === "featured").result,
+);
+const upcoming = computed(
+  () => home.value?.find((res) => res.name === "upcoming").result,
+);
+const topRated = computed(
+  () => home.value?.find((res) => res.name === "top-rated").result,
+);
+const mostAnticipated = computed(
+  () => home.value?.find((res) => res.name === "most-anticipated").result,
+);
+const newReleases = computed(
+  () => homeMore.value?.find((res) => res.name === "new-releases").result,
+);
+const adventure = computed(
+  () => homeMore.value?.find((res) => res.name === "adventure").result,
+);
+const hackAndSlashBeatEmUp = computed(
+  () =>
+    homeMore.value?.find((res) => res.name === "hack-and-slash-beat-em-up")
+      .result,
+);
+const racing = computed(
+  () => homeMore.value?.find((res) => res.name === "racing").result,
+);
 
 const popular = computed(() => multiquery.value?.popular);
 const mostPlayed = computed(() => multiquery.value?.mostPlayed);
@@ -38,7 +52,14 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
 <template>
   <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
 
-  <div class="mx-auto flex flex-col gap-4">
+  <div
+    v-if="statusHome !== 'success'"
+    class="grid h-[calc(100dvh-72px-193px)] place-content-center md:h-[calc(100dvh-72px-120px)]"
+  >
+    <Logo width="50" height="50" class="animate-ping" />
+  </div>
+
+  <div v-if="statusHome === 'success'" class="mx-auto flex flex-col gap-4">
     <section>
       <GameHomeSlider :games="featured" />
     </section>
@@ -104,7 +125,10 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section>
 
     <section class="my-2">
+      <SkeletonSlider v-show="statusHomeMore !== `success`" />
+
       <GameSlider
+        v-show="statusHomeMore === `success`"
         id="newReleases"
         :games="newReleases"
         title="New Releases"
@@ -157,7 +181,10 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section>
 
     <section class="my-2">
+      <SkeletonSlider v-show="statusHomeMore !== `success`" />
+
       <GameSlider
+        v-show="statusHomeMore === `success`"
         id="adventure"
         :games="adventure"
         title="Adventure"
@@ -166,7 +193,10 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section>
 
     <section class="my-2">
+      <SkeletonSlider v-show="statusHomeMore !== `success`" />
+
       <GameSlider
+        v-show="statusHomeMore === `success`"
         id="hack-and-slash-beat-em-up"
         :games="hackAndSlashBeatEmUp"
         title="Hack and Slash Beat 'Em Up"
@@ -175,7 +205,10 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section>
 
     <section class="my-2">
+      <SkeletonSlider v-show="statusHomeMore !== `success`" />
+
       <GameSlider
+        v-show="statusHomeMore === `success`"
         id="racing"
         :games="racing"
         title="Racing"
