@@ -9,7 +9,7 @@ const loadingClass = "animate-pulse bg-gray-400 bg-opacity-20";
       <div>
         <span :class="`block h-7 w-32 rounded ${loadingClass}`"></span>
 
-        <div class="mt-2">
+        <div class="mt-2 -mx-2">
           <SkeletonTileCard v-for="item in ITEM_COUNT" :key="item" />
         </div>
       </div>
@@ -21,7 +21,7 @@ const loadingClass = "animate-pulse bg-gray-400 bg-opacity-20";
       <div>
         <span :class="`block h-7 w-32 rounded ${loadingClass}`"></span>
 
-        <div class="mt-2">
+        <div class="mt-2 -mx-2">
           <SkeletonTileCard v-for="item in ITEM_COUNT" :key="item" />
         </div>
       </div>
@@ -33,7 +33,7 @@ const loadingClass = "animate-pulse bg-gray-400 bg-opacity-20";
       <div>
         <span :class="`block h-7 w-32 rounded ${loadingClass}`"></span>
 
-        <div class="mt-2">
+        <div class="mt-2 -mx-2">
           <SkeletonTileCard v-for="item in ITEM_COUNT" :key="item" />
         </div>
       </div>

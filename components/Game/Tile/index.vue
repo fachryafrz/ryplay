@@ -15,7 +15,7 @@ const { games, title, seeAll } = defineProps(["games", "title", "seeAll"]);
       <Icon name="ion:ios-arrow-forward" size="25" class="transition-all" />
     </NuxtLink>
 
-    <div class="mt-2">
+    <div class="mt-2 -mx-2">
       <GameTileCard v-for="game in games" :key="game.slug" :game="game" />
     </div>
   </div>
