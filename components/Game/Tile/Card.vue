@@ -2,10 +2,11 @@
 import gameCategory from "@/json/game-category.json";
 
 const {
+  num,
   game,
   showCategory = true,
   showDescription = true,
-} = defineProps(["game", "showCategory", "showDescription"]);
+} = defineProps(["num", "game", "showCategory", "showDescription"]);
 
 const category = gameCategory.find((item) => item.id === game.category).name;
 </script>
@@ -15,6 +16,10 @@ const category = gameCategory.find((item) => item.id === game.category).name;
     :to="`/games/${game.slug}`"
     class="flex items-center gap-2 rounded-xl p-2 outline-none transition-all hocus:bg-secondary"
   >
+    <span v-if="num" class="text-sm font-semibold w-5 text-center text-neutral-500">
+      {{ num }}
+    </span>
+
     <figure
       class="block aspect-poster w-[80px] overflow-hidden rounded-md bg-neutral"
     >
@@ -30,7 +35,7 @@ const category = gameCategory.find((item) => item.id === game.category).name;
     </figure>
 
     <div
-      class="before-content after-content flex-1 relative w-full before:text-xs before:font-semibold before:text-neutral-500 after:mt-1 after:line-clamp-2 after:text-xs after:font-semibold after:text-neutral-500"
+      class="before-content after-content relative w-full flex-1 before:text-xs before:font-semibold before:text-neutral-500 after:mt-1 after:line-clamp-2 after:text-xs after:font-semibold after:text-neutral-500"
       :class="[
         { 'before:hidden': !showCategory, 'after:hidden': !showDescription },
       ]"
