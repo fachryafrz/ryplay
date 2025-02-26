@@ -109,7 +109,7 @@ useInfiniteScroll(
 
     <ul v-if="isLoading">
       <li v-for="i in 3" :key="i">
-        <SkeletonTileCard />
+        <SkeletonTileCard :num="true" />
       </li>
     </ul>
 
@@ -120,10 +120,10 @@ useInfiniteScroll(
 
       <template v-if="!isLoading && !isFinished">
         <li>
-          <SkeletonTileCard ref="loadMoreRef" />
+          <SkeletonTileCard :num="true" ref="loadMoreRef" />
         </li>
         <li v-for="i in 2" :key="i">
-          <SkeletonTileCard />
+          <SkeletonTileCard :num="true" />
         </li>
       </template>
     </ul>

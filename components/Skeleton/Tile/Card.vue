@@ -1,9 +1,13 @@
 <script setup>
+const { num } = defineProps(["num"]);
+
 const loadingClass = "animate-pulse bg-gray-400 bg-opacity-20";
 </script>
 
 <template>
   <div class="flex items-center gap-2 rounded-xl p-2">
+    <span v-if="num" class="w-5 text-center text-sm font-semibold text-neutral-500"></span>
+
     <span
       :class="`block aspect-poster w-[80px] rounded-md ${loadingClass}`"
     ></span>
