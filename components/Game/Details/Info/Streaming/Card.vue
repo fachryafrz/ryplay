@@ -56,7 +56,7 @@ const handleOpenWindow = async (url, target = "_blank") => {
             }}
           </span>
         </div>
-
+ 
         <!-- Title -->
         <div class="space-y-2">
           <div
