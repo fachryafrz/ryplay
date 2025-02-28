@@ -9,9 +9,9 @@ const summary = ref(game.summary || "");
 const combinedText = ref(
   `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""} ${summary.value}`,
 );
-const words = ref(combinedText.value.split(""));
-const wordCount = ref(words.value.length);
-const maxLength = 500;
+// const words = ref(combinedText.value.split("")); DEPRECATED
+// const wordCount = ref(words.value.length); DEPRECATED
+// const maxLength = 750; DEPRECATED
 
 const toggleReadMore = () => {
   readMore.value = !readMore.value;
@@ -60,29 +60,8 @@ const includeIGDB = filteredExternalGames
     <!-- About -->
     <section>
       <div class="prose -my-4 max-w-none text-neutral-400">
-        <MDC
-          v-if="combinedText"
-          :value="
-            readMore || wordCount < maxLength
-              ? combinedText
-              : `${combinedText.slice(0, maxLength)}...`
-          "
-        />
+        <MDC :value="combinedText" />
       </div>
-
-      <button
-        @click="toggleReadMore"
-        v-if="wordCount > maxLength"
-        class="flex w-fit items-center gap-1 text-primary"
-      >
-        <span>{{ readMore ? "Read less" : "Read more" }}</span>
-        <Icon
-          :name="
-            readMore ? 'ion:chevron-up-outline' : 'ion:chevron-down-outline'
-          "
-          size="20"
-        />
-      </button>
     </section>
 
     <!-- Additional Info -->
@@ -97,14 +76,17 @@ const includeIGDB = filteredExternalGames
       />
     </section>
 
+    <!-- Live Streaming -->
+    <GameDetailsInfoStreaming :external-games="includeIGDB" />
+
     <!-- DLC -->
     <div v-if="game.dlcs?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">DLC</h2>
+        <h2 class="heading-2">DLC</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.dlcs.length > 1,
               '@4xl:grid-cols-3': game.dlcs.length > 2,
@@ -124,11 +106,11 @@ const includeIGDB = filteredExternalGames
     <!-- Expansions (2) -->
     <div v-if="game.expansions?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Expansions</h2>
+        <h2 class="heading-2">Expansions</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.expansions.length > 1,
               '@4xl:grid-cols-3': game.expansions.length > 2,
@@ -148,11 +130,11 @@ const includeIGDB = filteredExternalGames
     <!-- Bundles -->
     <div v-if="game.bundles?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Bundles</h2>
+        <h2 class="heading-2">Bundles</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.bundles.length > 1,
               '@4xl:grid-cols-3': game.bundles.length > 2,
@@ -172,11 +154,11 @@ const includeIGDB = filteredExternalGames
     <!-- Standalone Expansion (4) -->
     <div v-if="game.standalone_expansions?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Standalone Expansion</h2>
+        <h2 class="heading-2">Standalone Expansion</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.standalone_expansions.length > 1,
               '@4xl:grid-cols-3': game.standalone_expansions.length > 2,
@@ -196,11 +178,11 @@ const includeIGDB = filteredExternalGames
     <!-- Remakes (8) -->
     <div v-if="game.remakes?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Remakes</h2>
+        <h2 class="heading-2">Remakes</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.remakes.length > 1,
               '@4xl:grid-cols-3': game.remakes.length > 2,
@@ -220,11 +202,11 @@ const includeIGDB = filteredExternalGames
     <!-- Remasters (9) -->
     <div v-if="game.remasters?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Remasters</h2>
+        <h2 class="heading-2">Remasters</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.remasters.length > 1,
               '@4xl:grid-cols-3': game.remasters.length > 2,
@@ -244,11 +226,11 @@ const includeIGDB = filteredExternalGames
     <!-- Ports (11) -->
     <div v-if="game.ports?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Ports</h2>
+        <h2 class="heading-2">Ports</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.ports.length > 1,
               '@4xl:grid-cols-3': game.ports.length > 2,
@@ -268,14 +250,14 @@ const includeIGDB = filteredExternalGames
     <!-- Forks (12) -->
     <div v-if="game.forks?.length > 0" class="">
       <div class="flex flex-col gap-2">
-        <h2 class="text-2xl font-bold">Forks</h2>
+        <h2 class="heading-2">Forks</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2': game.forks.length > 1,
-              '@4xl:grid-cols-3': collection.games.length > 2,
+              '@4xl:grid-cols-3': game.forks.length > 2,
             },
           ]"
         >
@@ -302,11 +284,11 @@ const includeIGDB = filteredExternalGames
       class=""
     >
       <div class="flex flex-col gap-4">
-        <h2 class="text-2xl font-bold">{{ collection.name }} Collection</h2>
+        <h2 class="heading-2">{{ collection.name }} Collection</h2>
 
         <div
           :class="[
-            'grid',
+            '-ml-2 grid',
             {
               '@xl:grid-cols-2':
                 collection.games?.filter((game) => game.category === 0).length >

@@ -53,7 +53,7 @@ const signIn = async () => {
     <div class="flex flex-col items-center gap-2">
       <Logo width="60" height="60" />
 
-      <h1 class="text-2xl font-bold">Welcome back!</h1>
+      <h1 class="heading-2">Welcome back!</h1>
     </div>
 
     <div v-if="loginError" role="alert" class="alert alert-error max-w-sm">
