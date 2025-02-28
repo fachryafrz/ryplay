@@ -108,7 +108,7 @@ body {
 
 @layer components {
   .heading-2 {
-    @apply text-xl font-bold;
+    @apply text-2xl font-bold;
   }
 
   .featured-games {
