@@ -52,7 +52,7 @@ const { data } = response.value;
         <SwiperSlide
           v-for="stream in data"
           :key="stream.id"
-          class="max-w-[calc(100%/1.5)] @3xl:max-w-[calc(100%/2.5)]"
+          class="max-w-[calc(100%/1.1)] @3xl:max-w-[calc(100%/2.1)]"
         >
           <GameDetailsInfoStreamingCard :stream="stream" />
         </SwiperSlide>

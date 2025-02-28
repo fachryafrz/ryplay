@@ -23,7 +23,7 @@ const handleOpenWindow = async (url, target = "_blank") => {
     @click="
       handleOpenWindow(`https://www.twitch.tv/${stream.user_login}`, '_blank')
     "
-    class="group overflow-hidden rounded-xl"
+    class="group block w-full overflow-hidden rounded-xl"
   >
     <div class="relative flex flex-col gap-2">
       <!-- Image -->
@@ -42,7 +42,7 @@ const handleOpenWindow = async (url, target = "_blank") => {
         <div class="flex justify-between">
           <!-- Live -->
           <div
-            class="btn btn-ghost no-animation btn-sm pointer-events-none bg-[#9146FF] uppercase text-white"
+            class="btn btn-ghost no-animation btn-xs pointer-events-none bg-[#9146FF] uppercase text-white sm:btn-sm"
           >
             <Icon name="ion:radio" size="20" />
 
@@ -50,26 +50,32 @@ const handleOpenWindow = async (url, target = "_blank") => {
           </div>
 
           <!-- Views -->
-          <span class="btn btn-neutral no-animation btn-sm pointer-events-none">
+          <span
+            class="btn btn-neutral no-animation btn-xs pointer-events-none sm:btn-sm"
+          >
             {{
               `${numeral(stream.viewer_count).format("0.[0]a")} ${pluralize("View", stream.viewer_count)}`
             }}
           </span>
         </div>
- 
+
         <!-- Title -->
         <div class="space-y-2">
           <div
-            class="flex flex-col items-start gap-1 text-start text-sm font-medium"
+            class="flex flex-col items-start gap-1 text-start text-xs font-medium sm:text-sm"
           >
             <span class="block text-xs">{{
               $dayjs(stream.started_at).fromNow()
             }}</span>
 
-            <span class="block text-primary">{{ stream.user_name }}</span>
+            <span class="block text-xs text-primary sm:text-sm">{{
+              stream.user_name
+            }}</span>
           </div>
 
-          <h3 class="line-clamp-2 max-w-[80%] text-pretty text-start font-bold">
+          <h3
+            class="line-clamp-1 max-w-[80%] text-pretty text-start text-sm font-bold sm:line-clamp-2 sm:text-base"
+          >
             {{ stream.title }}
           </h3>
         </div>
