@@ -9,7 +9,7 @@ const { externalGames, findStoreById } = defineProps([
   <ul class="flex flex-wrap gap-2">
     <li v-for="externalGame in externalGames" :key="externalGame.category">
       <div
-        className="tooltip tooltip-secondary tooltip-bottom"
+        className="tooltip tooltip-secondary tooltip-bottom before:hidden sm:before:block"
         :data-tip="findStoreById(externalGame.category).store"
       >
         <button @click="handleOpenWindow(externalGame.url)">
