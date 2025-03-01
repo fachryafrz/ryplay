@@ -79,7 +79,7 @@ watch(
 
   <!-- Embed -->
   <section v-if="selectedStream">
-    <div class="-mx-4 aspect-video overflow-hidden rounded-xl lg:mx-0">
+    <div class="-mx-4 aspect-video overflow-hidden lg:mx-0 lg:rounded-xl">
       <iframe :src="iframeSrc" height="100%" width="100%" allowfullscreen>
       </iframe>
     </div>
