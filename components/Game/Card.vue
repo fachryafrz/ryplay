@@ -1,5 +1,6 @@
 <script setup>
-import gameCategory from "@/json/game-category.json";
+import { gameCategory } from '~/data/game-category';
+
 
 const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
 

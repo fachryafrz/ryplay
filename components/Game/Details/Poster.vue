@@ -1,9 +1,9 @@
 <script setup>
 import pluralize from "pluralize";
-import gameCategory from "@/json/game-category.json";
 import Wishlist from "./Wishlist.vue";
 import Favorite from "./Favorite.vue";
 import AlreadyPlayed from "./AlreadyPlayed.vue";
+import { gameCategory } from "~/data/game-category";
 
 const { game, gameCover } = defineProps(["game", "gameCover"]);
 

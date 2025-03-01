@@ -1,5 +1,5 @@
 <script setup>
-import gameCategory from "@/json/game-category.json";
+import { gameCategory } from "~/data/game-category";
 
 const router = useRouter();
 const route = useRoute();

@@ -1,5 +1,5 @@
 <script setup>
-import gameCategory from "@/json/game-category.json";
+import { gameCategory } from "~/data/game-category";
 
 const {
   num,
@@ -16,7 +16,10 @@ const category = gameCategory.find((item) => item.id === game.category).name;
     :to="`/games/${game.slug}`"
     class="flex items-center gap-2 rounded-xl p-2 outline-none transition-all hocus:bg-secondary"
   >
-    <span v-if="num" class="text-sm font-semibold w-5 text-center text-neutral-500">
+    <span
+      v-if="num"
+      class="w-5 text-center text-sm font-semibold text-neutral-500"
+    >
       {{ num }}
     </span>
 
