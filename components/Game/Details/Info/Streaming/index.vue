@@ -8,7 +8,7 @@ const swiperID = title.toLocaleLowerCase().replace(/ /g, "_");
 const { data: response } = await useFetch(`/api/games/streams`, {
   params: { game_id },
 });
-const { data } = response.value;
+const data = computed(() => response.value.data);
 </script>
 
 <template>

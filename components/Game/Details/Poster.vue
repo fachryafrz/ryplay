@@ -59,7 +59,8 @@ const isSameDeveloperPublisher =
           :alt="game.name"
           class="rounded-md"
           draggable="false"
-          loading="lazy"
+          width="400"
+          height="300"
         />
       </figure>
 
