@@ -11,7 +11,7 @@ const swiperID = title.toLocaleLowerCase().replace(/ /g, "_");
 const { data: response } = await useFetch(`/api/games/streams`, {
   params: { game_id },
 });
-const data = computed(() => response.value.data);
+const data = computed(() => response.value?.data);
 
 const selectedStream = useSelectedStream();
 const iframeSrc = computed(
@@ -79,7 +79,7 @@ watch(
 
   <!-- Embed -->
   <section v-if="selectedStream">
-    <div class="aspect-video overflow-hidden rounded-xl">
+    <div class="-mx-4 aspect-video overflow-hidden rounded-xl lg:mx-0">
       <iframe :src="iframeSrc" height="100%" width="100%" allowfullscreen>
       </iframe>
     </div>
