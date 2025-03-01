@@ -1,4 +1,5 @@
 <script setup>
+import { gameCategory } from "~/data/game-category";
 import { storeCategory } from "~/data/store-category";
 
 const { game } = defineProps(["game"]);
@@ -12,6 +13,7 @@ const combinedText = ref(
 // const words = ref(combinedText.value.split("")); DEPRECATED
 // const wordCount = ref(words.value.length); DEPRECATED
 // const maxLength = 750; DEPRECATED
+const category = gameCategory.find((item) => item.id === game.category).name;
 
 const toggleReadMore = () => {
   readMore.value = !readMore.value;
@@ -77,7 +79,7 @@ const includeIGDB = filteredExternalGames
     </section>
 
     <!-- Live Streaming -->
-    <ClientOnly>
+    <ClientOnly v-if="category === 'Base Game'">
       <GameDetailsInfoStreaming :external-games="includeIGDB" />
     </ClientOnly>
 
