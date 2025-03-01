@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const access_token = await getAccessToken(event, "streams");
 
-  const { game_id } = getQuery(event);
+  const { game_id, language } = getQuery(event);
 
   try {
     const { data, status } = await axios.get(
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
           "CLIENT-ID": config.CLIENT_ID,
           Authorization: `Bearer ${access_token}`,
         },
-        params: { game_id, type: "live", language: "en" },
+        params: { game_id, type: "live", language },
       },
     );
 

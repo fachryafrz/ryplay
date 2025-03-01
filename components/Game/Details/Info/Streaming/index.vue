@@ -1,15 +1,28 @@
 <script setup>
+import axios from "axios";
 import pluralize from "pluralize";
+import useSWRV from "swrv";
+import VueSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+import { languages } from "~/data/language";
 
 const { externalGames } = defineProps(["gameId", "externalGames"]);
 
 const route = useRoute();
 const game_id = externalGames.find((item) => item.category === 14)?.uid; // Twitch Game ID
+const language = useSelectedStreamLanguage();
 const title = "Live Stream";
 const swiperID = title.toLocaleLowerCase().replace(/ /g, "_");
+const loading = ref(false);
 
-const { data: response } = await useFetch(`/api/games/streams`, {
-  params: { game_id },
+const fetcher = async (url) => {
+  return await axios
+    .get(url, { params: { game_id, language: language.value } })
+    .then(({ data }) => data);
+};
+
+const { data: response, isLoading } = useSWRV(`/api/games/streams`, fetcher, {
+  revalidateOnFocus: false,
 });
 const data = computed(() => response.value?.data);
 
@@ -18,6 +31,21 @@ const iframeSrc = computed(
   () =>
     `https://player.twitch.tv?channel=${selectedStream.value?.user_login}&parent=${location.hostname}`,
 );
+
+const setLanguage = async (lang) => {
+  language.value = lang.code;
+
+  try {
+    loading.value = true;
+    const data = await fetcher(`/api/games/streams`);
+
+    response.value = data;
+  } catch (error) {
+    console.error("Error fetching:", error);
+  } finally {
+    loading.value = false;
+  }
+};
 
 watch(
   () => route.path,
@@ -29,13 +57,28 @@ watch(
 </script>
 
 <template>
-  <section v-if="data?.length > 0" class="flex flex-col gap-2 @container">
+  <section class="flex flex-col gap-2 @container">
     <div class="flex items-end justify-between">
-      <div>
-        <h2 class="heading-2">{{ pluralize(title, data.length) }}</h2>
+      <div class="flex flex-1 flex-col gap-2 sm:flex-row">
+        <h2 class="heading-2">{{ pluralize(title, data?.length) }}</h2>
+
+        <VueSelect
+          v-model="language"
+          :options="languages"
+          :reduce="(value) => value.code"
+          @option:selected="(value) => setLanguage(value)"
+          @option:deselected="(value) => setLanguage(value)"
+          :clearable="false"
+          label="name"
+          class="min-w-[100px]"
+        />
       </div>
 
-      <div id="swiper-navigation" class="flex h-full gap-1">
+      <div
+        v-if="data?.length > 0"
+        id="swiper-navigation"
+        class="flex h-full gap-1"
+      >
         <button
           class="btn btn-primary btn-sm aspect-square px-0"
           :class="`${swiperID}_prev `"
@@ -51,7 +94,18 @@ watch(
       </div>
     </div>
 
+    <GameDetailsInfoStreamingSkeleton v-if="isLoading || loading" />
+
+    <div v-else-if="data?.length === 0" class="@container">
+      <div
+        class="mx-auto grid aspect-video max-w-[calc(100%/1.1)] place-content-center @3xl:max-w-[calc(100%/2.1)]"
+      >
+        No streams found
+      </div>
+    </div>
+
     <div
+      v-else-if="data?.length > 0"
       class="relative w-full [&_#swiper-navigation_button]:hover:opacity-100"
     >
       <Swiper

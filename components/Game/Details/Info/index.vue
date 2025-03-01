@@ -1,5 +1,5 @@
 <script setup>
-import stores from "@/json/store-category.json";
+import { storeCategory } from "~/data/store-category";
 
 const { game } = defineProps(["game"]);
 
@@ -19,7 +19,7 @@ const toggleReadMore = () => {
 
 // Fungsi untuk mendapatkan store berdasarkan ID category
 const findStoreById = (category) => {
-  return stores.find((store) => store.id === category) || {};
+  return storeCategory.find((store) => store.id === category) || {};
 };
 
 // Fungsi untuk memeriksa apakah ada image_id
@@ -77,7 +77,9 @@ const includeIGDB = filteredExternalGames
     </section>
 
     <!-- Live Streaming -->
-    <GameDetailsInfoStreaming :external-games="includeIGDB" />
+    <ClientOnly>
+      <GameDetailsInfoStreaming :external-games="includeIGDB" />
+    </ClientOnly>
 
     <!-- DLC -->
     <div v-if="game.dlcs?.length > 0" class="">
