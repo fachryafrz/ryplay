@@ -41,7 +41,7 @@ const data = computed(() => response.value.data);
         :modules="[SwiperNavigation, SwiperFreeMode]"
         :free-mode="true"
         :slides-per-view="`auto`"
-        :slides-per-group="2"
+        :slides-per-group="1"
         :space-between="8"
         :navigation="{
           prevEl: `.${swiperID}_prev`,
