@@ -4,28 +4,28 @@ import pluralize from "pluralize";
 
 const { stream } = defineProps(["stream"]);
 
-const handleOpenWindow = async (url, target = "_blank") => {
-  // NOTE: Already tried the documentPictureInPicture with iframe but it doesn't work, because most of the website refuse to be embeded in iframe
+const selectedStream = useSelectedStream();
 
-  const width = screen.availWidth < 1024 ? screen.availWidth : 1024;
-  const height = screen.availHeight < 600 ? screen.availHeight : 600;
-  const left = (screen.availWidth - width) / 2;
-  const top = (screen.availHeight - height) / 2;
-
-  const windowFeatures = `left=${left},top=${top},width=${width},height=${height},noreferrer,noopener`;
-
-  window.open(url, target, windowFeatures);
+const handleSelectStream = () => {
+  selectedStream.value = stream;
 };
 </script>
 
 <template>
   <button
-    @click="
-      handleOpenWindow(`https://www.twitch.tv/${stream.user_login}`, '_blank')
-    "
+    @click="handleSelectStream()"
     class="group block w-full overflow-hidden rounded-xl"
   >
     <div class="relative flex flex-col gap-2">
+      <!-- Playing -->
+      <div
+        v-if="selectedStream"
+        :class="`absolute inset-0 z-10 flex items-center justify-center gap-2 bg-[#9146FF] text-2xl text-white transition-all ${selectedStream.user_login === stream.user_login ? `opacity-100` : `opacity-0`}`"
+      >
+        <Icon name="ion:play-circle" size="40" />
+        <span>Playing</span>
+      </div>
+
       <!-- Image -->
       <figure>
         <img

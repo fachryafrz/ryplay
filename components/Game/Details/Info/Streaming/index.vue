@@ -1,21 +1,38 @@
 <script setup>
+import pluralize from "pluralize";
+
 const { externalGames } = defineProps(["gameId", "externalGames"]);
 
+const route = useRoute();
 const game_id = externalGames.find((item) => item.category === 14)?.uid; // Twitch Game ID
-const title = "Live Streamers";
+const title = "Live Stream";
 const swiperID = title.toLocaleLowerCase().replace(/ /g, "_");
 
 const { data: response } = await useFetch(`/api/games/streams`, {
   params: { game_id },
 });
 const data = computed(() => response.value.data);
+
+const selectedStream = useSelectedStream();
+const iframeSrc = computed(
+  () =>
+    `https://player.twitch.tv?channel=${selectedStream.value?.user_login}&parent=${location.hostname}`,
+);
+
+watch(
+  () => route.path,
+  () => {
+    selectedStream.value = null;
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <section v-if="data?.length > 0" class="flex flex-col gap-2 @container">
     <div class="flex items-end justify-between">
       <div>
-        <h2 class="heading-2">{{ title }}</h2>
+        <h2 class="heading-2">{{ pluralize(title, data.length) }}</h2>
       </div>
 
       <div id="swiper-navigation" class="flex h-full gap-1">
@@ -57,6 +74,14 @@ const data = computed(() => response.value.data);
           <GameDetailsInfoStreamingCard :stream="stream" />
         </SwiperSlide>
       </Swiper>
+    </div>
+  </section>
+
+  <!-- Embed -->
+  <section v-if="selectedStream">
+    <div class="aspect-video overflow-hidden rounded-xl">
+      <iframe :src="iframeSrc" height="100%" width="100%" allowfullscreen>
+      </iframe>
     </div>
   </section>
 </template>
