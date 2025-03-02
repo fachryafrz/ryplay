@@ -57,7 +57,7 @@ watch(
 </script>
 
 <template>
-  <section class="flex flex-col gap-2 @container">
+  <section v-if="game_id" class="flex flex-col gap-2 @container">
     <div class="flex items-end justify-between">
       <div class="flex flex-1 flex-col items-center gap-2 sm:flex-row">
         <h2 class="heading-2">{{ pluralize(title, data?.length) }}</h2>
