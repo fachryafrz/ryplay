@@ -108,7 +108,7 @@ useInfiniteScroll(
     <h2 class="heading-2 text-center">{{ title }}</h2>
 
     <ul v-if="isLoading">
-      <li v-for="i in 3" :key="i">
+      <li v-for="i in 4" :key="i">
         <SkeletonTileCard :num="true" />
       </li>
     </ul>
