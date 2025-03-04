@@ -6,10 +6,9 @@ import VueSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import { languages } from "~/data/language";
 
-const { externalGames } = defineProps(["gameId", "externalGames"]);
+const { gameId: game_id } = defineProps(["gameId"]);
 
 const route = useRoute();
-const game_id = externalGames.find((item) => item.category === 14)?.uid; // Twitch Game ID
 const language = useSelectedStreamLanguage();
 const title = "Live Stream";
 const swiperID = title.toLocaleLowerCase().replace(/ /g, "_");
@@ -57,7 +56,7 @@ watch(
 </script>
 
 <template>
-  <section v-if="game_id" class="flex flex-col gap-2 @container">
+  <section class="flex flex-col gap-2 @container">
     <div class="flex items-end justify-between">
       <div class="flex flex-1 flex-col items-center gap-2 sm:flex-row">
         <h2 class="heading-2">{{ pluralize(title, data?.length) }}</h2>

@@ -13,7 +13,9 @@ const combinedText = ref(
 // const words = ref(combinedText.value.split("")); DEPRECATED
 // const wordCount = ref(words.value.length); DEPRECATED
 // const maxLength = 750; DEPRECATED
-const category = gameCategory.find((item) => item.id === game.category).name;
+// const category = gameCategory.find((item) => item.id === game.category).name; DEPRECATED
+const isUpcoming =
+  !game.first_release_date || game.first_release_date > Date.now() / 1000;
 
 const toggleReadMore = () => {
   readMore.value = !readMore.value;
@@ -48,6 +50,8 @@ const IGDB = {
 const includeIGDB = filteredExternalGames
   ? [IGDB, ...filteredExternalGames]
   : [IGDB];
+
+const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch Game ID
 </script>
 
 <template>
@@ -79,8 +83,8 @@ const includeIGDB = filteredExternalGames
     </section>
 
     <!-- Live Streaming -->
-    <ClientOnly v-if="category === 'Base Game'">
-      <GameDetailsInfoStreaming :external-games="includeIGDB" />
+    <ClientOnly v-if="!isUpcoming && game_id">
+      <GameDetailsInfoStreaming :game-id="game_id" />
     </ClientOnly>
 
     <!-- DLC -->
