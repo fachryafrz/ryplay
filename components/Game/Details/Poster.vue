@@ -45,7 +45,7 @@ const isSameDeveloperPublisher =
 </script>
 
 <template>
-  <div class="sticky top-[calc(72px+3px)] space-y-2">
+  <div class="sticky top-[calc(72px+3px)] space-y-3">
     <!-- Poster -->
     <div
       class="flex flex-col gap-4 rounded-xl bg-neutral p-4 outline outline-secondary @md:mx-auto @md:grid @md:max-w-[640px] @md:grid-cols-2 @md:items-center"
@@ -109,7 +109,7 @@ const isSameDeveloperPublisher =
     </div>
 
     <!-- CTA -->
-    <div class="mx-auto flex max-w-[640px] flex-wrap gap-1">
+    <div class="mx-auto flex max-w-[640px] flex-wrap gap-2">
       <!-- Favorite -->
       <ClientOnly>
         <Favorite :game="game" />

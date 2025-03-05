@@ -51,25 +51,23 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
-    <NuxtLoadingIndicator />
-    <!-- <Sidebar> -->
-    <div class="flex flex-col gap-0">
-      <Header />
+  <NuxtLoadingIndicator color="#98ee2f" :height="2" />
+  <!-- <Sidebar> -->
+  <div class="flex flex-col gap-0">
+    <Header />
 
-      <main class="px-4">
-        <NuxtPage />
-      </main>
+    <main class="px-4">
+      <NuxtPage />
+    </main>
 
-      <Footer />
-    </div>
-    <!-- </Sidebar> -->
+    <Footer />
+  </div>
+  <!-- </Sidebar> -->
 
-    <div v-if="mustLogin" class="toast z-50">
-      <div class="alert alert-error">
-        <Icon name="ion:locked" size="20" />
-        <span>{{ mustLogin }}</span>
-      </div>
+  <div v-if="mustLogin" class="toast z-50">
+    <div class="alert alert-error">
+      <Icon name="ion:locked" size="20" />
+      <span>{{ mustLogin }}</span>
     </div>
   </div>
 </template>

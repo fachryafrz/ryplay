@@ -27,11 +27,6 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
         :controller="{ control: [secondSwiper, thirdSwiper, fourthSwiper] }"
         effect="fade"
         :keyboard="{ enabled: true }"
-        :autoplay="{
-          delay: 5000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }"
         class="h-full"
       >
         <SwiperSlide v-for="game in games" :key="game.slug" class="relative">
@@ -47,6 +42,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
                 role="presentation"
                 aria-hidden="true"
                 loading="lazy"
+                draggable="false"
                 class="min-h-full w-full bg-cover bg-center"
               />
             </picture>
@@ -87,6 +83,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               role="presentation"
               aria-hidden="true"
               loading="lazy"
+              draggable="false"
               class="block h-full w-full bg-cover bg-center"
             />
           </figure>
@@ -114,6 +111,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               role="presentation"
               aria-hidden="true"
               loading="lazy"
+              draggable="false"
               class="block h-full w-full bg-cover bg-center"
             />
           </figure>
@@ -136,10 +134,10 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
       >
         <SwiperSlide v-for="game in games" :key="game.slug" class="relative">
           <div
-            class="relative z-10 flex h-full flex-col gap-2 p-4 backdrop-blur-xl lg:p-6"
+            class="relative z-10 flex h-full flex-col gap-4 p-4 backdrop-blur-xl lg:p-6"
           >
             <h2
-              class="line-clamp-2 text-pretty text-center text-xl font-semibold md:text-start lg:text-2xl"
+              class="line-clamp-2 text-pretty text-center text-3xl xl:text-4xl font-semibold !leading-normal text-white md:text-start xl:line-clamp-3"
             >
               {{ game.name }}
             </h2>
@@ -157,7 +155,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             </div>
 
             <p
-              class="mb-4 line-clamp-3 text-pretty text-sm text-neutral-400 sm:line-clamp-5"
+              class="mb-4 line-clamp-3 text-pretty text-sm text-white sm:line-clamp-5"
             >
               {{ game.storyline || game.summary }}
             </p>

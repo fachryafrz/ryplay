@@ -80,7 +80,7 @@ watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
     :disabled="isUpcoming"
     :class="[
       'btn flex-1 flex-nowrap',
-      { 'btn-ghost': !isFavorite, 'btn-primary': isFavorite },
+      { 'btn-secondary': !isFavorite, 'btn-primary': isFavorite },
     ]"
   >
     <Icon name="ion:star" size="20" />

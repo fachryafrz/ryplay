@@ -83,7 +83,7 @@ watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
     :disabled="isUpcoming"
     :class="[
       'btn flex-1 flex-nowrap',
-      { 'btn-ghost': !isAlreadyPlayed, 'btn-primary': isAlreadyPlayed },
+      { 'btn-secondary': !isAlreadyPlayed, 'btn-primary': isAlreadyPlayed },
     ]"
   >
     <Icon name="ion:game-controller" size="20" />

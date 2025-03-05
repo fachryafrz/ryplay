@@ -77,7 +77,7 @@ watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
     @click.prevent="() => (isWishlist ? removeFromWishlist() : addToWishlist())"
     :class="[
       'btn flex-1 flex-nowrap',
-      { 'btn-ghost': !isWishlist, 'btn-primary': isWishlist },
+      { 'btn-secondary': !isWishlist, 'btn-primary': isWishlist },
     ]"
   >
     <Icon name="ion:bookmark" size="20" />
