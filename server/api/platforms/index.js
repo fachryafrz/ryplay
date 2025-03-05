@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = await getAccessToken(event, "platforms");
+  const { access_token } = event.context;
 
   const { name, isMulti } = getQuery(event);
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = await getAccessToken(event, "streams");
+  const { access_token } = event.context;
 
   const { game_id, language } = getQuery(event);
 

@@ -20,7 +20,7 @@ export async function getAccessToken(event, page) {
     accessToken = access_token;
   }
 
-  // console.log(page, accessToken);
+  console.log(page, accessToken);
 
   return accessToken;
 }
