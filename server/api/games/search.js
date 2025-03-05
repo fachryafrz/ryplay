@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookie = getCookie(event, IGDB_ACCESS_TOKEN);
-  const access_token = await getAccessToken(event, "search");
+  const { access_token } = event.context;
 
   // Dapatkan query dari URL
   const {

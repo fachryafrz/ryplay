@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = await getAccessToken(event, "autocomplete");
+  const { access_token } = event.context;
 
   const { query } = getQuery(event);
 
