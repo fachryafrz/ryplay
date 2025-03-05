@@ -10,16 +10,13 @@ const summary = ref(game.summary || "");
 const combinedText = ref(
   `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""} ${summary.value}`,
 );
-// const words = ref(combinedText.value.split("")); DEPRECATED
-// const wordCount = ref(words.value.length); DEPRECATED
-// const maxLength = 750; DEPRECATED
-// const category = gameCategory.find((item) => item.id === game.category).name; DEPRECATED
-const isUpcoming =
-  !game.first_release_date || game.first_release_date > Date.now() / 1000;
+// const words = ref(combinedText.value.split("")); NOTE: DEPRECATED
+// const wordCount = ref(words.value.length); NOTE: DEPRECATED
+// const maxLength = 750; NOTE: DEPRECATED
 
-const toggleReadMore = () => {
-  readMore.value = !readMore.value;
-};
+// const toggleReadMore = () => {
+//   readMore.value = !readMore.value;
+// }; NOTE: DEPRECATED
 
 // Fungsi untuk mendapatkan store berdasarkan ID category
 const findStoreById = (category) => {
@@ -83,7 +80,7 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
     </section>
 
     <!-- Live Streaming -->
-    <ClientOnly v-if="!isUpcoming && game_id">
+    <ClientOnly v-if="game_id">
       <GameDetailsInfoStreaming :game-id="game_id" />
     </ClientOnly>
 
