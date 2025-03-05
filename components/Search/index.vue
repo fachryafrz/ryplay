@@ -182,7 +182,10 @@ useInfiniteScroll(
         </template>
       </GameGrid>
 
-      <div v-show="isFinished && games.length < 1" class="flex justify-start">
+      <div
+        v-show="isFinished && games.length < 1"
+        class="grid h-[calc(100dvh-72px-80px)] place-content-center"
+      >
         <span class="">No game found</span>
       </div>
     </section>
