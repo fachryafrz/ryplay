@@ -154,7 +154,7 @@ useInfiniteScroll(
     </section>
 
     <!-- Results -->
-    <section class="px-4 pt-2 @container">
+    <section class="min-h-[calc(100dvh-72px-80px)] px-4 pt-2 @container">
       <!-- Initial Loading Skeleton -->
       <div v-if="isLoading" class="@container">
         <div
@@ -184,7 +184,7 @@ useInfiniteScroll(
 
       <div
         v-show="isFinished && games.length < 1"
-        class="grid h-[calc(100dvh-72px-80px)] place-content-center"
+        class="grid h-full place-content-center"
       >
         <span class="">No game found</span>
       </div>
