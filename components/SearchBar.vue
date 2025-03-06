@@ -174,7 +174,7 @@ useEventListener(document, "keydown", handleKeyDown);
   <div class="relative flex w-full gap-4">
     <form @submit.prevent="handleSubmit" class="flex w-full items-center gap-2">
       <label
-        class="input input-md flex w-full items-center gap-2 rounded-lg bg-neutral pr-0 outline outline-secondary"
+        class="input input-md flex w-full items-center rounded-lg bg-neutral pr-0 outline outline-secondary"
       >
         <div class="flex">
           <Icon name="ion:search" size="20" />
@@ -187,21 +187,18 @@ useEventListener(document, "keydown", handleKeyDown);
           @focus="handleFocus"
           @blur="handleBlur"
           @input="handleAutocomplete"
-          class="w-full grow"
+          class="ml-2 w-full grow"
         />
 
         <button
           @click="clearSearch"
           type="button"
           :class="[
-            'flex',
-            {
-              hidden: searchQuery === '',
-              'btn btn-square btn-ghost': route.path === '/search',
-            },
+            'btn btn-square btn-ghost flex',
+            { hidden: searchQuery === '' },
           ]"
         >
-          <Icon name="ion:close" size="22" />
+          <Icon name="ion:close" size="20" />
         </button>
 
         <NuxtLink
