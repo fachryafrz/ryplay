@@ -57,8 +57,8 @@ watch(
 
 <template>
   <section class="flex flex-col gap-2 @container">
-    <div class="flex items-end justify-between">
-      <div class="flex flex-1 flex-col items-center gap-2 sm:flex-row">
+    <div class="flex items-end justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <h2 class="heading-2">{{ pluralize(title, data?.length) }}</h2>
 
         <VueSelect
@@ -117,7 +117,7 @@ watch(
           prevEl: `.${swiperID}_prev`,
           nextEl: `.${swiperID}_next`,
         }"
-        class="rounded-xl"
+        class="!-mx-4 !px-4 lg:!mx-0 lg:rounded-xl lg:!px-0"
       >
         <SwiperSlide
           v-for="stream in data"

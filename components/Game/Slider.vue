@@ -10,6 +10,7 @@ const {
   description,
   isHorizontal,
   seeAll,
+  className,
 } = defineProps([
   "id",
   "breakpoints",
@@ -21,6 +22,7 @@ const {
   "description",
   "isHorizontal",
   "seeAll",
+  "className",
 ]);
 
 const defaultBreakpoints = {
@@ -87,6 +89,8 @@ const defaultBreakpoints = {
           prevEl: `.${id}_prev`,
           nextEl: `.${id}_next`,
         }"
+        class="!-mx-4 !px-4"
+        :class="className"
       >
         <SwiperSlide
           v-for="game in games"

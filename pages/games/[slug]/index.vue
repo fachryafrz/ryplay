@@ -76,6 +76,7 @@ useSeoMeta({
           slidesPerView: 5,
         },
       }"
+      class-name="!-mx-0 !px-0"
     />
   </div>
 </template>
