@@ -89,8 +89,7 @@ const defaultBreakpoints = {
           prevEl: `.${id}_prev`,
           nextEl: `.${id}_next`,
         }"
-        class="!-mx-4 !px-4"
-        :class="className"
+        :class="className || '!-mx-4 !px-4'"
       >
         <SwiperSlide
           v-for="game in games"
