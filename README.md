@@ -1,4 +1,4 @@
-[![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/home.png)](https://ryplay.vercel.app)
+[![Ryplay](https://fachryafrz.com/projects/ryplay/home.png)](https://ryplay.fachryafrz.com)
 
 # Ryplay – Game Streaming and Discovery
 
@@ -85,5 +85,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 📸 Screenshots
 
-[![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/game-details.png)](https://ryplay.vercel.app)
-[![Ryplay](https://fachryafrz.vercel.app/projects/ryplay/search.png)](https://ryplay.vercel.app)
+[![Ryplay](https://fachryafrz.com/projects/ryplay/game-details.png)](https://ryplay.fachryafrz.com)
+[![Ryplay](https://fachryafrz.com/projects/ryplay/search.png)](https://ryplay.fachryafrz.com)
