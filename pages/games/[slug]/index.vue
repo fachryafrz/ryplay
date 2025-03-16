@@ -1,5 +1,5 @@
 <script setup>
-const config = useRuntimeConfig();
+const appConfig = useAppConfig();
 const { slug } = useRoute().params;
 
 const { data: response, error } = await useFetch("/api/games/details", {
@@ -18,17 +18,17 @@ const gameDescription = (game.storyline ?? game.summary ?? "").replace(
 useSeoMeta({
   title: () => game.name,
   description: () => gameDescription,
-  ogTitle: () => `${game.name} - ${config.public.APP_NAME}`,
+  ogTitle: () => `${game.name} - ${appConfig.name}`,
   ogDescription: () => gameDescription,
   ogImage: () => gameCover,
-  ogUrl: () => `${config.public.APP_URL}/games/${slug}`,
-  ogSiteName: () => config.public.APP_NAME,
+  ogUrl: () => `${appConfig.url}/games/${slug}`,
+  ogSiteName: () => appConfig.name,
   ogType: () => `website`,
   twitterCard: () => `summary_large_image`,
   twitterCreator: () => `@fachryafrz`,
   twitterDescription: () => gameDescription,
   twitterImage: () => gameCover,
-  twitterTitle: () => `${game.name} - ${config.public.APP_NAME}`,
+  twitterTitle: () => `${game.name} - ${appConfig.name}`,
 });
 </script>
 

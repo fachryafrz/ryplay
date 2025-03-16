@@ -1,5 +1,5 @@
 <script setup>
-const config = useRuntimeConfig();
+const appConfig = useAppConfig();
 const router = useRouter();
 const dayjs = useDayjs();
 const today = dayjs().unix();
@@ -50,7 +50,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
 </script>
 
 <template>
-  <h1 class="sr-only">{{ config.public.APP_NAME }}</h1>
+  <h1 class="sr-only">{{ appConfig.name }}</h1>
 
   <div
     v-if="statusHome !== 'success'"

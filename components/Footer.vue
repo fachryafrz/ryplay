@@ -1,6 +1,6 @@
 <script setup>
-const config = useRuntimeConfig();
 const dayjs = useDayjs();
+const appConfig = useAppConfig();
 
 const socialLinks = [
   {
@@ -79,7 +79,7 @@ if (createdYear === currentYear) {
           ></path>
         </svg>
         <div class="col-[2/3] flex flex-col">
-          <p class="text-base">{{ config.public.APP_NAME }}</p>
+          <p class="text-base">{{ appConfig.name }}</p>
 
           <p class="text-xs">since {{ textContent }}</p>
         </div>

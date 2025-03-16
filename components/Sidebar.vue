@@ -1,5 +1,6 @@
 <script setup>
 const route = useRoute();
+const appConfig = useAppConfig();
 
 const isActive = ref(false);
 
@@ -80,7 +81,7 @@ const config = useRuntimeConfig();
               ></path>
             </svg>
             <span class="heading-2">
-              {{ config.public.APP_NAME }}
+              {{ appConfig.name }}
             </span>
           </NuxtLink>
         </div>

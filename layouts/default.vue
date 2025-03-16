@@ -1,7 +1,7 @@
 <script setup>
 import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
 
-const config = useRuntimeConfig();
+const appConfig = useAppConfig();
 
 const token = useCookie(IGDB_ACCESS_TOKEN);
 watch(token, () => {
@@ -12,9 +12,7 @@ const mustLogin = useShowMustLogin();
 
 useHead({
   titleTemplate: (title) => {
-    return title
-      ? `${title} - ${config.public.APP_NAME}`
-      : config.public.APP_NAME;
+    return title ? `${title} - ${appConfig.name}` : appConfig.name;
   },
   link: [
     {
@@ -30,16 +28,16 @@ useHead({
 });
 
 useSeoMeta({
-  description: config.public.APP_DESCRIPTION,
-  ogSiteName: config.public.APP_NAME,
+  description: appConfig.description,
+  ogSiteName: appConfig.name,
   ogType: `website`,
-  ogUrl: config.public.APP_URL,
-  ogTitle: config.public.APP_NAME,
-  ogDescription: config.public.APP_DESCRIPTION,
-  ogImage: `${config.public.APP_URL}/maskable/maskable_icon_x512.png`,
-  twitterTitle: config.public.APP_NAME,
-  twitterDescription: config.public.APP_DESCRIPTION,
-  twitterImage: `${config.public.APP_URL}/maskable/maskable_icon_x512.png`,
+  ogUrl: appConfig.url,
+  ogTitle: appConfig.name,
+  ogDescription: appConfig.description,
+  ogImage: `${appConfig.url}/maskable/maskable_icon_x512.png`,
+  twitterTitle: appConfig.name,
+  twitterDescription: appConfig.description,
+  twitterImage: `${appConfig.url}/maskable/maskable_icon_x512.png`,
   twitterCard: `summary_large_image`,
   twitterCreator: `@fachryafrz`,
   robots: {

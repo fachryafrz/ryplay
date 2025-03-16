@@ -2,14 +2,14 @@
 import LiteYouTubeEmbed from "vue-lite-youtube-embed";
 import "vue-lite-youtube-embed/style.css";
 
-const config = useRuntimeConfig();
+const appConfig = useAppConfig();
 
 const { game } = defineProps(["game"]);
 
 const mainSwiper = ref(null);
 const thumbSwiper = ref(null);
 const activeSlide = ref(0);
-const APP_URL = encodeURI(config.public.APP_URL);
+const APP_URL = encodeURI(appConfig.url);
 const swiperSlideClass =
   "!max-w-[calc(100%/2)] sm:!max-w-[calc(100%/3)] md:!max-w-[calc(100%/4)] lg:!max-w-[calc(100%/5)]";
 

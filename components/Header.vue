@@ -1,5 +1,5 @@
 <script setup>
-const config = useRuntimeConfig();
+const appConfig = useAppConfig();
 const route = useRoute();
 const showFilter = useShowFilter();
 const user = useSupabaseUser();
@@ -46,7 +46,7 @@ onMounted(() => {
               fill="#FFFFFF"
             ></path>
           </svg>
-          <span>{{ config.public.APP_NAME }}</span>
+          <span>{{ appConfig.name }}</span>
         </NuxtLink>
       </div>
 

@@ -1,13 +1,13 @@
 <script setup>
-const config = useRuntimeConfig();
+const appConfig = useAppConfig();
 const showFilter = useShowFilter();
 
 useSeoMeta({
   title: `Search`,
   description: `Search for your favorite games`,
-  ogTitle: `Search - ${config.public.APP_NAME}`,
+  ogTitle: `Search - ${appConfig.name}`,
   ogDescription: `Search for your favorite games`,
-  twitterTitle: `Search - ${config.public.APP_NAME}`,
+  twitterTitle: `Search - ${appConfig.name}`,
   twitterDescription: `Search for your favorite games`,
 });
 
