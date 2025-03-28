@@ -4,14 +4,6 @@
 
 Ryplay is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.
 
-## 🔍 How It Works
-
-- **Authenticate Securely** – Log in to access your personalized gaming experience.
-- **Discover Games** – Explore a vast library with detailed game information.
-- **Save & Organize** – Add games to your favorites, wishlist, or mark them as played.
-- **Find Games Easily** – Use advanced search and filters to discover games that match your interests.
-- **Track & Explore** – View game details, watch trailers, and check availability across platforms and stores.
-
 ## ✨ Key Features
 
 - **Extensive Game Library** – Browse a wide selection of games with in-depth details.
