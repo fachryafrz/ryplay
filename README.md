@@ -48,12 +48,12 @@ Ryplay is a comprehensive gaming platform designed to enhance your gaming experi
 
 ## 🛠️ Tech Stack
 
-- **Nuxt 3** – Vue-based framework
-- **Vue** – JavaScript framework
-- **DaisyUI** – Tailwind CSS component library
-- **Tailwind CSS** – Styling and UI design
-- **IGDB API** – The biggest game database
-- **Supabase** – Authentication & database
+- **Nuxt 3**
+- **Vue**
+- **DaisyUI**
+- **Tailwind CSS**
+- **IGDB API**
+- **Supabase**
 
 ## 🚀 Fork the repository
 
