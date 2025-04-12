@@ -12,4 +12,4 @@ jobs:
       - name: Call /health endpoint to keep Supabase alive
         run: |
           ENCODED_SECRET=$(jq -rn --arg s "${{ secrets.HEALTH_SECRET }}" '$s|@uri')
-          curl -X GET "https://your-app.vercel.app/api/health?secret=$ENCODED_SECRET"
+          curl -X GET "https://ryplay.fachryafrz.com/api/health?secret=$ENCODED_SECRET"
