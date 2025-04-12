@@ -1,0 +1,14 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # Menjalankan setiap hari jam 9 pagi UTC
+  workflow_dispatch: # Dapat dijalankan secara manual juga
+
+jobs:
+  call-health-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call /health endpoint to keep Supabase alive
+        run: |
+          curl -X GET "https://ryplay.fachryafrz.com/api/health?secret=${{ secrets.HEALTH_SECRET }}"
