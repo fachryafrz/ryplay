@@ -2,8 +2,8 @@ name: Supabase Keep Alive
 
 on:
   schedule:
-    - cron: "0 9 * * *" # Menjalankan setiap hari jam 9 pagi UTC
-  workflow_dispatch: # Dapat dijalankan secara manual juga
+    - cron: "0 9 * * 1"
+  workflow_dispatch: # Manual
 
 jobs:
   call-health-api:
