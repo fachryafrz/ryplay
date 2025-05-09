@@ -18,14 +18,15 @@ const loadMoreRef = ref(null);
 const allGames = ref([]); // Menyimpan semua game dari Supabase
 const paginatedGames = ref([]); // Game yang akan ditampilkan
 const batchSize = 10; // Fetch detail game per 10 item
+const offset = ref(0);
 
-// Fetch semua data dari Supabase
-const fetchAllGames = async () => {
+const fetchGamesPage = async (from, to) => {
   const { data, error } = await supabase
     .from(table)
     .select("*")
     .eq("user_id", user.value.id)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(from, to);
 
   if (error) {
     console.error(error);
@@ -66,10 +67,11 @@ const fetchGameDetails = async (games) => {
 const { data, isLoading } = useSWRV(
   ["profile", title, user.value.id],
   async () => {
-    allGames.value = await fetchAllGames();
-    const firstBatch = allGames.value.slice(0, batchSize);
-    paginatedGames.value = await fetchGameDetails(firstBatch);
-    return paginatedGames.value;
+    const games = await fetchGamesPage(0, batchSize - 1);
+    offset.value = batchSize;
+    const detailed = await fetchGameDetails(games);
+    paginatedGames.value = detailed;
+    return detailed;
   },
   {
     revalidateOnFocus: false,
@@ -79,19 +81,17 @@ const { data, isLoading } = useSWRV(
 const fetchNextPage = async () => {
   if (isFinished.value) return;
 
-  const nextPageOffset = paginatedGames.value.length;
-  const nextBatch = allGames.value.slice(
-    nextPageOffset,
-    nextPageOffset + batchSize,
-  );
+  const games = await fetchGamesPage(offset.value, offset.value + batchSize - 1);
 
-  if (nextBatch.length === 0) {
+  if (games.length === 0) {
     isFinished.value = true;
     return;
   }
 
-  const games = await fetchGameDetails(nextBatch);
-  data.value.push(...games);
+  offset.value += games.length;
+
+  const detailed = await fetchGameDetails(games);
+  data.value.push(...detailed);
 };
 
 useInfiniteScroll(
