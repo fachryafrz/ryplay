@@ -81,7 +81,10 @@ const { data, isLoading } = useSWRV(
 const fetchNextPage = async () => {
   if (isFinished.value) return;
 
-  const games = await fetchGamesPage(offset.value, offset.value + batchSize - 1);
+  const games = await fetchGamesPage(
+    offset.value,
+    offset.value + batchSize - 1,
+  );
 
   if (games.length === 0) {
     isFinished.value = true;
@@ -91,7 +94,12 @@ const fetchNextPage = async () => {
   offset.value += games.length;
 
   const detailed = await fetchGameDetails(games);
-  data.value.push(...detailed);
+
+  // Cek apakah slug-nya sudah ada di data
+  const existingSlugs = new Set(data.value.map((g) => g.slug));
+  const newGames = detailed.filter((g) => !existingSlugs.has(g.slug));
+
+  data.value.push(...newGames);
 };
 
 useInfiniteScroll(
