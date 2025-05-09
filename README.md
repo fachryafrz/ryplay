@@ -60,11 +60,11 @@ git clone https://github.com/{your-username}/ryplay.git
 
 cd ryplay
 
-pnpm install
+npm install
 
 cp .env.example .env
 
-pnpm dev
+npm dev
 ```
 
 ## 🤝 Contributing
