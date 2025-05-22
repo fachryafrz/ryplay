@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Call /health endpoint to keep Supabase alive
         run: |
-          curl -X GET "https://glitch.fachryafrz.com/api/health?secret=${{ secrets.HEALTH_SECRET }}"
+          curl -X GET "https://ryplay.fachryafrz.com/api/health?secret=${{ secrets.HEALTH_SECRET }}"

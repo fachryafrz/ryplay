@@ -1,8 +1,8 @@
-[![Glitch](https://fachryafrz.com/projects/glitch/home.png)](https://glitch.fachryafrz.com)
+[![Ryplay](https://fachryafrz.com/projects/ryplay/home.png)](https://ryplay.fachryafrz.com)
 
-# Glitch – Game Streaming and Discovery
+# Ryplay – Game Streaming and Discovery
 
-Glitch is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.
+Ryplay is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.
 
 ## ✨ Key Features
 
@@ -56,9 +56,9 @@ Click the **Fork** button at the top-right corner of this page to create a copy 
 ### 2. Clone Your Forked Repository
 
 ```sh
-git clone https://github.com/{your-username}/glitch.git
+git clone https://github.com/{your-username}/ryplay.git
 
-cd glitch
+cd ryplay
 
 npm install
 
@@ -69,7 +69,7 @@ npm dev
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. We'll review and merge your contributions as we continue to improve Glitch.
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. We'll review and merge your contributions as we continue to improve RyPlay.
 
 ## 📜 License
 
@@ -77,5 +77,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 📸 Screenshots
 
-[![Glitch](https://fachryafrz.com/projects/glitch/game-details.png)](https://glitch.fachryafrz.com)
-[![Glitch](https://fachryafrz.com/projects/glitch/search.png)](https://glitch.fachryafrz.com)
+[![Ryplay](https://fachryafrz.com/projects/ryplay/game-details.png)](https://ryplay.fachryafrz.com)
+[![Ryplay](https://fachryafrz.com/projects/ryplay/search.png)](https://ryplay.fachryafrz.com)
