@@ -17,7 +17,7 @@ const isFinished = ref(false);
 const loadMoreRef = ref(null);
 const allGames = ref([]); // Menyimpan semua game dari Supabase
 const paginatedGames = ref([]); // Game yang akan ditampilkan
-const batchSize = 10; // Fetch detail game per 10 item
+const batchSize = 20; // Fetch detail game per 10 item
 const offset = ref(0);
 
 const fetchGamesPage = async (from, to) => {
