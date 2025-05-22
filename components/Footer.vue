@@ -6,7 +6,7 @@ const socialLinks = [
   {
     name: "GitHub",
     icon: "uil:github",
-    link: "https://www.github.com/fachryafrz/ryplay",
+    link: "https://www.github.com/fachryafrz/glitch",
   },
   {
     name: "Twitter",

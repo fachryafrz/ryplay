@@ -1,7 +1,7 @@
 {
-  "name": "Ryplay",
-  "short_name": "Ryplay",
-  "description": "Ryplay is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.",
+  "name": "Glitch",
+  "short_name": "Glitch",
+  "description": "Glitch is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.",
   "icons": [
     {
       "src": "/maskable/maskable_icon_x512.png",
