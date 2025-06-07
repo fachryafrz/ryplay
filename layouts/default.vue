@@ -18,6 +18,11 @@ useHead({
     {
       rel: `icon`,
       type: `image/x-icon`,
+      href: `/favicon.ico`,
+    },
+    {
+      rel: `icon`,
+      type: `image/x-icon`,
       media: `(prefers-color-scheme: light)`,
       href: `/favicon/light/favicon.ico`,
     },
