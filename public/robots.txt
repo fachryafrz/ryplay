@@ -1,32 +1,15 @@
-User-agent: *
+User-Agent: *
 Disallow: /
 
-User-agent: Twitterbot
-Disallow:
-
-User-agent: facebookexternalhit
-Disallow:
-
-User-agent: facebot
-Disallow:
-
-User-agent: Slackbot
-Disallow:
-
-User-agent: Discordbot
-Disallow:
-
-User-agent: WhatsApp
-Disallow:
-
-User-agent: WhatsAppBot
-Disallow:
-
-User-agent: vercel-og
-Disallow:
-
-User-agent: vercel-favicon
-Disallow:
-
-User-agent: LinkedInBot
-Disallow:
+User-Agent: Twitterbot
+User-Agent: facebookexternalhit
+User-Agent: facebot
+User-Agent: Slackbot
+User-Agent: Discordbot
+User-Agent: WhatsApp
+User-Agent: WhatsAppBot
+User-Agent: vercel-og
+User-Agent: vercel-favicon
+User-Agent: vercel-screenshot
+User-Agent: LinkedInBot
+Disallow:  
