@@ -1,5 +1,29 @@
-User-agent: Googlebot
+User-agent: *
 Disallow: /
 
-User-agent: *
-Allow: /
+User-agent: Twitterbot
+Disallow:
+
+User-agent: facebookexternalhit
+Disallow:
+
+User-agent: facebot
+Disallow:
+
+User-agent: Slackbot
+Disallow:
+
+User-agent: Discordbot
+Disallow:
+
+User-agent: WhatsApp
+Disallow:
+
+User-agent: WhatsAppBot
+Disallow:
+
+User-agent: vercel-og
+Disallow:
+
+User-agent: LinkedInBot
+Disallow:
