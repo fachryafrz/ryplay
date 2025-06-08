@@ -25,5 +25,8 @@ Disallow:
 User-agent: vercel-og
 Disallow:
 
+User-agent: vercel-favicon
+Disallow:
+
 User-agent: LinkedInBot
 Disallow:
