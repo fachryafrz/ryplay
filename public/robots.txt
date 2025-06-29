@@ -1,15 +1,2 @@
 User-Agent: *
-Disallow: /
-
-User-Agent: Twitterbot
-User-Agent: facebookexternalhit
-User-Agent: facebot
-User-Agent: Slackbot
-User-Agent: Discordbot
-User-Agent: WhatsApp
-User-Agent: WhatsAppBot
-User-Agent: vercel-og
-User-Agent: vercel-favicon
-User-Agent: vercel-screenshot
-User-Agent: LinkedInBot
-Disallow:  
+Allow: /
