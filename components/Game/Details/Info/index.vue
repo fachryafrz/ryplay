@@ -1,6 +1,7 @@
 <script setup>
-import { gameCategory } from "~/data/game-category";
 import { storeCategory } from "~/data/store-category";
+
+const MAX_DESCRIPTION_LENGTH = 100;
 
 const { game } = defineProps(["game"]);
 
@@ -10,6 +11,7 @@ const summary = ref(game.summary || "");
 const combinedText = ref(
   `${storyline.value} ${storyline.value && summary.value ? "\n\n" : ""} ${summary.value}`,
 );
+const splittedText = ref(combinedText.value.split(" ").length);
 // const words = ref(combinedText.value.split("")); NOTE: DEPRECATED
 // const wordCount = ref(words.value.length); NOTE: DEPRECATED
 // const maxLength = 750; NOTE: DEPRECATED
@@ -61,10 +63,27 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
     <GameDetailsInfoCountdown :game="game" />
 
     <!-- About -->
-    <section>
-      <div class="prose -my-4 max-w-none text-neutral-400">
+    <section class="space-y-2">
+      <div
+        class="prose max-w-none text-neutral-400"
+        :class="
+          readMore
+            ? ''
+            : splittedText > MAX_DESCRIPTION_LENGTH
+              ? 'line-clamp-5'
+              : ''
+        "
+      >
         <MDC :value="combinedText" />
       </div>
+
+      <button
+        v-if="splittedText > MAX_DESCRIPTION_LENGTH"
+        class="text-primary underline-offset-2 hover:underline"
+        @click="readMore = !readMore"
+      >
+        {{ readMore ? "Show Less" : "Read More" }}
+      </button>
     </section>
 
     <!-- Additional Info -->

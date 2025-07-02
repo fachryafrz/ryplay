@@ -6,15 +6,17 @@ const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
 const oneMonthAgo = dayjs().add(-1, "month").unix();
 
-const [
-  { data: home, status: statusHome },
-  { data: homeMore, status: statusHomeMore },
-  { data: multiquery, status: statusMultiquery },
-] = await Promise.all([
-  useLazyFetch("/api/home", { server: false }),
-  useLazyFetch("/api/home-more", { server: false }),
-  useLazyFetch("/api/multiquery", { server: false }),
-]);
+const { data: home, status: statusHome } = await useFetch("/api/home");
+
+// Yang lain pakai CSR
+const { data: homeMore, status: statusHomeMore } = useFetch("/api/home-more", {
+  server: false,
+  lazy: true,
+});
+const { data: multiquery, status: statusMultiquery } = useFetch(
+  "/api/multiquery",
+  { server: false, lazy: true },
+);
 
 const featured = computed(
   () => home.value?.find((res) => res.name === "featured").result,
