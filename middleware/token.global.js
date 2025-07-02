@@ -1,6 +1,6 @@
 import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
 
-// NOTE: This middleware is for SEO
+// NOTE: This middleware is for if there is no access_token in cookies
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const config = useRuntimeConfig();
   const access_token = useCookie(IGDB_ACCESS_TOKEN).value;

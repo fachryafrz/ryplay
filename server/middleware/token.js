@@ -1,4 +1,4 @@
-// NOTE: This middleware is for if there is no access_token in cookies
+// NOTE: This middleware is for SEO
 export default defineEventHandler(async (event) => {
   const access_token = getCookie(event, IGDB_ACCESS_TOKEN);
 
