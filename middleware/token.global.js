@@ -17,7 +17,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     useCookie(IGDB_ACCESS_TOKEN, {
       maxAge: 3600, // bisa juga data.expires_in
     }).value = data.access_token;
-
-    // navigateTo(from.path);
   }
 });

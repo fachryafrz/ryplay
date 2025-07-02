@@ -68,9 +68,14 @@ export default defineNuxtConfig({
       callback: "/login",
     },
   },
-  routeRules: {
-    "/api/home": { cache: { maxAge: 3600 } },
-    "/api/home-more": { cache: { maxAge: 3600 } },
-    "/api/multiquery": { cache: { maxAge: 3600 } },
+  vite: {
+    optimizeDeps: {
+      include: ["debug"],
+    },
   },
+  // routeRules: {
+  //   "/api/home": { cache: { maxAge: 3600 } },
+  //   "/api/home-more": { cache: { maxAge: 3600 } },
+  //   "/api/multiquery": { cache: { maxAge: 3600 } },
+  // },
 });

@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
     const response = await $fetch("https://id.twitch.tv/oauth2/token", {
       method: "POST",
-      body: {
+      params: {
         client_id: config.CLIENT_ID,
         client_secret: config.CLIENT_SECRET,
         grant_type: "client_credentials",
