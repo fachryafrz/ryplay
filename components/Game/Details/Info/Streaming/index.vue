@@ -13,6 +13,7 @@ const language = useSelectedStreamLanguage();
 const title = "Live Stream";
 const swiperID = title.toLocaleLowerCase().replace(/ /g, "_");
 const loading = ref(false);
+const streamingRef = ref(null);
 
 const fetcher = async (url) => {
   return await axios
@@ -124,14 +125,17 @@ watch(
           :key="stream.id"
           class="max-w-[calc(100%/1.1)] @3xl:max-w-[calc(100%/2.1)]"
         >
-          <GameDetailsInfoStreamingCard :stream="stream" />
+          <GameDetailsInfoStreamingCard
+            :stream="stream"
+            :streaming-ref="streamingRef"
+          />
         </SwiperSlide>
       </Swiper>
     </div>
   </section>
 
   <!-- Embed -->
-  <section v-if="selectedStream">
+  <section v-if="selectedStream" ref="streamingRef">
     <div class="-mx-4 aspect-video overflow-hidden lg:mx-0 lg:rounded-xl">
       <iframe :src="iframeSrc" height="100%" width="100%" allowfullscreen>
       </iframe>

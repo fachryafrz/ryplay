@@ -2,13 +2,28 @@
 import numeral from "numeral";
 import pluralize from "pluralize";
 
-const { stream } = defineProps(["stream"]);
+const { stream, streamingRef } = defineProps(["stream", "streamingRef"]);
 
 const selectedStream = useSelectedStream();
 
 const handleSelectStream = () => {
-  selectedStream.value = stream;
+  selectedStream.value = selectedStream.value === stream ? null : stream;
 };
+
+watch(
+  selectedStream,
+  () => {
+    setTimeout(() => {
+      if (streamingRef) {
+        streamingRef.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }, 100);
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
