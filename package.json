@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nuxt/icon": "^1.10.3",
-    "@nuxtjs/mdc": "^0.13.3",
+    "@nuxtjs/mdc": "^0.17.2",
     "@nuxtjs/sitemap": "^7.2.4",
     "@nuxtjs/supabase": "^1.4.6",
     "@supabase/supabase-js": "^2.48.1",
