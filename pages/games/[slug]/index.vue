@@ -1,6 +1,7 @@
 <script setup>
 const appConfig = useAppConfig();
-const { slug } = useRoute().params;
+const route = useRoute();
+const { slug } = route.params;
 
 const { data: response, error } = await useFetch("/api/games/details", {
   params: { slug: `"${slug}"` },
