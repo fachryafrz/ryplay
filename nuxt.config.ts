@@ -13,6 +13,11 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "@nuxtjs/supabase",
   ],
+  mdc: {
+    components: {
+      prose: false,
+    },
+  },
   gtag: {
     id: process.env.GA_MEASUREMENT_ID,
   },
