@@ -100,7 +100,7 @@ watch(
       <div
         class="mx-auto grid aspect-video max-w-[calc(100%/1.1)] place-content-center @3xl:max-w-[calc(100%/2.1)]"
       >
-        No streams found
+        No streaming found
       </div>
     </div>
 
