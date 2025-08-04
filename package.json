@@ -27,7 +27,7 @@
     "pluralize": "^8.0.0",
     "swrv": "^1.1.0",
     "typewriter-effect": "^2.21.0",
-    "vue": "latest",
+    "vue": "^3",
     "vue-lite-youtube-embed": "^1.2.4",
     "vue-multiselect": "^3.2.0",
     "vue-select": "^4.0.0-beta.6"
