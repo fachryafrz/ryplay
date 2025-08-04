@@ -4,18 +4,11 @@ import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
 const appConfig = useAppConfig();
 
 const token = useCookie(IGDB_ACCESS_TOKEN);
-
-const mustLogin = ref(null);
-
-onMounted(() => {
-  watch(token, () => {
-    if (!token.value) location.reload();
-  });
-
-  if (!token.value) {
-    mustLogin.value = true;
-  }
+watch(token, () => {
+  if (!token.value) location.reload();
 });
+
+const mustLogin = useShowMustLogin();
 
 useHead({
   titleTemplate: (title) => {
