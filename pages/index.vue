@@ -6,17 +6,16 @@ const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
 const oneMonthAgo = dayjs().add(-1, "month").unix();
 
-const { data: home, status: statusHome } = await useFetch("/api/home");
+const [
+  { data: home, status: statusHome },
+  { data: homeMore, status: statusHomeMore },
+] = await Promise.all([useFetch("/api/home"), useFetch("/api/home-more")]);
 
 // Yang lain pakai CSR
-const { data: homeMore, status: statusHomeMore } = useFetch("/api/home-more", {
-  server: false,
-  lazy: true,
-});
-const { data: multiquery, status: statusMultiquery } = useFetch(
-  "/api/multiquery",
-  { server: false, lazy: true },
-);
+// const { data: multiquery, status: statusMultiquery } = useFetch(
+//   "/api/multiquery",
+//   { server: false, lazy: true },
+// );
 
 const featured = computed(
   () => home.value?.find((res) => res.name === "featured").result,
@@ -78,15 +77,15 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       </div>
     </section>
 
-    <section class="my-2">
-      <!-- <div
+    <!-- <section class="my-2"> -->
+    <!-- <div
         v-show="statusMultiquery !== `success`"
         class="flex items-center justify-center gap-2"
       >
         <span class="loading loading-spinner"></span>
       </div> -->
 
-      <SkeletonSlider v-show="statusMultiquery !== `success`" />
+    <!-- <SkeletonSlider v-show="statusMultiquery !== `success`" />
 
       <GameSlider
         v-show="statusMultiquery === `success`"
@@ -95,7 +94,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         title="Popular Right Now"
         description="Popular Games of The Week"
       />
-    </section>
+    </section> -->
 
     <section class="my-2">
       <GameSlider
@@ -152,9 +151,9 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       />
     </section>
 
-    <SkeletonTile v-show="statusMultiquery !== `success`" />
+    <!-- <SkeletonTile v-show="statusMultiquery !== `success`" /> -->
 
-    <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
+    <!-- <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
         <GameTile
           class="w-full"
@@ -182,7 +181,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
           title="Want to Play"
         />
       </div>
-    </section>
+    </section> -->
 
     <section class="my-2">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
@@ -220,9 +219,9 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       />
     </section>
 
-    <SkeletonTile v-show="statusMultiquery !== `success`" />
+    <!-- <SkeletonTile v-show="statusMultiquery !== `success`" /> -->
 
-    <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
+    <!-- <section class="my-2 lg:my-8" v-if="statusMultiquery === `success`">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
         <GameTile
           class="w-full"
@@ -246,6 +245,6 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
           title="Want to Play"
         />
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
