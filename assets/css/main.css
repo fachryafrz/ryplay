@@ -106,13 +106,25 @@ body {
   @apply !bg-secondary;
 }
 
+@layer base {
+  @media (display-mode: standalone) {
+    * {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    body {
+      overscroll-behavior-y: contain;
+    }
+  }
+}
+
 @layer components {
   .heading-2 {
     @apply text-2xl font-bold;
   }
 
   .featured-games {
-    @apply relative aspect-poster lg:h-[300px] transition-all duration-700 hocus:flex-[2] [&_img]:rounded-xl;
+    @apply relative aspect-poster transition-all duration-700 hocus:flex-[2] lg:h-[300px] [&_img]:rounded-xl;
   }
 
   .featured-games.active {
