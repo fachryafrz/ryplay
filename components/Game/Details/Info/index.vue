@@ -55,7 +55,7 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
 
 <template>
   <div class="flex flex-col gap-6 @container">
-    <h1 class="mt-4 select-text text-pretty text-center text-3xl font-bold">
+    <h1 class="mt-4 text-pretty text-center text-3xl font-bold">
       {{ game.name }}
     </h1>
 
@@ -65,7 +65,7 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
     <!-- About -->
     <section class="space-y-2">
       <div
-        class="prose max-w-none text-neutral-400 [&_*]:select-text"
+        class="prose max-w-none text-neutral-400"
         :class="
           readMore
             ? ''
