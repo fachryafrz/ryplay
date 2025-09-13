@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const { access_token } = event.context;
 
   const today = dayjs().unix();
-  const threeMonthsAgo = dayjs().subtract(2, "month").unix();
+  const threeMonthsAgo = dayjs().subtract(3, "month").unix();
 
   const fetchGames = async (access_token) => {
     const data = await $fetch(`${config.API_URL}/multiquery`, {
