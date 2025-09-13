@@ -9,7 +9,7 @@ const { game, gameCover } = defineProps(["game", "gameCover"]);
 
 const dayjs = useDayjs();
 
-const category = gameCategory.find((item) => item.id === game.category).name;
+const category = gameCategory.find((item) => item.id === game.game_type).name;
 
 const uniqueCompanies = game.involved_companies?.filter(
   (company, index, self) =>

@@ -34,23 +34,18 @@ const hasImageId = (category) => {
 // Memfilter game.external_games untuk hanya item dengan image_id yang valid
 const uniqueExternalGames = game.external_games?.filter(
   (item, index, self) =>
-    self.findIndex((t) => t.category === item.category) === index,
+    self.findIndex(
+      (t) => t.external_game_source === item.external_game_source,
+    ) === index,
 );
 
 const filteredExternalGames = uniqueExternalGames?.filter((externalGame) =>
-  hasImageId(externalGame.category),
+  hasImageId(externalGame.external_game_source),
 );
 
-const IGDB = {
-  url: `https://www.igdb.com/games/${game.slug}`,
-  category: 0,
-};
-
-const includeIGDB = filteredExternalGames
-  ? [IGDB, ...filteredExternalGames]
-  : [IGDB];
-
-const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch Game ID
+const game_id = filteredExternalGames.find(
+  (item) => item.external_game_source === 14,
+)?.uid; // Twitch Game ID
 </script>
 
 <template>
@@ -93,7 +88,7 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
     >
       <GameDetailsInfoAdditionalInfo
         :game="game"
-        :external-games="includeIGDB"
+        :external-games="filteredExternalGames"
         :find-store-by-id="findStoreById"
       />
     </section>
@@ -300,7 +295,7 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
       v-if="
         game.collections?.length > 0 &&
         game.collections.some((collection) =>
-          collection.games.some((game) => game.category === 0),
+          collection.games.some((game) => game.game_type === 0),
         )
       "
       v-for="collection in game.collections"
@@ -315,17 +310,17 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
             '-ml-2 grid',
             {
               '@xl:grid-cols-2':
-                collection.games?.filter((game) => game.category === 0).length >
-                1,
+                collection.games?.filter((game) => game.game_type === 0)
+                  .length > 1,
               '@4xl:grid-cols-3':
-                collection.games?.filter((game) => game.category === 0).length >
-                2,
+                collection.games?.filter((game) => game.game_type === 0)
+                  .length > 2,
             },
           ]"
         >
           <GameTileCard
             v-for="game in collection.games
-              ?.filter((game) => game.category === 0)
+              ?.filter((game) => game.game_type === 0)
               .sort((a, b) => a.first_release_date - b.first_release_date)"
             :key="game.slug"
             :game="game"
@@ -336,7 +331,7 @@ const game_id = includeIGDB.find((item) => item.category === 14)?.uid; // Twitch
         <!-- <GameGrid
           :games="
             collection.games
-              ?.filter((game) => game.category === 0)
+              ?.filter((game) => game.game_type === 0)
               .sort((a, b) => a.first_release_date - b.first_release_date)
           "
         /> -->

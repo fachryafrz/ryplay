@@ -4,7 +4,7 @@ import { gameCategory } from '~/data/game-category';
 
 const { game, isHorizontal } = defineProps(["game", "isHorizontal"]);
 
-const category = gameCategory.find((item) => item.id === game.category).name;
+const category = gameCategory.find((item) => item.id === game.game_type).name;
 </script>
 
 <template>

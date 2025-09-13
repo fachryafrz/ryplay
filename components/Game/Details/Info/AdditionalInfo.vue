@@ -34,6 +34,7 @@ const { game, externalGames, findStoreById } = defineProps([
       <h2 class="heading-2">Available on</h2>
 
       <GameDetailsInfoStores
+        :game="game"
         :external-games="externalGames"
         :find-store-by-id="findStoreById"
       />

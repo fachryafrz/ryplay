@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
       .map((i) => `${i}`)
       .join(",");
 
-    whereClause += ` & category = (${separatedItem})`;
+    whereClause += ` & game_type = (${separatedItem})`;
   }
   if (id) whereClause += ` & id = (${id})`;
   if (screenshots) whereClause += ` & screenshots != null`;
@@ -116,7 +116,7 @@ export default defineEventHandler(async (event) => {
         Authorization: `Bearer ${access_token}`,
       },
       body: `
-        f developed.slug, developed.cover.image_id, developed.category;
+        f developed.slug, developed.cover.image_id, developed.game_type;
         w slug = (${separatedItem});
         l ${company.split(",").length};
       `,
@@ -129,7 +129,7 @@ export default defineEventHandler(async (event) => {
           cover: {
             image_id: game.cover ? game.cover.image_id : null,
           },
-          category: game.category,
+          category: game.game_type,
         };
       });
     });

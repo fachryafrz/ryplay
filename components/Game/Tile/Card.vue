@@ -8,7 +8,7 @@ const {
   showDescription = true,
 } = defineProps(["num", "game", "showCategory", "showDescription"]);
 
-const category = gameCategory.find((item) => item.id === game.category).name;
+const category = gameCategory.find((item) => item.id === game.game_type).name;
 </script>
 
 <template>

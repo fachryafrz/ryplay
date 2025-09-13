@@ -1,5 +1,4 @@
-export const storeCategory = [
-  { store: "Internet Game Database", id: 0, image_id: "igdb" },
+export const storeCategory = [ 
   { store: "Steam", id: 1, image_id: "steam" },
   { store: "GOG", id: 5, image_id: "gog" },
   { store: "YouTube", id: 10, image_id: "" },
