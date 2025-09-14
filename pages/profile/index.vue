@@ -2,9 +2,12 @@
 const supabase = useSupabaseClient();
 const route = useRoute();
 const user = useSupabaseUser();
+const toast = useToast()
 
 const signOut = async () => {
   await supabase.auth.signOut();
+
+  toast.success({ message: "Logged out" });
 
   if (route.path === "/profile") {
     return navigateTo("/login");

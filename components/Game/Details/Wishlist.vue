@@ -5,7 +5,7 @@ const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
-const mustLogin = useShowMustLogin();
+const toast = useToast();
 
 const isWishlist = ref(false);
 
@@ -33,7 +33,7 @@ const { data, mutate } = useSWRV(
 
 const addToWishlist = async () => {
   if (!user.value) {
-    mustLogin.value = "You must be logged in";
+    toast.error({ message: "You must be logged in" });
     return;
   }
 
@@ -44,9 +44,11 @@ const addToWishlist = async () => {
 
   if (error) {
     console.error(error);
+    toast.error({ message: "Error adding to wishlist" });
     return;
   } else {
     checkWishlist();
+    toast.success({ message: "Added to wishlist" });
   }
 };
 
@@ -60,16 +62,13 @@ const removeFromWishlist = async () => {
 
   if (error) {
     console.error(error);
-    mustLogin.value = "Error removing from wishlist";
+    toast.error({ message: "Error removing from wishlist" });
     return;
   } else {
     checkWishlist();
+    toast.success({ message: "Removed from wishlist" });
   }
 };
-
-watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
-  immediate: true,
-});
 </script>
 
 <template>

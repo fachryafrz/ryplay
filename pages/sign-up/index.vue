@@ -5,6 +5,7 @@ const password = ref("");
 const loginError = ref("");
 const supabase = useSupabaseClient();
 const loading = ref(false);
+const toast = useToast()
 
 const signUp = async () => {
   loading.value = true;
@@ -27,6 +28,7 @@ const signUp = async () => {
   } else {
     loading.value = false;
     loginError.value = "";
+    toast.success({ message: "Signed up successfully" });
     return navigateTo("/");
   }
 };

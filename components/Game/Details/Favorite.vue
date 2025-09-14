@@ -5,7 +5,7 @@ const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
-const mustLogin = useShowMustLogin();
+const toast = useToast();
 
 const isFavorite = ref(false);
 const isUpcoming = ref(
@@ -36,7 +36,7 @@ const { data, mutate } = useSWRV(
 
 const addToFavorite = async () => {
   if (!user.value) {
-    mustLogin.value = "You must be logged in";
+    toast.error({ message: "You must be logged in" });
     return;
   }
 
@@ -47,9 +47,11 @@ const addToFavorite = async () => {
 
   if (error) {
     console.error(error);
+    toast.error({ message: "Error adding to favorite" });
     return;
   } else {
     checkFavorite();
+    toast.success({ message: "Added to favorite" });
   }
 };
 
@@ -63,15 +65,13 @@ const removeFromFavorite = async () => {
 
   if (error) {
     console.error(error);
+    toast.error({ message: "Error removing from favorite" });
     return;
   } else {
     checkFavorite();
+    toast.success({ message: "Removed from favorite" });
   }
 };
-
-watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
-  immediate: true,
-});
 </script>
 
 <template>

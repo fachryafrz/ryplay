@@ -8,8 +8,6 @@ watch(token, () => {
   if (!token.value) location.reload();
 });
 
-const mustLogin = useShowMustLogin();
-
 useHead({
   titleTemplate: (title) => {
     return title ? `${title} - ${appConfig.name}` : appConfig.name;
@@ -62,7 +60,6 @@ useSeoMeta({
 
 <template>
   <NuxtLoadingIndicator color="#98ee2f" :height="2" />
-  <!-- <Sidebar> -->
   <div class="flex flex-col gap-0">
     <Header />
 
@@ -71,13 +68,5 @@ useSeoMeta({
     </main>
 
     <Footer />
-  </div>
-  <!-- </Sidebar> -->
-
-  <div v-if="mustLogin" class="toast z-50">
-    <div class="alert alert-error">
-      <Icon name="ion:locked" size="20" />
-      <span>{{ mustLogin }}</span>
-    </div>
   </div>
 </template>

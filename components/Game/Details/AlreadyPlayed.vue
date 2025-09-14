@@ -5,7 +5,7 @@ const { game } = defineProps(["game"]);
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
-const mustLogin = useShowMustLogin();
+const toast = useToast();
 
 const isAlreadyPlayed = ref(false);
 const isUpcoming = ref(
@@ -36,7 +36,7 @@ const { data, mutate } = useSWRV(
 
 const addToAlreadyPlayed = async () => {
   if (!user.value) {
-    mustLogin.value = "You must be logged in";
+    toast.error({ message: "You must be logged in" });
     return;
   }
 
@@ -47,9 +47,11 @@ const addToAlreadyPlayed = async () => {
 
   if (error) {
     console.error(error);
+    toast.error({ message: "Error adding to already played" });
     return;
   } else {
     checkAlreadyPlayed();
+    toast.success({ message: "Added to already played" });
   }
 };
 
@@ -63,16 +65,13 @@ const removeFromAlreadyPlayed = async () => {
 
   if (error) {
     console.error(error);
-    mustLogin.value = "Error removing from alreadyPlayed";
+    toast.error({ message: "Error removing from already played" });
     return;
   } else {
     checkAlreadyPlayed();
+    toast.success({ message: "Removed from already played" });
   }
 };
-
-watch(mustLogin, () => setTimeout(() => (mustLogin.value = null), 5e3), {
-  immediate: true,
-});
 </script>
 
 <template>

@@ -4,6 +4,7 @@ const password = ref("");
 const loginError = ref("");
 const supabase = useSupabaseClient();
 const loading = ref(false);
+const toast = useToast();
 
 const signIn = async () => {
   loading.value = true;
@@ -41,6 +42,7 @@ const signIn = async () => {
   } else {
     loading.value = false;
     loginError.value = "";
+    toast.success({ message: "Logged in" });
     return navigateTo("/");
   }
 };
@@ -122,6 +124,9 @@ const signIn = async () => {
       </button>
     </form>
 
-    <p>Doesn't have an account? <NuxtLink to="/sign-up" class="link link-primary">Sign Up</NuxtLink></p>
+    <p>
+      Doesn't have an account?
+      <NuxtLink to="/sign-up" class="link link-primary">Sign Up</NuxtLink>
+    </p>
   </div>
 </template>

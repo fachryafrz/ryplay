@@ -1,5 +1,8 @@
 <script setup>
 import { storeCategory } from "~/data/store-category";
+import Favorite from "../Favorite.vue";
+import Wishlist from "../Wishlist.vue";
+import AlreadyPlayed from "../AlreadyPlayed.vue";
 
 const MAX_DESCRIPTION_LENGTH = 100;
 
@@ -56,6 +59,24 @@ const game_id = filteredExternalGames.find(
 
     <!-- Countdown -->
     <GameDetailsInfoCountdown :game="game" />
+
+    <!-- CTA -->
+    <div class="flex flex-wrap gap-2">
+      <!-- Favorite -->
+      <ClientOnly>
+        <Favorite :game="game" />
+      </ClientOnly>
+
+      <!-- Wishlist -->
+      <ClientOnly>
+        <Wishlist :game="game" />
+      </ClientOnly>
+
+      <!-- Already Played -->
+      <ClientOnly>
+        <AlreadyPlayed :game="game" />
+      </ClientOnly>
+    </div>
 
     <!-- About -->
     <section class="space-y-2">

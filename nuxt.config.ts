@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "nuxt-gtag",
     "@nuxtjs/supabase",
+    "nuxt-toast",
   ],
   gtag: {
     id: process.env.GA_MEASUREMENT_ID,
