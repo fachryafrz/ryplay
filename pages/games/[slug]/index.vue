@@ -33,7 +33,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="mx-auto mt-0.5 grid max-w-7xl grid-cols-12 gap-4">
+  <div class="mt-0.5 grid grid-cols-12 gap-4">
     <div
       class="col-span-full @container lg:col-start-9 lg:row-span-2 xl:col-start-10"
     >
@@ -57,25 +57,12 @@ useSeoMeta({
     </div>
   </div>
 
-  <div
-    v-if="game.similar_games?.length > 0"
-    class="col-span-full mx-auto max-w-7xl pt-4"
-  >
+  <div v-if="game.similar_games?.length > 0" class="col-span-full pt-4">
     <GameSlider
       id="similarGames"
       :games="game.similar_games"
       title="Similar Games"
       description="Discover games similar to this one"
-      :breakpoints="{
-        768: {
-          slidesPerGroup: 4,
-          slidesPerView: 4,
-        },
-        1024: {
-          slidesPerGroup: 5,
-          slidesPerView: 5,
-        },
-      }"
       class-name="!-mx-0 !px-0"
     />
   </div>
