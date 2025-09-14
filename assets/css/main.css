@@ -120,7 +120,7 @@ body {
   }
 
   .featured-games {
-    @apply relative aspect-poster transition-all duration-700 hocus:xl:grow xl:h-[300px] [&_img]:rounded-xl;
+    @apply relative aspect-poster transition-all duration-700 xl:h-[300px] [&_img]:rounded-xl;
   }
 
   .featured-games.active {

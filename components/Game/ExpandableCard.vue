@@ -20,7 +20,7 @@ onBeforeUnmount(() => {
 // hitung jumlah game
 const visibleGames = computed(() => {
   if (!games) return [];
-  if (windowWidth.value < 1280) return games.slice(0, 8);
+  if (windowWidth.value < 1280) return games;
 
   const count = Math.max(4, Math.floor(windowWidth.value / 450) + 2);
   return games.slice(0, count);
