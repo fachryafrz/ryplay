@@ -69,11 +69,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       <div class="flex flex-col gap-2">
         <h2 class="heading-2">Upcoming Games</h2>
 
-        <div
-          class="grid grid-cols-2 gap-2 overflow-auto md:grid-cols-4 lg:flex"
-        >
-          <GameExpandableCard :games="upcoming" />
-        </div>
+        <GameExpandableCard :games="upcoming" />
       </div>
     </section>
 

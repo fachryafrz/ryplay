@@ -120,11 +120,11 @@ body {
   }
 
   .featured-games {
-    @apply relative aspect-poster transition-all duration-700 hocus:flex-[2] lg:h-[300px] [&_img]:rounded-xl;
+    @apply relative aspect-poster transition-all duration-700 hocus:xl:grow xl:h-[300px] [&_img]:rounded-xl;
   }
 
   .featured-games.active {
-    @apply flex-[2];
+    @apply xl:grow;
   }
 
   .featured-games #game-cover {
@@ -136,11 +136,11 @@ body {
   }
 
   .featured-games.active #game-cover {
-    @apply lg:opacity-0;
+    @apply xl:opacity-0;
   }
 
   .featured-games.active #game-screenshot {
-    @apply lg:opacity-100;
+    @apply xl:opacity-100;
   }
 
   .before-content::before {

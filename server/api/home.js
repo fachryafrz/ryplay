@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
           f *, cover.*, artworks.*, screenshots.*;
           w cover != null & screenshots != null & artworks != null & first_release_date >= ${today} & hypes >= 50 & game_type = 0;
           s first_release_date asc;
-          l 5;
+          l 8;
         };
         query games "top-rated" {
           f *, cover.*, artworks.*, screenshots.*;
