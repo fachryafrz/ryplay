@@ -120,11 +120,11 @@ body {
   }
 
   .featured-games {
-    @apply relative aspect-poster transition-all duration-700 xl:h-[300px] [&_img]:rounded-xl;
+    @apply relative aspect-poster transition-all duration-700 xl:h-[300px] xl:w-[225px] [&_img]:rounded-xl;
   }
 
   .featured-games.active {
-    @apply xl:grow;
+    @apply xl:grow xl:w-[450px];
   }
 
   .featured-games #game-cover {

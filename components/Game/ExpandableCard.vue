@@ -2,37 +2,14 @@
 const { games } = defineProps(["games"]);
 
 const activeIndex = ref(0);
-const windowWidth = ref(0);
-
-const updateWidth = () => {
-  windowWidth.value = window.innerWidth;
-};
-
-onMounted(() => {
-  updateWidth();
-  window.addEventListener("resize", updateWidth);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", updateWidth);
-});
-
-// hitung jumlah game
-const visibleGames = computed(() => {
-  if (!games) return [];
-  if (windowWidth.value < 1280) return games;
-
-  const count = Math.max(4, Math.floor(windowWidth.value / 450) + 2);
-  return games.slice(0, count);
-});
 </script>
 
 <template>
   <div
-    class="grid grid-cols-2 gap-2 overflow-auto md:grid-cols-4 xl:flex xl:flex-wrap"
+    class="grid grid-cols-2 gap-2 overflow-auto md:grid-cols-4 xl:flex xl:max-h-[300px] xl:flex-wrap xl:overflow-y-hidden"
   >
     <NuxtLink
-      v-for="(game, index) in visibleGames"
+      v-for="(game, index) in games"
       :key="game.slug"
       :to="`/games/${game.slug}`"
       :class="[
