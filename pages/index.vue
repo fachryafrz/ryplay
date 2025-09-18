@@ -100,7 +100,7 @@ console.log(mostAnticipated.value);
       />
     </section> -->
 
-    <section class="my-2">
+    <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <div>
           <NuxtLink
@@ -120,7 +120,7 @@ console.log(mostAnticipated.value);
       </div>
     </section>
 
-    <!-- <section class="my-2">
+    <section class="my-2 xl:hidden">
       <GameSlider
         id="topRated"
         :games="topRated"
@@ -128,9 +128,9 @@ console.log(mostAnticipated.value);
         description="Most Popular Games of All Time"
         :see-all="`/search?sort=total_rating_count+desc`"
       />
-    </section> -->
+    </section>
 
-    <section class="my-2">
+    <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <h2 class="heading-2">Most Anticipated</h2>
 
@@ -138,7 +138,7 @@ console.log(mostAnticipated.value);
       </div>
     </section>
 
-    <!-- <section class="my-2">
+    <section class="my-2 xl:hidden">
       <GameSlider
         id="mostAnticipated"
         :games="mostAnticipated"
@@ -157,9 +157,9 @@ console.log(mostAnticipated.value);
         :isHorizontal="true"
         :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}..${endOfNextYear}&hypes=40`"
       />
-    </section> -->
+    </section>
 
-    <section class="my-2">
+    <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
           :to="`/search?sort=first_release_date+desc&category=0&hypes=100&release_date=${oneMonthAgo}..${today}`"
@@ -173,7 +173,7 @@ console.log(mostAnticipated.value);
       </div>
     </section>
 
-    <!-- <section class="my-2">
+    <section class="my-2 xl:hidden">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -195,7 +195,7 @@ console.log(mostAnticipated.value);
         :isHorizontal="true"
         :see-all="`/search?limit=20&sort=first_release_date+desc&category=0&hypes=10&release_date=${oneMonthAgo}..${today}`"
       />
-    </section> -->
+    </section>
 
     <!-- <SkeletonTile v-show="statusMultiquery !== `success`" /> -->
 
@@ -229,7 +229,7 @@ console.log(mostAnticipated.value);
       </div>
     </section> -->
 
-    <section class="my-2">
+    <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
           :to="`/search?genre=adventure`"
@@ -243,7 +243,7 @@ console.log(mostAnticipated.value);
       </div>
     </section>
 
-    <!-- <section class="my-2">
+    <section class="my-2 xl:hidden">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -253,9 +253,9 @@ console.log(mostAnticipated.value);
         title="Adventure"
         :see-all="`/search?genre=adventure`"
       />
-    </section> -->
+    </section>
 
-    <section class="my-2">
+    <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
           :to="`/search?genre=hack-and-slash-beat-em-up`"
@@ -269,7 +269,7 @@ console.log(mostAnticipated.value);
       </div>
     </section>
 
-    <!-- <section class="my-2">
+    <section class="my-2 xl:hidden">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -279,9 +279,9 @@ console.log(mostAnticipated.value);
         title="Hack and Slash Beat 'Em Up"
         :see-all="`/search?genre=hack-and-slash-beat-em-up`"
       />
-    </section> -->
+    </section>
 
-    <section class="my-2">
+    <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
           :to="`/search?genre=racing`"
@@ -295,7 +295,7 @@ console.log(mostAnticipated.value);
       </div>
     </section>
 
-    <!-- <section class="my-2">
+    <section class="my-2 xl:hidden">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -305,7 +305,7 @@ console.log(mostAnticipated.value);
         title="Racing"
         :see-all="`/search?genre=racing`"
       />
-    </section> -->
+    </section>
 
     <!-- <SkeletonTile v-show="statusMultiquery !== `success`" /> -->
 
