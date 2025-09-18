@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       body: `
         query games "new-releases" {
           f *, cover.*, artworks.*, screenshots.*;
-          w first_release_date <= ${today} & hypes >= 10 & screenshots != null & artworks != null & game_type = 0;
+          w first_release_date <= ${today} & hypes >= 100 & screenshots != null & artworks != null & game_type = 0;
           s first_release_date desc;
           l 20;
         };
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
         };
         query games "racing" {
           f *, cover.*, artworks.*, screenshots.*;
-          w cover != null & genres.slug = "racing" & screenshots != null & artworks != null & game_type = 0;
+          w cover != null & genres.slug = "racing" & screenshots != null & artworks != null & game_type = 0 & first_release_date <= ${today};
           s hypes desc;
           l 20;
         };

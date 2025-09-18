@@ -48,6 +48,8 @@ const popular = computed(() => multiquery.value?.popular);
 const mostPlayed = computed(() => multiquery.value?.mostPlayed);
 const playing = computed(() => multiquery.value?.playing);
 const wantToPlay = computed(() => multiquery.value?.wantToPlay);
+
+console.log(mostAnticipated.value);
 </script>
 
 <template>
@@ -67,7 +69,13 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
 
     <section class="my-2">
       <div class="flex flex-col gap-2">
-        <h2 class="heading-2">Upcoming Games</h2>
+        <NuxtLink
+          :to="`/search?release_date=${today}..${endOfNextYear}&hypes=50&sort=first_release_date+asc`"
+          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+        >
+          <h2 class="heading-2">Upcoming Games</h2>
+          <Icon name="ion:ios-arrow-forward" class="transition-all sm:size-6" />
+        </NuxtLink>
 
         <GameExpandableCard :games="upcoming" />
       </div>
@@ -93,6 +101,26 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section> -->
 
     <section class="my-2">
+      <div class="flex flex-col gap-2">
+        <div>
+          <NuxtLink
+            :to="`/search?sort=total_rating_count+desc`"
+            class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+          >
+            <h2 class="heading-2">Top Rated</h2>
+            <Icon
+              name="ion:ios-arrow-forward"
+              class="transition-all sm:size-6"
+            />
+          </NuxtLink>
+          <p class="text-sm text-neutral-500">Most Popular Games of All Time</p>
+        </div>
+
+        <GameExpandableCard :games="topRated" />
+      </div>
+    </section>
+
+    <!-- <section class="my-2">
       <GameSlider
         id="topRated"
         :games="topRated"
@@ -100,9 +128,17 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         description="Most Popular Games of All Time"
         :see-all="`/search?sort=total_rating_count+desc`"
       />
-    </section>
+    </section> -->
 
     <section class="my-2">
+      <div class="flex flex-col gap-2">
+        <h2 class="heading-2">Most Anticipated</h2>
+
+        <GameExpandableCard :games="mostAnticipated" />
+      </div>
+    </section>
+
+    <!-- <section class="my-2">
       <GameSlider
         id="mostAnticipated"
         :games="mostAnticipated"
@@ -121,9 +157,23 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         :isHorizontal="true"
         :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}..${endOfNextYear}&hypes=40`"
       />
-    </section>
+    </section> -->
 
     <section class="my-2">
+      <div class="flex flex-col gap-2">
+        <NuxtLink
+          :to="`/search?sort=first_release_date+desc&category=0&hypes=100&release_date=${oneMonthAgo}..${today}`"
+          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+        >
+          <h2 class="heading-2">New Releases</h2>
+          <Icon name="ion:ios-arrow-forward" class="transition-all sm:size-6" />
+        </NuxtLink>
+
+        <GameExpandableCard :games="newReleases" />
+      </div>
+    </section>
+
+    <!-- <section class="my-2">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -145,7 +195,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         :isHorizontal="true"
         :see-all="`/search?limit=20&sort=first_release_date+desc&category=0&hypes=10&release_date=${oneMonthAgo}..${today}`"
       />
-    </section>
+    </section> -->
 
     <!-- <SkeletonTile v-show="statusMultiquery !== `success`" /> -->
 
@@ -180,6 +230,20 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     </section> -->
 
     <section class="my-2">
+      <div class="flex flex-col gap-2">
+        <NuxtLink
+          :to="`/search?genre=adventure`"
+          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+        >
+          <h2 class="heading-2">Adventure</h2>
+          <Icon name="ion:ios-arrow-forward" class="transition-all sm:size-6" />
+        </NuxtLink>
+
+        <GameExpandableCard :games="adventure" />
+      </div>
+    </section>
+
+    <!-- <section class="my-2">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -189,9 +253,23 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         title="Adventure"
         :see-all="`/search?genre=adventure`"
       />
-    </section>
+    </section> -->
 
     <section class="my-2">
+      <div class="flex flex-col gap-2">
+        <NuxtLink
+          :to="`/search?genre=hack-and-slash-beat-em-up`"
+          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+        >
+          <h2 class="heading-2">Hack and Slash Beat 'Em Up</h2>
+          <Icon name="ion:ios-arrow-forward" class="transition-all sm:size-6" />
+        </NuxtLink>
+
+        <GameExpandableCard :games="hackAndSlashBeatEmUp" />
+      </div>
+    </section>
+
+    <!-- <section class="my-2">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -201,9 +279,23 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         title="Hack and Slash Beat 'Em Up"
         :see-all="`/search?genre=hack-and-slash-beat-em-up`"
       />
-    </section>
+    </section> -->
 
     <section class="my-2">
+      <div class="flex flex-col gap-2">
+        <NuxtLink
+          :to="`/search?genre=racing`"
+          class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
+        >
+          <h2 class="heading-2">Racing</h2>
+          <Icon name="ion:ios-arrow-forward" class="transition-all sm:size-6" />
+        </NuxtLink>
+
+        <GameExpandableCard :games="racing" />
+      </div>
+    </section>
+
+    <!-- <section class="my-2">
       <SkeletonSlider v-show="statusHomeMore !== `success`" />
 
       <GameSlider
@@ -213,7 +305,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
         title="Racing"
         :see-all="`/search?genre=racing`"
       />
-    </section>
+    </section> -->
 
     <!-- <SkeletonTile v-show="statusMultiquery !== `success`" /> -->
 
