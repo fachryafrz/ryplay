@@ -48,8 +48,6 @@ const popular = computed(() => multiquery.value?.popular);
 const mostPlayed = computed(() => multiquery.value?.mostPlayed);
 const playing = computed(() => multiquery.value?.playing);
 const wantToPlay = computed(() => multiquery.value?.wantToPlay);
-
-console.log(mostAnticipated.value);
 </script>
 
 <template>
