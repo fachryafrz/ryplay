@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const { access_token } = event.context;
+  const access_token = await getAccessToken(event);
 
   const { game_id, language } = getQuery(event);
 
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       `https://api.twitch.tv/helix/streams`,
       {
         headers: {
-          "CLIENT-ID": config.CLIENT_ID,
+          "Client-ID": config.CLIENT_ID,
           Authorization: `Bearer ${access_token}`,
         },
         params: { game_id, type: "live", language },
