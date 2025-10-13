@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const { access_token } = event.context;
+  const access_token = await getAccessToken(event);
 
   const { name, isMulti } = getQuery(event);
 
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     const data = await $fetch(`${config.API_URL}/platforms`, {
       method: "POST",
       headers: {
-        "CLIENT-ID": config.CLIENT_ID,
+        "Client-ID": config.CLIENT_ID,
         Authorization: `Bearer ${access_token}`,
       },
       body: `

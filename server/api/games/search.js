@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const cookie = getCookie(event, IGDB_ACCESS_TOKEN);
-  const { access_token } = event.context;
+  const access_token = await getAccessToken(event);
 
   // Dapatkan query dari URL
   const {
@@ -112,7 +112,7 @@ export default defineEventHandler(async (event) => {
     const data = await $fetch(`${config.API_URL}/companies`, {
       method: "POST",
       headers: {
-        "CLIENT-ID": config.CLIENT_ID,
+        "Client-ID": config.CLIENT_ID,
         Authorization: `Bearer ${access_token}`,
       },
       body: `
@@ -141,7 +141,7 @@ export default defineEventHandler(async (event) => {
     const data = await $fetch(`${config.API_URL}/games`, {
       method: "POST",
       headers: {
-        "CLIENT-ID": config.CLIENT_ID,
+        "Client-ID": config.CLIENT_ID,
         Authorization: `Bearer ${access_token}`,
       },
       body: `
