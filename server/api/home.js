@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
         };
         query games "most-anticipated" {
           f *, cover.*, artworks.*, screenshots.*;
-          w first_release_date >= ${today} & hypes >= 200 & screenshots != null & artworks != null & game_type = 0;
+          w first_release_date >= ${today} & hypes >= 100 & screenshots != null & artworks != null & game_type = 0;
           s hypes desc;
           l 20;
         };
