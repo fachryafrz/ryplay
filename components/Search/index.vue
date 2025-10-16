@@ -95,7 +95,7 @@ useInfiniteScroll(
   async () => {
     await fetchNextPage();
   },
-  { distance: 10 },
+  { distance: 10, interval: 3000 },
 );
 </script>
 
