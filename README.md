@@ -14,12 +14,6 @@ Gaming platform designed to enhance your gaming experience. You can browse, sear
 
 ## ✨ Features
 
-- 🔑 Authentication with Supabase:
-  - 👤 Register
-  - 🔑 Login
-  - 🌟 Save favorite games
-  - 🔖 Add games to wishlist
-  - 🎮 Mark game as played
 - 📚 Extensive game library
 - 🎮 View detailed game information:
   - 📝 Summary and Description
@@ -45,7 +39,6 @@ Gaming platform designed to enhance your gaming experience. You can browse, sear
 - **DaisyUI**
 - **Tailwind CSS**
 - **IGDB API**
-- **Supabase**
 
 ## 🚀 Fork the repository
 

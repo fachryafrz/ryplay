@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/sitemap",
     "nuxt-gtag",
-    "@nuxtjs/supabase",
     "nuxt-toast",
   ],
   gtag: {
@@ -37,9 +36,6 @@ export default defineNuxtConfig({
     CLIENT_ID: process.env.CLIENT_ID,
     CLIENT_SECRET: process.env.CLIENT_SECRET,
     HEALTH_SECRET: process.env.HEALTH_SECRET,
-    SUPABASE_URL: process.env.SUPABASE_URL,
-    SUPABASE_KEY: process.env.SUPABASE_KEY,
-    SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
   },
   app: {
     head: {
@@ -60,13 +56,6 @@ export default defineNuxtConfig({
           href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0",
         },
       ],
-    },
-  },
-  supabase: {
-    redirect: false,
-    redirectOptions: {
-      login: "/login",
-      callback: "/login",
     },
   },
   vite: {

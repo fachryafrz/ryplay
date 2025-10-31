@@ -2,7 +2,6 @@
 const appConfig = useAppConfig();
 const route = useRoute();
 const showFilter = useShowFilter();
-const user = useSupabaseUser();
 
 onMounted(() => {
   if (window.innerWidth < 1024) {
@@ -69,29 +68,6 @@ onMounted(() => {
         >
           <Icon name="ion:search" size="20" />
           <span class="hidden xs:block">Search</span>
-        </NuxtLink>
-        <NuxtLink
-          v-if="!user"
-          to="/sign-up"
-          class="btn btn-ghost hidden sm:flex"
-        >
-          Sign up
-        </NuxtLink>
-        <NuxtLink
-          v-if="!user"
-          to="/login"
-          class="btn btn-primary aspect-square px-0 xs:aspect-auto xs:px-4"
-        >
-          <Icon name="ion:person" size="20" class="xs:hidden" />
-          <span class="hidden xs:block">Sign in</span>
-        </NuxtLink>
-        <NuxtLink
-          v-if="user"
-          to="/profile"
-          class="btn btn-ghost aspect-square px-0 sm:aspect-auto sm:px-4"
-        >
-          <Icon name="ion:person" size="20" class="sm:hidden" />
-          <span class="hidden sm:block">{{ user.user_metadata.username }}</span>
         </NuxtLink>
       </div>
     </header>

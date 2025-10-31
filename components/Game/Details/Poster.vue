@@ -1,11 +1,8 @@
 <script setup>
 import pluralize from "pluralize";
-import Wishlist from "./Wishlist.vue";
-import Favorite from "./Favorite.vue";
-import AlreadyPlayed from "./AlreadyPlayed.vue";
 import { gameCategory } from "~/data/game-category";
 
-const { game, gameCover } = defineProps(["game", "gameCover"]);
+const { game } = defineProps(["game"]);
 
 const dayjs = useDayjs();
 
