@@ -3,8 +3,7 @@ import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const cookie = getCookie(event, IGDB_ACCESS_TOKEN);
-  const access_token = await getAccessToken(event);
+  const access_token = await getAccessToken();
 
   const today = dayjs().unix();
   const monthsAgo = dayjs().subtract(1, "month").unix();
