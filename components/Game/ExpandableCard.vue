@@ -12,6 +12,7 @@ const activeIndex = ref(0);
       v-for="(game, index) in games"
       :key="game.slug"
       :to="`/games/${game.slug}`"
+      :prefetch="false"
       :class="[
         'featured-games !outline-none',
         { active: activeIndex === index },

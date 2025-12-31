@@ -54,6 +54,7 @@ const config = useRuntimeConfig();
           class="flex items-center justify-start xl:h-[75px] xl:justify-center"
         >
           <NuxtLink
+            :prefetch="false"
             to="/"
             class="flex h-[48px] items-center gap-2 !bg-transparent"
           >
@@ -93,6 +94,7 @@ const config = useRuntimeConfig();
         <ul>
           <li v-for="nav in navigation">
             <NuxtLink
+              :prefetch="false"
               :to="nav.link"
               class="btn btn-ghost justify-start text-base"
               :class="{

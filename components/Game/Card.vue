@@ -8,7 +8,7 @@ const category = gameCategory.find((item) => item.id === game.game_type).name;
 </script>
 
 <template>
-  <NuxtLink :to="`/games/${game.slug}`" class="relative">
+  <NuxtLink :to="`/games/${game.slug}`" class="relative" :prefetch="false">
     <div
       v-if="!isHorizontal"
       :class="`after-content relative transition-all after:pointer-events-none after:absolute after:left-2 after:top-2 after:rounded after:bg-black after:bg-opacity-60 after:p-1 after:px-2 after:text-xs after:text-white after:backdrop-blur hocus:[&_img]:scale-105 hocus:[&_img]:duration-500`"

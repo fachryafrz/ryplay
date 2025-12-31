@@ -19,6 +19,7 @@ const { game, externalGames, findStoreById } = defineProps([
 
       <div class="flex flex-wrap gap-2">
         <NuxtLink
+          :prefetch="false"
           v-for="platform in game.platforms"
           :key="platform.id"
           :to="`/search?platform=${platform.slug}`"
@@ -48,6 +49,7 @@ const { game, externalGames, findStoreById } = defineProps([
 
       <div class="flex flex-wrap gap-2">
         <NuxtLink
+          :prefetch="false"
           v-for="genre in game.genres"
           :key="genre.id"
           :to="`/search?genre=${genre.slug}`"

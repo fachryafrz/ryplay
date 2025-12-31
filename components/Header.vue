@@ -62,6 +62,7 @@ onMounted(() => {
       <!-- Right -->
       <div class="flex items-center justify-end gap-2">
         <NuxtLink
+          :prefetch="false"
           to="/search"
           v-show="route.path !== '/search'"
           class="btn btn-neutral aspect-square px-0 outline outline-secondary xs:aspect-auto xs:px-2 sm:hidden"
