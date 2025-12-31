@@ -203,6 +203,7 @@ useEventListener(document, "keydown", handleKeyDown);
 
         <NuxtLink
           v-if="route.path !== '/search'"
+          :prefetch="false"
           to="/search"
           class="btn btn-square btn-ghost"
         >
@@ -219,6 +220,7 @@ useEventListener(document, "keydown", handleKeyDown);
         <ul class="autocomplete-suggestions">
           <li v-for="(game, index) in autocompleteData">
             <NuxtLink
+              :prefetch="false"
               :to="`/search?query=${game.name.toLowerCase().replace(/\s+/g, '+')}`"
               tabindex="-1"
               @click="isFocus = false"

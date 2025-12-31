@@ -54,6 +54,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
               v-for="genre in game.genres"
               :key="genre.slug"
               :to="`/search?genre=${genre.slug}`"
+              :prefetch="false"
               class="btn btn-sm border-none bg-opacity-75 backdrop-blur"
             >
               {{ genre.name }}
@@ -148,6 +149,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
                 v-for="genre in game.genres"
                 :key="genre.slug"
                 :to="`/search?genre=${genre.slug}`"
+                :prefetch="false"
                 class="btn btn-sm border-none bg-opacity-50 backdrop-blur"
               >
                 {{ genre.name }}
@@ -163,6 +165,7 @@ const setFourthSwiper = (swiper) => (fourthSwiper.value = swiper);
             <div class="mt-auto flex flex-row items-end justify-between gap-2">
               <NuxtLink
                 :to="`/games/${game.slug}`"
+                :prefetch="false"
                 class="btn !btn-primary w-full xl:max-w-32"
               >
                 Details

@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const access_token = await getAccessToken(event);
+  const access_token = await getAccessToken();
 
   const { query } = getQuery(event);
 

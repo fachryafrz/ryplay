@@ -13,6 +13,7 @@ const category = gameCategory.find((item) => item.id === game.game_type).name;
 
 <template>
   <NuxtLink
+    :prefetch="false"
     :to="`/games/${game.slug}`"
     class="flex items-center gap-2 rounded-xl p-2 outline-none transition-all hocus:bg-secondary"
   >

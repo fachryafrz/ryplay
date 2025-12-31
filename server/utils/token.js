@@ -1,12 +1,16 @@
-import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
+let cachedToken = null;
+let tokenExpiry = 0;
 
-export async function getAccessToken(event, page) {
+export async function getAccessToken() {
   const config = useRuntimeConfig();
-  // Cek apakah sudah ada token di cookie
-  let token = getCookie(event, IGDB_ACCESS_TOKEN);
+  const now = Date.now();
 
-  if (!token) {
-    // Jika tidak ada, ambil dari API IGDB
+  // If token exists and is not expired (buffer 60 seconds)
+  if (cachedToken && now < tokenExpiry - 60000) {
+    return cachedToken;
+  }
+
+  try {
     const data = await $fetch("https://id.twitch.tv/oauth2/token", {
       method: "POST",
       body: {
@@ -16,13 +20,13 @@ export async function getAccessToken(event, page) {
       },
     });
 
-    // Set cookie agar bisa digunakan oleh browser & request berikutnya
-    setCookie(event, IGDB_ACCESS_TOKEN, data.access_token, { maxAge: 3600 });
+    cachedToken = data.access_token;
+    // expires_in is in seconds, convert to ms
+    tokenExpiry = now + data.expires_in * 1000;
 
-    token = data.access_token;
+    return cachedToken;
+  } catch (error) {
+    console.error("Failed to fetch access token:", error);
+    throw error;
   }
-
-  // console.log(page, accessToken);
-
-  return token;
 }

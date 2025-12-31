@@ -84,7 +84,7 @@ if (createdYear === currentYear) {
           <p class="text-xs">since {{ textContent }}</p>
         </div>
         <p class="col-[2/3] row-[2/3] text-xs">
-          Powered by <NuxtLink to="https://www.igdb.com/">IGDB</NuxtLink>
+          Powered by <NuxtLink :prefetch="false" to="https://www.igdb.com/">IGDB</NuxtLink>
         </p>
       </aside>
       <nav class="md:place-self-center md:justify-self-end">

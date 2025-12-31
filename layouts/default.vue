@@ -1,12 +1,7 @@
 <script setup>
-import { IGDB_ACCESS_TOKEN } from "~/server/utils/constants";
+
 
 const appConfig = useAppConfig();
-
-const token = useCookie(IGDB_ACCESS_TOKEN);
-watch(token, () => {
-  if (!token.value) location.reload();
-});
 
 useHead({
   titleTemplate: (title) => {

@@ -68,6 +68,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     <section class="my-2">
       <div class="flex flex-col gap-2">
         <NuxtLink
+          :prefetch="false"
           :to="`/search?release_date=${today}..${endOfNextYear}&hypes=50&sort=first_release_date+asc`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
@@ -102,6 +103,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
       <div class="flex flex-col gap-2">
         <div>
           <NuxtLink
+            :prefetch="false"
             :to="`/search?sort=total_rating_count+desc`"
             class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
           >
@@ -160,6 +162,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
+          :prefetch="false"
           :to="`/search?sort=first_release_date+desc&category=0&hypes=100&release_date=${oneMonthAgo}..${today}`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
@@ -230,6 +233,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
+          :prefetch="false"
           :to="`/search?genre=adventure`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
@@ -256,6 +260,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
+          :prefetch="false"
           :to="`/search?genre=hack-and-slash-beat-em-up`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
@@ -282,6 +287,7 @@ const wantToPlay = computed(() => multiquery.value?.wantToPlay);
     <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <NuxtLink
+          :prefetch="false"
           :to="`/search?genre=racing`"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >

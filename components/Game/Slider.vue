@@ -50,6 +50,7 @@ const defaultBreakpoints = {
         <NuxtLink
           v-if="seeAll"
           :to="seeAll"
+          :prefetch="false"
           class="flex max-w-fit items-center gap-1 [&_.iconify]:hocus:translate-x-1"
         >
           <h2 class="heading-2">{{ title }}</h2>
