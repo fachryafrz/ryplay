@@ -2,6 +2,10 @@
   "name": "Ryplay",
   "short_name": "Ryplay",
   "description": "Ryplay is a comprehensive gaming platform designed to enhance your gaming experience. You can browse, search games with advanced filters and check where a game is available to get/purchase across various game stores. You can also save your favorite games, create a wishlist, and mark games as played.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0c0d",
+  "theme_color": "#0b0c0d",
   "icons": [
     {
       "src": "/maskable/maskable_icon_x512.png",
@@ -49,10 +53,5 @@
       "form_factor": "narrow",
       "label": "Game Details"
     }
-  ],
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#0b0c0d",
-  "theme_color": "#0b0c0d"
+  ]
 }
