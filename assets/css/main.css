@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
-  @apply outline;
-} */
+* {
+  overscroll-behavior: auto;
+}
 
 *:focus {
   @apply outline-none;
