@@ -21,12 +21,12 @@ const SLIDER_COUNT = 6;
 
 <template>
   <div class="flex flex-col gap-2 @container">
-    <div class="flex items-end justify-between">
+    <!-- <div class="flex items-end justify-between">
       <div class="flex flex-col gap-1">
         <span :class="`block h-7 w-44 rounded ${loadingClass}`"></span>
         <span :class="`block h-4 w-48 rounded ${loadingClass}`"></span>
       </div>
-    </div>
+    </div> -->
 
     <div
       class="relative w-full [&_#swiper-navigation_button]:hover:opacity-100"

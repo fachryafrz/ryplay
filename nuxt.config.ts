@@ -64,9 +64,9 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    "/api/home": { cache: { maxAge: 3600 } },
-    "/api/games/home-sections/**": { cache: { maxAge: 3600 } },
-    "/api/games/details": { cache: { maxAge: 3600 } },
-    "/": { cache: { maxAge: 3600 } },
+    "/api/home": { swr: 3600 },
+    "/api/games/home-sections/**": { swr: 3600 },
+    "/api/games/details": { swr: 3600 },
+    "/": { swr: 3600 },
   },
 });

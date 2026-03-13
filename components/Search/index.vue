@@ -2,6 +2,7 @@
 import axios from "axios";
 import pluralize from "pluralize";
 import useSWRV from "swrv";
+import { useIntersectionObserver } from "@vueuse/core";
 
 const { multiquery } = defineProps(["multiquery"]);
 
@@ -90,13 +91,11 @@ const fetchNextPage = async () => {
   }
 };
 
-useInfiniteScroll(
-  loadMoreRef,
-  async () => {
-    await fetchNextPage();
-  },
-  { distance: 10, interval: 3000 },
-);
+useIntersectionObserver(loadMoreRef, ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    fetchNextPage();
+  }
+});
 </script>
 
 <template>
