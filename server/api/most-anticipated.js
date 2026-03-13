@@ -7,19 +7,17 @@ export default defineEventHandler(async (event) => {
   const today = dayjs().unix();
 
   const fetchGames = async (access_token) => {
-    const data = await $fetch(`${config.API_URL}/multiquery`, {
+    const data = await $fetch(`${config.API_URL}/games`, {
       method: "POST",
       headers: {
         "Client-ID": config.CLIENT_ID,
         Authorization: `Bearer ${access_token}`,
       },
       body: `
-        query games "most-anticipated" {
-          f *, cover.*, artworks.*, screenshots.*;
-          w first_release_date >= ${today} & hypes >= 100 & screenshots != null & artworks != null & game_type = 0;
-          s hypes desc;
-          l 20;
-        };
+        f *, cover.*, artworks.*, screenshots.*;
+        w first_release_date >= ${today} & hypes >= 100 & screenshots != null & artworks != null & game_type = 0;
+        s hypes desc;
+        l 20;
       `,
     });
 
