@@ -3,12 +3,6 @@ import axios from "axios";
 import useSWRV from "swrv";
 import { useIntersectionObserver } from "@vueuse/core";
 
-const props = defineProps({
-  upcoming: { type: Array, default: () => [] },
-  topRated: { type: Array, default: () => [] },
-  mostAnticipated: { type: Array, default: () => [] },
-});
-
 const dayjs = useDayjs();
 const today = dayjs().unix();
 const endOfNextYear = dayjs().add(1, "year").endOf("year").unix();
@@ -20,14 +14,41 @@ const fetcher = async (url) => {
 };
 
 // --- STATES ---
-const showNewReleases = ref(true); // First section visible by default
+const showUpcoming = ref(true); // First section visible by default
+const showTopRated = ref(false);
+const showMostAnticipated = ref(false);
+const showNewReleases = ref(false);
 const showAdventure = ref(false);
 const showHackSlash = ref(false);
 const showRacing = ref(false);
 
+const topRatedTarget = ref(null);
+const mostAnticipatedTarget = ref(null);
+const newReleasesTarget = ref(null);
 const adventureTarget = ref(null);
 const hackSlashTarget = ref(null);
 const racingTarget = ref(null);
+
+useIntersectionObserver(
+  topRatedTarget,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) showTopRated.value = true;
+  },
+);
+
+useIntersectionObserver(
+  mostAnticipatedTarget,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) showMostAnticipated.value = true;
+  },
+);
+
+useIntersectionObserver(
+  newReleasesTarget,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) showNewReleases.value = true;
+  },
+);
 
 useIntersectionObserver(
   adventureTarget,
@@ -51,6 +72,27 @@ useIntersectionObserver(
 );
 
 // --- QUERIES ---
+const { data: upcomingData, isLoading: loadingUpcoming } = useSWRV(
+  () => showUpcoming.value ? "/api/upcoming" : null,
+  fetcher,
+  { dedupingInterval: 3600000, revalidateOnFocus: false }
+);
+const upcoming = computed(() => upcomingData.value?.find((res) => res.name === "upcoming")?.result);
+
+const { data: topRatedData, isLoading: loadingTopRated } = useSWRV(
+  () => showTopRated.value ? "/api/top-rated" : null,
+  fetcher,
+  { dedupingInterval: 3600000, revalidateOnFocus: false }
+);
+const topRated = computed(() => topRatedData.value?.find((res) => res.name === "top-rated")?.result);
+
+const { data: mostAnticipatedData, isLoading: loadingMostAnticipated } = useSWRV(
+  () => showMostAnticipated.value ? "/api/most-anticipated" : null,
+  fetcher,
+  { dedupingInterval: 3600000, revalidateOnFocus: false }
+);
+const mostAnticipated = computed(() => mostAnticipatedData.value?.find((res) => res.name === "most-anticipated")?.result);
+
 const { data: newReleases, isLoading: loadingNewReleases } = useSWRV(
   () => showNewReleases.value ? "/api/games/home-sections/new-releases" : null,
   fetcher,
@@ -89,9 +131,12 @@ const { data: racing, isLoading: loadingRacing } = useSWRV(
           <Icon name="ion:ios-arrow-forward" class="transition-all sm:size-6" />
         </NuxtLink>
 
-        <GameExpandableCard :games="upcoming" />
+        <SkeletonSlider v-if="!showUpcoming || loadingUpcoming || !upcoming" />
+        <GameExpandableCard v-else :games="upcoming" />
       </div>
     </section>
+
+    <div ref="topRatedTarget" class="h-1 w-full" />
 
     <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
@@ -110,12 +155,15 @@ const { data: racing, isLoading: loadingRacing } = useSWRV(
           <p class="text-sm text-neutral-500">Most Popular Games of All Time</p>
         </div>
 
-        <GameExpandableCard :games="topRated" />
+        <SkeletonSlider v-if="!showTopRated || loadingTopRated || !topRated" />
+        <GameExpandableCard v-else :games="topRated" />
       </div>
     </section>
 
     <section class="my-2 xl:hidden">
+      <SkeletonSlider v-if="!showTopRated || loadingTopRated || !topRated" />
       <GameSlider
+        v-else
         id="topRated"
         :games="topRated"
         title="Top Rated"
@@ -124,16 +172,21 @@ const { data: racing, isLoading: loadingRacing } = useSWRV(
       />
     </section>
 
+    <div ref="mostAnticipatedTarget" class="h-1 w-full" />
+
     <section class="my-2 hidden xl:block">
       <div class="flex flex-col gap-2">
         <h2 class="heading-2">Most Anticipated</h2>
 
-        <GameExpandableCard :games="mostAnticipated" />
+        <SkeletonSlider v-if="!showMostAnticipated || loadingMostAnticipated || !mostAnticipated" />
+        <GameExpandableCard v-else :games="mostAnticipated" />
       </div>
     </section>
 
     <section class="my-2 xl:hidden">
+      <SkeletonSlider v-if="!showMostAnticipated || loadingMostAnticipated || !mostAnticipated" :isHorizontal="true" />
       <GameSlider
+        v-else
         id="mostAnticipated"
         :games="mostAnticipated"
         title="Most Anticipated"
@@ -152,6 +205,8 @@ const { data: racing, isLoading: loadingRacing } = useSWRV(
         :see-all="`/search?limit=20&sort=hypes+desc&category=0&release_date=${today}..${endOfNextYear}&hypes=40`"
       />
     </section>
+
+    <div ref="newReleasesTarget" class="h-1 w-full" />
 
     <!-- NEW RELEASES -->
     <section class="my-2 hidden xl:block">

@@ -7,15 +7,6 @@ const { data: home, status: statusHome } = await useFetch("/api/home");
 const featured = computed(
   () => home.value?.find((res) => res.name === "featured")?.result,
 );
-const upcoming = computed(
-  () => home.value?.find((res) => res.name === "upcoming")?.result,
-);
-const topRated = computed(
-  () => home.value?.find((res) => res.name === "top-rated")?.result,
-);
-const mostAnticipated = computed(
-  () => home.value?.find((res) => res.name === "most-anticipated")?.result,
-);
 </script>
 
 <template>
@@ -34,11 +25,7 @@ const mostAnticipated = computed(
     </section>
 
     <ClientOnly>
-      <HomeClientSections
-        :upcoming="upcoming"
-        :top-rated="topRated"
-        :most-anticipated="mostAnticipated"
-      />
+      <HomeClientSections />
     </ClientOnly>
   </div>
 </template>
