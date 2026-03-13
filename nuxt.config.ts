@@ -66,7 +66,7 @@ export default defineNuxtConfig({
   routeRules: {
     "/api/home": { swr: 3600 },
     "/api/games/home-sections/**": { swr: 3600 },
-    "/api/games/details": { swr: 3600 },
+    "/games/**": { swr: 3600 },
     "/": { swr: 3600 },
   },
 });
