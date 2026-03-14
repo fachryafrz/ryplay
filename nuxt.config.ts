@@ -64,6 +64,7 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
+    // API
     "/api/home": {
       swr: 3600,
       headers: {
@@ -78,6 +79,15 @@ export default defineNuxtConfig({
           "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
       },
     },
+    "/api/games/details/**": {
+      swr: 3600,
+      headers: {
+        "cache-control":
+          "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    },
+
+    // Pages
     "/games/**": {
       swr: 3600,
       headers: {
