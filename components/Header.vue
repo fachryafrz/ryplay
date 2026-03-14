@@ -21,7 +21,7 @@ onMounted(() => {
     >
       <!-- Left -->
       <div class="">
-        <NuxtLink to="/" class="btn btn-ghost px-2 text-lg sm:px-2 sm:text-xl">
+        <NuxtLink to="/" :prefetch="false" class="btn btn-ghost px-2 text-lg sm:px-2 sm:text-xl">
           <svg
             id="logo-86"
             width="30"

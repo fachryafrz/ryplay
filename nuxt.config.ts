@@ -64,9 +64,33 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    "/api/home": { swr: 3600 },
-    "/api/games/home-sections/**": { swr: 3600 },
-    "/games/**": { swr: 3600 },
-    "/": { swr: 3600 },
+    "/api/home": {
+      swr: 3600,
+      headers: {
+        "cache-control":
+          "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    },
+    "/api/games/home-sections/**": {
+      swr: 3600,
+      headers: {
+        "cache-control":
+          "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    },
+    "/games/**": {
+      swr: 3600,
+      headers: {
+        "cache-control":
+          "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    },
+    "/": {
+      swr: 3600,
+      headers: {
+        "cache-control":
+          "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    },
   },
 });
