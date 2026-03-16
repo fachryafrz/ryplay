@@ -16,7 +16,7 @@ const { game, externalGames, findStoreById } = defineProps([
         <button
           @click="handleOpenWindow(`https://www.igdb.com/games/${game.slug}`)"
         >
-          <img
+          <NuxtImg
             :src="`/store_icons/igdb.png`"
             :alt="''"
             class="aspect-square w-[50px] object-contain"
@@ -37,7 +37,7 @@ const { game, externalGames, findStoreById } = defineProps([
         :data-tip="findStoreById(externalGame.external_game_source).store"
       >
         <button @click="handleOpenWindow(externalGame.url)">
-          <img
+          <NuxtImg
             :src="`/store_icons/${findStoreById(externalGame.external_game_source).image_id}.png`"
             :alt="''"
             class="aspect-square w-[50px] object-contain"

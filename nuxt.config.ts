@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "nuxt-gtag",
     "nuxt-toast",
+    "@nuxt/image",
   ],
   gtag: {
     id: process.env.GA_MEASUREMENT_ID,
@@ -100,6 +101,18 @@ export default defineNuxtConfig({
       headers: {
         "cache-control":
           "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    },
+
+    // Assets
+    "/favicon.ico": {
+      headers: {
+        "cache-control": "public, max-age=31536000, immutable",
+      },
+    },
+    "/store_icons/**": {
+      headers: {
+        "cache-control": "public, max-age=31536000, immutable",
       },
     },
   },
